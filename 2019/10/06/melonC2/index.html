@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/appleicon.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.0">
+  <link rel="mask-icon" href="/images/logo.jpg?v=7.4.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.4.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"always","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="Machine Learning is that, for a specific task T, based on the experience E, improve the performance P.  模型评估的依据就是这里的performance P。">
+<meta name="keywords" content="Machine Learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="西瓜书第二章:模型评估与选择">
+<meta property="og:url" content="http://YangLeiSX.github.io/2019/10/06/melonC2/index.html">
+<meta property="og:site_name" content="杨磊的博客">
+<meta property="og:description" content="Machine Learning is that, for a specific task T, based on the experience E, improve the performance P.  模型评估的依据就是这里的performance P。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-05-19T02:30:43.067Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="西瓜书第二章:模型评估与选择">
+<meta name="twitter:description" content="Machine Learning is that, for a specific task T, based on the experience E, improve the performance P.  模型评估的依据就是这里的performance P。">
+  <link rel="canonical" href="http://YangLeiSX.github.io/2019/10/06/melonC2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>西瓜书第二章:模型评估与选择 | 杨磊的博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">杨磊的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">人的本能是追逐从他身边飞走的东西，却逃避追逐他的东西。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="Searching..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="http://YangLeiSX.github.io/2019/10/06/melonC2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杨磊的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">西瓜书第二章:模型评估与选择
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-10-06 22:37:12" itemprop="dateCreated datePublished" datetime="2019-10-06T22:37:12+08:00">2019-10-06</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-05-19 10:30:43" itemprop="dateModified" datetime="2020-05-19T10:30:43+08:00">2020-05-19</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/读书笔记/" itemprop="url" rel="index"><span itemprop="name">读书笔记</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              
+              <span>7.5k</span> 
+            </span>
+          
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              
+              <span>6 mins.</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>Machine Learning is that, for a specific task T, based on the experience E, improve the performance P.</p>
+</blockquote>
+<p>模型评估的依据就是这里的performance P。</p>
+<a id="more"></a>
+<h2 id="经验误差和过拟合"><a href="#经验误差和过拟合" class="headerlink" title="经验误差和过拟合"></a>经验误差和过拟合</h2><p>错误率  $E = \frac  { 错误样本a  }    { 样本总数m  }  $</p>
+<p>精度  = 1 - 错误率</p>
+<p>训练误差/经验误差：在训练集上的误差。泛化误差：在新样本上的误差。</p>
+<p>过拟合：将训练样本的特点当作是一般性质，泛化性能下降。机器学习的关键障碍。</p>
+<p>欠拟合：学习效果较差。</p>
+<p>机器学习中的“模型选择”问题：选择合适的学习算法和参数配置。理论上选择泛化误差最小的。</p>
+<p>实际上泛化误差难以获得，训练误差存在过拟合。</p>
+<h2 id="模型评估方法"><a href="#模型评估方法" class="headerlink" title="模型评估方法"></a>模型评估方法</h2><p>使用测试误差来作为泛化误差的近似。测试集应该与训练集互斥。</p>
+<p>方法：对数据集D进行分割得到训练集S和测试集T</p>
+<p><strong><em>这里的测试集可以称为验证集，用于区分训练得到的模型实际使用中的数据</em></strong></p>
+<h3 id="留出法"><a href="#留出法" class="headerlink" title="留出法"></a>留出法</h3><p>直接将数据集划分为两个集合。需要注意训练/测试集的划分要保持数据分布的一致性。即分层采样。</p>
+<p>通常需要若干次随机划分、重复实验评估后取平均值。</p>
+<p>常规选取2/3-4/5的数据用于训练。</p>
+<h3 id="交叉验证法"><a href="#交叉验证法" class="headerlink" title="交叉验证法"></a>交叉验证法</h3><p>将数据集划分为k个子集。每次将k-1个子集的并集用做训练，剩下的自己用做测试。称为k折交叉验证。</p>
+<p>通常需要进行若干次划分。例如十次十折交叉验证为进行100次训练和测试。</p>
+<p><strong>特例：</strong>留一法，对于m个样本的数据集，分成m个子集，训练集与原始样本相比只少了一个样本。</p>
+<p>留一法的缺陷为数据集很大时的训练成本。</p>
+<h3 id="自助法"><a href="#自助法" class="headerlink" title="自助法"></a>自助法</h3><p>从原始数据集D中有放回的选择m个集合形成采样集D‘，D中有部分样本重复出现，有部分样本不出现。</p>
+<p>最终数据集D中有$\frac  { 1  }    { e  }   = 0.368$的样本不出现。使用D‘作为训练集，D/D’作为测试集。</p>
+<p>适用于数据集较小的情况。</p>
+<h3 id="调参"><a href="#调参" class="headerlink" title="调参"></a>调参</h3><p>大多数学习算法需要调节参数，不同的参数配置有不同的训练结果。</p>
+<p>模型评估和选择调参等任务完成后，要使用原始的完整的数据集D训练模型，得到最后交付的模型。</p>
+<h2 id="性能度量"><a href="#性能度量" class="headerlink" title="性能度量"></a>性能度量</h2><p>评估模型/学习器的性能，要将预测结果与真实标记相比较。</p>
+<p>回归任务常用的度量为均方误差。</p>
+<h3 id="错误率和精度"><a href="#错误率和精度" class="headerlink" title="错误率和精度"></a>错误率和精度</h3><p>错误率 <script type="math/tex">E(f;D) = \frac  { 1  }    { m  }   \Sigma_{ i=1  }  ^  { m  }  \mathbb  { I  }  (f(x_  { i  }  )\neq y_  { i  }  )</script>  </p>
+<p>精度 <script type="math/tex">acc(f;D) = 1 - E(f;D)</script>  </p>
+<p>其中 <script type="math/tex">\mathbb  { I  }  (·)</script>  为示性函数，· 为真时值为1，假时值为0.</p>
+<h3 id="查准率和查全率"><a href="#查准率和查全率" class="headerlink" title="查准率和查全率"></a>查准率和查全率</h3><p>分类结果矩阵</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>真实情况</th>
+<th>预测结果（正例）</th>
+<th>预测结果（反例）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>正例</td>
+<td>TP 真正例</td>
+<td>FN 假反例</td>
+</tr>
+<tr>
+<td>反例</td>
+<td>FP 假正例</td>
+<td>TN 真反例</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>查准率/准确率  <script type="math/tex">P = \frac  { TP  }    { TP+FP  }</script>   预测的<strong>正例中确实是正例</strong>的比例</p>
+<p>查全率/召回率  <script type="math/tex">R = \frac  { TP  }    { TP+FN  }</script>  <strong>实际的正例中被找到</strong>的比例</p>
+<p>通常使用P-R曲线进行分析：将学习器的预测结果按可能性和确切程度排序，依次把每个样本作为正例，计算并绘制P-R曲线，查准率为纵轴，查全率为横轴。如果一个学习器的P-R曲线可以将另一个完全包住，认为前者性能更好。</p>
+<p>P-R曲线的评估：</p>
+<ul>
+<li>曲线下面积的大小，</li>
+<li>平衡点BEP（P = R处的值）</li>
+<li>F1度量（调和平均 <script type="math/tex">F1 = \frac  { 2 \times P \times R  }    { P + R  }   = \frac  { 2 \times TP  }    { M + TP - TN  }</script>  其中M为样本总数）</li>
+<li>加权F1（对于P或R有倾向性，用$\beta$表示查全率的重要程度  <script type="math/tex">F_  { \beta  }   = \frac  { 1  }    { 1+\beta^  { 2  }    }  (\frac  { 1  }    { P  }  +\frac  { \beta^  { 2  }    }    { R  }  )</script> ）</li>
+</ul>
+<p>实际使用中可能有多个混淆矩阵，例如多次训练/测试等，可以得到两套参数</p>
+<ul>
+<li>宏查准率，宏查全率，宏F1：对每一个混淆矩阵单独计算P、R、F1，最后取平均值</li>
+<li>微查准率，微查全率，微F1：对所有混淆矩阵的对应元素求平均值，再计算P、R、F1</li>
+</ul>
+<h3 id="ROC和AUG"><a href="#ROC和AUG" class="headerlink" title="ROC和AUG"></a>ROC和AUG</h3><p>ROC称为受试者工作特征曲线。真正例率TPR为纵轴，假正例率FPR为横轴。将预测结果排序，依次作为正例，计算并绘制曲线。其中有 <script type="math/tex">TPR = \frac  { TP  }    { TP+FN  }</script>   <script type="math/tex">FPR = \frac  { FP  }    { TN + FP  }</script>  。</p>
+<p>AUG为ROC曲线下方区域的面积。</p>
+<p>由于ROC是通过有限个测试样本生成，因此得不到光滑曲线，面积的计算通过求和完成。</p>
+<p>每一条ROC对应于样本的一个排序序列。</p>
+<p>定义排序损失 <script type="math/tex">l_{ rnak  }   = \frac  { 1  }    { m^  { +  }  m^  { -  }    }   \sum_  { x^  { +  }  \in D^  { +  }    }   \sum_  { x^  { -  }   \in D^  { -  }    }  \left( \mathbb  { I  }  (f(x^  { +  }  ) < f(x^  { -  }  )) + \frac  { 1  }    { 2  }  \mathbb  { I  }  (f(x^  { +  }  )= f(x^  { -  }  )) \right)</script></p>
+<p>即考虑对任何一对正反例，序列中如果正例在反例之后则记为1，相同则记0.5，最后求平均损失。</p>
+<p>有 <script type="math/tex">AUG = 1- l_  { rank  }</script>  </p>
+<h3 id="代价敏感错误率与代价曲线"><a href="#代价敏感错误率与代价曲线" class="headerlink" title="代价敏感错误率与代价曲线"></a>代价敏感错误率与代价曲线</h3><p>代价矩阵</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>真实情况</th>
+<th>预测情况（正例）</th>
+<th>预测情况（反例）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>正例</td>
+<td>0（预测正确）</td>
+<td>$cost_  { 10  }  $</td>
+</tr>
+<tr>
+<td>反例</td>
+<td>$cost_  { 01  }  $</td>
+<td>0（预测正确）</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>预测过程中可能会出现两类错误，其代价不同。</p>
+<p>绘制代价曲线表示学习器的期望总体代价。横轴为正例概率代价（预测为正例），纵轴为归一化代价。</p>
+<p>将ROC上的每一个点转化为一个线段。最终取所有线段的下界围成的面积为该ROC的期望总体代价。</p>
+<p>其中正例概率代价 <script type="math/tex">P(+)cost = \frac  { p \times cost_{ 01  }    }    { p \times cost_{ 01  }   + (1-p) \times cost_  { 10  }    }</script>  p为预测结果为正例的概率。</p>
+<p>归一化代价 <script type="math/tex">cost_{ norm  }   = \frac  {   { FNR \times p \times cost_{ 01  }   + FPR \times (1-p) \times cost_{ 10  }    } +   }    { p \times cost_{ 01  }   + (1-p) \times cost_{ 10  }    }</script>  FPR为假正例率，FNR为假反例率。</p>
+<h2 id="比较检验"><a href="#比较检验" class="headerlink" title="比较检验"></a>比较检验</h2><p>使用统计假设检验，判断给定置信度下假设结果的可靠性。</p>
+<p>参见概率论和数理统计课本。</p>
+<h3 id="假设检验"><a href="#假设检验" class="headerlink" title="假设检验"></a>假设检验</h3><p>二项检验</p>
+<p>t-检验</p>
+<h3 id="交叉验证t检验"><a href="#交叉验证t检验" class="headerlink" title="交叉验证t检验"></a>交叉验证t检验</h3><p>对于多个学习器成对检验。</p>
+<h3 id="McNemar检验"><a href="#McNemar检验" class="headerlink" title="McNemar检验"></a>McNemar检验</h3><p>也即卡方分布</p>
+<h3 id="Friedman检验和Nemenyi后续检验"><a href="#Friedman检验和Nemenyi后续检验" class="headerlink" title="Friedman检验和Nemenyi后续检验"></a>Friedman检验和Nemenyi后续检验</h3><p>省略</p>
+<h2 id="偏差与方差"><a href="#偏差与方差" class="headerlink" title="偏差与方差"></a>偏差与方差</h2><p>使用偏差-方差分解，对学习算法的期望泛化错误率进行拆解。</p>
+<p>如果样本为x，数据集中的标记$y_  { D  }  $，真实标记y，f(x;D)为预测输出，</p>
+<p>期望 <script type="math/tex">\bar  { f  }  (x) = \mathbb  { E  }  _  { D  }  [f(x;D)]</script>  </p>
+<p>方差 <script type="math/tex">var(x) = \mathbb  { E  }  _  { D  }  [(f(x;D) - \bar  { f  }  (x))^  { 2  }  ]</script>  </p>
+<p>噪声 <script type="math/tex">\epsilon^  { 2  }   = \mathbb  { E  }  _  { D  }  [(y_  { D  }   - y)^  { 2  }  ]</script>  理解为输入样本和真实情况的误差（采样过程引入的噪声）</p>
+<p>偏差 <script type="math/tex">bias^  { 2  }  (x) = (\bar  { f  }  (x) - y)^  { 2  }</script>  即系统输出与真实情况的差距</p>
+<p>便于分析使得噪声期望为0，即  <script type="math/tex">\mathbb  { E  }  _  { D  }  [y_  { D  }   - y] = 0</script></p>
+<p>最终得到如下泛化误差</p>
+<script type="math/tex; mode=display">E(f;D) \\= \mathbb  {E}_{ D  }  [(f(x;D) - y _{ D  }  )^  { 2  }  ]\\= \mathbb{ E  }_{ D  }  [(f(x;D) - \bar  { f  }  (x))^  { 2  }  ] + (\bar  { f  }  (x) - y)^  { 2  }   + \mathbb  { E  }  _ { D  }  [(y_{ D  }   - y)^  { 2  }  ]\\=bias^  { 2  }  (x) + var(x) + \epsilon^  { 2  }</script><p>即泛化误差可以分解为偏差、方差和噪声。</p>
+<blockquote>
+<p>偏差度量了学习算法的期望预测与真实结果的偏离程度，即刻画了学习算法本身的拟合能力。</p>
+<p>方差度量了同样大小的训练集的变动所导致的学习性能的变化，即刻画了数据扰动所造成的影响。</p>
+<p>噪声则表达了在当前任务上任何学习算法所能达到的期望泛化误差的下界，即刻画了学习问题本身的难度。</p>
+</blockquote>
+<p><strong>偏差方差窘境</strong>：</p>
+<p>整体上说，随着训练程度逐渐增大，偏差逐渐减小，方差逐渐增大，总的泛化误差成U型。</p>
+<blockquote>
+<p>给定学习任务，……能控制训练程度……训练不足时，……拟合能力不够强，训练数据的扰动不足以使学习器产生显著变化，偏差主导了泛化错误率；……训练程度加深……拟合能力逐渐增强，训练数据发生的扰动渐渐能被学习器学到，方差逐渐主导了泛化错误率；……训练程度充足……轻微扰动都会导致……显著变化，……自身的、非全局的特性被学习器学到了，则将发生过拟合。</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+        
+      
+        <div id="reward-container">
+  <div>有钱的捧个钱场。</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.png" alt="Yang Lei WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+
+  </div>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/Machine-Learning/" rel="tag"><i class="fa fa-tag"></i> Machine Learning</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/10/05/python-csv/" rel="next" title="CSV数据处理">
+                  <i class="fa fa-chevron-left"></i> CSV数据处理
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/10/06/melonC1/" rel="prev" title="西瓜书第一章:绪论">
+                  西瓜书第一章:绪论 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#经验误差和过拟合"><span class="nav-number">1.</span> <span class="nav-text">经验误差和过拟合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模型评估方法"><span class="nav-number">2.</span> <span class="nav-text">模型评估方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#留出法"><span class="nav-number">2.1.</span> <span class="nav-text">留出法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#交叉验证法"><span class="nav-number">2.2.</span> <span class="nav-text">交叉验证法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自助法"><span class="nav-number">2.3.</span> <span class="nav-text">自助法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#调参"><span class="nav-number">2.4.</span> <span class="nav-text">调参</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#性能度量"><span class="nav-number">3.</span> <span class="nav-text">性能度量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#错误率和精度"><span class="nav-number">3.1.</span> <span class="nav-text">错误率和精度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查准率和查全率"><span class="nav-number">3.2.</span> <span class="nav-text">查准率和查全率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ROC和AUG"><span class="nav-number">3.3.</span> <span class="nav-text">ROC和AUG</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代价敏感错误率与代价曲线"><span class="nav-number">3.4.</span> <span class="nav-text">代价敏感错误率与代价曲线</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#比较检验"><span class="nav-number">4.</span> <span class="nav-text">比较检验</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#假设检验"><span class="nav-number">4.1.</span> <span class="nav-text">假设检验</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#交叉验证t检验"><span class="nav-number">4.2.</span> <span class="nav-text">交叉验证t检验</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#McNemar检验"><span class="nav-number">4.3.</span> <span class="nav-text">McNemar检验</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Friedman检验和Nemenyi后续检验"><span class="nav-number">4.4.</span> <span class="nav-text">Friedman检验和Nemenyi后续检验</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#偏差与方差"><span class="nav-number">5.</span> <span class="nav-text">偏差与方差</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.gif"
+      alt="Yang Lei">
+  <p class="site-author-name" itemprop="name">Yang Lei</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">59</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">categories</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">tags</span>
+        </a>
+      </div>
+    
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/yangleisx" title="GitHub &rarr; https://github.com/yangleisx" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:yangleisxn@icloud.com" title="E-Mail &rarr; mailto:yangleisxn@icloud.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 – <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang Lei</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">Symbols count total: </span>
+    
+    <span title="Symbols count total">122k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">Reading time total &asymp;</span>
+    
+    <span title="Reading time total">1:42</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.0"></script><script src="/js/motion.js?v=7.4.0"></script>
+<script src="/js/schemes/pisces.js?v=7.4.0"></script>
+<script src="/js/next-boot.js?v=7.4.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+    
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+  
+
+  
+
+  
+
+</body>
+</html>

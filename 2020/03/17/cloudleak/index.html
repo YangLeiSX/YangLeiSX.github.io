@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/appleicon.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.0">
+  <link rel="mask-icon" href="/images/logo.jpg?v=7.4.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.4.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"always","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="论文标题：CloudLeak：Large-Scale Deep Learning Models Stealing Through Adversarial Examples 会议：Network and Distributed Systems Security (NDSS) Symposium 2020">
+<meta name="keywords" content="Deep Learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【论文】CloudLeak: Large-Scale Deep Learning Models Stealing Through Adversarial Examples">
+<meta property="og:url" content="http://YangLeiSX.github.io/2020/03/17/cloudleak/index.html">
+<meta property="og:site_name" content="杨磊的博客">
+<meta property="og:description" content="论文标题：CloudLeak：Large-Scale Deep Learning Models Stealing Through Adversarial Examples 会议：Network and Distributed Systems Security (NDSS) Symposium 2020">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-05-19T02:02:43.359Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【论文】CloudLeak: Large-Scale Deep Learning Models Stealing Through Adversarial Examples">
+<meta name="twitter:description" content="论文标题：CloudLeak：Large-Scale Deep Learning Models Stealing Through Adversarial Examples 会议：Network and Distributed Systems Security (NDSS) Symposium 2020">
+  <link rel="canonical" href="http://YangLeiSX.github.io/2020/03/17/cloudleak/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>【论文】CloudLeak: Large-Scale Deep Learning Models Stealing Through Adversarial Examples | 杨磊的博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">杨磊的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">人的本能是追逐从他身边飞走的东西，却逃避追逐他的东西。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="Searching..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="http://YangLeiSX.github.io/2020/03/17/cloudleak/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杨磊的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">【论文】CloudLeak: Large-Scale Deep Learning Models Stealing Through Adversarial Examples
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2020-03-17 14:57:58" itemprop="dateCreated datePublished" datetime="2020-03-17T14:57:58+08:00">2020-03-17</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-05-19 10:02:43" itemprop="dateModified" datetime="2020-05-19T10:02:43+08:00">2020-05-19</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/论文阅读/" itemprop="url" rel="index"><span itemprop="name">论文阅读</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              
+              <span>5k</span> 
+            </span>
+          
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              
+              <span>4 mins.</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>论文标题：CloudLeak：Large-Scale Deep Learning Models Stealing Through Adversarial Examples</p>
+<p>会议：Network and Distributed Systems Security (NDSS) Symposium 2020</p>
+<a id="more"></a>
+<h2 id="论文背景和目标"><a href="#论文背景和目标" class="headerlink" title="论文背景和目标"></a>论文背景和目标</h2><p>基于云的机器学习服务（Cloud-Based MLaaS）是指将训练好的深度神经网络部署在云上并通过应用程序接口（API）提供分类和预测任务服务。尽管MLaaS被构建成基于云的黑盒服务，攻击者仍然可以通过精心构建的对抗样本来窃取网络参数。</p>
+<p>论文中实现了一种使用对抗样本窃取网络参数的方法“FeatureFool”，并且证明其相对于其他攻击模型具有更少的请求次数。论文中通过结合几种比较新颖的算法可以达到非常好的效果。</p>
+<p>相关的概念包括：</p>
+<ul>
+<li><p>迁移学习(Transfre Learning)：识别并将在一个任务上学到的能力应用于另一个不同的任务。文章中通过结合VGG19和DeepID的迁移学习，在具有较好的性能的同时加快了模型窃取的速度。详见Y. Sun等的<em>Deep Learning Face Represatation from Predictiing 1000 CLasses</em>。</p>
+</li>
+<li><p>对抗攻击(Adversarial Attack)：在初始输入上增加一个小的扰动使得模型得到错误的预测结果。包括白盒攻击和黑盒攻击。文章中使用DNN内部特征来生成对抗样本的方法，主要通过恶意的特征构建对抗样本并求解可以减小置信度的网络参数。</p>
+</li>
+<li><p>模型提取攻击(Model Extraction Attack)：通过目标模型的输入和对应的输出标签/置信度来提取参数并得到一个等效的模型。文章使用迁移学习和对抗样本结合的方法提取网络模型。</p>
+</li>
+<li><p>主动学习(Active Learning)：模型选择并推送关键的样本（难以分类）要求用户打上标签，从而提高训练呢和预测效率。文章通过对抗样本的构建，解决了主动学习中边界样本趋于相同的问题，</p>
+</li>
+<li><p>基于云的机器学习服务平台(Cloud-based MLaaS Platform)：指为终端用户提供提供机器学习解决方案的平台，包括模型训练、预测分析等。文章重点介绍了五个MLaaS Platform即Microsoft、Face++、IBM、Google、Clarifai。这些服务通常要求用户提供已标注的数据，由平台训练后提供API用于预测。整个过程是黑盒服务，用户不能接触到训练好模型内部的细节。</p>
+</li>
+</ul>
+<h2 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h2><h3 id="其他人的成果"><a href="#其他人的成果" class="headerlink" title="其他人的成果"></a>其他人的成果</h3><p>一方面通过攻击可以盗取网络内部参数，称为模型提取攻击（Model Extraction Attack）。</p>
+<p>例如2016年，F. Tramèr等实现了第一个模型提取攻击方法<em>Stealing Machine Learning Models vis Prediction APIs</em>，通过模型预测结果和输入数据来学习模型内部参数。</p>
+<p>其他的工作还有B. Wang等的<em>Stealing Hyperparameters in Machine Learning</em>、A. Dmitrenko等的<em>Dnn Model Extraction Attacks Using Prediction Interfaces</em>、Y. Shi等的<em>How to Steal a Machine Learning Classifier with Deep Learning</em>。</p>
+<p>另一方面通过攻击可以盗取网络的训练集，称为成员推理攻击（Membership Inference Attack）。</p>
+<p>2017年，R. Shokri等实现了一种成员推理攻击方法<em>Membership Inference Attacks against Machine Learning Models</em>，可以判断目标模型的训练集是否包含某一条特定的数据。</p>
+<p>其他的工作还有Y. Long等的<em>Understanding Membership Inference on Well-generalized Learning Models</em>。</p>
+<p>存在一些应对模型提取攻击的防御方案，大多都是在预测请求过程(query process)中加以处理，但是难以同时满足性能和效率的要求。例如M. Juuti等的<em>Prada: Protecting against DNN Model Stealing Attacks</em>。</p>
+<h3 id="局限性"><a href="#局限性" class="headerlink" title="局限性"></a>局限性</h3><ul>
+<li>目前大多数模型攻击方法只能应用于比较简单的小规模机器学习模型中。</li>
+<li>目前的攻击方法的请求规模与模型参数成比例。在攻击含有百万量级参数的大型网络时效率低下。</li>
+</ul>
+<h2 id="本文解决方案"><a href="#本文解决方案" class="headerlink" title="本文解决方案"></a>本文解决方案</h2><h3 id="模型假设"><a href="#模型假设" class="headerlink" title="模型假设"></a>模型假设</h3><p>攻击者对网络模型的结构、参数、训练集没有先验的信息。但是可以使用任意输入并得到对应的预测结果。</p>
+<h3 id="模型思路"><a href="#模型思路" class="headerlink" title="模型思路"></a>模型思路</h3><p>通过使用对抗样本请求模型预测并得到结果，使用输入输出对（input-output pair）训练从候选库中选择出来的替代模型，从而实现对目标模型参数的窃取。实际上，通过使用预测结果可以大量减少标记成本并得到训练替代模型的数据集。基本流程为：1.生成对抗样本得到合成数据集。2.请求目标模型得到输出结果。3.根据模型输出标记对抗样本。4.使用合成数据集训练替代模型。</p>
+<h3 id="符号定义"><a href="#符号定义" class="headerlink" title="符号定义"></a>符号定义</h3><p>目标网络$f_v(x)$的输入为$x$，输出$[f_v^1(x),f_v^2(x)…]$，学习目标为在构造的数据集$T={(x, f_v(x))}$上训练一个替代模型（网络）$f_s(x)$使得两者具由基本相同的功能。攻击者对于目标网络的结构$A$、参数$W$、训练集$D$没有任何先验的信息。</p>
+<h3 id="模型实现"><a href="#模型实现" class="headerlink" title="模型实现"></a>模型实现</h3><h4 id="数据集生成"><a href="#数据集生成" class="headerlink" title="数据集生成"></a>数据集生成</h4><p>基于边界的对抗性主动学习（Margin-based Adversarial AL）：从未标记的样本中选择一组“有用的”样本。即从生成的未标记样本中选择预测置信度最低、预测不确定性最大的样本<script type="math/tex">\mathit{Q}_{multiclass}^{LC}:\mathbb{x}_s^* \in arg\min\limits_{x'\in D_u(x)}k(x',y,w)</script>。注意这里得到的样本太多，预测时需要大量的请求次数，因此采用进一步采样得到更小的数据集。</p>
+<p>这里的采样方式包括：随机采样（Random Sample，RS）、投影梯度下降（Projected Gradient Descent）、Carlini &amp; Wagner 攻击（Carlini and Wagner Attack，CW）、Feature Adversary（FA）、FeatureFool（FF， 本文提出的算法）。</p>
+<p>在使用上述FF算法求解时使用L-BFGS算法进行优化求解并使用平均测量误差（Average Test Error，ATE）方法衡量数据集质量。其优化流程主要为：1.确定原图像和目标图像。2.原图像加扰动后加入特征提取网络。3.选择网络中指定特征层的输出得到显著图。4.比较显著图与目标图像的显著图并加以优化。</p>
+<h4 id="替代模型训练"><a href="#替代模型训练" class="headerlink" title="替代模型训练"></a>替代模型训练</h4><ol>
+<li>随机选择一组初始化数据集，并使用上述各种算法得到一组小规模的对抗样本。这些样本可以很容易地使本地的替代模型得到错误的预测结果。</li>
+<li>使用对抗样本请求预测并得到构造数据集。使用几种训练好的模型（AlexNet、VGG19、VGGFace、ResNet50）构建迁移学习框架，使用构造数据集训练并更新上述框架的最后几层全联接的参数。</li>
+<li>重复使用本地模型构建对抗样本并请求预测，使用预测结果构建数据集进行训练的过程。最终得到性能足够逼近目标模型的替代模型。</li>
+</ol>
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>作者选择了三个平台的四种模型进行了攻击演示。经测试，使用文章设计实现的FF算法在多数目标平台上可以实现比较好的效果。而且与现存的三种模型提取攻击相比，具有更高的准确度和相同准确率下更少的请求次数，从而具有更少的学习成本。</p>
+<p>使用现有的PRADA检测机制可以发现，文章实现的算法可以很好的逃避PRADA机制的检测，即相比其他的攻击方式，要想检测到本文实现的攻击需要更多的请求次数。文章推荐的检测方式为通过提取网络每一层的特征数据来区分恶意数据和合法数据的特征分布。</p>
+<h2 id="总结分析-局限性"><a href="#总结分析-局限性" class="headerlink" title="总结分析-局限性"></a>总结分析-局限性</h2><p><strong>攻击请求方式的改进</strong>：文章实现的方法中，通过对正常数据添加扰动构建攻击样本，造成了数据污染，从而降低了替代模型的预测准确率。</p>
+<p><strong>多标签任务的扩展</strong>：文章实现的方法仅能用于单标签的多分类任务，因此需要在数据生成和替代样本结构选择上更加注意。</p>
+<p><strong>其他学习领域的扩展</strong>：文章实现的方法仅能用于图像分类任务，因此在处理音频或文字时需要对模型做相应的调整。</p>
+
+    </div>
+
+    
+    
+    
+        
+      
+        <div id="reward-container">
+  <div>有钱的捧个钱场。</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.png" alt="Yang Lei WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+
+  </div>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/Deep-Learning/" rel="tag"><i class="fa fa-tag"></i> Deep Learning</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2020/03/15/pyqt-env/" rel="next" title="PyQt 工作环境搭建">
+                  <i class="fa fa-chevron-left"></i> PyQt 工作环境搭建
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2020/03/30/abs-nn-backdoor/" rel="prev" title="【论文】ABS: Scanning Neural Networks for Back-doors by Artificial Brain Stimulation">
+                  【论文】ABS: Scanning Neural Networks for Back-doors by Artificial Brain Stimulation <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#论文背景和目标"><span class="nav-number">1.</span> <span class="nav-text">论文背景和目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关工作"><span class="nav-number">2.</span> <span class="nav-text">相关工作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#其他人的成果"><span class="nav-number">2.1.</span> <span class="nav-text">其他人的成果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#局限性"><span class="nav-number">2.2.</span> <span class="nav-text">局限性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本文解决方案"><span class="nav-number">3.</span> <span class="nav-text">本文解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模型假设"><span class="nav-number">3.1.</span> <span class="nav-text">模型假设</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模型思路"><span class="nav-number">3.2.</span> <span class="nav-text">模型思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#符号定义"><span class="nav-number">3.3.</span> <span class="nav-text">符号定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模型实现"><span class="nav-number">3.4.</span> <span class="nav-text">模型实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数据集生成"><span class="nav-number">3.4.1.</span> <span class="nav-text">数据集生成</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#替代模型训练"><span class="nav-number">3.4.2.</span> <span class="nav-text">替代模型训练</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结果"><span class="nav-number">4.</span> <span class="nav-text">结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结分析-局限性"><span class="nav-number">5.</span> <span class="nav-text">总结分析-局限性</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.gif"
+      alt="Yang Lei">
+  <p class="site-author-name" itemprop="name">Yang Lei</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">59</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">categories</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">tags</span>
+        </a>
+      </div>
+    
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/yangleisx" title="GitHub &rarr; https://github.com/yangleisx" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:yangleisxn@icloud.com" title="E-Mail &rarr; mailto:yangleisxn@icloud.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 – <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang Lei</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">Symbols count total: </span>
+    
+    <span title="Symbols count total">122k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">Reading time total &asymp;</span>
+    
+    <span title="Reading time total">1:42</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.0"></script><script src="/js/motion.js?v=7.4.0"></script>
+<script src="/js/schemes/pisces.js?v=7.4.0"></script>
+<script src="/js/next-boot.js?v=7.4.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+    
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+  
+
+  
+
+  
+
+</body>
+</html>

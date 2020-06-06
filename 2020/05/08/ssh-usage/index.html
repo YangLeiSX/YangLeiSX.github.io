@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/appleicon.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.0">
+  <link rel="mask-icon" href="/images/logo.jpg?v=7.4.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.4.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"always","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="简单记录SSH的用法">
+<meta name="keywords" content="SSH">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SSH学习记录">
+<meta property="og:url" content="http://YangLeiSX.github.io/2020/05/08/ssh-usage/index.html">
+<meta property="og:site_name" content="杨磊的博客">
+<meta property="og:description" content="简单记录SSH的用法">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-05-19T02:40:01.916Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SSH学习记录">
+<meta name="twitter:description" content="简单记录SSH的用法">
+  <link rel="canonical" href="http://YangLeiSX.github.io/2020/05/08/ssh-usage/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>SSH学习记录 | 杨磊的博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">杨磊的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">人的本能是追逐从他身边飞走的东西，却逃避追逐他的东西。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="Searching..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="http://YangLeiSX.github.io/2020/05/08/ssh-usage/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杨磊的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">SSH学习记录
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2020-05-08 14:27:31" itemprop="dateCreated datePublished" datetime="2020-05-08T14:27:31+08:00">2020-05-08</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-05-19 10:40:01" itemprop="dateModified" datetime="2020-05-19T10:40:01+08:00">2020-05-19</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/实用工具/" itemprop="url" rel="index"><span itemprop="name">实用工具</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              
+              <span>9.6k</span> 
+            </span>
+          
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              
+              <span>8 mins.</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>简单记录SSH的用法</p>
+<a id="more"></a>
+<h2 id="SSH登陆"><a href="#SSH登陆" class="headerlink" title="SSH登陆"></a>SSH登陆</h2><ol>
+<li><p>首次登录时发送服务器公钥的fingerprint，要求用户确认。</p>
+<p> 用户确认后公钥保存到known_hosts，默认可信。</p>
+</li>
+<li><p>密钥登陆：ssh -p [port] -i [id_file] [user]@[ip_address]</p>
+</li>
+<li><p>公钥登陆：客户端ssh-keygen生成密钥对，ssh-copy-id传输公钥到服务器(自动写入authorized_keys)。</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> ssh-keygen -t rsa</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 生成SSH公私钥对</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> -t 使用rsa算法 [dsa|ecdsa|ed25519|rsa]</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> ssh-copy-id -i ~/.ssh/id_rsa.pub auth@192.168.1.10</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 将公钥传输到SSH服务器</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> -i 指定公钥文件</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> user@address 指定SSH服务器的IP地址和公钥对应的用户</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 需要使用口令方式通过认证</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>私钥登陆：服务器ssh-keygen生成密钥对，将公钥追加到服务器authorized_keys，通过scp或其他安全方式传输私钥到客户端。</p>
+</li>
+<li><p>ssh-copy-id的替代方式:</p>
+<p> Linux机器：</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh &lt;user&gt;@&lt;ip_address&gt; <span class="string">"cat &gt;&gt; authorized_keys"</span> &lt; id.pub</span><br></pre></td></tr></table></figure>
+<p> Windows机器：</p>
+ <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="built_in">Get-Content</span> new.pub | ssh &lt;user&gt;@&lt;ip_address&gt; <span class="string">"cat &gt;&gt; authorized_keys"</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>权限：通常公钥权限644，私钥权限600。authorized_keys权限600，known_hosts权限644。</p>
+<p> 服务器端私钥权限为640、644之后，SSH服务器会自动忽略对应密钥对（认为该私钥是不安全的）。</p>
+<p> authorized_keys权限改为620、622之后，SSH服务器会拒绝读取（认为公钥不安全），只能口令登陆。</p>
+</li>
+<li><p>文件：</p>
+<p> authorized_keys在服务器端保存客户端的公钥。用于密钥登陆时加密随机挑战。防止冒用。</p>
+<p> known_hosts在客户端保存服务器的公钥。用于公钥的比较确认，口令登录时用公钥加密口令。</p>
+</li>
+<li><p>scp：基于SSH的加密文件传输，使用单行命令传输文件。</p>
+</li>
+<li><p>sftp：基于SSH的加密文件传输，类似FTP的操作和使用方式。</p>
+</li>
+</ol>
+<h2 id="SSH连接"><a href="#SSH连接" class="headerlink" title="SSH连接"></a>SSH连接</h2><h3 id="信息交换"><a href="#信息交换" class="headerlink" title="信息交换"></a>信息交换</h3><ol>
+<li><p>TCP连接：三次握手建立TCP连接。发送SYN，接收SYN ACK，发送ACK。</p>
+</li>
+<li><p>版本协商：双方交换SSH版本。</p>
+</li>
+<li><p>算法协商：包括公钥算法，加密算法，MAC（消息验证码）算法，压缩算法列表</p>
+</li>
+<li><p>密钥协商：Elliptic Curve Diffie-Hellman Key Exchange</p>
+<p> 客户端发送ECDH Key Exchange Init报文。包括客户端交换密钥Q_C。</p>
+<p> 服务器发送ECDH Key Exchange Replay报文。包括ECDSA服务器公钥Q和ECDH交换密钥Q_S。</p>
+<p> 接下来通过发送New Keys报文表示交换密钥已经建立。</p>
+</li>
+<li><p>登陆认证：（传输过程使用交换密钥对称加密）</p>
+<p> 口令认证过程：服务器发送公钥。客户端使用服务器公钥加密口令。服务器使用私钥解密验证。</p>
+<p> 密钥认证过程：服务器使用客户公钥加密发送随机字符串。客户端使用客户私钥加密。</p>
+</li>
+</ol>
+<h3 id="防御中间人攻击"><a href="#防御中间人攻击" class="headerlink" title="防御中间人攻击"></a>防御中间人攻击</h3><p>中间人拦截客户端的连接请求并发送自己的公钥，从而假冒服务器窃取用户信息。</p>
+<ol>
+<li>客户端首次连接时保存服务器的公钥。中间人攻击时，中间人发送的服务器公钥与保存的公钥不同。</li>
+<li>SSH引入了公钥认证机制，通过安全的方式发送公钥保存在服务器的authorized_keys中。</li>
+</ol>
+<h2 id="端口转发"><a href="#端口转发" class="headerlink" title="端口转发"></a>端口转发</h2><h3 id="socks代理"><a href="#socks代理" class="headerlink" title="socks代理"></a>socks代理</h3><p>要求机器A配置socks代理、机器B做代理服务器、访问web服务。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 机器A</span></span><br><span class="line">ssh -f -N -D 127.0.0.1:1080 &lt;user&gt;@&lt;addressB&gt;</span><br></pre></td></tr></table></figure>
+<p>机器A浏览器设置代理为127.0.0.1:1080即可通过机器B访问网页。</p>
+<h3 id="远程转发"><a href="#远程转发" class="headerlink" title="远程转发"></a>远程转发</h3><p>要求机器A访问本地端口、机器B做代理服务器、访问目标网站。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 机器A</span></span><br><span class="line">ssh -f -N -R 3456:bbs.fudan.edu.cn:23 &lt;user&gt;@&lt;addressB&gt;</span><br></pre></td></tr></table></figure>
+<p>机器A访问localhost:3456会经由机器B访问复旦BBS。</p>
+<h3 id="本地转发"><a href="#本地转发" class="headerlink" title="本地转发"></a>本地转发</h3><p>要求机器A访问本地端口、机器B开启web服务并做代理。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 机器A</span></span><br><span class="line">ssh -f -N -L 3456:lohalhost:80 &lt;user&gt;@&lt;addressB&gt;</span><br></pre></td></tr></table></figure>
+<p>机器A访问localhost:3456实际访问到addressB:80。</p>
+<h2 id="SSH设置"><a href="#SSH设置" class="headerlink" title="SSH设置"></a>SSH设置</h2><ol>
+<li><p>设置规则之后重启服务</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart ssh</span><br><span class="line"><span class="meta">#</span><span class="bash"> 或者使用 service</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>禁止使用密码登录</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> /etc/ssh/ssgd_config</span></span><br><span class="line">PasswordAuthentication no</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>拒绝用户登录</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> /etc/ssh/sshd_config</span></span><br><span class="line">DenyUsers user1</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置用户白名单</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> /etc/ssh/sshd_config</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 按优先级从高到低</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 指定禁止某用户登录</span></span><br><span class="line">DenyUsers &lt;user&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 指定仅限某用户登录</span></span><br><span class="line">AllowUsers &lt;user&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 指定禁止某用户组登录</span></span><br><span class="line">DenyGroup &lt;group&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 指定仅限某用户组登录</span></span><br><span class="line">AllowGroup &lt;group&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置IP白名单</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 按优先级从高到低</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> /etc/hosts.allow</span></span><br><span class="line">sshd:192.168.198.1:allow</span><br><span class="line"><span class="meta">#</span><span class="bash"> /etc/hosts.deny</span></span><br><span class="line">sshd:ALL</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>禁止登陆root用户，如果使用弱口令的话可能被爆破</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> /etc/ssh/sshd_config</span></span><br><span class="line">PermitRootLogin no</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>禁止无密码的登录</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> /etc/ssh/sshd_config</span></span><br><span class="line">PermitEmptyPasswords no</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>更改端口</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># /etc/ssh/sshd_config</span></span><br><span class="line">Port 40121</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+        
+      
+        <div id="reward-container">
+  <div>有钱的捧个钱场。</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.png" alt="Yang Lei WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+
+  </div>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/SSH/" rel="tag"><i class="fa fa-tag"></i> SSH</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2020/04/21/log-dev-qt-ssl/" rel="next" title="Qt开发OpenSSL程序踩坑">
+                  <i class="fa fa-chevron-left"></i> Qt开发OpenSSL程序踩坑
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2020/05/13/winsock/" rel="prev" title="Winsock编程记录">
+                  Winsock编程记录 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SSH登陆"><span class="nav-number">1.</span> <span class="nav-text">SSH登陆</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SSH连接"><span class="nav-number">2.</span> <span class="nav-text">SSH连接</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#信息交换"><span class="nav-number">2.1.</span> <span class="nav-text">信息交换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#防御中间人攻击"><span class="nav-number">2.2.</span> <span class="nav-text">防御中间人攻击</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#端口转发"><span class="nav-number">3.</span> <span class="nav-text">端口转发</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#socks代理"><span class="nav-number">3.1.</span> <span class="nav-text">socks代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#远程转发"><span class="nav-number">3.2.</span> <span class="nav-text">远程转发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#本地转发"><span class="nav-number">3.3.</span> <span class="nav-text">本地转发</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SSH设置"><span class="nav-number">4.</span> <span class="nav-text">SSH设置</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.gif"
+      alt="Yang Lei">
+  <p class="site-author-name" itemprop="name">Yang Lei</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">59</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">categories</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">tags</span>
+        </a>
+      </div>
+    
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/yangleisx" title="GitHub &rarr; https://github.com/yangleisx" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:yangleisxn@icloud.com" title="E-Mail &rarr; mailto:yangleisxn@icloud.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 – <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang Lei</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">Symbols count total: </span>
+    
+    <span title="Symbols count total">122k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">Reading time total &asymp;</span>
+    
+    <span title="Reading time total">1:42</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.0"></script><script src="/js/motion.js?v=7.4.0"></script>
+<script src="/js/schemes/pisces.js?v=7.4.0"></script>
+<script src="/js/next-boot.js?v=7.4.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

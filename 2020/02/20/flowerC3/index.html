@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/appleicon.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.0">
+  <link rel="mask-icon" href="/images/logo.jpg?v=7.4.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.4.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"always","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="概率论能够提出不确定的声明以及在不确定性存在的情况下进行推理,信息论可以量化概率分布中的不确定性总量。">
+<meta name="keywords" content="Deep Learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="花书第三章:概率与信息论">
+<meta property="og:url" content="http://YangLeiSX.github.io/2020/02/20/flowerC3/index.html">
+<meta property="og:site_name" content="杨磊的博客">
+<meta property="og:description" content="概率论能够提出不确定的声明以及在不确定性存在的情况下进行推理,信息论可以量化概率分布中的不确定性总量。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-05-19T02:12:17.337Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="花书第三章:概率与信息论">
+<meta name="twitter:description" content="概率论能够提出不确定的声明以及在不确定性存在的情况下进行推理,信息论可以量化概率分布中的不确定性总量。">
+  <link rel="canonical" href="http://YangLeiSX.github.io/2020/02/20/flowerC3/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>花书第三章:概率与信息论 | 杨磊的博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">杨磊的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">人的本能是追逐从他身边飞走的东西，却逃避追逐他的东西。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="Searching..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="http://YangLeiSX.github.io/2020/02/20/flowerC3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杨磊的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">花书第三章:概率与信息论
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2020-02-20 17:39:13" itemprop="dateCreated datePublished" datetime="2020-02-20T17:39:13+08:00">2020-02-20</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-05-19 10:12:17" itemprop="dateModified" datetime="2020-05-19T10:12:17+08:00">2020-05-19</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/读书笔记/" itemprop="url" rel="index"><span itemprop="name">读书笔记</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              
+              <span>5.7k</span> 
+            </span>
+          
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              
+              <span>5 mins.</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>概率论能够提出不确定的声明以及在不确定性存在的情况下进行推理,信息论可以量化概率分布中的不确定性总量。</p>
+<a id="more"></a>
+<h2 id="为什么使用概率"><a href="#为什么使用概率" class="headerlink" title="为什么使用概率"></a>为什么使用概率</h2><p>机器学习经常需要处理不确定量和随机量。</p>
+<p>不确定性来源：被建模系统内在的随机性、不完全观测、不完全建模。</p>
+<p>使用简单而不确定的规则要比复杂而确定的规则更加实用。</p>
+<p>与事件发生频率相联系的成为频率派概率，与事件发生的确定性水平有关的（概率表示信任度）为贝叶斯概率。</p>
+<h2 id="随机变量"><a href="#随机变量" class="headerlink" title="随机变量"></a>随机变量</h2><p>可以随机取值的变量。</p>
+<p>离散的或者连续的。</p>
+<h2 id="概率分布"><a href="#概率分布" class="headerlink" title="概率分布"></a>概率分布</h2><p>描述随机变量在可能取到的状态的可能性大小。</p>
+<h3 id="离散随机变量和概率质量函数"><a href="#离散随机变量和概率质量函数" class="headerlink" title="离散随机变量和概率质量函数"></a>离散随机变量和概率质量函数</h3><p>概率质量函数PMF或者称为概率分布函数，将随机变量的状态映射到概率。</p>
+<p>作用于多个变量的是联合概率分布函数。</p>
+<p>注意归一化条件$\sum\limits_{x \in x} P(x) = 1$。</p>
+<h3 id="连续随机变量和概率密度函数"><a href="#连续随机变量和概率密度函数" class="headerlink" title="连续随机变量和概率密度函数"></a>连续随机变量和概率密度函数</h3><p>概率密度函数PDF描述连续型随机变量。</p>
+<h2 id="边缘概率"><a href="#边缘概率" class="headerlink" title="边缘概率"></a>边缘概率</h2><p>从联合概率计算某一个变量子集的概率分布</p>
+<p>使用求和$P(x) = \sum\limits_{y}P(x,y)$或者积分$p(x) = \int p(x,y)dy$。</p>
+<h2 id="条件概率"><a href="#条件概率" class="headerlink" title="条件概率"></a>条件概率</h2><p>$P(y={y}|x=x) = \frac{P(x=x,y=y)}{P(x=x)}$</p>
+<h2 id="条件概率的链式法则"><a href="#条件概率的链式法则" class="headerlink" title="条件概率的链式法则"></a>条件概率的链式法则</h2><p>或者称为乘法法则</p>
+<p>$P(abc) = P(a|bc)P(b|c)P(c)$</p>
+<h2 id="独立性和条件独立性"><a href="#独立性和条件独立性" class="headerlink" title="独立性和条件独立性"></a>独立性和条件独立性</h2><p>有$P(xy) = P(x)P(y)$称为概率独立，即$x \bot y$。</p>
+<p>有$P(xy|z) = P(x|x)P(y|z)$称为条件独立，即$x\bot y\ |\ z$。</p>
+<h2 id="期望、方差和协方差"><a href="#期望、方差和协方差" class="headerlink" title="期望、方差和协方差"></a>期望、方差和协方差</h2><p>期望是$\mathbb{E}[f(x)] = \int p(x)f(x)dx$或者$\mathbb{E}[f(x) = \sum \limits_{x}P(x)f(x)]$。</p>
+<p>方差为$Var(f(x)) = \mathbb{E}[(f(x) - \mathbb{E}[f(x)])^2]$，根式为标准差。</p>
+<p>协方差衡量多个变量相关性$Cov(f(x), g(y)) = \mathbb{E}[(f(x) - \mathbb{E}[f(x)])\times(g(y) - \mathbb{E}[g(y)])]$。</p>
+<p>随机向量的协方差矩阵有$Cov(\mathbf{x})_{i,j} = Cov(x_i, x_j)$。对角线为方差。</p>
+<h2 id="常用的概率分布"><a href="#常用的概率分布" class="headerlink" title="常用的概率分布"></a>常用的概率分布</h2><h3 id="Bernoulli分布"><a href="#Bernoulli分布" class="headerlink" title="Bernoulli分布"></a>Bernoulli分布</h3><p>二值分布$P(x=1)=\phi$、$P(x=0)=1-\phi$</p>
+<h3 id="Multinoulli分布"><a href="#Multinoulli分布" class="headerlink" title="Multinoulli分布"></a>Multinoulli分布</h3><p>称为范畴分布categorical distribution，其实是多项式分布（N个元素取n次）的n=1的情况。</p>
+<p>表示有限个不同状态的离散随机变量的分布</p>
+<h3 id="高斯分布"><a href="#高斯分布" class="headerlink" title="高斯分布"></a>高斯分布</h3><p>称为正态分布normal distribution。</p>
+<p>$\mathcal{N}(x;\mu,\sigma^2) = \sqrt{\frac{1}{2\pi\sigma^2}}exp(-\frac{1}{2\sigma^2}(x-\mu)^2)$</p>
+<p>通常使用$\beta = \frac{1}{\sigma^2}$作为高斯分布的精度precision</p>
+<p>重要性：独立随机变量的和近似服从正态分布；正态分布是引入先验知识量最少的分布。</p>
+<p>可以推广到多维正态分布$\mathcal{N}(x;\mu,\Sigma)=\sqrt{\frac{1}{(2\pi)^ndet(\Sigma)}}exp(-\frac{1}{2}(x-\mu)^T\Sigma^{-1}(x-\mu))$。</p>
+<p>其中的$\mu$表示均值，$\Sigma$表示协方差矩阵。</p>
+<h3 id="指数分布和Laplace分布"><a href="#指数分布和Laplace分布" class="headerlink" title="指数分布和Laplace分布"></a>指数分布和Laplace分布</h3><p>指数分布<script type="math/tex">p(x;\lambda) = \lambda 1_{x\geq0}exp(-\lambda x)</script>，其中的指示函数$ 1_{x\geq0} $将自变量范围限制在不为负数。</p>
+<p>Laplace分布$Laplace(x;\mu, \gamma) = \frac{1}{2\gamma}exp(-\frac{|x-\mu|}{\gamma})$。</p>
+<h3 id="Dirac分布和经验分布"><a href="#Dirac分布和经验分布" class="headerlink" title="Dirac分布和经验分布"></a>Dirac分布和经验分布</h3><p>当概率质量集中在一点时得到Dirac分布$p(x) = \delta(x-\mu)$。可以表示一次观察的结果。</p>
+<p>经验分布$\hat{p}(\mathbf{x}) = \frac{1}{m}\sum \limits_{i=1}^{m} \delta(\mathbf{x} - \mathbf{x}^{(i)})$。可以表示对样本的m次观察，或者规模为m的训练集。</p>
+<p>训练模型时，看作用训练集的经验分布指明采样来源的分布。</p>
+<p>经验分布可以看作训练数据似然最大的概率密度函数。</p>
+<h3 id="分布的混合"><a href="#分布的混合" class="headerlink" title="分布的混合"></a>分布的混合</h3><p>混合分布mixture dixtribution由多个分布成分component组成，首先每个成分来自Multinoulli分布。</p>
+<p>$P(x) = \sum \limits_{i} P(c=i)P(x|c=i)$其中$P(c)$是各个组成成分的一个Multinoulli分布。</p>
+<p>引入了潜变量的概念，即不能直接观测到的变量，但是观测变量受到潜变量的影响，两者的分布共同影响最终分布。</p>
+<p>常见高斯混合模型，每一个成分都是均值和协方差矩阵各不相同的高斯分布。其中给定了$P(c=i)$是每一个高斯分布的成分的先验概率，而$P(c=i｜x)$称为后验概率。</p>
+<p>高斯混合模型是万能近似器，任何平滑的概率密度都可以用足够多成分的高斯混合模型以任意精度来逼近。</p>
+<h2 id="常见函数的有用性质"><a href="#常见函数的有用性质" class="headerlink" title="常见函数的有用性质"></a>常见函数的有用性质</h2><p>Logistic Sigmoid函数：$\sigma(x) = \frac{1}{1+exp(-x)}$。</p>
+<p>Softplus函数：$\zeta(x) = log(1+exp(x))$。</p>
+<p>其中Softplus函数可以看作是正部函数的平滑版本，正部函数$x^+ = max{0, x}$就是常用的ReLU激活函数。</p>
+<h2 id="贝叶斯规则"><a href="#贝叶斯规则" class="headerlink" title="贝叶斯规则"></a>贝叶斯规则</h2><p>贝叶斯规则：$P(x|y) = \frac{P(x)P(y|x)}{P(y)}$。</p>
+<p>其中可以计算$P(y) = \sum\limits_{x}P(y|x)P(x)$。</p>
+<h2 id="连续型变量的技术细节"><a href="#连续型变量的技术细节" class="headerlink" title="连续型变量的技术细节"></a>连续型变量的技术细节</h2><p>连续型随机变量和概率密度函数的简单定义可能会引起悖论，因此使用测度论的一些知识加以处理。</p>
+<p>提出“零测度”的集合、“几乎处处”成立的概念。</p>
+<p>同时对于具有函数关系的随机变量的分布的处理不能简单的使用微分的概念处理。</p>
+<h2 id="信息论"><a href="#信息论" class="headerlink" title="信息论"></a>信息论</h2><p>定义自信息量$I(x) = -logP(x)$。</p>
+<p>定义信息熵（香农熵）<script type="math/tex">H(x) = \mathbb{E}_{X \backsim P}[I(x)] = -\mathbb{E}_{X\backsim P}[log(P(x)]</script>。</p>
+<p>定义KL测度，表示两个概率分布的差异<script type="math/tex">D_{KL}(P||Q) = \mathbb{E}_{X\backsim P}[log\frac{P(x)}{Q(x)}] = \mathbb{E}_{X\backsim P}[logP(x)-logQ(x)]</script>。注意由于X服从的分布不同，KL测度是不对称的。</p>
+<p>定义交叉熵（cross entropy）<script type="math/tex">H(P,Q) = H(P) + D_{KL}(P||Q) = -\mathbb{E}_{X\backsim P}logQ(x)</script>。</p>
+<h2 id="结构化概率模型"><a href="#结构化概率模型" class="headerlink" title="结构化概率模型"></a>结构化概率模型</h2><p>涉及在很多个相互影响的随机变量上的概率分布时，可以按照依赖和独立关系将其分解成多个概率分布的乘积。</p>
+<p>通常使用图模型表示多个变量之间的关系，称为结构化概率模型或者图模型。</p>
+<p>有向图模型中，使用有向边表示条件概率分布。$p(x) = \prod\limits_{i}p(x_i|Pa\mathcal{G}(x_i))$其中$Pa\mathcal{G}(x_i)$表示$x_i$的父节点。</p>
+<p>无向图模型中，将图分为团（团内部任意两节点之间存在无向边）并带有因子，整个概率分布表示为各个团对应的函数按因子加权和并且归一化$p(x) = \frac{1}{Z}\prod\limits_{i}\phi^{(i)}(\mathcal{C}^{(i)})$。</p>
+
+    </div>
+
+    
+    
+    
+        
+      
+        <div id="reward-container">
+  <div>有钱的捧个钱场。</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.png" alt="Yang Lei WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+
+  </div>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/Deep-Learning/" rel="tag"><i class="fa fa-tag"></i> Deep Learning</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2020/02/17/flowerC2/" rel="next" title="花书第二章:线性代数">
+                  <i class="fa fa-chevron-left"></i> 花书第二章:线性代数
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2020/03/05/stm32-gpio/" rel="prev" title="STM32的GPIO处理">
+                  STM32的GPIO处理 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么使用概率"><span class="nav-number">1.</span> <span class="nav-text">为什么使用概率</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#随机变量"><span class="nav-number">2.</span> <span class="nav-text">随机变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#概率分布"><span class="nav-number">3.</span> <span class="nav-text">概率分布</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#离散随机变量和概率质量函数"><span class="nav-number">3.1.</span> <span class="nav-text">离散随机变量和概率质量函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#连续随机变量和概率密度函数"><span class="nav-number">3.2.</span> <span class="nav-text">连续随机变量和概率密度函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#边缘概率"><span class="nav-number">4.</span> <span class="nav-text">边缘概率</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#条件概率"><span class="nav-number">5.</span> <span class="nav-text">条件概率</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#条件概率的链式法则"><span class="nav-number">6.</span> <span class="nav-text">条件概率的链式法则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#独立性和条件独立性"><span class="nav-number">7.</span> <span class="nav-text">独立性和条件独立性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#期望、方差和协方差"><span class="nav-number">8.</span> <span class="nav-text">期望、方差和协方差</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用的概率分布"><span class="nav-number">9.</span> <span class="nav-text">常用的概率分布</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Bernoulli分布"><span class="nav-number">9.1.</span> <span class="nav-text">Bernoulli分布</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Multinoulli分布"><span class="nav-number">9.2.</span> <span class="nav-text">Multinoulli分布</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#高斯分布"><span class="nav-number">9.3.</span> <span class="nav-text">高斯分布</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#指数分布和Laplace分布"><span class="nav-number">9.4.</span> <span class="nav-text">指数分布和Laplace分布</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dirac分布和经验分布"><span class="nav-number">9.5.</span> <span class="nav-text">Dirac分布和经验分布</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分布的混合"><span class="nav-number">9.6.</span> <span class="nav-text">分布的混合</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见函数的有用性质"><span class="nav-number">10.</span> <span class="nav-text">常见函数的有用性质</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#贝叶斯规则"><span class="nav-number">11.</span> <span class="nav-text">贝叶斯规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#连续型变量的技术细节"><span class="nav-number">12.</span> <span class="nav-text">连续型变量的技术细节</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#信息论"><span class="nav-number">13.</span> <span class="nav-text">信息论</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结构化概率模型"><span class="nav-number">14.</span> <span class="nav-text">结构化概率模型</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.gif"
+      alt="Yang Lei">
+  <p class="site-author-name" itemprop="name">Yang Lei</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">59</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">categories</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">tags</span>
+        </a>
+      </div>
+    
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/yangleisx" title="GitHub &rarr; https://github.com/yangleisx" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:yangleisxn@icloud.com" title="E-Mail &rarr; mailto:yangleisxn@icloud.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 – <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang Lei</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">Symbols count total: </span>
+    
+    <span title="Symbols count total">122k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">Reading time total &asymp;</span>
+    
+    <span title="Reading time total">1:42</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.0"></script><script src="/js/motion.js?v=7.4.0"></script>
+<script src="/js/schemes/pisces.js?v=7.4.0"></script>
+<script src="/js/next-boot.js?v=7.4.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+    
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+  
+
+  
+
+  
+
+</body>
+</html>

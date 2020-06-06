@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/appleicon.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.0">
+  <link rel="mask-icon" href="/images/logo.jpg?v=7.4.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.4.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"always","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="简单记录一下verilog的语法，用于日后复习或者参考。">
+<meta name="keywords" content="Verilog HDL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="verilog语法参考">
+<meta property="og:url" content="http://YangLeiSX.github.io/2019/10/22/verilog-grammer/index.html">
+<meta property="og:site_name" content="杨磊的博客">
+<meta property="og:description" content="简单记录一下verilog的语法，用于日后复习或者参考。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-05-19T02:49:35.895Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="verilog语法参考">
+<meta name="twitter:description" content="简单记录一下verilog的语法，用于日后复习或者参考。">
+  <link rel="canonical" href="http://YangLeiSX.github.io/2019/10/22/verilog-grammer/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>verilog语法参考 | 杨磊的博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">杨磊的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">人的本能是追逐从他身边飞走的东西，却逃避追逐他的东西。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="Searching..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="http://YangLeiSX.github.io/2019/10/22/verilog-grammer/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杨磊的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">verilog语法参考
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-10-22 22:29:31" itemprop="dateCreated datePublished" datetime="2019-10-22T22:29:31+08:00">2019-10-22</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-05-19 10:49:35" itemprop="dateModified" datetime="2020-05-19T10:49:35+08:00">2020-05-19</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/代码学习/" itemprop="url" rel="index"><span itemprop="name">代码学习</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              
+              <span>9.8k</span> 
+            </span>
+          
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              
+              <span>8 mins.</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>简单记录一下verilog的语法，用于日后复习或者参考。</p>
+<a id="more"></a>
+<h2 id="模块框架"><a href="#模块框架" class="headerlink" title="模块框架"></a>模块框架</h2><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> 模块名 (端口列表);</span><br><span class="line">  <span class="comment">// 端口声明</span></span><br><span class="line">  <span class="keyword">input</span> input_port;</span><br><span class="line">  <span class="keyword">output</span> output_port;</span><br><span class="line">  <span class="comment">// 参数声明</span></span><br><span class="line">  <span class="keyword">parameter</span> param;</span><br><span class="line">  <span class="comment">// 数据流语句</span></span><br><span class="line">  <span class="keyword">assign</span> a = b &amp; c;</span><br><span class="line">  <span class="comment">// 模块实例和门原语</span></span><br><span class="line">  subModule Mod1(port1, port2);</span><br><span class="line">  subModule Mod2(<span class="variable">.port1</span>(PORT1),<span class="variable">.port2</span>(PORT2));</span><br><span class="line">  <span class="keyword">nand</span> (out, in1, in2);</span><br><span class="line">  <span class="comment">// 过程语句块</span></span><br><span class="line">  <span class="keyword">always</span> @(*)</span><br><span class="line">    过程语句</span><br><span class="line">  <span class="keyword">initial</span></span><br><span class="line">    过程语句</span><br><span class="line"></span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>数字声明：\<size>‘\<base format>\<number></number></size></p>
+<p>可以在’之后加s表示有符号数</p>
+<p>建议使用_分割为四个二进制数一组</p>
+<p>使用[begin:end]选择向量的部分位</p>
+<p>使用{a,b,c[3:0]}表示变量拼接</p>
+<p>位宽大的数向位宽小的数赋值：获得低位并截断</p>
+<p>位宽小的数向位宽大的数赋值：高位补0。例如reg[4:0]a;a = 2’bx;得到00xx。</p>
+<p>位扩展时根据最高位扩展x和z。例如4’bx0和4’bz1得到xxx0和zzz1。</p>
+<p>常用系统函数：</p>
+<p>$time    返回仿真时间</p>
+<p>$display 显示输出</p>
+<p>$monitor 监控值的变化，通常第一个参数为$time，格式类似printf</p>
+<p>$finish   结束仿真</p>
+<h2 id="结构域描述"><a href="#结构域描述" class="headerlink" title="结构域描述"></a>结构域描述</h2><h3 id="子模块连接"><a href="#子模块连接" class="headerlink" title="子模块连接"></a>子模块连接</h3><p>端口连接规则：</p>
+<ol>
+<li>输入：外界net或reg，内部net</li>
+<li>输出：外界net，内部net或reg</li>
+<li>双向：外界net，内部net</li>
+<li>允许按端口列表顺序相连或者按名字相连</li>
+</ol>
+<p>模块也可以定义成实例数组</p>
+<p>通常设计测试台包括四个部分：定义外部与端口相连的变量（通常输入用reg输出用wire），定义模块并相连，initial初始化并控制驱动信号，显示monitor信息等。</p>
+<h3 id="门级建模"><a href="#门级建模" class="headerlink" title="门级建模"></a>门级建模</h3><p>门原语属于模块一级，相当于并发语句。</p>
+<p>只能驱动wire型的变量。</p>
+<h4 id="and-or门"><a href="#and-or门" class="headerlink" title="and/or门"></a>and/or门</h4><p>包括and,nand,or,nor.xor,xnor六种</p>
+<p>一个输出端和多个输入端，第一个参数为输出端</p>
+<p>真值表中有x/z时，输出通常为x</p>
+<h4 id="buf-not门"><a href="#buf-not门" class="headerlink" title="buf/not门"></a>buf/not门</h4><p>包括buf,not两种</p>
+<p>一个输入端和多个输出端，最后一个参数为输入端</p>
+<h4 id="三态门"><a href="#三态门" class="headerlink" title="三态门"></a>三态门</h4><p>包括bufif1,bufif0,notif1,notif0四种</p>
+<p>控制信号是最后一个参数，输入信号是倒数第二个参数</p>
+<p><strong><em>要求：</em></strong>当控制信号关断时，输出信号必须为z。</p>
+<p>控制信号为x/z时，或者输入信号为x/z时，输出通常为x。</p>
+<h4 id="延迟指定"><a href="#延迟指定" class="headerlink" title="延迟指定"></a>延迟指定</h4><p>门原语后使用#(上升 下降 关断)制定</p>
+<p>使用#(最小:典型:最大 最小:典型:最大 最小:典型:最大)指定延迟</p>
+<p>上升延迟指变为1，下降延迟指变为0，关断延迟指变为z</p>
+<h2 id="行为域描述"><a href="#行为域描述" class="headerlink" title="行为域描述"></a>行为域描述</h2><h3 id="数据流级"><a href="#数据流级" class="headerlink" title="数据流级"></a>数据流级</h3><h4 id="连续赋值"><a href="#连续赋值" class="headerlink" title="连续赋值"></a>连续赋值</h4><p>连续赋值语句assign，左值一定为net类型</p>
+<p>总是激活，时刻监控，描述组合逻辑</p>
+<h5 id="普通延迟"><a href="#普通延迟" class="headerlink" title="普通延迟"></a>普通延迟</h5><p>在assign之后使用#指定延迟</p>
+<p><strong><em>惯性延迟</em></strong>右端信号保持的持续时间必须大于延时宽度才能使左值改变</p>
+<h5 id="线网延迟"><a href="#线网延迟" class="headerlink" title="线网延迟"></a>线网延迟</h5><p>声明wire变量时使用#指定线网延迟</p>
+<p>实际延迟为线网延迟和赋值语句延迟之和</p>
+<p>信号保持的时间要大于两者的最大值</p>
+<h4 id="操作符"><a href="#操作符" class="headerlink" title="操作符"></a>操作符</h4><p>向量参与逻辑运算时，首先进行缩减或操作得到逻辑值，使用逻辑值运算</p>
+<p>逻辑等价(== !=)对于含有x/z的操作数结果为x。</p>
+<p>case等价(\=\=\= !\=\=)对于含有x/z的操作数严格的逐位比较。</p>
+<p>三目条件运算符（cond）？expr1:expr2；若cond为1或0，则分别执行expr1和expr2。若cond为x，则诸位比较expr1和expr2，相同的位得到该位的值，不同的位得到x。</p>
+<h3 id="行为级"><a href="#行为级" class="headerlink" title="行为级"></a>行为级</h3><p><strong><em>过程语句块中绝对不能出现连续赋值语句</em></strong></p>
+<h4 id="过程语句"><a href="#过程语句" class="headerlink" title="过程语句"></a>过程语句</h4><p>主要有两种过程语句initial和always</p>
+<p>相互不能嵌套，都是模块级的语句</p>
+<p>要求：initial用于仿真，always用于设计</p>
+<p>不要在不同的语句块中对同一变量进行操作（过程语句的并发性）</p>
+<ul>
+<li>initial<ul>
+<li>从时刻0开始执行，只执行一次</li>
+<li>所有的initial语句块并发执行</li>
+<li>可以使用initial foreveer实现always的功能</li>
+</ul>
+</li>
+<li>always<ul>
+<li>从时刻0开始执行，无限循环</li>
+<li>可以定义局部变量，但是不能定义的同时赋初值</li>
+<li>可以用always @(*)实现assign的功能</li>
+</ul>
+</li>
+</ul>
+<h4 id="语句块"><a href="#语句块" class="headerlink" title="语句块"></a>语句块</h4><p>不建议两种块混合使用</p>
+<p>可以在begin/fork后用：为块命名</p>
+<p>可以使用disable禁止块的运行</p>
+<ul>
+<li>顺序块<ul>
+<li>begin-end</li>
+<li>顺序执行，延迟是相对于上一语句结束时</li>
+</ul>
+</li>
+<li>并行块<ul>
+<li>fork-join</li>
+<li>并发执行，延迟是相对于整个块</li>
+</ul>
+</li>
+</ul>
+<h4 id="时序控制"><a href="#时序控制" class="headerlink" title="时序控制"></a>时序控制</h4><h5 id="基于延迟"><a href="#基于延迟" class="headerlink" title="基于延迟"></a>基于延迟</h5><ul>
+<li>常规延迟：<ul>
+<li>#delay a = b;</li>
+<li>遇到该语句时，等待delay时间后执行</li>
+</ul>
+</li>
+<li>内嵌延迟<ul>
+<li>a = #delay b+c</li>
+<li>遇到该语句时计算右边，等待delay时间后赋值</li>
+</ul>
+</li>
+<li>零延迟：<ul>
+<li>#0</li>
+<li>表示在当前时间步结束时执行</li>
+</ul>
+</li>
+</ul>
+<h5 id="基于事件"><a href="#基于事件" class="headerlink" title="基于事件"></a>基于事件</h5><ul>
+<li>常规事件控制（边沿触发）<ul>
+<li>@(posedge clock)、@(negedge clock)、@(clock)</li>
+<li>表示正向跳变、反向跳变、值改变</li>
+<li>数组中任意一个值变化</li>
+</ul>
+</li>
+<li>OR事件控制<ul>
+<li>@(cond1 or cond2 or cond3)三个条件满足其一</li>
+<li>@(*)语句块中任意元素值改变</li>
+</ul>
+</li>
+<li>命名事件<ul>
+<li>定义一个事件event aEvent;</li>
+<li>满足条件触发事件-&gt; aEvent;</li>
+<li>事件触发执行always @(aEvent)</li>
+</ul>
+</li>
+</ul>
+<h5 id="电平敏感（电平触发）"><a href="#电平敏感（电平触发）" class="headerlink" title="电平敏感（电平触发）"></a>电平敏感（电平触发）</h5><p>等待条件为真时 wait(cond)</p>
+<p>cond为数组时，使用逻辑值判断</p>
+<h4 id="过程控制"><a href="#过程控制" class="headerlink" title="过程控制"></a>过程控制</h4><p>只能用在过程语句块中，不能用于模块一级</p>
+<ul>
+<li>if…else…<ul>
+<li>多条语句使用begin-end组成一块</li>
+</ul>
+</li>
+<li>case…cond1:…default…endcase<ul>
+<li>建议必须添加default</li>
+<li>逐位比较</li>
+</ul>
+</li>
+<li>casex…cond1:..default…endcase<ul>
+<li>候选式使用x和z表示无关值</li>
+</ul>
+</li>
+<li>casez…cond1:..default…endcase<ul>
+<li>候选式使用z表示无关值</li>
+</ul>
+</li>
+<li>while(condition)</li>
+<li>for(count = 0; count &lt; 128;count = count+1)</li>
+<li>repeat(times)<ul>
+<li>以上三种都要在外部声明reg型的循环变了</li>
+</ul>
+</li>
+<li>forever<ul>
+<li>遇到$finish停止</li>
+<li>可以被disable关闭</li>
+</ul>
+</li>
+</ul>
+<h4 id="赋值语句"><a href="#赋值语句" class="headerlink" title="赋值语句"></a>赋值语句</h4><p>仅能实现对寄存器的操作</p>
+<p>要求：时序逻辑电路使用非阻塞赋值，组合逻辑电路使用阻塞赋值</p>
+<p>严禁：在always块中混合使用阻塞和非阻塞</p>
+<p>顺序块中的非阻塞赋值和并行块中的阻塞赋值的效果类似，推荐前者。</p>
+<ul>
+<li>阻塞赋值<ul>
+<li>串行块中，按序执行，有延迟时停止</li>
+<li>并行块中，并发执行</li>
+</ul>
+</li>
+<li>非阻塞赋值<ul>
+<li>串行块中，并发执行，不影响后面的语句</li>
+<li>内嵌赋值语句被延迟到在目标时间步结束时执行赋值</li>
+<li>并行块中，并发执行</li>
+</ul>
+</li>
+</ul>
+<h3 id="任务和函数"><a href="#任务和函数" class="headerlink" title="任务和函数"></a>任务和函数</h3><p>定义在模块内部</p>
+<p>内部不能出现always或initial，只有行为语句</p>
+<ul>
+<li>函数（相当于同名的reg变量 要声明位宽）<ul>
+<li>可以调用函数，不可以调用任务，出现在assign、always、initial中</li>
+<li>遇到即执行，一定不包含延迟和时序控制</li>
+<li>返回一个值，不能有output</li>
+</ul>
+</li>
+<li>任务<ul>
+<li>可以调用函数和任务，出现在initial、always中</li>
+<li>可以延迟或时序控制</li>
+<li>不返回值，有多个output</li>
+<li>行为级语句，处理reg型变量</li>
+</ul>
+</li>
+</ul>
+<h2 id="生成块"><a href="#生成块" class="headerlink" title="生成块"></a>生成块</h2><ul>
+<li>在模块一级，使用if，case，while等过程控制来控制门原语、模块调用、数据流赋值等语句生成</li>
+<li>使用临时变量genvar控制</li>
+<li>使用generate和endgenerate表示开始和结束</li>
+<li>循环生成时内部的begin-end块需要命名，以便使用层次命名访问</li>
+</ul>
+<h2 id="UDP用户定义原语"><a href="#UDP用户定义原语" class="headerlink" title="UDP用户定义原语"></a>UDP用户定义原语</h2><ul>
+<li>格式</li>
+</ul>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">primitive</span> upd_and(<span class="keyword">output</span> y, <span class="keyword">input</span> a);</span><br><span class="line">  <span class="keyword">table</span></span><br><span class="line">    <span class="comment">//  a b : y</span></span><br><span class="line">        <span class="number">0</span> <span class="number">0</span> : <span class="number">0</span>;</span><br><span class="line">        <span class="number">0</span> <span class="number">1</span> : <span class="number">0</span>;</span><br><span class="line">        <span class="number">1</span> <span class="number">0</span> : <span class="number">0</span>;</span><br><span class="line">        <span class="number">1</span> <span class="number">1</span> : <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">endtable</span></span><br><span class="line"><span class="keyword">endprimitive</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>可以使用？表示无关匹配</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        
+      
+        <div id="reward-container">
+  <div>有钱的捧个钱场。</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.png" alt="Yang Lei WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+
+  </div>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/Verilog-HDL/" rel="tag"><i class="fa fa-tag"></i> Verilog HDL</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/10/20/firewall-iptables-rules/" rel="next" title="iptables常用规则">
+                  <i class="fa fa-chevron-left"></i> iptables常用规则
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/11/16/verilog-design/" rel="prev" title="Verilog电路设计思路">
+                  Verilog电路设计思路 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#模块框架"><span class="nav-number">1.</span> <span class="nav-text">模块框架</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本概念"><span class="nav-number">2.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结构域描述"><span class="nav-number">3.</span> <span class="nav-text">结构域描述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#子模块连接"><span class="nav-number">3.1.</span> <span class="nav-text">子模块连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#门级建模"><span class="nav-number">3.2.</span> <span class="nav-text">门级建模</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#and-or门"><span class="nav-number">3.2.1.</span> <span class="nav-text">and/or门</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#buf-not门"><span class="nav-number">3.2.2.</span> <span class="nav-text">buf/not门</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三态门"><span class="nav-number">3.2.3.</span> <span class="nav-text">三态门</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#延迟指定"><span class="nav-number">3.2.4.</span> <span class="nav-text">延迟指定</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#行为域描述"><span class="nav-number">4.</span> <span class="nav-text">行为域描述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据流级"><span class="nav-number">4.1.</span> <span class="nav-text">数据流级</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#连续赋值"><span class="nav-number">4.1.1.</span> <span class="nav-text">连续赋值</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#普通延迟"><span class="nav-number">4.1.1.1.</span> <span class="nav-text">普通延迟</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#线网延迟"><span class="nav-number">4.1.1.2.</span> <span class="nav-text">线网延迟</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#操作符"><span class="nav-number">4.1.2.</span> <span class="nav-text">操作符</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#行为级"><span class="nav-number">4.2.</span> <span class="nav-text">行为级</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#过程语句"><span class="nav-number">4.2.1.</span> <span class="nav-text">过程语句</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#语句块"><span class="nav-number">4.2.2.</span> <span class="nav-text">语句块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#时序控制"><span class="nav-number">4.2.3.</span> <span class="nav-text">时序控制</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#基于延迟"><span class="nav-number">4.2.3.1.</span> <span class="nav-text">基于延迟</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#基于事件"><span class="nav-number">4.2.3.2.</span> <span class="nav-text">基于事件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#电平敏感（电平触发）"><span class="nav-number">4.2.3.3.</span> <span class="nav-text">电平敏感（电平触发）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#过程控制"><span class="nav-number">4.2.4.</span> <span class="nav-text">过程控制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#赋值语句"><span class="nav-number">4.2.5.</span> <span class="nav-text">赋值语句</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#任务和函数"><span class="nav-number">4.3.</span> <span class="nav-text">任务和函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生成块"><span class="nav-number">5.</span> <span class="nav-text">生成块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UDP用户定义原语"><span class="nav-number">6.</span> <span class="nav-text">UDP用户定义原语</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.gif"
+      alt="Yang Lei">
+  <p class="site-author-name" itemprop="name">Yang Lei</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">59</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">categories</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">tags</span>
+        </a>
+      </div>
+    
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/yangleisx" title="GitHub &rarr; https://github.com/yangleisx" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:yangleisxn@icloud.com" title="E-Mail &rarr; mailto:yangleisxn@icloud.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 – <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang Lei</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">Symbols count total: </span>
+    
+    <span title="Symbols count total">122k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">Reading time total &asymp;</span>
+    
+    <span title="Reading time total">1:42</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.0"></script><script src="/js/motion.js?v=7.4.0"></script>
+<script src="/js/schemes/pisces.js?v=7.4.0"></script>
+<script src="/js/next-boot.js?v=7.4.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

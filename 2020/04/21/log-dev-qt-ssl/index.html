@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/appleicon.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.0">
+  <link rel="mask-icon" href="/images/logo.jpg?v=7.4.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.4.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"always","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="背景分别由两个人开发的代码需要被整合进入一个完整的项目并运行。">
+<meta name="keywords" content="Qt,OpenSSL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Qt开发OpenSSL程序踩坑">
+<meta property="og:url" content="http://YangLeiSX.github.io/2020/04/21/log-dev-qt-ssl/index.html">
+<meta property="og:site_name" content="杨磊的博客">
+<meta property="og:description" content="背景分别由两个人开发的代码需要被整合进入一个完整的项目并运行。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-05-19T02:24:00.334Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Qt开发OpenSSL程序踩坑">
+<meta name="twitter:description" content="背景分别由两个人开发的代码需要被整合进入一个完整的项目并运行。">
+  <link rel="canonical" href="http://YangLeiSX.github.io/2020/04/21/log-dev-qt-ssl/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Qt开发OpenSSL程序踩坑 | 杨磊的博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">杨磊的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">人的本能是追逐从他身边飞走的东西，却逃避追逐他的东西。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="Searching..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="http://YangLeiSX.github.io/2020/04/21/log-dev-qt-ssl/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杨磊的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Qt开发OpenSSL程序踩坑
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2020-04-21 09:26:44" itemprop="dateCreated datePublished" datetime="2020-04-21T09:26:44+08:00">2020-04-21</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-05-19 10:24:00" itemprop="dateModified" datetime="2020-05-19T10:24:00+08:00">2020-05-19</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/开发经历/" itemprop="url" rel="index"><span itemprop="name">开发经历</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              
+              <span>5.5k</span> 
+            </span>
+          
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              
+              <span>5 mins.</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>分别由两个人开发的代码需要被整合进入一个完整的项目并运行。</p>
+<a id="more"></a>
+<p>其中第一位同学使用Visual Studio开发基于C++和openSSL的加解密的程序，使用vcpkg安装和编译openSSL:x86-windows并且集成到Visual Studio中。另一位同学使用Qt Creator开发基于C++和Qt的GUI程序。</p>
+<h2 id="IDE选择"><a href="#IDE选择" class="headerlink" title="IDE选择"></a>IDE选择</h2><p>由于需要将两份代码合成一个完整的项目运行，我首先选择IDE为Visual Studio，但是由于并没有在VS中写过Qt程序，添加的QT VS TOOL插件总是无法正常编译。因此放弃使用Visual Studio作为项目IDE。选择Qt Creator作为开发环境。</p>
+<h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><p>遇到的第一个问题是将openSSL集成到Qt Creator，从网上找到的资料都是从OpenSSL官网下载，并在Qt项目文件中添加库和头文件路径。如下代码所示</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">LIBS += \</span><br><span class="line">    -Lpath/lib -lssl \</span><br><span class="line">    -Lpath/lib -lcrypto</span><br><span class="line">INCLUDEPATH += path/include</span><br></pre></td></tr></table></figure>
+<p>我遇到的问题是，添加头文件正常，但是在编译的时候会出现<code>undefined reference to xxx</code>的报错，仔细一看是openssl库中的函数，在代码中<code>follow symbols</code>可以跳转到头文件中对应的定义，因此猜测是头文件正常但库文件没有正常加载。</p>
+<p>这里涉及到的我尝试过的库文件包括</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">libssl.lib</span><br><span class="line">libcrypto.lib</span><br><span class="line">libssl.a</span><br><span class="line">libcrypto.a</span><br><span class="line">libssl.dll.a</span><br><span class="line">libcrypto.dll.a</span><br><span class="line">libssl-1_1.dll</span><br><span class="line">libcrypto-1_1.dll</span><br><span class="line">libeay32.dll</span><br><span class="line">ssleay32.dll</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>于是开始各种下载和添加库文件。包括但不限于</p>
+<ol>
+<li>使用vcpkg编译x64-windows版本的openssl库并添加（考虑到32位和64位可能产生的冲突）</li>
+<li>官网下载openssl安装包（由于下载速度太慢，我选择了64位light版本的安装包，但是light版本安装包没有lib文件，完整版本的安装包就不曾下载成功过）</li>
+<li>将lib和include文件copy到项目目录下，再使用上述方法添加路径。</li>
+</ol>
+<p>在这个时候，我查到一篇文章说qt本身是包括openssl的但是在编译的时候默认不安装，因此qt的环境下实际上是包括openssl对应的库文件和头文件的。经过一番查找我找到这个路径<code>C:\Qt\Qt5.12.0\Tools\mingw730_64\opt</code>。</p>
+<p>这个路径的lib目录下包括了libssl.a、libcrypto.a、libssl.dll.a、libcrypto.dll.a，bin目录下包括libeay32.dll、ssleay32.dll，include目录下包括openssl头文件目录。因此我修改.pro文件如下。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 这里的$$quote我也没搞清啥意思，大概是双引号</span><br><span class="line"></span><br><span class="line">LIBS += \</span><br><span class="line">    -LC:\Qt\Qt5.12.0\Tools\mingw730_64\opt\lib -lssl \</span><br><span class="line">    -LC:\Qt\Qt5.12.0\Tools\mingw730_64\opt\lib -lcrypto</span><br><span class="line"></span><br><span class="line">INCLUDEPATH += \</span><br><span class="line">    $$quote(C:\Qt\Qt5.12.0\Tools\mingw730_64\opt\include)</span><br></pre></td></tr></table></figure>
+<p>经过多次编译，并注释掉一些无用的函数，终于实现了<code>0 warnigns, 0 errors</code>，呜呼。</p>
+<h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><p>接下来遇到的问题是，程序无法运行。在Qt Creator中直接运行，程序闪退并显示<code>程序异常结束</code>。在Qt Creator中开启Debugger，同样也是闪退，添加的断点直接被无视了。</p>
+<p>刚开始考虑到可能是被杀毒软件杀掉了，因此经过一番操作关闭了Windows Defender，但是仍然无法运行，陷入停滞。</p>
+<p>这个时候查到一篇文章，详细介绍了Qt Creator中的闪退的原因并给出了一个检查的方法，就是找到编译生成的exe文件，直接双击运行。程序自然无法运行并提示缺少许多dll文件，其中包括qt的依赖库例如QtCore.dll等等，因此使用windeployqt.exe(位于<code>C:\Qt\Qt5.12.0\5.12.0\mingw73_64\bin</code>)将Qt所有的依赖dll复制到exe对应的路径下，这个时候再次点击exe文件，显示<code>缺少libeay32.dll</code>于是将上述的libeay32.dll和ssleay32.dll（位于<code>C:\Qt\Qt5.12.0\Tools\mingw730_64\opt\bin</code>）复制到这个路径下。</p>
+<p>双击exe，正常运行！！！经过测试，一切正常。每次使用qt编译后，将得到的exe文件拷贝到一个新的路径下，调用windeployqt和复制dll就可以正常运行。</p>
+<h2 id="总结反思"><a href="#总结反思" class="headerlink" title="总结反思"></a>总结反思</h2><ol>
+<li><p>我使用Qt官网下载的安装包安装Qt时，IDE选择了QtCreator，编译环境我选择了MinGW和MSVC，因此在我的安装目录下（<code>C:\Qt\Qt5.12.0\5.12.0</code>）包括了如下四个编译环境，每一个环境中都包含了windeployqt等一系列exe文件，和完整的Qt编译环境（bin + lib + include）。</p>
+<blockquote>
+<p>mingw73_64</p>
+<p>msvc2015_64</p>
+<p>msvc2017</p>
+<p>msvc2017_64</p>
+</blockquote>
+<p> 但是非常疑惑的一点是，在编译时我检查Qt Cretor的编译输出窗口，发现我编译使用的是Tools目录下的mingw730_64。进一步检查发现Tools目录下（<code>C:\Qt\Qt5.12.0\Tools</code>）包括如下目录。</p>
+<blockquote>
+<p>mingw730_64</p>
+<p>QtCreator</p>
+</blockquote>
+<p> 前者不是一个完整的Qt编译环境，不包括qt的各种dll，而是包括了ar、ld、gcc、make、objdump等一系列工具，更像是一个编译环境。其opt目录下包括了openssl的编译环境（前文使用到的）。</p>
+<p> 那么这两个不同的mingw环境究竟有什么区别呢？后者可不可以换成我之前自己手动安装的MinGW环境呢？</p>
+</li>
+<li><p>使用vcpkg编译得到的环境和使用官方安装包以及从GitHub直接下载手动编译的环境有什么区别。</p>
+</li>
+<li><p>对于库文件来说存不存在32位和64位的差异，如果不存在的话，那么vcpkg编译时为什么提供了x86-windows和x64-windows的不同的triplets（还包括了arm、linux等其他选择）。</p>
+</li>
+<li><p>函数静态库和动态库在使用时一定要同时存在么，即编译时指定lib文件，执行时exe文件路径中要包含对应的dll文件。</p>
+</li>
+<li><p>vcpkg编译得到的libssl.lib和mingw730_64的opt路径下的libssl.a文件有什么差异，能不能简单通过改变后缀名来实现适配。同理还有.dll文件和.so文件之间的关系。</p>
+</li>
+</ol>
+<p>最后的最后，还是感觉任重而道远。上述问题大多都是操作系统和C语言编译的基础知识，还是要努力打好基础。</p>
+
+    </div>
+
+    
+    
+    
+        
+      
+        <div id="reward-container">
+  <div>有钱的捧个钱场。</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.png" alt="Yang Lei WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+
+  </div>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/Qt/" rel="tag"><i class="fa fa-tag"></i> Qt</a>
+            
+              <a href="/tags/OpenSSL/" rel="tag"><i class="fa fa-tag"></i> OpenSSL</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2020/04/20/cpp-thread-sim/" rel="next" title="使用STL线程库模拟生产者消费者问题">
+                  <i class="fa fa-chevron-left"></i> 使用STL线程库模拟生产者消费者问题
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2020/05/08/ssh-usage/" rel="prev" title="SSH学习记录">
+                  SSH学习记录 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IDE选择"><span class="nav-number">2.</span> <span class="nav-text">IDE选择</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译"><span class="nav-number">3.</span> <span class="nav-text">编译</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行"><span class="nav-number">4.</span> <span class="nav-text">运行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结反思"><span class="nav-number">5.</span> <span class="nav-text">总结反思</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.gif"
+      alt="Yang Lei">
+  <p class="site-author-name" itemprop="name">Yang Lei</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">59</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">categories</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">tags</span>
+        </a>
+      </div>
+    
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/yangleisx" title="GitHub &rarr; https://github.com/yangleisx" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:yangleisxn@icloud.com" title="E-Mail &rarr; mailto:yangleisxn@icloud.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 – <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang Lei</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">Symbols count total: </span>
+    
+    <span title="Symbols count total">122k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">Reading time total &asymp;</span>
+    
+    <span title="Reading time total">1:42</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.0"></script><script src="/js/motion.js?v=7.4.0"></script>
+<script src="/js/schemes/pisces.js?v=7.4.0"></script>
+<script src="/js/next-boot.js?v=7.4.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

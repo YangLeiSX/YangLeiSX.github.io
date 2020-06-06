@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/appleicon.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.0">
+  <link rel="mask-icon" href="/images/logo.jpg?v=7.4.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.4.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"always","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="C++已经实现了常见的各种数据结构 每种数据结构的实现被称为容器，定义迭代器作为容器中对象的指针 迭代器被定义为公有内嵌类，类名为iterator或const_iterator 借助容器储存数据的容器称为容器适配器(栈和队列) 查找表容器通常称为关联容器 建议：直接查看头文件中的函数声明，使用关键字检索">
+<meta name="keywords" content="C&#x2F;C++">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++中的STL数据结构">
+<meta property="og:url" content="http://YangLeiSX.github.io/2019/10/04/cpp-stl/index.html">
+<meta property="og:site_name" content="杨磊的博客">
+<meta property="og:description" content="C++已经实现了常见的各种数据结构 每种数据结构的实现被称为容器，定义迭代器作为容器中对象的指针 迭代器被定义为公有内嵌类，类名为iterator或const_iterator 借助容器储存数据的容器称为容器适配器(栈和队列) 查找表容器通常称为关联容器 建议：直接查看头文件中的函数声明，使用关键字检索">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-05-19T02:09:26.338Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C++中的STL数据结构">
+<meta name="twitter:description" content="C++已经实现了常见的各种数据结构 每种数据结构的实现被称为容器，定义迭代器作为容器中对象的指针 迭代器被定义为公有内嵌类，类名为iterator或const_iterator 借助容器储存数据的容器称为容器适配器(栈和队列) 查找表容器通常称为关联容器 建议：直接查看头文件中的函数声明，使用关键字检索">
+  <link rel="canonical" href="http://YangLeiSX.github.io/2019/10/04/cpp-stl/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>C++中的STL数据结构 | 杨磊的博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">杨磊的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">人的本能是追逐从他身边飞走的东西，却逃避追逐他的东西。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="Searching..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="http://YangLeiSX.github.io/2019/10/04/cpp-stl/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杨磊的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">C++中的STL数据结构
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-10-04 14:52:25" itemprop="dateCreated datePublished" datetime="2019-10-04T14:52:25+08:00">2019-10-04</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-05-19 10:09:26" itemprop="dateModified" datetime="2020-05-19T10:09:26+08:00">2020-05-19</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/代码学习/" itemprop="url" rel="index"><span itemprop="name">代码学习</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              
+              <span>24k</span> 
+            </span>
+          
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              
+              <span>20 mins.</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>C++已经实现了常见的各种数据结构</p>
+<p>每种数据结构的实现被称为容器，定义迭代器作为容器中对象的指针</p>
+<p>迭代器被定义为公有内嵌类，类名为iterator或const_iterator</p>
+<p>借助容器储存数据的容器称为容器适配器(栈和队列)</p>
+<p>查找表容器通常称为关联容器</p>
+<p><strong><em>建议：直接查看头文件中的函数声明，使用关键字检索</em></strong></p>
+<a id="more"></a>
+<h2 id="线性表容器"><a href="#线性表容器" class="headerlink" title="线性表容器"></a>线性表容器</h2><p>vector：用动态数组实现的线性表#include\<vector\></vector\></p>
+<p>list：用双链表实现的线性表#include\<list\></list\></p>
+<p>deque：经过优化的线性表，兼具两者特点，用于实现栈和队列</p>
+<h3 id="线性表变量声明"><a href="#线性表变量声明" class="headerlink" title="线性表变量声明"></a>线性表变量声明</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vc;</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;::iterator itr;</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">list</span>&lt;<span class="keyword">int</span>&gt; ls;</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">list</span>&lt;<span class="keyword">int</span>&gt;::iterator its;</span><br></pre></td></tr></table></figure>
+<h3 id="两者的共有操作"><a href="#两者的共有操作" class="headerlink" title="两者的共有操作"></a>两者的共有操作</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">size</span><span class="params">()</span> <span class="keyword">const</span></span>;    <span class="comment">//元素个数</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">clear</span><span class="params">()</span></span>;        <span class="comment">//清空元素</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">empty</span><span class="params">()</span></span>;        <span class="comment">//判断是否为空</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">push_back</span><span class="params">(<span class="keyword">const</span> object &amp;x)</span></span>;    <span class="comment">//添加到表尾</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">pop_back</span><span class="params">()</span></span>;                    <span class="comment">//删除表尾元素</span></span><br><span class="line"><span class="function"><span class="keyword">const</span> object &amp; <span class="title">front</span> <span class="params">()</span> <span class="keyword">const</span></span>;      <span class="comment">//第一个元素</span></span><br><span class="line"><span class="function"><span class="keyword">const</span> object &amp; <span class="title">back</span><span class="params">()</span> <span class="keyword">const</span></span>;        <span class="comment">//最后一个元素</span></span><br></pre></td></tr></table></figure>
+<h3 id="特有操作"><a href="#特有操作" class="headerlink" title="特有操作"></a>特有操作</h3><p>list可以在表头操作</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">push_front</span><span class="params">(<span class="keyword">const</span> object &amp;x)</span></span>;   <span class="comment">//表头添加元素</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">pop_front</span><span class="params">()</span></span>;                   <span class="comment">//表头删除元素</span></span><br></pre></td></tr></table></figure>
+<p>vector可以实现类似数据的特征</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">object &amp;opeator[](<span class="keyword">int</span> idx);      <span class="comment">//下标运算符重载，无检查</span></span><br><span class="line"><span class="function">object &amp;<span class="title">at</span><span class="params">(<span class="keyword">int</span> idx)</span></span>;             <span class="comment">//返回指定位置元素，有下标检查</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">capacity</span><span class="params">()</span></span>;                  <span class="comment">//数组容量</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">reseave</span><span class="params">(<span class="keyword">int</span> newCapacity)</span></span>;   <span class="comment">//指定数组容量</span></span><br></pre></td></tr></table></figure>
+<h3 id="迭代器相关操作"><a href="#迭代器相关操作" class="headerlink" title="迭代器相关操作"></a>迭代器相关操作</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">iterator <span class="title">begin</span><span class="params">()</span></span>;        <span class="comment">//表头位置</span></span><br><span class="line"><span class="function">const_iterator <span class="title">begin</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function">iterator <span class="title">end</span><span class="params">()</span></span>;          <span class="comment">//表尾位置</span></span><br><span class="line"><span class="function">const_iterator <span class="title">end</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function">iterator <span class="title">insert</span><span class="params">(iterator pos,<span class="keyword">const</span> object &amp;x)</span></span>;  <span class="comment">//插入元素</span></span><br><span class="line"><span class="function">iterator <span class="title">erase</span><span class="params">(iterator pos)</span></span>;                   <span class="comment">//删除元素</span></span><br><span class="line"><span class="function">iterator <span class="title">erase</span><span class="params">(iterator start,iterator end)</span></span>;    <span class="comment">//删除区间[start,end-1)</span></span><br></pre></td></tr></table></figure>
+<h3 id="迭代器操作"><a href="#迭代器操作" class="headerlink" title="迭代器操作"></a>迭代器操作</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">itr ++;     <span class="comment">//下一位置</span></span><br><span class="line">* itr;      <span class="comment">//取出元素</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//STL中定义了distance函数，可以确定两个iterator之间的距离</span></span><br><span class="line"><span class="built_in">std</span>::distance(<span class="built_in">exp</span>.begin(),itr);<span class="comment">//可以得到itr指向的元素的下标</span></span><br></pre></td></tr></table></figure>
+<h3 id="其他操作"><a href="#其他操作" class="headerlink" title="其他操作"></a>其他操作</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">max_size</span><span class="params">()</span></span>;            <span class="comment">//vector的最大范围</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">resize</span><span class="params">(size)</span></span>;         <span class="comment">//显式指定数组空间</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">resize</span><span class="params">(size,fill)</span></span>;    <span class="comment">//显示指定扩大数组空间，并填充</span></span><br><span class="line"><span class="function">iterator <span class="title">rbegin</span><span class="params">()</span> <span class="keyword">const</span></span>;   <span class="comment">//反转后的表头（实际的表尾）</span></span><br><span class="line"><span class="function">iterator <span class="title">rend</span><span class="params">()</span>  <span class="keyword">const</span></span>;    <span class="comment">//反转后的表尾</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="built_in">vector</span> &amp;obj)</span></span>;    <span class="comment">//与另一个vector交换数据</span></span><br></pre></td></tr></table></figure>
+<p>vector减少空间的方法被称为“收缩到合适（shrink to fit）”</p>
+<p>使capacity收缩到size（capacity默认为2的指数）</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(vc).swap(vc);</span><br><span class="line"><span class="comment">//使用vector的拷贝构造函数，复制已有的数据，释放多余的空间</span></span><br></pre></td></tr></table></figure>
+<h2 id="栈容器"><a href="#栈容器" class="headerlink" title="栈容器"></a>栈容器</h2><p>stack栈容器，#include\<stack\></stack\></p>
+<h3 id="栈变量声明"><a href="#栈变量声明" class="headerlink" title="栈变量声明"></a>栈变量声明</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">stack</span>&lt;<span class="keyword">int</span>,<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; stack1;<span class="comment">//借助vector储存数据</span></span><br><span class="line"><span class="built_in">stack</span>&lt;<span class="keyword">int</span>,<span class="built_in">list</span>&lt;<span class="keyword">int</span>&gt;&gt; stack2;<span class="comment">//借助list储存数据</span></span><br></pre></td></tr></table></figure>
+<h3 id="栈基本操作"><a href="#栈基本操作" class="headerlink" title="栈基本操作"></a>栈基本操作</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">empty</span><span class="params">()</span></span>;              <span class="comment">//检查栈是否为空</span></span><br><span class="line"><span class="function">reference <span class="title">top</span><span class="params">()</span></span>;           <span class="comment">//返回栈顶元素</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">pop</span><span class="params">()</span></span>;                <span class="comment">//出栈</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">push</span><span class="params">(type &amp;x)</span></span>;        <span class="comment">//压栈</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">const</span> type &amp;x)</span></span>;  <span class="comment">//压栈</span></span><br></pre></td></tr></table></figure>
+<h2 id="队列容器"><a href="#队列容器" class="headerlink" title="队列容器"></a>队列容器</h2><p>queue队列容器，#include\<queue\></queue\></p>
+<h3 id="队列变量声明"><a href="#队列变量声明" class="headerlink" title="队列变量声明"></a>队列变量声明</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; queue1;             <span class="comment">//使用deque实现的队列（默认）</span></span><br><span class="line"><span class="built_in">queue</span>&lt;<span class="keyword">int</span>,<span class="built_in">deque</span>&lt;<span class="keyword">int</span>&gt;&gt; queue2;  <span class="comment">//使用deque实现的队列（默认）</span></span><br><span class="line"><span class="built_in">queue</span>&lt;<span class="keyword">int</span>,<span class="built_in">list</span>&lt;<span class="keyword">int</span>&gt;&gt; queue3;  <span class="comment">//使用list实现的队列</span></span><br></pre></td></tr></table></figure>
+<h3 id="队列基本操作"><a href="#队列基本操作" class="headerlink" title="队列基本操作"></a>队列基本操作</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">push</span><span class="params">(type &amp;x)</span></span>;        <span class="comment">//入队</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">const</span> type &amp;x)</span></span>;  <span class="comment">//入队</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">pop</span><span class="params">()</span></span>;                <span class="comment">//出队</span></span><br><span class="line"><span class="function">reference <span class="title">front</span><span class="params">()</span></span>;         <span class="comment">//返回队头（下一出队元素）</span></span><br><span class="line"><span class="function">reference <span class="title">back</span><span class="params">()</span></span>;          <span class="comment">//返回队尾（上一入队元素）</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">empty</span><span class="params">()</span> <span class="keyword">const</span> </span>;       <span class="comment">//是否为空</span></span><br><span class="line"><span class="function">size_type <span class="title">size</span><span class="params">()</span> <span class="keyword">const</span></span>;    <span class="comment">//队列规模</span></span><br></pre></td></tr></table></figure>
+<h2 id="优先级队列容器"><a href="#优先级队列容器" class="headerlink" title="优先级队列容器"></a>优先级队列容器</h2><p>priority_queue优先级队列容器，#include\<queue\></queue\></p>
+<p>（内部使用二叉树实现）</p>
+<h3 id="变量声明"><a href="#变量声明" class="headerlink" title="变量声明"></a>变量声明</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">priority_queue&lt;<span class="keyword">int</span>,<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;,less&lt;<span class="keyword">int</span>&gt;&gt; pq1;</span><br><span class="line"><span class="comment">//默认使用vector实现，内部降序排列，最大值出队</span></span><br><span class="line">priority_queue&lt;<span class="keyword">int</span>,<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;,greater&lt;<span class="keyword">int</span>&gt;&gt; pq2;<span class="comment">//vector实现，升序排列，最小值出队</span></span><br><span class="line">priority_queue&lt;<span class="keyword">int</span>,<span class="built_in">deque</span>&lt;<span class="keyword">int</span>&gt;,less&lt;<span class="keyword">int</span>&gt;&gt; pq3;<span class="comment">//使用deque实现</span></span><br></pre></td></tr></table></figure>
+<p>第三个参数为仿函数，即使用一个类，实际上完成一个函数的作用</p>
+<h3 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">const</span> type &amp;x)</span></span>;    <span class="comment">//入队</span></span><br><span class="line"><span class="function"><span class="keyword">const</span> type &amp; <span class="title">top</span><span class="params">()</span> <span class="keyword">const</span></span>;    <span class="comment">//返回队首值</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">pop</span><span class="params">()</span></span>;                  <span class="comment">//出队</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">empty</span><span class="params">()</span></span>;                <span class="comment">//检查是否为空</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">clear</span><span class="params">()</span></span>;                <span class="comment">//清空队列</span></span><br></pre></td></tr></table></figure>
+<h2 id="查找表容器"><a href="#查找表容器" class="headerlink" title="查找表容器"></a>查找表容器</h2><p>set“集合”：数据只有一个字段键的查找表#include\<set\></set\></p>
+<p>map“映射”：数据为键值对的查找表#include\<map\></map\></p>
+<p>pair类型：键值对类型，map的元素#include\<utility\></utility\></p>
+<p>注：set和map中不允许key出现重复，需要出现重复的key时可以使用multiset和multimap</p>
+<h3 id="查找表变量声明"><a href="#查找表变量声明" class="headerlink" title="查找表变量声明"></a>查找表变量声明</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt; s;</span><br><span class="line"><span class="built_in">map</span>&lt;<span class="built_in">string</span>,<span class="built_in">string</span>&gt; m;</span><br><span class="line">pair&lt;<span class="built_in">string</span>,<span class="built_in">string</span>&gt; p;</span><br></pre></td></tr></table></figure>
+<h3 id="查找表基本操作"><a href="#查找表基本操作" class="headerlink" title="查找表基本操作"></a>查找表基本操作</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">pair <span class="title">makr_pair</span><span class="params">(class1 obj1,class2 obj2)</span></span>;  <span class="comment">//生成pair变量，元素类型自动推断</span></span><br><span class="line">p.first;  p.second;                         <span class="comment">//pair变量的内容</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">empty</span><span class="params">()</span></span>;       <span class="comment">//判断是否为空</span></span><br><span class="line"><span class="function">size_type <span class="title">size</span><span class="params">()</span></span>;   <span class="comment">//容器规模</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">clear</span><span class="params">()</span></span>;       <span class="comment">//清空容器</span></span><br><span class="line"><span class="function">size_type <span class="title">count</span><span class="params">(<span class="keyword">const</span> key_type&amp; key)</span> <span class="keyword">const</span></span>;  <span class="comment">//计数键出现的次数（判断键是否存在）</span></span><br><span class="line"><span class="function">iterator <span class="title">erase</span><span class="params">(iterator position)</span></span>;           <span class="comment">//删除某位置元素</span></span><br><span class="line"><span class="function">iterator <span class="title">erase</span><span class="params">(iterator begin,iterator end)</span></span>; <span class="comment">//删除一段元素</span></span><br><span class="line"><span class="function">size_type <span class="title">erase</span><span class="params">(<span class="keyword">const</span> key_type&amp; key)</span></span>;        <span class="comment">//删除键为某值的元素</span></span><br><span class="line"><span class="function">iterator <span class="title">find</span><span class="params">(<span class="keyword">const</span> key_type&amp; key)</span></span>;          <span class="comment">//查询键的位置（找不到时返回end）</span></span><br><span class="line"><span class="function">iterator <span class="title">insert</span><span class="params">(value_type&amp; value)</span></span>;          <span class="comment">//插入（map中value_type为pair）</span></span><br><span class="line"></span><br><span class="line"><span class="function">mapped_type <span class="title">at</span><span class="params">(<span class="keyword">const</span> key_type&amp; key)</span></span>;         <span class="comment">//查找key对应的值</span></span><br><span class="line"><span class="comment">//map中可以直接使用下标运算，效果和at相同。但是如果目标不存在时会被创建并初始化</span></span><br></pre></td></tr></table></figure>
+<h3 id="查找表迭代器相关操作"><a href="#查找表迭代器相关操作" class="headerlink" title="查找表迭代器相关操作"></a>查找表迭代器相关操作</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">iterator <span class="title">begin</span><span class="params">()</span></span>;    <span class="comment">//返回头部</span></span><br><span class="line"><span class="function">iterator <span class="title">end</span><span class="params">()</span></span>;      <span class="comment">//返回尾部</span></span><br><span class="line"></span><br><span class="line"><span class="function">iterator <span class="title">lower_bound</span><span class="params">(key_value&amp; key)</span></span>;  <span class="comment">//返回值不小于key的第一个迭代器</span></span><br><span class="line"><span class="function">iterator <span class="title">upper_bound</span><span class="params">(key_value&amp; key)</span></span>;  <span class="comment">//返回大于key的第一个迭代器</span></span><br><span class="line">pair&lt;iterator,iterator&gt; equal_range(key_value&amp; key);  <span class="comment">//返回等于key的范围</span></span><br><span class="line"><span class="comment">//找不到的时候返回end</span></span><br></pre></td></tr></table></figure>
+<p>特点：</p>
+<ol>
+<li><p>map中的key是不可以修改的，但是每个key对应的value可以通过迭代器修改。</p>
+<p>set中只有key，因此不可以通过迭代器修改key的值</p>
+</li>
+<li><p>map中的元素默认按key升序排列</p>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+        
+      
+        <div id="reward-container">
+  <div>有钱的捧个钱场。</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.png" alt="Yang Lei WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+
+  </div>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/C-C/" rel="tag"><i class="fa fa-tag"></i> C/C++</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/10/03/makefile_base/" rel="next" title="Make的简单使用">
+                  <i class="fa fa-chevron-left"></i> Make的简单使用
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/10/04/reg-ex/" rel="prev" title="正则表达式的使用">
+                  正则表达式的使用 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#线性表容器"><span class="nav-number">1.</span> <span class="nav-text">线性表容器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#线性表变量声明"><span class="nav-number">1.1.</span> <span class="nav-text">线性表变量声明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#两者的共有操作"><span class="nav-number">1.2.</span> <span class="nav-text">两者的共有操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特有操作"><span class="nav-number">1.3.</span> <span class="nav-text">特有操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#迭代器相关操作"><span class="nav-number">1.4.</span> <span class="nav-text">迭代器相关操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#迭代器操作"><span class="nav-number">1.5.</span> <span class="nav-text">迭代器操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他操作"><span class="nav-number">1.6.</span> <span class="nav-text">其他操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#栈容器"><span class="nav-number">2.</span> <span class="nav-text">栈容器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#栈变量声明"><span class="nav-number">2.1.</span> <span class="nav-text">栈变量声明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#栈基本操作"><span class="nav-number">2.2.</span> <span class="nav-text">栈基本操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#队列容器"><span class="nav-number">3.</span> <span class="nav-text">队列容器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#队列变量声明"><span class="nav-number">3.1.</span> <span class="nav-text">队列变量声明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#队列基本操作"><span class="nav-number">3.2.</span> <span class="nav-text">队列基本操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优先级队列容器"><span class="nav-number">4.</span> <span class="nav-text">优先级队列容器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#变量声明"><span class="nav-number">4.1.</span> <span class="nav-text">变量声明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本操作"><span class="nav-number">4.2.</span> <span class="nav-text">基本操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查找表容器"><span class="nav-number">5.</span> <span class="nav-text">查找表容器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查找表变量声明"><span class="nav-number">5.1.</span> <span class="nav-text">查找表变量声明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查找表基本操作"><span class="nav-number">5.2.</span> <span class="nav-text">查找表基本操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查找表迭代器相关操作"><span class="nav-number">5.3.</span> <span class="nav-text">查找表迭代器相关操作</span></a></li></ol></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.gif"
+      alt="Yang Lei">
+  <p class="site-author-name" itemprop="name">Yang Lei</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">59</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">categories</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">tags</span>
+        </a>
+      </div>
+    
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/yangleisx" title="GitHub &rarr; https://github.com/yangleisx" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:yangleisxn@icloud.com" title="E-Mail &rarr; mailto:yangleisxn@icloud.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 – <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang Lei</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">Symbols count total: </span>
+    
+    <span title="Symbols count total">122k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">Reading time total &asymp;</span>
+    
+    <span title="Reading time total">1:42</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.0"></script><script src="/js/motion.js?v=7.4.0"></script>
+<script src="/js/schemes/pisces.js?v=7.4.0"></script>
+<script src="/js/next-boot.js?v=7.4.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

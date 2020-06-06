@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/appleicon.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.0">
+  <link rel="mask-icon" href="/images/logo.jpg?v=7.4.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.4.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"always","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="深度学习算法需要了解一些基本的线性代数知识。">
+<meta name="keywords" content="Deep Learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="花书第二章:线性代数">
+<meta property="og:url" content="http://YangLeiSX.github.io/2020/02/17/flowerC2/index.html">
+<meta property="og:site_name" content="杨磊的博客">
+<meta property="og:description" content="深度学习算法需要了解一些基本的线性代数知识。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-05-19T02:12:10.105Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="花书第二章:线性代数">
+<meta name="twitter:description" content="深度学习算法需要了解一些基本的线性代数知识。">
+  <link rel="canonical" href="http://YangLeiSX.github.io/2020/02/17/flowerC2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>花书第二章:线性代数 | 杨磊的博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">杨磊的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">人的本能是追逐从他身边飞走的东西，却逃避追逐他的东西。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="Searching..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="http://YangLeiSX.github.io/2020/02/17/flowerC2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杨磊的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">花书第二章:线性代数
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2020-02-17 00:09:30" itemprop="dateCreated datePublished" datetime="2020-02-17T00:09:30+08:00">2020-02-17</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-05-19 10:12:10" itemprop="dateModified" datetime="2020-05-19T10:12:10+08:00">2020-05-19</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/读书笔记/" itemprop="url" rel="index"><span itemprop="name">读书笔记</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              
+              <span>3.5k</span> 
+            </span>
+          
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              
+              <span>3 mins.</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>深度学习算法需要了解一些基本的线性代数知识。</p>
+<a id="more"></a>
+<h2 id="标量、向量、矩阵、张量"><a href="#标量、向量、矩阵、张量" class="headerlink" title="标量、向量、矩阵、张量"></a>标量、向量、矩阵、张量</h2><p>张量可以理解为维度比较高的数组，元素分布在若干维坐标的规则网络中。</p>
+<p>深度学习允许矩阵和向量的相加：<script type="math/tex">C = A + b := C_{i,j} = A_{i,j}+b_j</script>，即向量和矩阵的每一行相加。这种将向量复制到很多位置的方法称为广播。</p>
+<h2 id="矩阵和向量相乘"><a href="#矩阵和向量相乘" class="headerlink" title="矩阵和向量相乘"></a>矩阵和向量相乘</h2><p>矩阵乘法要求满足形状匹配。前者列数等于后者行数。</p>
+<p>矩阵乘法不可交换，向量和向量的点积可以交换。</p>
+<h2 id="单位矩阵和逆矩阵"><a href="#单位矩阵和逆矩阵" class="headerlink" title="单位矩阵和逆矩阵"></a>单位矩阵和逆矩阵</h2><p>单位矩阵：对角线元素为1</p>
+<p>形如$Ax=b$的方程有解$x=A^{-1}b$。前提为$A^{-1}$存在。</p>
+<h2 id="线性相关和生成空间"><a href="#线性相关和生成空间" class="headerlink" title="线性相关和生成空间"></a>线性相关和生成空间</h2><p>矩阵A的列向量的线性组合b称为列空间或者值域。对于列空间内的向量b存在向量x使得$Ax=b$。</p>
+<p>要使方程有解，要求列向量组成的列空间为整个$\mathbb{R}^m$。即列向量线性无关。</p>
+<h2 id="范数"><a href="#范数" class="headerlink" title="范数"></a>范数</h2><p>定义$L^p$范数为$||x||_p = (\sum_i|x_i|^p)^{\frac{1}{p}}$。</p>
+<p>范数是将向量映射到非负值的函数。满足$f(x)=0 -&gt; x=0$、$f(x+y) \leq f(x)+f(y)$、$f(\alpha x)=|\alpha|f(x)$。</p>
+<p>最常用的为$L^2$范数、平方$L^2$范数和$L^1$范数。</p>
+<p>最大范数$||x||_{\infty} = max|x_i|$。</p>
+<p>衡量矩阵使用Frobenius范数<script type="math/tex">||A||_F = \sqrt{\sum_{i,j}A_{i,j}^2}</script>。</p>
+<h2 id="特殊矩阵和向量"><a href="#特殊矩阵和向量" class="headerlink" title="特殊矩阵和向量"></a>特殊矩阵和向量</h2><p>对角矩阵：只有主对角线有非零元素。乘法计算非常高效。</p>
+<p>对称矩阵：转置和原矩阵相同。</p>
+<p>单位向量具有单位范数。</p>
+<p>正交矩阵表示行向量和列向量分别是标准正交。$AA^T=I=A^TA$。</p>
+<h2 id="特征分解"><a href="#特征分解" class="headerlink" title="特征分解"></a>特征分解</h2><p>将矩阵分为特征值和特征向量。即$Av=\lambda v$。</p>
+<p>将特征向量作为列向量拼接得到V，将特征值得到对角矩阵，可以有$A = Vdiag(\lambda)V^{-1}$。</p>
+<p>对于实对称矩阵A，有$A = Q \Lambda Q^T$。</p>
+<p>所有特征值为正数的矩阵为正定矩阵。</p>
+<h2 id="奇异值分解SVD"><a href="#奇异值分解SVD" class="headerlink" title="奇异值分解SVD"></a>奇异值分解SVD</h2><p>将矩阵分解为奇异值和奇异向量。$A = UDV^T$</p>
+<p>如果A为$m\times n$，则U为$m\times m$、D为$m \times n$对角矩阵、V为$n \times n$。</p>
+<p>U的列向量叫做左奇异向量，是$AA^T$的特征向量。V的列向量为右奇异向量，是$A^TA$的特征向量。D的对角线元素叫做奇异值，是$AA^T$和$A^TA$特征值的平方根。</p>
+<p>SVD将矩阵求逆拓展到非方矩阵。</p>
+<h2 id="Moore-Penrose伪逆"><a href="#Moore-Penrose伪逆" class="headerlink" title="Moore-Penrose伪逆"></a>Moore-Penrose伪逆</h2><p>伪逆是指非方矩阵的逆。通过奇异值分解来计算。</p>
+<p>由$A=UDV^T$得$A^+ = VD^+U^T$。其中$D^+$是D的非零元素取倒数。</p>
+<p>通过伪逆求$Ax=y$的解$x=A^+y$。A列数大于行数时结果$||x||_2$最小，行数大于列数时$||Ax-y||_2$最小。</p>
+<h2 id="迹运算"><a href="#迹运算" class="headerlink" title="迹运算"></a>迹运算</h2><p>迹运算是对角元素之和$Tr(A)=\sum A_{i,i}$。</p>
+<p>具有很多性质。例如Frobenius范数$||A||_F = \sqrt{Tr(AA^T)}$、循环置换后迹不变$Tr(ABC)=Tr(BCA)=Tr(CAB)$。</p>
+<h2 id="行列式"><a href="#行列式" class="headerlink" title="行列式"></a>行列式</h2><p>将矩阵映射到实数的函数。</p>
+<p>数值上是矩阵特征值的乘积。</p>
+<h2 id="主成分分析PCA"><a href="#主成分分析PCA" class="headerlink" title="主成分分析PCA"></a>主成分分析PCA</h2><p>关键思想：高维空间的数据的有损压缩。</p>
+<p>对于$\mathbb{R}^n$中的数据$x^{(i)}$使用$c^{(i)} \in \mathbb{R}^l,l \lt n$表示，即使用低维数据表示。使用$f(x)=c$表示编码，$g(c) = Dc$表示解码过程。要求$||x-g(c)||_2$达到最小，表示信息损失越小。</p>
+<p>问题变为最小化问题<script type="math/tex">c^*=\arg\min \limits_{c}||x-g(c)||_2^2</script>（使用平方$L^2$范数简化运算和表示）。进一步展开表达式并带入$g(c) = Dc$得到最终的优化目标函数<script type="math/tex">c^* = \arg\min\limits_{c}(-2x^TDc+c^Tc)</script>。通过微分可以解得$c=D^Tx$。因此要求得到一个合适的编码矩阵。</p>
+<p>由于对所有的点使用相同的编码矩阵，因此寻找编码矩阵时要求原数据和重构数据的误差矩阵的Frobenius范数最小，即<script type="math/tex">D^* = \arg\min\limits_{D}\sqrt{\sum\limits_{i,j}(x_j^{(i)} - r(x^{(i)})_j)^2} \ subject\ to \ D^TD=I_l</script>。</p>
+<p>当$l=1$的时候，上述方程简化为<script type="math/tex">d^* = \arg\max\limits_{d}Tr(d^TX^TXd)\ subject\ to\ d^Td=1</script>。此时d为$X^TX$最大的特征值对应的特征向量。</p>
+<p>最终得到，矩阵D的列向量为前$l$个最大的特征值对应的特征向量。</p>
+
+    </div>
+
+    
+    
+    
+        
+      
+        <div id="reward-container">
+  <div>有钱的捧个钱场。</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.png" alt="Yang Lei WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+
+  </div>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/Deep-Learning/" rel="tag"><i class="fa fa-tag"></i> Deep Learning</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2020/02/16/flowerC1/" rel="next" title="花书第一章:引言">
+                  <i class="fa fa-chevron-left"></i> 花书第一章:引言
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2020/02/20/flowerC3/" rel="prev" title="花书第三章:概率与信息论">
+                  花书第三章:概率与信息论 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#标量、向量、矩阵、张量"><span class="nav-number">1.</span> <span class="nav-text">标量、向量、矩阵、张量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#矩阵和向量相乘"><span class="nav-number">2.</span> <span class="nav-text">矩阵和向量相乘</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单位矩阵和逆矩阵"><span class="nav-number">3.</span> <span class="nav-text">单位矩阵和逆矩阵</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线性相关和生成空间"><span class="nav-number">4.</span> <span class="nav-text">线性相关和生成空间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#范数"><span class="nav-number">5.</span> <span class="nav-text">范数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特殊矩阵和向量"><span class="nav-number">6.</span> <span class="nav-text">特殊矩阵和向量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特征分解"><span class="nav-number">7.</span> <span class="nav-text">特征分解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#奇异值分解SVD"><span class="nav-number">8.</span> <span class="nav-text">奇异值分解SVD</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Moore-Penrose伪逆"><span class="nav-number">9.</span> <span class="nav-text">Moore-Penrose伪逆</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#迹运算"><span class="nav-number">10.</span> <span class="nav-text">迹运算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#行列式"><span class="nav-number">11.</span> <span class="nav-text">行列式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主成分分析PCA"><span class="nav-number">12.</span> <span class="nav-text">主成分分析PCA</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.gif"
+      alt="Yang Lei">
+  <p class="site-author-name" itemprop="name">Yang Lei</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">59</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">categories</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">tags</span>
+        </a>
+      </div>
+    
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/yangleisx" title="GitHub &rarr; https://github.com/yangleisx" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:yangleisxn@icloud.com" title="E-Mail &rarr; mailto:yangleisxn@icloud.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 – <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang Lei</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">Symbols count total: </span>
+    
+    <span title="Symbols count total">122k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">Reading time total &asymp;</span>
+    
+    <span title="Reading time total">1:42</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.0"></script><script src="/js/motion.js?v=7.4.0"></script>
+<script src="/js/schemes/pisces.js?v=7.4.0"></script>
+<script src="/js/next-boot.js?v=7.4.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+    
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+  
+
+  
+
+  
+
+</body>
+</html>
