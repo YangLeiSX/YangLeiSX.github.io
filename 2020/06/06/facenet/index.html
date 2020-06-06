@@ -55,19 +55,19 @@
   };
 </script>
 
-  <meta name="description" content="论文题目: Attention is All You Need 开源项目地址transformer">
-<meta name="keywords" content="Deep Learning,Machine Translate">
+  <meta name="description" content="论文题目：FaceNet: A Unified Embedding for Face Recognition and Clustering 作者：Florian Schroff、Dmitry Kalenichenko、James Philbin 会议/时间：2015 链接：原文链接">
+<meta name="keywords" content="Deep Learning">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【论文】Attention is All You Need">
-<meta property="og:url" content="http://YangLeiSX.github.io/2020/02/04/transformer/index.html">
+<meta property="og:title" content="【论文】FaceNet：A Unified Embedding for Face Recognition and Clustering">
+<meta property="og:url" content="http://YangLeiSX.github.io/2020/06/06/facenet/index.html">
 <meta property="og:site_name" content="杨磊的博客">
-<meta property="og:description" content="论文题目: Attention is All You Need 开源项目地址transformer">
+<meta property="og:description" content="论文题目：FaceNet: A Unified Embedding for Face Recognition and Clustering 作者：Florian Schroff、Dmitry Kalenichenko、James Philbin 会议/时间：2015 链接：原文链接">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-05-19T02:47:27.069Z">
+<meta property="og:updated_time" content="2020-06-06T12:10:00.644Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="【论文】Attention is All You Need">
-<meta name="twitter:description" content="论文题目: Attention is All You Need 开源项目地址transformer">
-  <link rel="canonical" href="http://YangLeiSX.github.io/2020/02/04/transformer/">
+<meta name="twitter:title" content="【论文】FaceNet：A Unified Embedding for Face Recognition and Clustering">
+<meta name="twitter:description" content="论文题目：FaceNet: A Unified Embedding for Face Recognition and Clustering 作者：Florian Schroff、Dmitry Kalenichenko、James Philbin 会议/时间：2015 链接：原文链接">
+  <link rel="canonical" href="http://YangLeiSX.github.io/2020/06/06/facenet/">
 
 
 <script id="page-configurations">
@@ -81,7 +81,7 @@
   };
 </script>
 
-  <title>【论文】Attention is All You Need | 杨磊的博客</title>
+  <title>【论文】FaceNet：A Unified Embedding for Face Recognition and Clustering | 杨磊的博客</title>
   
 
 
@@ -254,7 +254,7 @@
   
   
   <div class="post-block post">
-    <link itemprop="mainEntityOfPage" href="http://YangLeiSX.github.io/2020/02/04/transformer/">
+    <link itemprop="mainEntityOfPage" href="http://YangLeiSX.github.io/2020/06/06/facenet/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Yang Lei">
@@ -266,7 +266,7 @@
       <meta itemprop="name" content="杨磊的博客">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">【论文】Attention is All You Need
+        <h1 class="post-title" itemprop="name headline">【论文】FaceNet：A Unified Embedding for Face Recognition and Clustering
 
           
         </h1>
@@ -282,19 +282,11 @@
                 
               
 
-              <time title="Created: 2020-02-04 16:40:41" itemprop="dateCreated datePublished" datetime="2020-02-04T16:40:41+08:00">2020-02-04</time>
+              <time title="Created: 2020-06-06 15:48:29 / Modified: 20:10:00" itemprop="dateCreated datePublished" datetime="2020-06-06T15:48:29+08:00">2020-06-06</time>
             </span>
           
             
 
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-05-19 10:47:27" itemprop="dateModified" datetime="2020-05-19T10:47:27+08:00">2020-05-19</time>
-              </span>
             
           
             <span class="post-meta-item">
@@ -320,7 +312,7 @@
               
                 <span class="post-meta-item-text">Symbols count in article: </span>
               
-              <span>2.1k</span> 
+              <span>2k</span> 
             </span>
           
             <span class="post-meta-item" title="Reading time">
@@ -343,26 +335,22 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>论文题目: Attention is All You Need</p>
-<p>开源项目地址<a href="https://github.com/tensorflow/tensor2tensor" target="_blank" rel="noopener">transformer</a></p>
+        <p>论文题目：FaceNet: A Unified Embedding for Face Recognition and Clustering</p>
+<p>作者：Florian Schroff、Dmitry Kalenichenko、James Philbin</p>
+<p>会议/时间：2015</p>
+<p>链接：<a href="https://arxiv.org/pdf/1503.03832.pdf" target="_blank" rel="noopener">原文链接</a></p>
 <a id="more"></a>
-<h2 id="主要内容"><a href="#主要内容" class="headerlink" title="主要内容"></a>主要内容</h2><p>文章实现了一种仅使用attention机制，完全去除卷积网络和循环网络的结构，称为Transformer网络。</p>
-<p>在实现比较高的准确性的基础上，具有较低的计算成本。</p>
-<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>目前常用的序列处理模型通常使用一个编码器和一个解码器，在两者的连接中使用attention机制，而且编码器和解码器的实现使用复杂的CNN和RNN。</p>
-<p>由于RNN结构引入的时序逻辑不利于并行计算，引入比较高的计算成本。因此Transformer结构中除去了RNN而仅使用attention结构来学习序列前后的相关性。</p>
-<p>在transformer中仅使用self-attention机制来学习序列中不同元素之间的关系。</p>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>使用self-attention和full connect实现。</p>
-<p>编码器的实现中，使用若干个块，每个块包括一个multi-head attention层和一个全联接的feed foward层，其中每一层都引入了残差连接和正规化，构成$LayerNorm(x + Sublayer(x))$的结构。</p>
-<p>解码器的实现中，同样使用若干个块，每个块为编码器的基本块之前加上一个masked multi-head attention结构。同时将上一时刻的输出作为下一个时刻的输入，使得输出仅由之前的输入决定。</p>
-<p>Scaled Dot-Product Attention的结构为将Q(uery)、K(ey)、V(alue)映射得到输出。输入为$d_k$维的Key向量和$d_v$维的Value向量，计算方法为矩阵相乘的结果缩放后再Softmax得到Value元素对应的权重，即$Attention(Q,K,V) = Softmax(\frac{QK^T}{\sqrt{d_k}})V$。使用矩阵乘法的实现计算更快。</p>
-<p>Multi-head Attnetion为多个Attention层组合得到。通过将V、K、Q线性投影到h个attention网络，将其结果通过concat组合之后再线性投影得到结果，即$MultiHead(Q,K,V) = Concat(head_1,hed_2…)W^O$，其中$head_i = Attention(QW^Q_i, KW^K_i, VW^V_i)$。</p>
-<p>注意解码器的Q来自解码器上一输出经过Masked Multi-Head Attention的结果，K、V来自编码器的输出。而编码器的Q、K、V来自上一层的输出。</p>
-<p>在Masked Multi-Head Attention中，SoftMax的输出被屏蔽（设置为$-\infty$）。</p>
-<p>在Attention之后的Feed Forward网络中，使用两次ReLU得到$FFN(x) = max(0, xW_1+b_1)W_2+b_2$。</p>
-<p>对于输入，还需要进行embedding和positional encoding操作。使用learned embeddings将输入转化为向量。后者引入顺序和位置信息，使用$PE<em>{(pos,2i)} = sin(pos/10000^{2i/d</em>{model}})$和$PE<em>{(pos,2i+1)} = cos(pos/10000^{2i/d</em>{model}})$，其中pos为位置，i为维数。</p>
-<p>对于输出，使用线性转换（learned linear transformation）和softmax将输出转变为概率。这里的线性转换和输入的embeddings使用相同的权重（embedding中乘$\sqrt{d_{model}}$,即向量规模的平方根）。</p>
-<h2 id="评价"><a href="#评价" class="headerlink" title="评价"></a>评价</h2><p>使用attention相比直接使用卷积或循环，计算复杂度比较低，同时更有利于并行计算。</p>
-<p>同时attention结构更有助于学习长句子，能学习到距离较远的信息。</p>
+<h2 id="论文目标"><a href="#论文目标" class="headerlink" title="论文目标"></a>论文目标</h2><p>学习一种直接的从面部图片到欧氏空间向量的映射，用于人脸识别、分类和聚类等工作。欧氏空间向量之间的距离表示图片内人脸的相似度。</p>
+<h2 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h2><p>过去的人脸识别网络中往往通过人脸识别/分类等任务训练，最终将其中的某一层提取出来用作特征向量的生成。缺点在于泛化能力可能不够强，而且往往生成的特征向量长度比较大，效率较低。多数研究中对于较长的特征向量使用PCA简化。</p>
+<h2 id="本文思路-解决方案"><a href="#本文思路-解决方案" class="headerlink" title="本文思路/解决方案"></a>本文思路/解决方案</h2><p>通过引入triplet loss和online triplet mining method，直接学习得到特征向量，具体是对于深度神经网络的输出，经过L2Norm后得到向量，并使用Triplet loss优化。本文作者使用的两种深度网络分别来自Zeiler&amp;Fergus Model和Szegedy’s Inception Model，将其视作黑箱并训练。</p>
+<p>文中假设相同的人输入的数据分布在欧氏空间内的一个超平面，当给定一组triplet（包括锚anchor、正例positive、反例negative，其中anchor和positive是同一类）时，则有<script type="math/tex">||f(x_i^a)-f(x_i^p)||^2_2+\alpha < ||f(x_i^a)-f(x_i^n)||^2_2</script>，即正例的距离与反例距离的差值不小于给定的边界值$\alpha$。从而得到优化目标为<script type="math/tex">triplet\ loss = \sum\limits_{i}^{N}\left[||f(x_i^a)-f(x_i^p)||^2_2+\alpha - ||f(x_i^a)-f(x_i^n)||^2_2 \right]_+</script>。</p>
+<p>在训练过程中，需要选择合适的数据计算损失函数，如果选择简单的triplet会导致收敛缓慢，训练效果较差。因此在训练过程中，对于每一个给定的数据$x<em>i^a$，选择距离最大的正例($\arg\max</em>{x_i^p}||f(x_i^a)-f(x_i^p)||^2_2$)和距离最小的反例($\arg\min||f(x_i^a)-f(x_i^n)||^2$)，称为hard取样。</p>
+<p>在实际的训练过程中，获得满足要求的triplet是不可能的，两种可行的方法包括：offline方式（每次训练N步后计算距离并选择triplet）、online方法（在每一个batch中选择满足要求的数据）。选择后者时需要注意保证每一个batch中都必须含有正例和反例。</p>
+<p>当在训练开始时就选择hard采样时，会导致模型进入局部最优，因此提出了semi-hard取样，即选择那些满足<script type="math/tex">||f(x_i^a)-f(x_i^p)||^2_2 < ||f(x_i^a)-f(x_i^n)||^2_2</script>的反例数据组成triplet进行训练。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
+<li>提出了triplet loss，便于直接训练一个图像到向量的映射。</li>
+<li>分析了选择triplet的方式，使用semi-hard策略解决hard策略的缺点。</li>
+</ol>
 
     </div>
 
@@ -397,8 +385,6 @@
             
               <a href="/tags/Deep-Learning/" rel="tag"><i class="fa fa-tag"></i> Deep Learning</a>
             
-              <a href="/tags/Machine-Translate/" rel="tag"><i class="fa fa-tag"></i> Machine Translate</a>
-            
           </div>
         
 
@@ -407,8 +393,8 @@
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2020/02/03/resnet/" rel="next" title="【论文】Deep Residual Learning for Image Recognition">
-                  <i class="fa fa-chevron-left"></i> 【论文】Deep Residual Learning for Image Recognition
+                <a href="/2020/06/06/deepid2/" rel="next" title="【论文】Deep Learning Face Representation by Joint Identification-Verification">
+                  <i class="fa fa-chevron-left"></i> 【论文】Deep Learning Face Representation by Joint Identification-Verification
                 </a>
               
             </div>
@@ -416,10 +402,6 @@
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-              
-                <a href="/2020/02/12/python-pytorch/" rel="prev" title="PyTorch学习笔记">
-                  PyTorch学习笔记 <i class="fa fa-chevron-right"></i>
-                </a>
               
             </div>
           </div>
@@ -468,7 +450,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#主要内容"><span class="nav-number">1.</span> <span class="nav-text">主要内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">2.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现"><span class="nav-number">3.</span> <span class="nav-text">实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#评价"><span class="nav-number">4.</span> <span class="nav-text">评价</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#论文目标"><span class="nav-number">1.</span> <span class="nav-text">论文目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关工作"><span class="nav-number">2.</span> <span class="nav-text">相关工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本文思路-解决方案"><span class="nav-number">3.</span> <span class="nav-text">本文思路/解决方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->
