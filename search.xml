@@ -1,30 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>【论文】FaceNet：A Unified Embedding for Face Recognition and Clustering</title>
-    <url>/2020/06/06/facenet/</url>
-    <content><![CDATA[<p>论文题目：FaceNet: A Unified Embedding for Face Recognition and Clustering</p>
-<p>作者：Florian Schroff、Dmitry Kalenichenko、James Philbin</p>
-<p>会议/时间：2015</p>
-<p>链接：<a href="https://arxiv.org/pdf/1503.03832.pdf" target="_blank" rel="noopener">原文链接</a></p>
+    <title>WinAPI的数据类型(字符串)</title>
+    <url>/2020/06/11/win-api-type/</url>
+    <content><![CDATA[<p>刚开始使用Windows提供的各种API函数时，对于函数参数的类型感到非常的迷惑，实际上Windows中对于各种C++数据类型做了封装和处理，得到了一组Windows的变量类型，其中的部分字符和字符串的定义如下。</p>
+<p>其他的类型定义可以在具体使用时搜索查看头文件（例如<code>#include &lt;Windows.h&gt;</code>）或者MSDN。</p>
 <a id="more"></a>
-<h2 id="论文目标"><a href="#论文目标" class="headerlink" title="论文目标"></a>论文目标</h2><p>学习一种直接的从面部图片到欧氏空间向量的映射，用于人脸识别、分类和聚类等工作。欧氏空间向量之间的距离表示图片内人脸的相似度。</p>
-<h2 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h2><p>过去的人脸识别网络中往往通过人脸识别/分类等任务训练，最终将其中的某一层提取出来用作特征向量的生成。缺点在于泛化能力可能不够强，而且往往生成的特征向量长度比较大，效率较低。多数研究中对于较长的特征向量使用PCA简化。</p>
-<h2 id="本文思路-解决方案"><a href="#本文思路-解决方案" class="headerlink" title="本文思路/解决方案"></a>本文思路/解决方案</h2><p>通过引入triplet loss和online triplet mining method，直接学习得到特征向量，具体是对于深度神经网络的输出，经过L2Norm后得到向量，并使用Triplet loss优化。本文作者使用的两种深度网络分别来自Zeiler&amp;Fergus Model和Szegedy’s Inception Model，将其视作黑箱并训练。</p>
-<p>文中假设相同的人输入的数据分布在欧氏空间内的一个超平面，当给定一组triplet（包括锚anchor、正例positive、反例negative，其中anchor和positive是同一类）时，则有<script type="math/tex">||f(x_i^a)-f(x_i^p)||^2_2+\alpha < ||f(x_i^a)-f(x_i^n)||^2_2</script>，即正例的距离与反例距离的差值不小于给定的边界值$\alpha$。从而得到优化目标为<script type="math/tex">triplet\ loss = \sum\limits_{i}^{N}\left[||f(x_i^a)-f(x_i^p)||^2_2+\alpha - ||f(x_i^a)-f(x_i^n)||^2_2 \right]_+</script>。</p>
-<p>在训练过程中，需要选择合适的数据计算损失函数，如果选择简单的triplet会导致收敛缓慢，训练效果较差。因此在训练过程中，对于每一个给定的数据$x<em>i^a$，选择距离最大的正例($\arg\max</em>{x_i^p}||f(x_i^a)-f(x_i^p)||^2_2$)和距离最小的反例($\arg\min||f(x_i^a)-f(x_i^n)||^2$)，称为hard取样。</p>
-<p>在实际的训练过程中，获得满足要求的triplet是不可能的，两种可行的方法包括：offline方式（每次训练N步后计算距离并选择triplet）、online方法（在每一个batch中选择满足要求的数据）。选择后者时需要注意保证每一个batch中都必须含有正例和反例。</p>
-<p>当在训练开始时就选择hard采样时，会导致模型进入局部最优，因此提出了semi-hard取样，即选择那些满足<script type="math/tex">||f(x_i^a)-f(x_i^p)||^2_2 < ||f(x_i^a)-f(x_i^n)||^2_2</script>的反例数据组成triplet进行训练。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
-<li>提出了triplet loss，便于直接训练一个图像到向量的映射。</li>
-<li>分析了选择triplet的方式，使用semi-hard策略解决hard策略的缺点。</li>
-</ol>
+<h2 id="字符和字符串类型"><a href="#字符和字符串类型" class="headerlink" title="字符和字符串类型"></a>字符和字符串类型</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>变量类型</th>
+<th>解释</th>
+<th>定义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CHAR</td>
+<td>ANSI型字符</td>
+<td>char</td>
+</tr>
+<tr>
+<td>WCHAT</td>
+<td>Unicode型字符</td>
+<td>wchar_t</td>
+</tr>
+<tr>
+<td>TCHAR</td>
+<td>自适应字符（ANSI or Unicode）</td>
+<td>可变</td>
+</tr>
+<tr>
+<td>LPSTR/PSTR</td>
+<td>ANSI型字符串</td>
+<td>char*</td>
+</tr>
+<tr>
+<td>LPWSTR/PWSTR</td>
+<td>Unicode型字符串</td>
+<td>wchar_t*</td>
+</tr>
+<tr>
+<td>LPTSTR/PTSTR</td>
+<td>自适应字符串（ANSI or Unicode）</td>
+<td>可变</td>
+</tr>
+<tr>
+<td>LPCSTR/PCSTR</td>
+<td>常量ANSI型字符串</td>
+<td>const char*</td>
+</tr>
+<tr>
+<td>LPCWSTR/PCWSTR</td>
+<td>常量Unicode型字符串</td>
+<td>const wchar_t*</td>
+</tr>
+<tr>
+<td>LPCTSTR/PCTSTR</td>
+<td>常量自适应字符串</td>
+<td>可变</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>其中的前缀LP/P，可以理解为表示指针Pointer（字符串变量为字符数组的首地址指针）。</p>
+<h2 id="字符串函数"><a href="#字符串函数" class="headerlink" title="字符串函数"></a>字符串函数</h2><p>绝大多数操作字符串的函数都提供了A和W两种，例如RegOpenExA()和RegOpenExW()，同时提供了自适应的版本RegOpenEx()，A为后缀的函数参数通常为ANSI型，W为后缀的函数参数通常为Unicode型，无后缀的函数使用自适应定义。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> UNICODE</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> TCHAR Wchar_t</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> TCHAR char</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> UNICODE</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> RegOpenEx RegOpenExW</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> RegOpenEx RegOpenExA</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+<p><a href="https://docs.microsoft.com/en-us/windows/win32/learnwin32/working-with-strings" target="_blank" rel="noopener">参考MSDN</a></p>
 ]]></content>
       <categories>
-        <category>论文阅读</category>
+        <category>代码学习</category>
       </categories>
       <tags>
-        <tag>Deep Learning</tag>
+        <tag>C/C++</tag>
+        <tag>Windows</tag>
+        <tag>WinAPI</tag>
       </tags>
   </entry>
   <entry>
@@ -51,6 +102,33 @@
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
 <li>使用identification和verification结合的方式，合理选择权重超参数，使得学习效果进一步提升。</li>
 <li>在verification中测试多种损失函数，最终选择了效果最好的基于L2的模型。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>论文阅读</category>
+      </categories>
+      <tags>
+        <tag>Deep Learning</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【论文】FaceNet：A Unified Embedding for Face Recognition and Clustering</title>
+    <url>/2020/06/06/facenet/</url>
+    <content><![CDATA[<p>论文题目：FaceNet: A Unified Embedding for Face Recognition and Clustering</p>
+<p>作者：Florian Schroff、Dmitry Kalenichenko、James Philbin</p>
+<p>会议/时间：2015</p>
+<p>链接：<a href="https://arxiv.org/pdf/1503.03832.pdf" target="_blank" rel="noopener">原文链接</a></p>
+<a id="more"></a>
+<h2 id="论文目标"><a href="#论文目标" class="headerlink" title="论文目标"></a>论文目标</h2><p>学习一种直接的从面部图片到欧氏空间向量的映射，用于人脸识别、分类和聚类等工作。欧氏空间向量之间的距离表示图片内人脸的相似度。</p>
+<h2 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h2><p>过去的人脸识别网络中往往通过人脸识别/分类等任务训练，最终将其中的某一层提取出来用作特征向量的生成。缺点在于泛化能力可能不够强，而且往往生成的特征向量长度比较大，效率较低。多数研究中对于较长的特征向量使用PCA简化。</p>
+<h2 id="本文思路-解决方案"><a href="#本文思路-解决方案" class="headerlink" title="本文思路/解决方案"></a>本文思路/解决方案</h2><p>通过引入triplet loss和online triplet mining method，直接学习得到特征向量，具体是对于深度神经网络的输出，经过L2Norm后得到向量，并使用Triplet loss优化。本文作者使用的两种深度网络分别来自Zeiler&amp;Fergus Model和Szegedy’s Inception Model，将其视作黑箱并训练。</p>
+<p>文中假设相同的人输入的数据分布在欧氏空间内的一个超平面，当给定一组triplet（包括锚anchor、正例positive、反例negative，其中anchor和positive是同一类）时，则有<script type="math/tex">||f(x_i^a)-f(x_i^p)||^2_2+\alpha < ||f(x_i^a)-f(x_i^n)||^2_2</script>，即正例的距离与反例距离的差值不小于给定的边界值$\alpha$。从而得到优化目标为<script type="math/tex">triplet\ loss = \sum\limits_{i}^{N}\left[||f(x_i^a)-f(x_i^p)||^2_2+\alpha - ||f(x_i^a)-f(x_i^n)||^2_2 \right]_+</script>。</p>
+<p>在训练过程中，需要选择合适的数据计算损失函数，如果选择简单的triplet会导致收敛缓慢，训练效果较差。因此在训练过程中，对于每一个给定的数据$x<em>i^a$，选择距离最大的正例($\arg\max</em>{x_i^p}||f(x_i^a)-f(x_i^p)||^2_2$)和距离最小的反例($\arg\min||f(x_i^a)-f(x_i^n)||^2$)，称为hard取样。</p>
+<p>在实际的训练过程中，获得满足要求的triplet是不可能的，两种可行的方法包括：offline方式（每次训练N步后计算距离并选择triplet）、online方法（在每一个batch中选择满足要求的数据）。选择后者时需要注意保证每一个batch中都必须含有正例和反例。</p>
+<p>当在训练开始时就选择hard采样时，会导致模型进入局部最优，因此提出了semi-hard取样，即选择那些满足<script type="math/tex">||f(x_i^a)-f(x_i^p)||^2_2 < ||f(x_i^a)-f(x_i^n)||^2_2</script>的反例数据组成triplet进行训练。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
+<li>提出了triplet loss，便于直接训练一个图像到向量的映射。</li>
+<li>分析了选择triplet的方式，使用semi-hard策略解决hard策略的缺点。</li>
 </ol>
 ]]></content>
       <categories>
