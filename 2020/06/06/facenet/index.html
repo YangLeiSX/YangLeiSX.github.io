@@ -63,7 +63,7 @@
 <meta property="og:site_name" content="杨磊的博客">
 <meta property="og:description" content="论文题目：FaceNet: A Unified Embedding for Face Recognition and Clustering 作者：Florian Schroff、Dmitry Kalenichenko、James Philbin 会议/时间：2015 链接：原文链接">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-06-06T12:10:00.644Z">
+<meta property="og:updated_time" content="2020-06-14T02:49:15.205Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【论文】FaceNet：A Unified Embedding for Face Recognition and Clustering">
 <meta name="twitter:description" content="论文题目：FaceNet: A Unified Embedding for Face Recognition and Clustering 作者：Florian Schroff、Dmitry Kalenichenko、James Philbin 会议/时间：2015 链接：原文链接">
@@ -282,11 +282,19 @@
                 
               
 
-              <time title="Created: 2020-06-06 15:48:29 / Modified: 20:10:00" itemprop="dateCreated datePublished" datetime="2020-06-06T15:48:29+08:00">2020-06-06</time>
+              <time title="Created: 2020-06-06 15:48:29" itemprop="dateCreated datePublished" datetime="2020-06-06T15:48:29+08:00">2020-06-06</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-14 10:49:15" itemprop="dateModified" datetime="2020-06-14T10:49:15+08:00">2020-06-14</time>
+              </span>
             
           
             <span class="post-meta-item">
@@ -344,7 +352,7 @@
 <h2 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h2><p>过去的人脸识别网络中往往通过人脸识别/分类等任务训练，最终将其中的某一层提取出来用作特征向量的生成。缺点在于泛化能力可能不够强，而且往往生成的特征向量长度比较大，效率较低。多数研究中对于较长的特征向量使用PCA简化。</p>
 <h2 id="本文思路-解决方案"><a href="#本文思路-解决方案" class="headerlink" title="本文思路/解决方案"></a>本文思路/解决方案</h2><p>通过引入triplet loss和online triplet mining method，直接学习得到特征向量，具体是对于深度神经网络的输出，经过L2Norm后得到向量，并使用Triplet loss优化。本文作者使用的两种深度网络分别来自Zeiler&amp;Fergus Model和Szegedy’s Inception Model，将其视作黑箱并训练。</p>
 <p>文中假设相同的人输入的数据分布在欧氏空间内的一个超平面，当给定一组triplet（包括锚anchor、正例positive、反例negative，其中anchor和positive是同一类）时，则有<script type="math/tex">||f(x_i^a)-f(x_i^p)||^2_2+\alpha < ||f(x_i^a)-f(x_i^n)||^2_2</script>，即正例的距离与反例距离的差值不小于给定的边界值$\alpha$。从而得到优化目标为<script type="math/tex">triplet\ loss = \sum\limits_{i}^{N}\left[||f(x_i^a)-f(x_i^p)||^2_2+\alpha - ||f(x_i^a)-f(x_i^n)||^2_2 \right]_+</script>。</p>
-<p>在训练过程中，需要选择合适的数据计算损失函数，如果选择简单的triplet会导致收敛缓慢，训练效果较差。因此在训练过程中，对于每一个给定的数据$x<em>i^a$，选择距离最大的正例($\arg\max</em>{x_i^p}||f(x_i^a)-f(x_i^p)||^2_2$)和距离最小的反例($\arg\min||f(x_i^a)-f(x_i^n)||^2$)，称为hard取样。</p>
+<p>在训练过程中，需要选择合适的数据计算损失函数，如果选择简单的triplet会导致收敛缓慢，训练效果较差。因此在训练过程中，对于每一个给定的数据<script type="math/tex">x_i^a</script>，选择距离最大的正例(<script type="math/tex">\arg\max_{x_i^p}||f(x_i^a)-f(x_i^p)||^2_2</script>)和距离最小的反例(<script type="math/tex">\arg\min||f(x_i^a)-f(x_i^n)||^2</script>)，称为hard取样。</p>
 <p>在实际的训练过程中，获得满足要求的triplet是不可能的，两种可行的方法包括：offline方式（每次训练N步后计算距离并选择triplet）、online方法（在每一个batch中选择满足要求的数据）。选择后者时需要注意保证每一个batch中都必须含有正例和反例。</p>
 <p>当在训练开始时就选择hard采样时，会导致模型进入局部最优，因此提出了semi-hard取样，即选择那些满足<script type="math/tex">||f(x_i^a)-f(x_i^p)||^2_2 < ||f(x_i^a)-f(x_i^n)||^2_2</script>的反例数据组成triplet进行训练。</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>

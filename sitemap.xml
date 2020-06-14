@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yangleisx.github.io/2020/06/06/facenet/</loc>
+    
+    <lastmod>2020-06-14T02:49:15.205Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yangleisx.github.io/2020/06/13/center-loss/</loc>
     
     <lastmod>2020-06-13T08:51:13.317Z</lastmod>
@@ -19,13 +26,6 @@
     <loc>http://yangleisx.github.io/2020/06/06/deepid/</loc>
     
     <lastmod>2020-06-06T12:30:16.904Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yangleisx.github.io/2020/06/06/facenet/</loc>
-    
-    <lastmod>2020-06-06T12:10:00.644Z</lastmod>
     
   </url>
   
