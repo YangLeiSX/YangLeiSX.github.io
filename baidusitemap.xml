@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://YangLeiSX.github.io/2020/03/30/abs-nn-backdoor/</loc>
+    <lastmod>2020-07-17</lastmod>
+  </url>  <url>
+    <loc>http://YangLeiSX.github.io/2020/07/17/introduction-to-cyberspace-security/</loc>
+    <lastmod>2020-07-17</lastmod>
+  </url>  <url>
     <loc>http://YangLeiSX.github.io/2020/06/25/windows-security-tools/</loc>
     <lastmod>2020-06-25</lastmod>
   </url>  <url>
@@ -18,9 +24,6 @@
   </url>  <url>
     <loc>http://YangLeiSX.github.io/2020/06/06/deepid2/</loc>
     <lastmod>2020-06-06</lastmod>
-  </url>  <url>
-    <loc>http://YangLeiSX.github.io/2020/03/30/abs-nn-backdoor/</loc>
-    <lastmod>2020-05-19</lastmod>
   </url>  <url>
     <loc>http://YangLeiSX.github.io/2019/10/20/firewall-iptables-rules/</loc>
     <lastmod>2020-05-19</lastmod>
