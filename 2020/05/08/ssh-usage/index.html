@@ -526,6 +526,9 @@
 
           </div>
           
+    
+    <div class="comments" id="gitalk-container"></div>
+  
 
         </div>
           
@@ -733,6 +736,25 @@
   
 
   
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: 'f7e6a6c2390813f27c6a',
+      clientSecret: '20e3b1db26b09d1c3575768ec6d9e686d48153a2',
+      repo: 'yangleisx.github.io',
+      owner: 'yangleisx',
+      admin: ['yangleisx'],
+      id: '08e53eb23834b93526597cd1b5c7102d',
+        language: window.navigator.language || window.navigator.userLanguage,
+      
+      distractionFreeMode: 'true'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
 
 </body>
 </html>
