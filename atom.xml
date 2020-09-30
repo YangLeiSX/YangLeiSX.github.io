@@ -6,7 +6,7 @@
   <link href="http://yangleisx.github.io/atom.xml" rel="self"/>
   
   <link href="http://yangleisx.github.io/"/>
-  <updated>2020-09-26T03:33:41.337Z</updated>
+  <updated>2020-09-30T08:03:09.531Z</updated>
   <id>http://yangleisx.github.io/</id>
   
   <author>
@@ -15,6 +15,50 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>GNU、Clang/LLVM到底是些什么东西</title>
+    <link href="http://yangleisx.github.io/2020/09/30/toolchain-explain/"/>
+    <id>http://yangleisx.github.io/2020/09/30/toolchain-explain/</id>
+    <published>2020-09-30T07:56:03.000Z</published>
+    <updated>2020-09-30T08:03:09.531Z</updated>
+    
+    <content type="html"><![CDATA[<p>说实话查了一些资料还不是很清楚，大概给出一个简单的理解。</p><a id="more"></a><p>GNU Compiler Collection(GCC)是GNU推出的一套开源编译工具链。包括了make，sed，Emacs，glibc，gdb和gcc等工具，和Linux内核共同构成一套系统。支持C、C++、Obj-C、Fortran、Ada、Go等语言。</p><p>Clang/LLVM是一套编译工具链，受到Apple的支持。包括中间语言LLVMIR，调试器，LLVMC++标准库，静态分析工具等。近年来包括Swift、Rust等都在使用LLVM作为编译框架。Clang是Apple开发用来取代GCC的前端编译器，与LLVM兼容性更好。</p><p>Visual C++是微软的一套编译工具链，在Linux平台的支持比较差。</p><p>MinGW(Minimalist GNU for Windows)是一个工具集，在Windows上提供了GNU下的多种工具，包括了GCC等。编译得到的结果运行在Windows系统之上。</p><p>Cygwin是位于Windows系统下的POSIX环境。在Windows上提供了Unix\Linux命令的执行支持环境。将Linux环境的程序迁移到Windows中，实际上通过dll文件在Windows系统中模拟了Linux的系统调用。</p><p>OpenMP是跨平台的并行API，更适用于一台多核机器上的并行处理。通过在代码中添加pragma omp的指令使得编译器自动生成并行执行的代码。</p><p>MPI(Message Passing Interface)是跨平台的并行API，适用于多个运算节点间的通信和并行处理。</p><p>OpenACC是一个计算加速API，支持CPU/GPU结构，可以提供科学计算等各种加速功能。通过在代码中添加pragma acc的指令使得运算得到加速。</p><p>参考资料：<br><a href="https://medium.com/@alitech_2017/gcc-vs-clang-llvm-an-in-depth-comparison-of-c-c-compilers-899ede2be378" target="_blank" rel="noopener">GCC和Clang/LLVM的比较</a></p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;说实话查了一些资料还不是很清楚，大概给出一个简单的理解。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="基础知识" scheme="http://YangLeiSX.github.io/categories/基础知识/"/>
+    
+    
+    <category term="C/C++" scheme="http://YangLeiSX.github.io/tags/C-C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>GDB的用法</title>
+    <link href="http://yangleisx.github.io/2020/09/30/gdb-usage/"/>
+    <id>http://yangleisx.github.io/2020/09/30/gdb-usage/</id>
+    <published>2020-09-30T07:44:34.000Z</published>
+    <updated>2020-09-30T07:54:17.513Z</updated>
+    
+    <content type="html"><![CDATA[<p>我的Win机器上只配置了MinGW环境，只有gdb可以用，因此简单了解了一下gdb的用法。<br>在已经了解lldb的基础上，再看gdb的用法就简单多了，大部分的操作都是基本一致的。</p><a id="more"></a><ol><li>编译部分<br> a. 使用-g选项编译支持调试</li><li>导入可执行文件<br> a. 在开启gdb时指定<br> b. 或者使用file指令导入</li><li>运行可执行文件<br> a. 使用run开始运行<br> b. 使用continue继续运行到下一个断点<br> c. 使用step运行一行（进入函数）<br> d. 使用next运行一行</li><li>添加断点<br> a. 使用break file.c:6在指定文件的指定行添加断点<br> b. 使用break func在指定函数添加断点<br> c. 使用info breakpoints显示断点信息<br> d. 使用delete b_id删除指定断点</li><li>添加观察点<br> a. 观察点在变量值改变时中断程序并显示数据<br> b. watch var_name为指定变量添加观察点</li><li>查看数据<br> a. 使用print打印变量的值<br> b. 使用backtrace查看跟踪栈</li><li>条件断点：<br> a. 仅在满足某些条件时触发<br> b. break main.c:6 if I &gt;= ARRAYSIZE</li></ol>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;我的Win机器上只配置了MinGW环境，只有gdb可以用，因此简单了解了一下gdb的用法。&lt;br&gt;在已经了解lldb的基础上，再看gdb的用法就简单多了，大部分的操作都是基本一致的。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="实用工具" scheme="http://YangLeiSX.github.io/categories/实用工具/"/>
+    
+    <category term="基础知识" scheme="http://YangLeiSX.github.io/categories/基础知识/"/>
+    
+    
+    <category term="C/C++" scheme="http://YangLeiSX.github.io/tags/C-C/"/>
+    
+  </entry>
   
   <entry>
     <title>LLDB的简单使用</title>
@@ -163,30 +207,6 @@
   </entry>
   
   <entry>
-    <title>【论文】FaceNet：A Unified Embedding for Face Recognition and Clustering</title>
-    <link href="http://yangleisx.github.io/2020/06/06/facenet/"/>
-    <id>http://yangleisx.github.io/2020/06/06/facenet/</id>
-    <published>2020-06-06T07:48:29.000Z</published>
-    <updated>2020-06-14T02:49:15.205Z</updated>
-    
-    <content type="html"><![CDATA[<p>论文题目：FaceNet: A Unified Embedding for Face Recognition and Clustering</p><p>作者：Florian Schroff、Dmitry Kalenichenko、James Philbin</p><p>会议/时间：2015</p><p>链接：<a href="https://arxiv.org/pdf/1503.03832.pdf" target="_blank" rel="noopener">原文链接</a></p><a id="more"></a><h2 id="论文目标"><a href="#论文目标" class="headerlink" title="论文目标"></a>论文目标</h2><p>学习一种直接的从面部图片到欧氏空间向量的映射，用于人脸识别、分类和聚类等工作。欧氏空间向量之间的距离表示图片内人脸的相似度。</p><h2 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h2><p>过去的人脸识别网络中往往通过人脸识别/分类等任务训练，最终将其中的某一层提取出来用作特征向量的生成。缺点在于泛化能力可能不够强，而且往往生成的特征向量长度比较大，效率较低。多数研究中对于较长的特征向量使用PCA简化。</p><h2 id="本文思路-解决方案"><a href="#本文思路-解决方案" class="headerlink" title="本文思路/解决方案"></a>本文思路/解决方案</h2><p>通过引入triplet loss和online triplet mining method，直接学习得到特征向量，具体是对于深度神经网络的输出，经过L2Norm后得到向量，并使用Triplet loss优化。本文作者使用的两种深度网络分别来自Zeiler&amp;Fergus Model和Szegedy’s Inception Model，将其视作黑箱并训练。</p><p>文中假设相同的人输入的数据分布在欧氏空间内的一个超平面，当给定一组triplet（包括锚anchor、正例positive、反例negative，其中anchor和positive是同一类）时，则有<script type="math/tex">||f(x_i^a)-f(x_i^p)||^2_2+\alpha < ||f(x_i^a)-f(x_i^n)||^2_2</script>，即正例的距离与反例距离的差值不小于给定的边界值$\alpha$。从而得到优化目标为<script type="math/tex">triplet\ loss = \sum\limits_{i}^{N}\left[||f(x_i^a)-f(x_i^p)||^2_2+\alpha - ||f(x_i^a)-f(x_i^n)||^2_2 \right]_+</script>。</p><p>在训练过程中，需要选择合适的数据计算损失函数，如果选择简单的triplet会导致收敛缓慢，训练效果较差。因此在训练过程中，对于每一个给定的数据<script type="math/tex">x_i^a</script>，选择距离最大的正例(<script type="math/tex">\arg\max_{x_i^p}||f(x_i^a)-f(x_i^p)||^2_2</script>)和距离最小的反例(<script type="math/tex">\arg\min||f(x_i^a)-f(x_i^n)||^2</script>)，称为hard取样。</p><p>在实际的训练过程中，获得满足要求的triplet是不可能的，两种可行的方法包括：offline方式（每次训练N步后计算距离并选择triplet）、online方法（在每一个batch中选择满足要求的数据）。选择后者时需要注意保证每一个batch中都必须含有正例和反例。</p><p>当在训练开始时就选择hard采样时，会导致模型进入局部最优，因此提出了semi-hard取样，即选择那些满足<script type="math/tex">||f(x_i^a)-f(x_i^p)||^2_2 < ||f(x_i^a)-f(x_i^n)||^2_2</script>的反例数据组成triplet进行训练。</p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol><li>提出了triplet loss，便于直接训练一个图像到向量的映射。</li><li>分析了选择triplet的方式，使用semi-hard策略解决hard策略的缺点。</li></ol>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;论文题目：FaceNet: A Unified Embedding for Face Recognition and Clustering&lt;/p&gt;
-&lt;p&gt;作者：Florian Schroff、Dmitry Kalenichenko、James Philbin&lt;/p&gt;
-&lt;p&gt;会议/时间：2015&lt;/p&gt;
-&lt;p&gt;链接：&lt;a href=&quot;https://arxiv.org/pdf/1503.03832.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;原文链接&lt;/a&gt;&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="论文阅读" scheme="http://YangLeiSX.github.io/categories/论文阅读/"/>
-    
-    
-    <category term="Deep Learning" scheme="http://YangLeiSX.github.io/tags/Deep-Learning/"/>
-    
-  </entry>
-  
-  <entry>
     <title>【论文】Deep Learning Face Representation by Joint Identification-Verification</title>
     <link href="http://yangleisx.github.io/2020/06/06/deepid2/"/>
     <id>http://yangleisx.github.io/2020/06/06/deepid2/</id>
@@ -200,6 +220,30 @@
 &lt;p&gt;作者：Yi Sun、 Xiaogang Wang、 Xiaoou Tang&lt;/p&gt;
 &lt;p&gt;时间：2014&lt;/p&gt;
 &lt;p&gt;链接：&lt;a href=&quot;https://arxiv.org/pdf/1406.4773.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;原文链接&lt;/a&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="论文阅读" scheme="http://YangLeiSX.github.io/categories/论文阅读/"/>
+    
+    
+    <category term="Deep Learning" scheme="http://YangLeiSX.github.io/tags/Deep-Learning/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【论文】FaceNet：A Unified Embedding for Face Recognition and Clustering</title>
+    <link href="http://yangleisx.github.io/2020/06/06/facenet/"/>
+    <id>http://yangleisx.github.io/2020/06/06/facenet/</id>
+    <published>2020-06-06T07:48:29.000Z</published>
+    <updated>2020-06-14T02:49:15.205Z</updated>
+    
+    <content type="html"><![CDATA[<p>论文题目：FaceNet: A Unified Embedding for Face Recognition and Clustering</p><p>作者：Florian Schroff、Dmitry Kalenichenko、James Philbin</p><p>会议/时间：2015</p><p>链接：<a href="https://arxiv.org/pdf/1503.03832.pdf" target="_blank" rel="noopener">原文链接</a></p><a id="more"></a><h2 id="论文目标"><a href="#论文目标" class="headerlink" title="论文目标"></a>论文目标</h2><p>学习一种直接的从面部图片到欧氏空间向量的映射，用于人脸识别、分类和聚类等工作。欧氏空间向量之间的距离表示图片内人脸的相似度。</p><h2 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h2><p>过去的人脸识别网络中往往通过人脸识别/分类等任务训练，最终将其中的某一层提取出来用作特征向量的生成。缺点在于泛化能力可能不够强，而且往往生成的特征向量长度比较大，效率较低。多数研究中对于较长的特征向量使用PCA简化。</p><h2 id="本文思路-解决方案"><a href="#本文思路-解决方案" class="headerlink" title="本文思路/解决方案"></a>本文思路/解决方案</h2><p>通过引入triplet loss和online triplet mining method，直接学习得到特征向量，具体是对于深度神经网络的输出，经过L2Norm后得到向量，并使用Triplet loss优化。本文作者使用的两种深度网络分别来自Zeiler&amp;Fergus Model和Szegedy’s Inception Model，将其视作黑箱并训练。</p><p>文中假设相同的人输入的数据分布在欧氏空间内的一个超平面，当给定一组triplet（包括锚anchor、正例positive、反例negative，其中anchor和positive是同一类）时，则有<script type="math/tex">||f(x_i^a)-f(x_i^p)||^2_2+\alpha < ||f(x_i^a)-f(x_i^n)||^2_2</script>，即正例的距离与反例距离的差值不小于给定的边界值$\alpha$。从而得到优化目标为<script type="math/tex">triplet\ loss = \sum\limits_{i}^{N}\left[||f(x_i^a)-f(x_i^p)||^2_2+\alpha - ||f(x_i^a)-f(x_i^n)||^2_2 \right]_+</script>。</p><p>在训练过程中，需要选择合适的数据计算损失函数，如果选择简单的triplet会导致收敛缓慢，训练效果较差。因此在训练过程中，对于每一个给定的数据<script type="math/tex">x_i^a</script>，选择距离最大的正例(<script type="math/tex">\arg\max_{x_i^p}||f(x_i^a)-f(x_i^p)||^2_2</script>)和距离最小的反例(<script type="math/tex">\arg\min||f(x_i^a)-f(x_i^n)||^2</script>)，称为hard取样。</p><p>在实际的训练过程中，获得满足要求的triplet是不可能的，两种可行的方法包括：offline方式（每次训练N步后计算距离并选择triplet）、online方法（在每一个batch中选择满足要求的数据）。选择后者时需要注意保证每一个batch中都必须含有正例和反例。</p><p>当在训练开始时就选择hard采样时，会导致模型进入局部最优，因此提出了semi-hard取样，即选择那些满足<script type="math/tex">||f(x_i^a)-f(x_i^p)||^2_2 < ||f(x_i^a)-f(x_i^n)||^2_2</script>的反例数据组成triplet进行训练。</p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol><li>提出了triplet loss，便于直接训练一个图像到向量的映射。</li><li>分析了选择triplet的方式，使用semi-hard策略解决hard策略的缺点。</li></ol>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;论文题目：FaceNet: A Unified Embedding for Face Recognition and Clustering&lt;/p&gt;
+&lt;p&gt;作者：Florian Schroff、Dmitry Kalenichenko、James Philbin&lt;/p&gt;
+&lt;p&gt;会议/时间：2015&lt;/p&gt;
+&lt;p&gt;链接：&lt;a href=&quot;https://arxiv.org/pdf/1503.03832.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;原文链接&lt;/a&gt;&lt;/p&gt;</summary>
     
     
     
@@ -431,50 +475,6 @@
     <category term="C/C++" scheme="http://YangLeiSX.github.io/tags/C-C/"/>
     
     <category term="Make" scheme="http://YangLeiSX.github.io/tags/Make/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>[HAL]STM32与ESP8266的交互</title>
-    <link href="http://yangleisx.github.io/2020/04/08/stm32-esp8266-hal/"/>
-    <id>http://yangleisx.github.io/2020/04/08/stm32-esp8266-hal/</id>
-    <published>2020-04-08T03:08:52.000Z</published>
-    <updated>2020-05-19T02:40:26.518Z</updated>
-    
-    <content type="html"><![CDATA[<p>使用Clion+CubeMX开发，开发板为野火指南者，芯片为STM32F103ZET6.</p><p>简单实现使用串口经过STM32与ESP8266通信。</p><a id="more"></a><h2 id="Cube-MX设置"><a href="#Cube-MX设置" class="headerlink" title="Cube MX设置"></a>Cube MX设置</h2><h3 id="串口设置"><a href="#串口设置" class="headerlink" title="串口设置"></a>串口设置</h3><p>开发板使用USART1与PC通信，因此设置USART1，使用PA9和PA10端口通信，参数为115200-8-N-1。同时添加RX和TX的DMA设置,NVIC开启串口的global中断。</p><p>板载的ESP8266与STM芯片使用USART3通信,使用PB10和PB11端口,参数为115200-8-N-1.同理也需要添加RX和TX的DMA设置,NVIC开启串口global中断.</p><h3 id="控制引脚设置"><a href="#控制引脚设置" class="headerlink" title="控制引脚设置"></a>控制引脚设置</h3><p>ESP8266需要添加片选引脚和复位引脚.板载ESP8266使用PB8作为片选引脚(高电平为使能),PB9作为复位引脚(低电平复位).</p><h3 id="其他设置"><a href="#其他设置" class="headerlink" title="其他设置"></a>其他设置</h3><p>SYS中设置调试器模式.</p><p>RCC中设置HSE使用外部晶振,在Clock Configuration中设置时钟.</p><p>生成代码时选择根据外设生成对应的.C/.H文件.</p><h2 id="Clion代码"><a href="#Clion代码" class="headerlink" title="Clion代码"></a>Clion代码</h2><p>使用DMA接收数据,使用空闲中断处理.将PC发送的数据转发给ESP8266并将ESP8266的回复信息转发到PC.需要注意添加的代码位于指定的user code区间防止被覆盖.</p><h3 id="usart设置"><a href="#usart设置" class="headerlink" title="usart设置"></a>usart设置</h3><p>在usart.c中添加必要的变量和缓冲区.</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// BUFFER_SIZE定义在main.h中,不大于200</span></span><br><span class="line"><span class="comment">/* USER CODE BEGIN 0 */</span></span><br><span class="line"><span class="keyword">uint8_t</span> usart1_rx_buffer[BUFFER_SIZE];</span><br><span class="line"><span class="keyword">volatile</span> <span class="keyword">uint8_t</span> usart1_rx_len = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">volatile</span> <span class="keyword">uint8_t</span> usart1_recv_end_flag = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">uint8_t</span> usart3_rx_buffer[BUFFER_SIZE];</span><br><span class="line"><span class="keyword">volatile</span> <span class="keyword">uint8_t</span> usart3_rx_len = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">volatile</span> <span class="keyword">uint8_t</span> usart3_recv_end_flag = <span class="number">0</span>;</span><br><span class="line"><span class="comment">/* USER CODE END 0 */</span></span><br></pre></td></tr></table></figure><p>在usart.h中添加变量声明</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* USER CODE BEGIN Private defines */</span></span><br><span class="line"><span class="keyword">extern</span> <span class="keyword">uint8_t</span> usart1_rx_buffer[BUFFER_SIZE];</span><br><span class="line"><span class="keyword">extern</span> <span class="keyword">volatile</span> <span class="keyword">uint8_t</span> usart1_rx_len;</span><br><span class="line"><span class="keyword">extern</span> <span class="keyword">volatile</span> <span class="keyword">uint8_t</span> usart1_recv_end_flag;</span><br><span class="line"><span class="keyword">extern</span> <span class="keyword">uint8_t</span> usart3_rx_buffer[BUFFER_SIZE];</span><br><span class="line"><span class="keyword">extern</span> <span class="keyword">volatile</span> <span class="keyword">uint8_t</span> usart3_rx_len;</span><br><span class="line"><span class="keyword">extern</span> <span class="keyword">volatile</span> <span class="keyword">uint8_t</span> usart3_recv_end_flag;</span><br><span class="line"><span class="comment">/* USER CODE END Private defines */</span></span><br></pre></td></tr></table></figure><h3 id="GPIO设置"><a href="#GPIO设置" class="headerlink" title="GPIO设置"></a>GPIO设置</h3><p>在main.c的while(1)循环之前设置ESP8266使能和复位</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* USER CODE BEGIN 2 */</span></span><br><span class="line"><span class="comment">// 设置ESP8266选择</span></span><br><span class="line">HAL_GPIO_WritePin(CH_GPIO_Port, CH_Pin, GPIO_PIN_SET);</span><br><span class="line">HAL_GPIO_WritePin(RST_GPIO_Port, RST_Pin, GPIO_PIN_RESET);</span><br><span class="line">HAL_Delay(<span class="number">500</span>);</span><br><span class="line">HAL_GPIO_WritePin(RST_GPIO_Port, RST_Pin, GPIO_PIN_SET);</span><br><span class="line"><span class="comment">/* USER CODE END 2 */</span></span><br></pre></td></tr></table></figure><h3 id="中断响应"><a href="#中断响应" class="headerlink" title="中断响应"></a>中断响应</h3><p>在main.c的while(1)循环之前开启接收DMA和空闲中断</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* USER CODE BEGIN 2 */</span></span><br><span class="line"><span class="comment">// 开启USART的接收DMA传输中断</span></span><br><span class="line">HAL_UART_Receive_DMA(&amp;huart1, usart1_rx_buffer, BUFFER_SIZE);</span><br><span class="line">__HAL_UART_ENABLE_IT(&amp;huart1, UART_IT_IDLE);</span><br><span class="line">HAL_UART_Receive_DMA(&amp;huart3, usart3_rx_buffer, BUFFER_SIZE);</span><br><span class="line">__HAL_UART_ENABLE_IT(&amp;huart3, UART_IT_IDLE);</span><br><span class="line"><span class="comment">/* USER CODE END 2 */</span></span><br></pre></td></tr></table></figure><p>在stm32f1xx_it.c中修改中断响应,分别修改USART1_IRQHandler和USART3_IRQHandler.当接收DMA接收完成时,依次触发DMA接收中断和USART全局中断.</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* USER CODE BEGIN USART1_IRQn 0 */</span></span><br><span class="line"><span class="comment">// 局部变量</span></span><br><span class="line"><span class="keyword">uint32_t</span> tmp_flag = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">uint32_t</span> temp;</span><br><span class="line"><span class="comment">// 空闲状态</span></span><br><span class="line">tmp_flag = __HAL_UART_GET_FLAG(&amp;huart1, UART_FLAG_IDLE);</span><br><span class="line"><span class="keyword">if</span>((tmp_flag != RESET))</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 关闭空闲状态</span></span><br><span class="line">    __HAL_UART_CLEAR_IDLEFLAG(&amp;huart1);</span><br><span class="line">    <span class="comment">// 清空寄存器</span></span><br><span class="line">    temp = huart1.Instance-&gt;SR;</span><br><span class="line">    temp = huart1.Instance-&gt;DR;</span><br><span class="line">    HAL_UART_DMAStop(&amp;huart1);</span><br><span class="line">    <span class="comment">// 获取未传输比特数 用于计算已传输比特数</span></span><br><span class="line">    temp = hdma_usart1_rx.Instance-&gt;CNDTR;</span><br><span class="line">    usart1_rx_len = BUFFER_SIZE - temp;</span><br><span class="line">    <span class="comment">// 开始标志位</span></span><br><span class="line">    usart1_recv_end_flag = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* USER CODE END USART1_IRQn 0 */</span></span><br></pre></td></tr></table></figure><p>在main.c的循环部分添加中断处理部分</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// PC传输中断</span></span><br><span class="line"><span class="keyword">if</span>(usart1_recv_end_flag == <span class="number">1</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 发送到ESP8266</span></span><br><span class="line">    HAL_UART_Transmit(&amp;huart3, usart1_rx_buffer, usart1_rx_len, <span class="number">0xFF</span>);</span><br><span class="line">    <span class="comment">// 清空缓冲和标志位</span></span><br><span class="line">    <span class="built_in">memset</span>(usart3_rx_buffer, <span class="number">0</span>, BUFFER_SIZE);</span><br><span class="line">    usart1_rx_len = <span class="number">0</span>;</span><br><span class="line">    usart1_recv_end_flag = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">// 开启接收中断</span></span><br><span class="line">    HAL_UART_Receive_DMA(&amp;huart1, usart1_rx_buffer, BUFFER_SIZE);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// ESP8266传输中断</span></span><br><span class="line"><span class="keyword">if</span>(usart3_recv_end_flag == <span class="number">1</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 发送到PC显示</span></span><br><span class="line">    HAL_UART_Transmit(&amp;huart1, usart3_rx_buffer, usart3_rx_len, <span class="number">0xFF</span>);</span><br><span class="line">    <span class="comment">// 清空缓存和标志位</span></span><br><span class="line">    <span class="built_in">memset</span>(usart3_rx_buffer, <span class="number">0</span>, BUFFER_SIZE);</span><br><span class="line">    usart3_rx_len = <span class="number">0</span>;</span><br><span class="line">    usart3_recv_end_flag = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">// 开启接收中断</span></span><br><span class="line">    HAL_UART_Receive_DMA(&amp;huart3, usart3_rx_buffer, BUFFER_SIZE);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* USER CODE END WHILE */</span></span><br></pre></td></tr></table></figure><p>从而实现STM32转发PC和ESP8266的串口通信,接下来就可以通过ESP8266的AT指令进行设置和操作.同时在PC的串口调试工具上检测到回复的信息.</p><h2 id="我遇到的坑"><a href="#我遇到的坑" class="headerlink" title="我遇到的坑"></a>我遇到的坑</h2><ol><li>ESP8266的使能引脚和复位引脚配置错误,导致ESP8266的通信出现一些问题.</li><li>代码中的发送指令使用HAL_UART_Transmit_DMA,导致发送/接收到的指令不全,因此改用HAL_UART_Transmit函数.</li><li>网上找到的代码和野火提供的代码大多都是基于STM32标准库和Keil开发环境,使用HAL库和CubeMX开发的代码不多,而且最开始学习STM32也是基于STM32标准库,因此会有一些不适应.</li></ol>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;使用Clion+CubeMX开发，开发板为野火指南者，芯片为STM32F103ZET6.&lt;/p&gt;
-&lt;p&gt;简单实现使用串口经过STM32与ESP8266通信。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="代码学习" scheme="http://YangLeiSX.github.io/categories/代码学习/"/>
-    
-    
-    <category term="STM32" scheme="http://YangLeiSX.github.io/tags/STM32/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>[HAL]STM32定时器和按键中断的使用</title>
-    <link href="http://yangleisx.github.io/2020/04/08/stm32-interrupt-hal/"/>
-    <id>http://yangleisx.github.io/2020/04/08/stm32-interrupt-hal/</id>
-    <published>2020-04-08T03:08:14.000Z</published>
-    <updated>2020-05-19T02:40:57.461Z</updated>
-    
-    <content type="html"><![CDATA[<p>使用Clion+CubeMX开发，开发板为野火指南者，芯片为STM32F103ZET6.</p><p>简单实现使用定时器和按键中断点亮LED。</p><a id="more"></a><h2 id="Cube-MX设置"><a href="#Cube-MX设置" class="headerlink" title="Cube MX设置"></a>Cube MX设置</h2><h3 id="引脚设置"><a href="#引脚设置" class="headerlink" title="引脚设置"></a>引脚设置</h3><p>板载RGB-LED使用的引脚PB0，PB1，PB5设置为output push pull（推挽输出）。</p><p>板载微动开关使用的引脚PA0，PC13设置为外部中断且下降沿触发。同时NVIC设置EXTI0和EXTI15-10的使能。</p><h3 id="时钟设置"><a href="#时钟设置" class="headerlink" title="时钟设置"></a>时钟设置</h3><p>选择TIM1，时钟源选择内部时钟（Internal Clock）。设置参数为预分频36000，计数为1000，此时频率为72MHz/36000/1000=2Hz。</p><p>NVIC开启TIM1 update interrupt中断。</p><h3 id="其他设置"><a href="#其他设置" class="headerlink" title="其他设置"></a>其他设置</h3><p>SYS中设置调试器模式.</p><p>RCC中设置HSE使用外部晶振,在Clock Configuration中设置时钟.</p><p>生成代码时选择根据外设生成对应的.C/.H文件.</p><h2 id="Clion代码"><a href="#Clion代码" class="headerlink" title="Clion代码"></a>Clion代码</h2><p>在CubeMX设置时为GPIO指定user label。在生成的代码中就会自动定义对应的GPIO端口和引脚。</p><h3 id="LED宏定义"><a href="#LED宏定义" class="headerlink" title="LED宏定义"></a>LED宏定义</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* USER CODE BEGIN Private defines */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ON  GPIO_PIN_RESET</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> OFF GPIO_PIN_SET</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LED1(a) HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, a)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LED2(a) HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, a)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LED3(a) HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, a)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LED1_ON         LED1(ON)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LED1_OFF        LED1(OFF)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LED1_TOGGLE     HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LED2_ON         LED2(ON)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LED2_OFF        LED2(OFF)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LED2_TOGGLE     HAL_GPIO_TogglePin(LED2_GPIO_Port, LED2_Pin)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LED3_ON         LED3(ON)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LED3_OFF        LED3(OFF)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LED3_TOGGLE     HAL_GPIO_TogglePin(LED3_GPIO_Port, LED3_Pin)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LED_RED &#123;LED1_ON;LED2_OFF;LED3_OFF;&#125;</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LED_GREEN &#123;LED1_OFF;LED2_ON;LED3_OFF;&#125;</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LED_BLUE &#123;LED1_OFF;LED2_OFF;LED3_ON;&#125;</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LED_YELLOW &#123;LED1_ON;LED2_ON;LED3_OFF;&#125;</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LED_PURPLE &#123;LED1_ON;LED2_OFF;LED3_ON;&#125;</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LED_CYAN &#123;LED1_OFF;LED2_ON;LED3_ON;&#125;</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LED_WHITE &#123;LED1_ON;LED2_ON;LED3_ON;&#125;</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LED_BLACK &#123;LED1_OFF;LED2_OFF;LED3_OFF;&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* USER CODE END Private defines */</span></span><br></pre></td></tr></table></figure><h3 id="按键中断处理"><a href="#按键中断处理" class="headerlink" title="按键中断处理"></a>按键中断处理</h3><p>在stm32f1xx_it.c文件中发现EXTI中断调用HAL_GPIO_EXTI_IRQHandler(void)函数，网上找到的资料说该函数调用弱定义的HAL_GPIO_EXTI_Callback()函数。（虽然我没找到在哪）</p><p>因此在main.c函数中重复定义该函数用于中断处理.</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* USER CODE BEGIN 4 */</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief EXTI Handler Callback: KEY Response</span></span><br><span class="line"><span class="comment">  * @retval None</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">HAL_GPIO_EXTI_Callback</span><span class="params">(<span class="keyword">uint16_t</span> GPIO_Pin)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// select target GPIO</span></span><br><span class="line">    <span class="keyword">switch</span> (GPIO_Pin)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">case</span> KEY1_Pin:LED1_TOGGLE;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> KEY2_Pin:LED2_TOGGLE;<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">default</span>:<span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* USER CODE END 4 */</span></span><br></pre></td></tr></table></figure><h3 id="时钟中断处理"><a href="#时钟中断处理" class="headerlink" title="时钟中断处理"></a>时钟中断处理</h3><p>在stm32f1xx_it.c文件中发现TIM1中断调用HAL_TIM_IRQHandler(void)函数，网上找到的资料说该函数调用弱定义的HAL_TIM_PeriodElapsedCallback()函数。</p><p>因此在main.c函数中重复定义该函数用于中断处理.</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* USER CODE BEGIN 4 */</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief TIM Handler Callback: LED Blink</span></span><br><span class="line"><span class="comment">  * @retval None</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">HAL_TIM_PeriodElapsedCallback</span><span class="params">(TIM_HandleTypeDef *htim)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// TIM1: LED3 blink</span></span><br><span class="line">    <span class="keyword">if</span> (htim-&gt;Instance == htim1.Instance)</span><br><span class="line">    &#123;</span><br><span class="line">        LED3_TOGGLE;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* USER CODE END 4 */</span></span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;使用Clion+CubeMX开发，开发板为野火指南者，芯片为STM32F103ZET6.&lt;/p&gt;
-&lt;p&gt;简单实现使用定时器和按键中断点亮LED。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="代码学习" scheme="http://YangLeiSX.github.io/categories/代码学习/"/>
-    
-    
-    <category term="STM32" scheme="http://YangLeiSX.github.io/tags/STM32/"/>
     
   </entry>
   

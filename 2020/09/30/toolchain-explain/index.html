@@ -56,19 +56,19 @@
   };
 </script>
 
-  <meta name="description" content="以STM32F103VET6点亮LED为例简单记录一下STM32的GPIO如何控制。">
-<meta name="keywords" content="STM32">
+  <meta name="description" content="说实话查了一些资料还不是很清楚，大概给出一个简单的理解。">
+<meta name="keywords" content="C&#x2F;C++">
 <meta property="og:type" content="article">
-<meta property="og:title" content="STM32的GPIO处理">
-<meta property="og:url" content="http://YangLeiSX.github.io/2020/03/05/stm32-gpio/index.html">
+<meta property="og:title" content="GNU、Clang&#x2F;LLVM到底是些什么东西">
+<meta property="og:url" content="http://YangLeiSX.github.io/2020/09/30/toolchain-explain/index.html">
 <meta property="og:site_name" content="杨磊的博客">
-<meta property="og:description" content="以STM32F103VET6点亮LED为例简单记录一下STM32的GPIO如何控制。">
+<meta property="og:description" content="说实话查了一些资料还不是很清楚，大概给出一个简单的理解。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-05-19T02:40:32.132Z">
+<meta property="og:updated_time" content="2020-09-30T08:03:09.531Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="STM32的GPIO处理">
-<meta name="twitter:description" content="以STM32F103VET6点亮LED为例简单记录一下STM32的GPIO如何控制。">
-  <link rel="canonical" href="http://YangLeiSX.github.io/2020/03/05/stm32-gpio/">
+<meta name="twitter:title" content="GNU、Clang&#x2F;LLVM到底是些什么东西">
+<meta name="twitter:description" content="说实话查了一些资料还不是很清楚，大概给出一个简单的理解。">
+  <link rel="canonical" href="http://YangLeiSX.github.io/2020/09/30/toolchain-explain/">
 
 
 <script id="page-configurations">
@@ -82,7 +82,7 @@
   };
 </script>
 
-  <title>STM32的GPIO处理 | 杨磊的博客</title>
+  <title>GNU、Clang/LLVM到底是些什么东西 | 杨磊的博客</title>
   
 
 
@@ -255,7 +255,7 @@
   
   
   <div class="post-block post">
-    <link itemprop="mainEntityOfPage" href="http://YangLeiSX.github.io/2020/03/05/stm32-gpio/">
+    <link itemprop="mainEntityOfPage" href="http://YangLeiSX.github.io/2020/09/30/toolchain-explain/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Yang Lei">
@@ -267,7 +267,7 @@
       <meta itemprop="name" content="杨磊的博客">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">STM32的GPIO处理
+        <h1 class="post-title" itemprop="name headline">GNU、Clang/LLVM到底是些什么东西
 
           
         </h1>
@@ -283,19 +283,11 @@
                 
               
 
-              <time title="Created: 2020-03-05 21:37:04" itemprop="dateCreated datePublished" datetime="2020-03-05T21:37:04+08:00">2020-03-05</time>
+              <time title="Created: 2020-09-30 15:56:03 / Modified: 16:03:09" itemprop="dateCreated datePublished" datetime="2020-09-30T15:56:03+08:00">2020-09-30</time>
             </span>
           
             
 
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-05-19 10:40:32" itemprop="dateModified" datetime="2020-05-19T10:40:32+08:00">2020-05-19</time>
-              </span>
             
           
             <span class="post-meta-item">
@@ -304,7 +296,7 @@
               </span>
               <span class="post-meta-item-text">In</span>
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/代码学习/" itemprop="url" rel="index"><span itemprop="name">代码学习</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/基础知识/" itemprop="url" rel="index"><span itemprop="name">基础知识</span></a></span>
 
                 
                 
@@ -321,7 +313,7 @@
               
                 <span class="post-meta-item-text">Symbols count in article: </span>
               
-              <span>4.1k</span> 
+              <span>1k</span> 
             </span>
           
             <span class="post-meta-item" title="Reading time">
@@ -331,7 +323,7 @@
               
                 <span class="post-meta-item-text">Reading time &asymp;</span>
               
-              <span>3 mins.</span>
+              <span>1 mins.</span>
             </span>
           
 
@@ -344,21 +336,17 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>以STM32F103VET6点亮LED为例简单记录一下STM32的GPIO如何控制。</p>
+        <p>说实话查了一些资料还不是很清楚，大概给出一个简单的理解。</p>
 <a id="more"></a>
-<h2 id="GPIO控制原理"><a href="#GPIO控制原理" class="headerlink" title="GPIO控制原理"></a>GPIO控制原理</h2><p>片上外设挂载有三条总线，APB1、APB2、AHB。GPIO挂载在APB2总线上。共有七组GPIO（端口），每个GPIO有16个引脚（位）。</p>
-<p>GPIO的行为通过7个寄存器来控制，每个寄存器为32bit。</p>
-<p>七个寄存器分别为CRL（低八位的控制寄存器）、CRH（高八位的控制寄存器）、IDR（输入数据寄存器）、ODR（输出数据寄存器）、BSRR（端口位设置/清除寄存器）、BRR、LCKR。</p>
-<p>CRH和CRL：每四位为一组控制一位的IO。其中低两位控制运行模式（输入、2MHz输出、10MHz输出、50MHz输出），高两位控制IO配置（输入：模拟、浮空、上/下拉。输出：推挽、开漏）。使用宏定义的工作模式时，每一个宏使用8bit数字表示，实际写入的时候写入的是bit[3:2]。</p>
-<p>BSRR（端口位设置/清除寄存器）：低16位触发时表示ODR对应位置1，高16位触发时表示ODR对应位置0。</p>
-<p>BRR（端口位清除寄存器）：低16位触发时表示ODR对应的位置0。</p>
-<p>ODR（输出数据寄存器）：对应的位置0或置1表示对应引脚高低电平。</p>
-<p>IDR（输入数据寄存器）：使用上下拉输入的时候保存输入引脚的值0或1。</p>
-<p>需要注意的是，GPIO使用前要进行时钟的使能，此时使用RCC_APB2ENR寄存器激活APB２总线上的对应外设。其中ｂｉｔｓ［８：２］表示七个GPIO。</p>
-<h2 id="使用寄存器操作"><a href="#使用寄存器操作" class="headerlink" title="使用寄存器操作"></a>使用寄存器操作</h2><p>开启GPIOB的0号引脚</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 开启GPIOB的时钟</span></span><br><span class="line">RCC_APB2ENR |= (<span class="number">1</span> &lt;&lt; <span class="number">3</span>);</span><br><span class="line"><span class="comment">// GPIOB的0号引脚控制位全部置0</span></span><br><span class="line">GPIOB_CRL &amp;= ~(<span class="number">0x0F</span> &lt;&lt; (<span class="number">4</span>*<span class="number">0</span>));</span><br><span class="line"><span class="comment">// GPIOB的0号引脚设置为10MHz推挽输出</span></span><br><span class="line">GPIOB_CRL |= (<span class="number">1</span> &lt;&lt; (<span class="number">4</span>*<span class="number">0</span>));</span><br><span class="line"><span class="comment">// GPIOB的0号引脚拉低</span></span><br><span class="line">GPIOB_ODR |= (<span class="number">0</span> &lt;&lt; <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
-<h2 id="使用标准库操作"><a href="#使用标准库操作" class="headerlink" title="使用标准库操作"></a>使用标准库操作</h2><p>使用标准库开启时钟并设置引脚</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 初始化结构体</span></span><br><span class="line">GPIO_InitTypeDef GPIO_InitStructure;</span><br><span class="line"><span class="comment">// 开启时钟</span></span><br><span class="line">RCC_ARB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);</span><br><span class="line"><span class="comment">// 设置引脚和工作模式</span></span><br><span class="line">GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0;</span><br><span class="line">GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;</span><br><span class="line">GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;</span><br><span class="line"><span class="comment">// 写入工作模式</span></span><br><span class="line">GPIO_Init(GPIOB, &amp;GPIO_InitStructure);</span><br><span class="line"><span class="comment">// 引脚置位</span></span><br><span class="line">GPIO_SetBits(GPIOB, GPIO_Pin_0);</span><br><span class="line">GPIO_ResetBits(GPIOB, GPIO_Pin_0);</span><br><span class="line"><span class="comment">// 或者使用BSRR、BRR、ODR设置</span></span><br><span class="line">GPIOB-&gt;BSRR |= <span class="number">0x01</span>;</span><br><span class="line">GPIOB-&gt;BRR |= <span class="number">0x01</span>;</span><br><span class="line">GPIOB-&gt;ODR |= <span class="number">0x01</span>;</span><br></pre></td></tr></table></figure>
+<p>GNU Compiler Collection(GCC)是GNU推出的一套开源编译工具链。包括了make，sed，Emacs，glibc，gdb和gcc等工具，和Linux内核共同构成一套系统。支持C、C++、Obj-C、Fortran、Ada、Go等语言。</p>
+<p>Clang/LLVM是一套编译工具链，受到Apple的支持。包括中间语言LLVMIR，调试器，LLVMC++标准库，静态分析工具等。近年来包括Swift、Rust等都在使用LLVM作为编译框架。Clang是Apple开发用来取代GCC的前端编译器，与LLVM兼容性更好。</p>
+<p>Visual C++是微软的一套编译工具链，在Linux平台的支持比较差。</p>
+<p>MinGW(Minimalist GNU for Windows)是一个工具集，在Windows上提供了GNU下的多种工具，包括了GCC等。编译得到的结果运行在Windows系统之上。</p>
+<p>Cygwin是位于Windows系统下的POSIX环境。在Windows上提供了Unix\Linux命令的执行支持环境。将Linux环境的程序迁移到Windows中，实际上通过dll文件在Windows系统中模拟了Linux的系统调用。</p>
+<p>OpenMP是跨平台的并行API，更适用于一台多核机器上的并行处理。通过在代码中添加pragma omp的指令使得编译器自动生成并行执行的代码。</p>
+<p>MPI(Message Passing Interface)是跨平台的并行API，适用于多个运算节点间的通信和并行处理。</p>
+<p>OpenACC是一个计算加速API，支持CPU/GPU结构，可以提供科学计算等各种加速功能。通过在代码中添加pragma acc的指令使得运算得到加速。</p>
+<p>参考资料：<br><a href="https://medium.com/@alitech_2017/gcc-vs-clang-llvm-an-in-depth-comparison-of-c-c-compilers-899ede2be378" target="_blank" rel="noopener">GCC和Clang/LLVM的比较</a></p>
 
     </div>
 
@@ -398,7 +386,7 @@
     <strong>Post author:  </strong>Yang Lei</li>
   <li class="post-copyright-link">
     <strong>Post link: </strong>
-    <a href="http://YangLeiSX.github.io/2020/03/05/stm32-gpio/" title="STM32的GPIO处理">http://YangLeiSX.github.io/2020/03/05/stm32-gpio/</a>
+    <a href="http://YangLeiSX.github.io/2020/09/30/toolchain-explain/" title="GNU、Clang/LLVM到底是些什么东西">http://YangLeiSX.github.io/2020/09/30/toolchain-explain/</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.</li>
@@ -413,7 +401,7 @@
           
           <div class="post-tags">
             
-              <a href="/tags/STM32/" rel="tag"><i class="fa fa-tag"></i> STM32</a>
+              <a href="/tags/C-C/" rel="tag"><i class="fa fa-tag"></i> C/C++</a>
             
           </div>
         
@@ -423,8 +411,8 @@
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2020/02/20/flowerC3/" rel="next" title="花书第三章:概率与信息论">
-                  <i class="fa fa-chevron-left"></i> 花书第三章:概率与信息论
+                <a href="/2020/09/30/gdb-usage/" rel="next" title="GDB的用法">
+                  <i class="fa fa-chevron-left"></i> GDB的用法
                 </a>
               
             </div>
@@ -432,10 +420,6 @@
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-              
-                <a href="/2020/03/15/python-dlib/" rel="prev" title="使用dlib提取图像中人的嘴部">
-                  使用dlib提取图像中人的嘴部 <i class="fa fa-chevron-right"></i>
-                </a>
               
             </div>
           </div>
@@ -487,8 +471,6 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#GPIO控制原理"><span class="nav-number">1.</span> <span class="nav-text">GPIO控制原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用寄存器操作"><span class="nav-number">2.</span> <span class="nav-text">使用寄存器操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用标准库操作"><span class="nav-number">3.</span> <span class="nav-text">使用标准库操作</span></a></li></ol></div>
-        
       </div>
       <!--/noindex-->
 
@@ -679,7 +661,7 @@
       repo: 'yangleisx.github.io',
       owner: 'yangleisx',
       admin: ['yangleisx'],
-      id: '845f9292d1a39e075d5f96ac627aef22',
+      id: '18f6d13b97387ed312405393a4bebce2',
         language: window.navigator.language || window.navigator.userLanguage,
       
       distractionFreeMode: 'true'
