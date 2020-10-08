@@ -6,7 +6,7 @@
   <link href="http://yangleisx.github.io/atom.xml" rel="self"/>
   
   <link href="http://yangleisx.github.io/"/>
-  <updated>2020-09-30T08:03:09.531Z</updated>
+  <updated>2020-10-08T08:27:44.866Z</updated>
   <id>http://yangleisx.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>【论文】：Feature Extraction for Visual Speaker Authentication against Computer-Generated Video Attacks</title>
+    <link href="http://yangleisx.github.io/2020/10/08/dea-net/"/>
+    <id>http://yangleisx.github.io/2020/10/08/dea-net/</id>
+    <published>2020-10-08T08:18:37.000Z</published>
+    <updated>2020-10-08T08:27:44.866Z</updated>
+    
+    <content type="html"><![CDATA[<p>论文题目：Feature Extraction for Visual Speaker Authentication against Computer-Generated Video Attacks</p><p>作者：Jun Ma, Shilin Wang, Senior Member, IEEE, Aixin Zhang and Alan Wee-Chung Liew</p><p>会议/时间：IEEE ICIP 2020</p><a id="more"></a><h2 id="论文目标"><a href="#论文目标" class="headerlink" title="论文目标"></a>论文目标</h2><p>使用唇语特征进行身份认证具有一定的活体检测能力，但是容易受到使用DeepFake等技术构建的视频攻击，因此构建一个神经网络从视频中提取动态的说话习惯信息，同时尽量减少唇语特征身份认证对于唇部静态特征的依赖。</p><h2 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h2><p>之前的工作中他人使用了唇部的图像和运动特征、纹理描述符等方式实现了比较不错的结果。作者所在 团队之前的工作中使用3D残差单元实现了唇部动态和静态特征的提取。</p><p>近来使用DeepFake换脸技术可以很容易伪造讲话视频，甚至可以在单照片的数据集上实现。使用唇部特征的认证系统由于过多依赖静态特征，受到一定的威胁。</p><p>本文提出的网络结构的基础包括frame difference、self-attention、non-local neural network<sup><a href="#fn_1" id="reffn_1">1</a></sup>等。</p><h2 id="本文思路-解决方案"><a href="#本文思路-解决方案" class="headerlink" title="本文思路/解决方案"></a>本文思路/解决方案</h2><p>构建了一个深度神经网络结构提取用户唇部特征用于认证。包括两个模块：Difference block（Diff-block）和Dynamic Response block（DR-block）两者相互补用于提取用户动态讲话特征信息。</p><h3 id="Diff-block"><a href="#Diff-block" class="headerlink" title="Diff-block"></a>Diff-block</h3><p>给定长度为T帧的视频，通过计算每一帧图像与其他T-1帧图像的相关性来消除静态特征。</p><img src="/2020/10/08/dea-net/diff-block.png" title="Diff-Block模块结构"><script type="math/tex; mode=display">Y_t = \sum\limits_{t\neq j}f(x_t,x_j)\times(x_t-x_j)\\f(x_t, x_j) = softmax(\theta(x_t)^T\varphi(x_j))</script><p>其中$\theta(x_t)$和$\varphi(x_j)$为输入数据分别经由两组不同的Conv+Pool之后得到的，经过转置和相乘得到 $T*T$ 形状的张量，表示两帧数据之间的相关性。将原数据经过 <strong>D-value操作</strong> 之后得到每一帧与其他帧的差值，并按照上述操作得到的相关性矩阵加权求和得到最终的输出。</p><img src="/2020/10/08/dea-net/d-value.png" title="D-value操作"><h3 id="DR-block"><a href="#DR-block" class="headerlink" title="DR-block"></a>DR-block</h3><p>用于提取像素级的全局动态信息，通过计算同一空间位置上的像素在不同时间位置的差异实现。</p><img src="/2020/10/08/dea-net/dr-block.png" title="DR-Block模块结构"><script type="math/tex; mode=display">Y_{(t,h,w,c)} = \sum\limits_{t\neq j}g(p(t,h,w,c),p(j,h,w,c))\times p(j,h,w,c)\\g(p(t,h,w,c),p(j,h,w,c))=softmax(|p(t,h,w,c)-p(j,h,w,c)|)</script><p>其中$g(p(t,h,w,c),p(j,h,w,c))$计算相同空间位置不同时间位置的像素差异。原数据首先经过 <strong>D_value操作</strong> 和softmax后得到了像素值的差异。原数据经过 <strong>Select-T操作</strong> 提取到特征，按照上述操作得到的差异矩阵加权求和得到了最终的输出。</p><img src="/2020/10/08/dea-net/select-t.png" title="Select-T操作"><h3 id="DEA-Net"><a href="#DEA-Net" class="headerlink" title="DEA_Net"></a>DEA_Net</h3><img src="/2020/10/08/dea-net/dea-net.png" title="DEA-Net网络结构"><p>在上述两个处理单元的基础上得到了Dynamic Enhances Authentication Network（DEA_Net）用于分类任务。</p><h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>使用GRID数据集用于模型的评估和测试，使用Faceswap工具生成攻击视频。经过测试，本文提出的模型与SOTA模型相比拥有更低的FAR和HTER，取得了比较好的结果。可以证明Diff-block和DR-block结合能够有效的消除数据中的静态特征，更好的对抗换脸攻击。</p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol><li>提出了两个网络单元用于消除数据中的静态特征，提取动态特征用于识别和认证。</li><li>使用了non-local neural network的结构，增大了感知域，使得浅层网络可以学习到更多的全局信息。</li></ol><blockquote id="fn_1"><sup>1</sup>. X.L. Wang, R. Girshick, A. Gupta, and K.M. He, “Non-local neural networks,” Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition, pp. 7794-7803, 2018.<a href="#reffn_1" title="Jump back to footnote [1] in the text."> &#8617;</a></blockquote>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;论文题目：Feature Extraction for Visual Speaker Authentication against Computer-Generated Video Attacks&lt;/p&gt;
+&lt;p&gt;作者：Jun Ma, Shilin Wang, Senior Member, IEEE, Aixin Zhang and Alan Wee-Chung Liew&lt;/p&gt;
+&lt;p&gt;会议/时间：IEEE ICIP 2020&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="论文阅读" scheme="http://YangLeiSX.github.io/categories/论文阅读/"/>
+    
+    
+    <category term="Deep Learning" scheme="http://YangLeiSX.github.io/tags/Deep-Learning/"/>
+    
+    <category term="Computer Vision" scheme="http://YangLeiSX.github.io/tags/Computer-Vision/"/>
+    
+  </entry>
   
   <entry>
     <title>GNU、Clang/LLVM到底是些什么东西</title>
@@ -341,9 +366,9 @@
     <category term="开发经历" scheme="http://YangLeiSX.github.io/categories/开发经历/"/>
     
     
-    <category term="OpenSSL" scheme="http://YangLeiSX.github.io/tags/OpenSSL/"/>
-    
     <category term="Qt" scheme="http://YangLeiSX.github.io/tags/Qt/"/>
+    
+    <category term="OpenSSL" scheme="http://YangLeiSX.github.io/tags/OpenSSL/"/>
     
   </entry>
   
@@ -452,29 +477,6 @@
     
     
     <category term="OpenSSL" scheme="http://YangLeiSX.github.io/tags/OpenSSL/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Make进阶使用</title>
-    <link href="http://yangleisx.github.io/2020/04/09/makefile-plus/"/>
-    <id>http://yangleisx.github.io/2020/04/09/makefile-plus/</id>
-    <published>2020-04-09T06:33:35.000Z</published>
-    <updated>2020-05-19T02:52:20.231Z</updated>
-    
-    <content type="html"><![CDATA[<p>由于课程需要，进一步学习了一下make的使用，在之前的基础上添加一些高级知识，<br>同时提供一个makefile的模版共以后使用。</p><a id="more"></a><h2 id="Make的内部规则"><a href="#Make的内部规则" class="headerlink" title="Make的内部规则"></a>Make的内部规则</h2><div class="table-container"><table><thead><tr><th>目标</th><th>依赖</th><th>规则</th></tr></thead><tbody><tr><td>x.o</td><td>x.c</td><td>cc -c x.c</td></tr><tr><td>x.o</td><td>x.s</td><td>as -o x.s</td></tr><tr><td>x.o</td><td>x.y</td><td>yacc x.y<br>cc -c y.tab.c<br>rm y.tab.c<br>mv y.tab.o x.o</td></tr><tr><td>x.o</td><td>x.l</td><td>lex x.l<br>cc -c lex.yy.c<br>rm -f lex.yy.c<br>mv les.yy.o x.o</td></tr><tr><td>x.c</td><td>x.y</td><td>yacc x.y<br>mv y.tab.c x.c</td></tr><tr><td>x.c</td><td>x.l</td><td>lex x.l<br>mv les.yy.c x.c</td></tr><tr><td>x.a</td><td>x.c</td><td>cc -c x.c<br>ar rv x.a x.c<br>rm -f x.o</td></tr></tbody></table></div><p>利用上述规则可以简写makefile。</p><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">main: main.o libylmath.a ylmathp.o</span></span><br><span class="line">    cc -o main -L . -l ylmath main.o ylmathp.o</span><br><span class="line"></span><br><span class="line"><span class="section">libylmath.a: libylmath.a(ylmath.o)</span></span><br><span class="line"></span><br><span class="line"><span class="section">ylmathp.o: ylmathp.h</span></span><br></pre></td></tr></table></figure><h2 id="Make的内部宏"><a href="#Make的内部宏" class="headerlink" title="Make的内部宏"></a>Make的内部宏</h2><div class="table-container"><table><thead><tr><th>内部宏</th><th>含义</th></tr></thead><tbody><tr><td>$&lt;</td><td>使目标过时的依赖文件（即已更新的文件）</td></tr><tr><td>$*</td><td>不带后缀的依赖文件(常用写法$*.c)</td></tr><tr><td>$@</td><td>目标文件名，用于显式说明行</td></tr><tr><td>$?</td><td>类似$&lt; 用于显式说明行</td></tr><tr><td>$%</td><td>用于处理库文件的依赖文件</td></tr></tbody></table></div><p>这些宏大多用于修改上述隐含规则或创建自己的隐含规则。</p><h2 id="实用技巧"><a href="#实用技巧" class="headerlink" title="实用技巧"></a>实用技巧</h2><p>使用一个例子展示如下</p><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用宏定义增加可移植性</span></span><br><span class="line">INSTDIR= bin</span><br><span class="line">CFLAGS= -O -g</span><br><span class="line">LDFLAGS=</span><br><span class="line">CC= cc</span><br><span class="line"><span class="comment"># 文件声明</span></span><br><span class="line">HEADERS= ylmath.h ylmathp.h</span><br><span class="line">SOURCE= main.c ylmathp.c</span><br><span class="line">OBJECT= $(SOURCE: .c=.o)</span><br><span class="line"><span class="comment"># 库声明</span></span><br><span class="line">LIBSRC= ylmath.c</span><br><span class="line">LIBOBJ= ylmath.o</span><br><span class="line">LIBDIR= lib</span><br><span class="line"></span><br><span class="line"><span class="comment"># 覆盖默认的.c.o规则，添加-O(优化) -g(调试)</span></span><br><span class="line"><span class="section">.c.o:</span></span><br><span class="line">    <span class="variable">$(CC)</span> <span class="variable">$(CFLAGS)</span> -c <span class="variable">$*</span>.c</span><br><span class="line"></span><br><span class="line"><span class="comment"># 连接得到可执行文件</span></span><br><span class="line"><span class="section">demo: <span class="variable">$(OBJECT)</span> libylmath.a</span></span><br><span class="line">    <span class="variable">$(CC)</span> -o <span class="variable">$@</span> <span class="variable">$(OBJECT)</span> -L<span class="variable">$(LIBDIR)</span> -lylmath</span><br><span class="line"></span><br><span class="line"><span class="section">all: demo install</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 声明头文件，使用.c.o规则生成</span></span><br><span class="line"><span class="variable">$(OBJECT)</span>: <span class="variable">$(HEADERS)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用.c.a规则生成库并移到lib文件夹</span></span><br><span class="line"><span class="comment"># -开头的命令忽略运行错误和命令返回码，继续执行</span></span><br><span class="line"><span class="section">libylmath.a: libylmath.a(<span class="variable">$(LIBOBJ)</span>)</span></span><br><span class="line">    -mv <span class="variable">$(LIBDIR)</span>/libylmath.a libylmath.a.old</span><br><span class="line">    -mv libylmath.a <span class="variable">$(LIBDIR)</span>/libylmath.a</span><br><span class="line"></span><br><span class="line"><span class="comment"># 更新bin文件夹</span></span><br><span class="line"><span class="section">install: demo libylmath.a</span></span><br><span class="line">    -mv <span class="variable">$(INSTDIR)</span>/demo demo.old</span><br><span class="line">    -mv demo <span class="variable">$(INSTDIR)</span>/demo</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除</span></span><br><span class="line"><span class="section">clean:</span></span><br><span class="line">    -rm *.old demo <span class="variable">$(LIBDIR)</span>/libylmath.a</span><br><span class="line"></span><br><span class="line"><span class="comment"># 记录更新信息</span></span><br><span class="line"><span class="comment"># @开头的命令在运行时不显示</span></span><br><span class="line"><span class="section">print: <span class="variable">$(SOURCE)</span> <span class="variable">$(OBJECT)</span></span></span><br><span class="line">    @ echo printing modified files</span><br><span class="line">    @ echo <span class="variable">$?</span> &gt; <span class="variable">$@</span></span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;由于课程需要，进一步学习了一下make的使用，在之前的基础上添加一些高级知识，&lt;br&gt;同时提供一个makefile的模版共以后使用。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="基础知识" scheme="http://YangLeiSX.github.io/categories/基础知识/"/>
-    
-    
-    <category term="C/C++" scheme="http://YangLeiSX.github.io/tags/C-C/"/>
-    
-    <category term="Make" scheme="http://YangLeiSX.github.io/tags/Make/"/>
     
   </entry>
   
