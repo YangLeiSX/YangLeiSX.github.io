@@ -56,19 +56,21 @@
   };
 </script>
 
-  <meta name="description" content="Windows下使用CLion和CubeMX构建STM32开发环境。 使用野火指南者开发版，芯片为STM32F103VET6。使用配套CMSIS-DAP调试器。">
-<meta name="keywords" content="STM32">
+  <meta name="description" content="论文题目：Non-local Neural Networks 作者：Xiaolong Wang, Ross Girshick, Abhinav Gupta, Kaiming He 会议/时间：CVPR2018 链接：https://arxiv.org/abs/1711.07971">
+<meta name="keywords" content="Deep Learning,Computer Vision">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Clion开发STM32环境搭建">
-<meta property="og:url" content="http://YangLeiSX.github.io/2020/04/04/stm32-clion/index.html">
+<meta property="og:title" content="【论文】：Non-local Neural Networks">
+<meta property="og:url" content="http://YangLeiSX.github.io/2020/10/11/non-local-network/index.html">
 <meta property="og:site_name" content="杨磊的博客">
-<meta property="og:description" content="Windows下使用CLion和CubeMX构建STM32开发环境。 使用野火指南者开发版，芯片为STM32F103VET6。使用配套CMSIS-DAP调试器。">
+<meta property="og:description" content="论文题目：Non-local Neural Networks 作者：Xiaolong Wang, Ross Girshick, Abhinav Gupta, Kaiming He 会议/时间：CVPR2018 链接：https://arxiv.org/abs/1711.07971">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-05-19T02:40:10.471Z">
+<meta property="og:image" content="http://yangleisx.github.io/2020/10/11/non-local-network/non-local-block.png">
+<meta property="og:updated_time" content="2020-10-11T06:16:42.133Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Clion开发STM32环境搭建">
-<meta name="twitter:description" content="Windows下使用CLion和CubeMX构建STM32开发环境。 使用野火指南者开发版，芯片为STM32F103VET6。使用配套CMSIS-DAP调试器。">
-  <link rel="canonical" href="http://YangLeiSX.github.io/2020/04/04/stm32-clion/">
+<meta name="twitter:title" content="【论文】：Non-local Neural Networks">
+<meta name="twitter:description" content="论文题目：Non-local Neural Networks 作者：Xiaolong Wang, Ross Girshick, Abhinav Gupta, Kaiming He 会议/时间：CVPR2018 链接：https://arxiv.org/abs/1711.07971">
+<meta name="twitter:image" content="http://yangleisx.github.io/2020/10/11/non-local-network/non-local-block.png">
+  <link rel="canonical" href="http://YangLeiSX.github.io/2020/10/11/non-local-network/">
 
 
 <script id="page-configurations">
@@ -82,7 +84,7 @@
   };
 </script>
 
-  <title>Clion开发STM32环境搭建 | 杨磊的博客</title>
+  <title>【论文】：Non-local Neural Networks | 杨磊的博客</title>
   
 
 
@@ -255,7 +257,7 @@
   
   
   <div class="post-block post">
-    <link itemprop="mainEntityOfPage" href="http://YangLeiSX.github.io/2020/04/04/stm32-clion/">
+    <link itemprop="mainEntityOfPage" href="http://YangLeiSX.github.io/2020/10/11/non-local-network/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Yang Lei">
@@ -267,7 +269,7 @@
       <meta itemprop="name" content="杨磊的博客">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">Clion开发STM32环境搭建
+        <h1 class="post-title" itemprop="name headline">【论文】：Non-local Neural Networks
 
           
         </h1>
@@ -283,19 +285,11 @@
                 
               
 
-              <time title="Created: 2020-04-04 09:56:46" itemprop="dateCreated datePublished" datetime="2020-04-04T09:56:46+08:00">2020-04-04</time>
+              <time title="Created: 2020-10-11 14:14:05 / Modified: 14:16:42" itemprop="dateCreated datePublished" datetime="2020-10-11T14:14:05+08:00">2020-10-11</time>
             </span>
           
             
 
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-05-19 10:40:10" itemprop="dateModified" datetime="2020-05-19T10:40:10+08:00">2020-05-19</time>
-              </span>
             
           
             <span class="post-meta-item">
@@ -304,7 +298,7 @@
               </span>
               <span class="post-meta-item-text">In</span>
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/实用工具/" itemprop="url" rel="index"><span itemprop="name">实用工具</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/论文阅读/" itemprop="url" rel="index"><span itemprop="name">论文阅读</span></a></span>
 
                 
                 
@@ -321,7 +315,7 @@
               
                 <span class="post-meta-item-text">Symbols count in article: </span>
               
-              <span>2.9k</span> 
+              <span>2.6k</span> 
             </span>
           
             <span class="post-meta-item" title="Reading time">
@@ -344,56 +338,52 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>Windows下使用CLion和CubeMX构建STM32开发环境。</p>
-<p>使用野火指南者开发版，芯片为STM32F103VET6。使用配套CMSIS-DAP调试器。</p>
+        <p>论文题目：Non-local Neural Networks</p>
+<p>作者：Xiaolong Wang, Ross Girshick, Abhinav Gupta, Kaiming He</p>
+<p>会议/时间：CVPR2018</p>
+<p>链接：<a href="https://arxiv.org/abs/1711.07971" target="_blank" rel="noopener">https://arxiv.org/abs/1711.07971</a></p>
 <a id="more"></a>
-<ul>
-<li><p>下载安装</p>
-<ul>
-<li>下载<a href="https://www.st.com/content/st_com/en/products/development-tools/software-development-tools/stm32-software-development-tools/stm32-configurators-and-code-generators/stm32cubemx.html" target="_blank" rel="noopener">STM32CubeMx</a></li>
-<li>下载Clion</li>
-<li>下载交叉编译工具链<a href="https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads" target="_blank" rel="noopener">GNU Tools Arm Embedded</a>，注意添加系统路径并在cmd测试“arm-none-eabi-gcc -v”</li>
-<li>下载<a href="https://sourceforge.net/projects/mingw/files/" target="_blank" rel="noopener">MinGW</a>，注意至少安装gcc，g++，cmake</li>
-<li>下载<a href="https://gnutoolchains.com/arm-eabi/openocd/" target="_blank" rel="noopener">OpenOCD</a></li>
-</ul>
-</li>
-<li><p>设置Clion</p>
-<ul>
-<li>File——Settings——Build，Excution，Deplotment——Toolchains，设置好mingw</li>
-<li>File——Settings——Plugin，搜索安装插件openocd</li>
-<li>File——Settings——Build，Excution，Deplotment——Embedded Deployment，设置路径</li>
-<li>File——Settings——Build，Excution，Deplotment——OpenOCD support，设置路径</li>
-</ul>
-</li>
-<li><p>创建CubeMX工程</p>
-<ul>
-<li>选择芯片</li>
-<li>选择功能及其对应的引脚</li>
-<li>选择sys功能，选择使用串口下载或者使用调试器</li>
-<li>时钟配置，使用HSE，9倍PLL，APB1选择2分频</li>
-<li>选择保存路径，选择工具为SW4STM32</li>
-<li>生成配置代码</li>
-</ul>
-</li>
-<li><p>Clion导入工程</p>
-<ul>
-<li>选择Cube MX生成的代码，默认选项导入</li>
-<li>Tool——Update CMake to STM32 Projects（可以设为自动导入）</li>
-<li>Build——编译Project或者编译“OCD+你创建的工程名“</li>
-<li>Run——Edit Configuration——OpenOCD——Board config file——选择一个stm32f10系列的板子（我选择stm32f103c8_blue_pill，之后修改）——点击Cope to Project&amp;Use</li>
-<li><p>修改cfg文件，添加野火的调试器。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 选择对应调试器</span><br><span class="line">source [find interface/cmsis-dap.cfg]</span><br><span class="line"># 选择模式，这里的swd对应Cube MX设置”5线JTAG“ 对应野火调试器直接插指南者的”SWD“</span><br><span class="line">transport select swd</span><br><span class="line"># 选择片上FLASH大小</span><br><span class="line">set FLASH_SiZE 0x80000</span><br><span class="line"># 选择芯片</span><br><span class="line">source [find target/stm32f1x.cfg]</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>运行</p>
-<ul>
-<li>在main.c的对应位置添加代码，注意需要添加在指定的user code部分，否则更新后可能被覆盖</li>
-<li>Run——点击Run ”OCD+你创建的工程名“</li>
-</ul>
-</li>
-</ul>
-<p>参考链接：<a href="https://blog.csdn.net/PoJiaA123/article/details/81628952?depth_1-utm_source=distribute.pc_relevant_right.none-task-blog-OPENSEARCH-2&amp;utm_source=distribute.pc_relevant_right.none-task-blog-OPENSEARCH-2" target="_blank" rel="noopener">紫色能量的博客</a></p>
+<h2 id="论文目标"><a href="#论文目标" class="headerlink" title="论文目标"></a>论文目标</h2><p>当前的CNN或者RNN结构中的卷积等操作都是针对数据中的一个小区域（local neighborhood）处理和提取特征，并没有考虑到数据中的长期/远距离依赖关系。因此设计一个non-local操作，可以考虑到输入数据中的每一个位置上的特征和依赖关系，学习到全局信息。</p>
+<h2 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h2><p>在CNN中通过多次卷积扩大感受野，在RNN中通过设计迭代模型学习到序列中的远距离特征/信息，但是在实际的每一次处理过程中都只考虑到局部的信息。通过重复处理局部信息获得全局信息不仅计算效率低，而且引入了优化的困难。</p>
+<p>参考了传统的CV领域使用的non-local mean operation方法。其他相关的内容包括Graphical models、Feedforward modeling for sequences、self-attention、interaction networks、video classification architectures等。实际上self-attention可以看作是non-local的一种情况。</p>
+<h2 id="本文思路-解决方案"><a href="#本文思路-解决方案" class="headerlink" title="本文思路/解决方案"></a>本文思路/解决方案</h2><p>通过考虑特征图中每一个位置的加权和来得到特定位置的响应。</p>
+<p>一方面可以直接学习到数据中远距离的信息，另一方面使用较浅层的网络也能实现比较好的结果，而且作者设计的non-local模块不改变数据的大小，可以方便的插在现有的网络中。</p>
+<p>简单来说，non-local的思路如下，其中$x_i$为输出位置，$x_j$为数据中的每一个点，使用$f(x_i,x_j)$计算两者之间的关系并作为权重计算输入数据特征$g(x)$的加权和。</p>
+<script type="math/tex; mode=display">
+y_i = \frac{1}{C(x)}\sum\limits_{\forall j}f(x_i, x_j)g(x_j)</script><p>在实际使用过程中，函数$f(\cdot)$和$g(\cdot)$有多种选择。后者常选用$1\times1\times1$的卷积实现。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Function Type</th>
+<th>Pairwise Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Gaussian</td>
+<td>$f(x_i,x_j) = e^{x_i^T x_j}$</td>
+</tr>
+<tr>
+<td>Embedded Gaussian</td>
+<td>$f(x_i, x_j) =e^{\theta(x_i)^T\phi(x_j)}$</td>
+</tr>
+<tr>
+<td>Dot product</td>
+<td>$f(x_i,x_j) = \theta(x_i)^T\phi(x_j)$</td>
+</tr>
+<tr>
+<td>Concatenation</td>
+<td>$f(x_i, x_j) = ReLU(w_f^T[\theta(x_i),\phi(x_j)])$<br>其中$[\cdot, \cdot]$表示连接得向量并经$w_f$变成标量</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>通过将non-local block定义为残差结构，使得模块输出的形状不发生变化，可以将non-local block插入到已有的预训练模型中，而不改变其性能（$W_z$初始化为0）。通过在较高的特征层加入该block，同时引入降采样，可以减小引入的计算量。</p>
+<script type="math/tex; mode=display">
+z_i = W_z y_i + x_i</script><img src="/2020/10/11/non-local-network/non-local-block.png" title="non-local结构">
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>经过测试，添加了non-local block的模型具有更高的预测准确率，在non-local block中选择不同的函数计算数据之间的距离（即$f(x_i,x_j)$）对于最后的模型效果影响不大。而且在模型中添加了时空维度上的nonn-local block后效果相比单纯的时间或空间维度的效果更好。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>提出了一种non-local的结构学习数据中距离比较远的特征的影响。并且实现了一种non-local block可以插入到现有的网络结构中并提升其性能。</p>
 
     </div>
 
@@ -433,7 +423,7 @@
     <strong>Post author:  </strong>Yang Lei</li>
   <li class="post-copyright-link">
     <strong>Post link: </strong>
-    <a href="http://YangLeiSX.github.io/2020/04/04/stm32-clion/" title="Clion开发STM32环境搭建">http://YangLeiSX.github.io/2020/04/04/stm32-clion/</a>
+    <a href="http://YangLeiSX.github.io/2020/10/11/non-local-network/" title="【论文】：Non-local Neural Networks">http://YangLeiSX.github.io/2020/10/11/non-local-network/</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.</li>
@@ -448,7 +438,9 @@
           
           <div class="post-tags">
             
-              <a href="/tags/STM32/" rel="tag"><i class="fa fa-tag"></i> STM32</a>
+              <a href="/tags/Deep-Learning/" rel="tag"><i class="fa fa-tag"></i> Deep Learning</a>
+            
+              <a href="/tags/Computer-Vision/" rel="tag"><i class="fa fa-tag"></i> Computer Vision</a>
             
           </div>
         
@@ -458,8 +450,8 @@
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2020/03/30/abs-nn-backdoor/" rel="next" title="【论文】ABS: Scanning Neural Networks for Back-doors by Artificial Brain Stimulation">
-                  <i class="fa fa-chevron-left"></i> 【论文】ABS: Scanning Neural Networks for Back-doors by Artificial Brain Stimulation
+                <a href="/2020/10/08/dea-net/" rel="next" title="【论文】：Feature Extraction for Visual Speaker Authentication against Computer-Generated Video Attacks">
+                  <i class="fa fa-chevron-left"></i> 【论文】：Feature Extraction for Visual Speaker Authentication against Computer-Generated Video Attacks
                 </a>
               
             </div>
@@ -467,10 +459,6 @@
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-              
-                <a href="/2020/04/04/stm32-clock/" rel="prev" title="STM32的时钟处理">
-                  STM32的时钟处理 <i class="fa fa-chevron-right"></i>
-                </a>
               
             </div>
           </div>
@@ -522,6 +510,8 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#论文目标"><span class="nav-number">1.</span> <span class="nav-text">论文目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关工作"><span class="nav-number">2.</span> <span class="nav-text">相关工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本文思路-解决方案"><span class="nav-number">3.</span> <span class="nav-text">本文思路/解决方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结果"><span class="nav-number">4.</span> <span class="nav-text">结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+        
       </div>
       <!--/noindex-->
 
@@ -697,6 +687,56 @@
   
 
   
+    
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+  
 
   
 
@@ -712,7 +752,7 @@
       repo: 'yangleisx.github.io',
       owner: 'yangleisx',
       admin: ['yangleisx'],
-      id: 'c47d27b2388cb3aec3d1092d8d684223',
+      id: '30c1e5140f8ff36b6569a6db0dea5b8e',
         language: window.navigator.language || window.navigator.userLanguage,
       
       distractionFreeMode: 'true'

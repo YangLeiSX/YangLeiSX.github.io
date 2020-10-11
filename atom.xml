@@ -6,7 +6,7 @@
   <link href="http://yangleisx.github.io/atom.xml" rel="self"/>
   
   <link href="http://yangleisx.github.io/"/>
-  <updated>2020-10-08T08:27:44.866Z</updated>
+  <updated>2020-10-11T06:16:42.133Z</updated>
   <id>http://yangleisx.github.io/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>【论文】：Non-local Neural Networks</title>
+    <link href="http://yangleisx.github.io/2020/10/11/non-local-network/"/>
+    <id>http://yangleisx.github.io/2020/10/11/non-local-network/</id>
+    <published>2020-10-11T06:14:05.000Z</published>
+    <updated>2020-10-11T06:16:42.133Z</updated>
+    
+    <content type="html"><![CDATA[<p>论文题目：Non-local Neural Networks</p><p>作者：Xiaolong Wang, Ross Girshick, Abhinav Gupta, Kaiming He</p><p>会议/时间：CVPR2018</p><p>链接：<a href="https://arxiv.org/abs/1711.07971" target="_blank" rel="noopener">https://arxiv.org/abs/1711.07971</a></p><a id="more"></a><h2 id="论文目标"><a href="#论文目标" class="headerlink" title="论文目标"></a>论文目标</h2><p>当前的CNN或者RNN结构中的卷积等操作都是针对数据中的一个小区域（local neighborhood）处理和提取特征，并没有考虑到数据中的长期/远距离依赖关系。因此设计一个non-local操作，可以考虑到输入数据中的每一个位置上的特征和依赖关系，学习到全局信息。</p><h2 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h2><p>在CNN中通过多次卷积扩大感受野，在RNN中通过设计迭代模型学习到序列中的远距离特征/信息，但是在实际的每一次处理过程中都只考虑到局部的信息。通过重复处理局部信息获得全局信息不仅计算效率低，而且引入了优化的困难。</p><p>参考了传统的CV领域使用的non-local mean operation方法。其他相关的内容包括Graphical models、Feedforward modeling for sequences、self-attention、interaction networks、video classification architectures等。实际上self-attention可以看作是non-local的一种情况。</p><h2 id="本文思路-解决方案"><a href="#本文思路-解决方案" class="headerlink" title="本文思路/解决方案"></a>本文思路/解决方案</h2><p>通过考虑特征图中每一个位置的加权和来得到特定位置的响应。</p><p>一方面可以直接学习到数据中远距离的信息，另一方面使用较浅层的网络也能实现比较好的结果，而且作者设计的non-local模块不改变数据的大小，可以方便的插在现有的网络中。</p><p>简单来说，non-local的思路如下，其中$x_i$为输出位置，$x_j$为数据中的每一个点，使用$f(x_i,x_j)$计算两者之间的关系并作为权重计算输入数据特征$g(x)$的加权和。</p><script type="math/tex; mode=display">y_i = \frac{1}{C(x)}\sum\limits_{\forall j}f(x_i, x_j)g(x_j)</script><p>在实际使用过程中，函数$f(\cdot)$和$g(\cdot)$有多种选择。后者常选用$1\times1\times1$的卷积实现。</p><div class="table-container"><table><thead><tr><th>Function Type</th><th>Pairwise Function</th></tr></thead><tbody><tr><td>Gaussian</td><td>$f(x_i,x_j) = e^{x_i^T x_j}$</td></tr><tr><td>Embedded Gaussian</td><td>$f(x_i, x_j) =e^{\theta(x_i)^T\phi(x_j)}$</td></tr><tr><td>Dot product</td><td>$f(x_i,x_j) = \theta(x_i)^T\phi(x_j)$</td></tr><tr><td>Concatenation</td><td>$f(x_i, x_j) = ReLU(w_f^T[\theta(x_i),\phi(x_j)])$<br>其中$[\cdot, \cdot]$表示连接得向量并经$w_f$变成标量</td></tr></tbody></table></div><p>通过将non-local block定义为残差结构，使得模块输出的形状不发生变化，可以将non-local block插入到已有的预训练模型中，而不改变其性能（$W_z$初始化为0）。通过在较高的特征层加入该block，同时引入降采样，可以减小引入的计算量。</p><script type="math/tex; mode=display">z_i = W_z y_i + x_i</script><img src="/2020/10/11/non-local-network/non-local-block.png" title="non-local结构"><h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>经过测试，添加了non-local block的模型具有更高的预测准确率，在non-local block中选择不同的函数计算数据之间的距离（即$f(x_i,x_j)$）对于最后的模型效果影响不大。而且在模型中添加了时空维度上的nonn-local block后效果相比单纯的时间或空间维度的效果更好。</p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>提出了一种non-local的结构学习数据中距离比较远的特征的影响。并且实现了一种non-local block可以插入到现有的网络结构中并提升其性能。</p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;论文题目：Non-local Neural Networks&lt;/p&gt;
+&lt;p&gt;作者：Xiaolong Wang, Ross Girshick, Abhinav Gupta, Kaiming He&lt;/p&gt;
+&lt;p&gt;会议/时间：CVPR2018&lt;/p&gt;
+&lt;p&gt;链接：&lt;a href=&quot;https://arxiv.org/abs/1711.07971&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://arxiv.org/abs/1711.07971&lt;/a&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="论文阅读" scheme="http://YangLeiSX.github.io/categories/论文阅读/"/>
+    
+    
+    <category term="Deep Learning" scheme="http://YangLeiSX.github.io/tags/Deep-Learning/"/>
+    
+    <category term="Computer Vision" scheme="http://YangLeiSX.github.io/tags/Computer-Vision/"/>
+    
+  </entry>
   
   <entry>
     <title>【论文】：Feature Extraction for Visual Speaker Authentication against Computer-Generated Video Attacks</title>
@@ -366,9 +392,9 @@
     <category term="开发经历" scheme="http://YangLeiSX.github.io/categories/开发经历/"/>
     
     
-    <category term="Qt" scheme="http://YangLeiSX.github.io/tags/Qt/"/>
-    
     <category term="OpenSSL" scheme="http://YangLeiSX.github.io/tags/OpenSSL/"/>
+    
+    <category term="Qt" scheme="http://YangLeiSX.github.io/tags/Qt/"/>
     
   </entry>
   
@@ -456,27 +482,6 @@
     
     
     <category term="HTTPS" scheme="http://YangLeiSX.github.io/tags/HTTPS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>openSSL使用记录</title>
-    <link href="http://yangleisx.github.io/2020/04/14/websec-openssl/"/>
-    <id>http://yangleisx.github.io/2020/04/14/websec-openssl/</id>
-    <published>2020-04-14T08:29:18.000Z</published>
-    <updated>2020-05-19T02:48:58.106Z</updated>
-    
-    <content type="html"><![CDATA[<p>openssl的功能主要包括对称加解密、计算哈希（信息摘要）和发布证书。</p><a id="more"></a><h3 id="加解密"><a href="#加解密" class="headerlink" title="加解密"></a>加解密</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">openssl enc -e -aes-128-cbc -<span class="keyword">in</span> main.c -out main.enc</span><br><span class="line">openssl enc -d -aes-128-cbc -<span class="keyword">in</span> main.enc -out main_out.c</span><br></pre></td></tr></table></figure><h3 id="计算摘要"><a href="#计算摘要" class="headerlink" title="计算摘要"></a>计算摘要</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ openssl dgst -sha1 main.c</span><br><span class="line">SHA1(main.c)= cc9bf223848c972e66968fb3846fc7f85721796e</span><br><span class="line">$ <span class="built_in">echo</span> <span class="string">"\n"</span> &gt;&gt; main.c</span><br><span class="line">$ openssl dgst -sha1 main.c</span><br><span class="line">SHA1(main.c)= 52019cdc4aea16ee68f4d881465f6b8f03cf1836</span><br></pre></td></tr></table></figure><h3 id="自建CA并签发-amp-撤销证书"><a href="#自建CA并签发-amp-撤销证书" class="headerlink" title="自建CA并签发&amp;撤销证书"></a>自建CA并签发&amp;撤销证书</h3><h4 id="更改文件目录设置"><a href="#更改文件目录设置" class="headerlink" title="更改文件目录设置"></a>更改文件目录设置</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># CA目录</span></span><br><span class="line">dir=/home/yanglei/Workspace/ssl</span><br><span class="line"></span><br><span class="line"><span class="comment"># 证书目录</span></span><br><span class="line">certs=<span class="variable">$dir</span>/certs</span><br><span class="line"><span class="comment"># 证书备份目录</span></span><br><span class="line">new_certs_dir=<span class="variable">$dir</span>/newcerts</span><br><span class="line"><span class="comment"># CA证书</span></span><br><span class="line">certificate=<span class="variable">$dir</span>/cacert.pem</span><br><span class="line"></span><br><span class="line"><span class="comment"># CA数据库</span></span><br><span class="line">database=<span class="variable">$dir</span>/CA/index.txt</span><br><span class="line"><span class="comment"># CA序列号</span></span><br><span class="line">serial=<span class="variable">$dir</span>/CA/serial</span><br><span class="line"></span><br><span class="line"><span class="comment"># 吊销证书目录</span></span><br><span class="line">crl_dir=<span class="variable">$dir</span>/crl</span><br><span class="line"><span class="comment"># 吊销证书编号</span></span><br><span class="line">crlnumber=<span class="variable">$dir</span>/crlnumber</span><br><span class="line">crl=<span class="variable">$dir</span>/crl.pem</span><br><span class="line"></span><br><span class="line"><span class="comment"># CA私钥目录</span></span><br><span class="line">privatekey=<span class="variable">$dir</span>/private/cakey.pem</span><br></pre></td></tr></table></figure><p>创建文件夹certs、newcerts、CA、private、crl</p><p>创建文件crlnumber（注意写入echo 01 &gt; crlnumber）</p><p>创建文件CA/index.txt、CA/serial（注意写入echo 01 &gt; serial）</p><p>创建随机数private/.rand</p><h4 id="证书字段"><a href="#证书字段" class="headerlink" title="证书字段"></a>证书字段</h4><p>Country Name（C）国家</p><p>State or Province Name（S）省</p><p>Locatily Name（L）市</p><p>Organization Name（O）组织名</p><p>Organization Unit Name（OU）补充</p><p>Common Name（CN）通常为域名/网址</p><p>Email Address</p><h4 id="生成自签名证书"><a href="#生成自签名证书" class="headerlink" title="生成自签名证书"></a>生成自签名证书</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># /home/yanglei/Workspace/ssl</span></span><br><span class="line">$ openssl genrsa -out private/cakey.pem 1024</span><br><span class="line">$ openssl req -new -x509 -key private/cakey.pem -out cacert.pem -days 3650</span><br><span class="line"><span class="comment"># 或者先生成请求再签名</span></span><br><span class="line">$ openssl req -new -key xxx.pem -out xxx.csr</span><br><span class="line">$ openssl x509 -req -<span class="keyword">in</span> xxx.csr -signkey cakey.pem -out xxx.crt</span><br></pre></td></tr></table></figure><h4 id="签发证书"><a href="#签发证书" class="headerlink" title="签发证书"></a>签发证书</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># /home/yanglei/Workspace/testssl</span></span><br><span class="line">$ openssl genrsa -out user1.pem 1024</span><br><span class="line">$ openssl rsa -<span class="keyword">in</span> user1.pem -out user1.pub -pubout</span><br><span class="line">$ openssl req -new -key user1.pem -out user1.csr -days 365</span><br><span class="line"><span class="comment"># /home/yanglei/Workspace/ssl</span></span><br><span class="line">$ openssl ca -<span class="keyword">in</span> ../testssl/user1.csr -out certs/user1.crt -days 365</span><br><span class="line">$ openssl x509 -<span class="keyword">in</span> certs/user1.crt -noout -text</span><br></pre></td></tr></table></figure><h4 id="撤销证书"><a href="#撤销证书" class="headerlink" title="撤销证书"></a>撤销证书</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 吊销证书</span></span><br><span class="line">$ openssl ca -revoke newcerts/01.pem</span><br><span class="line"><span class="comment"># 发布吊销列表</span></span><br><span class="line">$ openssl ca -gencrl -out crl/ca.crl</span><br><span class="line"><span class="comment"># 查看吊销列表</span></span><br><span class="line">$ openssl crl -<span class="keyword">in</span> crl/ca.crl -noout -text</span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;openssl的功能主要包括对称加解密、计算哈希（信息摘要）和发布证书。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="实用工具" scheme="http://YangLeiSX.github.io/categories/实用工具/"/>
-    
-    
-    <category term="OpenSSL" scheme="http://YangLeiSX.github.io/tags/OpenSSL/"/>
     
   </entry>
   
