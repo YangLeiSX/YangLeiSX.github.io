@@ -6,7 +6,7 @@
   <link href="http://yangleisx.github.io/atom.xml" rel="self"/>
   
   <link href="http://yangleisx.github.io/"/>
-  <updated>2020-10-11T06:16:42.133Z</updated>
+  <updated>2020-10-20T14:07:54.819Z</updated>
   <id>http://yangleisx.github.io/</id>
   
   <author>
@@ -17,11 +17,39 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>【论文】：Non-local Neural Networks</title>
+    <title>【论文】Challenging Common Assumptions in the Unsupervised Learning of Disentangled Representations</title>
+    <link href="http://yangleisx.github.io/2020/10/20/challenge-disentangled/"/>
+    <id>http://yangleisx.github.io/2020/10/20/challenge-disentangled/</id>
+    <published>2020-10-20T14:06:26.000Z</published>
+    <updated>2020-10-20T14:07:54.819Z</updated>
+    
+    <content type="html"><![CDATA[<p>论文题目：Challenging Common Assumptions in the Unsupervised Learning of Disentangled Representations</p><p>作者：Francesco Locatello, Stefan Bauer, Mario Lucic, Gunnar Rätsch, Sylvain Gelly, Bernhard Schölkopf,  Olivier Bachem</p><p>会议/时间：ICML2019</p><p>链接：<a href="https://arxiv.org/pdf/1811.12359.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/1811.12359.pdf</a></p><a id="more"></a><h2 id="论文目标"><a href="#论文目标" class="headerlink" title="论文目标"></a>论文目标</h2><p>近年来关于disentangled representation 的unsupervised learning相关的研究非常多，其核心观点为现实世界中的数据是通过一些单独的可解释的元素生成的，可以通过无监督学习的方式学习到数据的一种表示。本文通过理论分析，证明在模型和数据不添加归纳偏置的情况下这种无监督学习是不可能实现的，同时文中在多个数据集上训练了近年来的相关模型。最终提出了进一步研究的方向。</p><h2 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h2><p>目前效果比较好的模型大多是基于变分自编码器（Variational Autoencoder，VAE），即认为现实世界中的数据来源于一个高维隐变量$z \sim P(z)$，实际观察到的数据为$x$，通过建立一个自编码器，包括编码器和解码器学习得到$P(x|z)$和$Q(z|x)$，其中使用$Q(z|x)$近似实际的$P(z|x)$，从而从数据$x$中学到一个表示$r(x)$去寻找隐变量$z$。</p><p>这一领域之前的研究包括独立成分分析（Independent Component Analysis，ICA）等。</p><h2 id="本文思路-解决方案"><a href="#本文思路-解决方案" class="headerlink" title="本文思路/解决方案"></a>本文思路/解决方案</h2><p>给定如下的理论</p><blockquote><p>For $d &gt; 1$ , let $z \sim P$ denote any distribution which admits a density $p(z) = \prod_{i=1}^{d}p(z_i)$. Then, there exists an infinite family of bijective functions f : supp(z) → supp(z) such that $\frac {\partial f_i(u)}{\partial u_j}$ almost everywhere for all $i$ and $j$ (i.e., $z$ and $f(z)$ are completely entangled) and $P(z \leq u) = P(f(z) \leq u)$ for all $u \in supp(z)$ (i.e., they have the same marginal distribution).</p></blockquote><p>可以得到，对于给定的数据$x$，可以找到无限多的$p(z)$满足要求，且这些$p(z)$相互等价并满足disentangled的要求，一个无监督的模型难以区分这些$p(z)$。因此在实际的模型中，需要为模型结构和数据集引入合理的归纳偏置（inductive bias）。</p><p>在实验设计中，使用到的模型为添加了正则项的VAE，包括betaVAE、AnnealedVAE、FactorVAE、beta-TCVAE、DIP-VAE等。在模型的度量标准中，使用了包括BetaVAE Metric、FactorVAE Metric、MIG(Mutual Information Gap)、Modularity、SAP Score等方法。使用到的数据集包括四个3D空间变化的数据集和三个随机的噪声数据集。</p><p>在归纳偏置中，为了控制变量，对于所有的模型使用相同的卷积结构、优化算法、超参数，使用相同的Gaussian Encoder和Bernoulli Decoder，使用相同的隐变量维度（=10），构建模型进行测试。仅使用不同的正则项和不同的正则项权重。</p><h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><ol><li>当正则化系数增大时，使用拟合高斯的采样得到的相关性减小，使用均值表示的相关性增大。可以证明上述模型可以得到不同维度相关性比较弱的聚合先验，但是并不能表示均值表示也是不相关的。</li><li>在不同的性能度量中，除了Modularity以外的几种都是相关的，只是在不同的数据集上的相关性有差异。</li><li>模型的性能受到随机初始化和超参数的影响比较大，目标函数在其中影响比较小。</li><li>如何选择无监督模型仍然等待得到解决。在不同数据集和度量指标之间的超参数迁移用处不大。</li><li>实验并不能证明这些disentangled表示对于下游的任务有所帮助。</li></ol><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>在将来的研究中可以将重点更多放在如下三个方面：1）归纳偏置和显/隐性监督，2）disentangled representation的实际效益，3）实验设置和数据集的多样性。</p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;论文题目：Challenging Common Assumptions in the Unsupervised Learning of Disentangled Representations&lt;/p&gt;
+&lt;p&gt;作者：Francesco Locatello, Stefan Bauer, Mario Lucic, Gunnar Rätsch, Sylvain Gelly, Bernhard Schölkopf,  Olivier Bachem&lt;/p&gt;
+&lt;p&gt;会议/时间：ICML2019&lt;/p&gt;
+&lt;p&gt;链接：&lt;a href=&quot;https://arxiv.org/pdf/1811.12359.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://arxiv.org/pdf/1811.12359.pdf&lt;/a&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="论文阅读" scheme="http://YangLeiSX.github.io/categories/论文阅读/"/>
+    
+    
+    <category term="Deep Learning" scheme="http://YangLeiSX.github.io/tags/Deep-Learning/"/>
+    
+    <category term="Auto Encoder" scheme="http://YangLeiSX.github.io/tags/Auto-Encoder/"/>
+    
+    <category term="Disentangled Representation Learning" scheme="http://YangLeiSX.github.io/tags/Disentangled-Representation-Learning/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【论文】Non-local Neural Networks</title>
     <link href="http://yangleisx.github.io/2020/10/11/non-local-network/"/>
     <id>http://yangleisx.github.io/2020/10/11/non-local-network/</id>
     <published>2020-10-11T06:14:05.000Z</published>
-    <updated>2020-10-11T06:16:42.133Z</updated>
+    <updated>2020-10-11T06:19:31.943Z</updated>
     
     <content type="html"><![CDATA[<p>论文题目：Non-local Neural Networks</p><p>作者：Xiaolong Wang, Ross Girshick, Abhinav Gupta, Kaiming He</p><p>会议/时间：CVPR2018</p><p>链接：<a href="https://arxiv.org/abs/1711.07971" target="_blank" rel="noopener">https://arxiv.org/abs/1711.07971</a></p><a id="more"></a><h2 id="论文目标"><a href="#论文目标" class="headerlink" title="论文目标"></a>论文目标</h2><p>当前的CNN或者RNN结构中的卷积等操作都是针对数据中的一个小区域（local neighborhood）处理和提取特征，并没有考虑到数据中的长期/远距离依赖关系。因此设计一个non-local操作，可以考虑到输入数据中的每一个位置上的特征和依赖关系，学习到全局信息。</p><h2 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h2><p>在CNN中通过多次卷积扩大感受野，在RNN中通过设计迭代模型学习到序列中的远距离特征/信息，但是在实际的每一次处理过程中都只考虑到局部的信息。通过重复处理局部信息获得全局信息不仅计算效率低，而且引入了优化的困难。</p><p>参考了传统的CV领域使用的non-local mean operation方法。其他相关的内容包括Graphical models、Feedforward modeling for sequences、self-attention、interaction networks、video classification architectures等。实际上self-attention可以看作是non-local的一种情况。</p><h2 id="本文思路-解决方案"><a href="#本文思路-解决方案" class="headerlink" title="本文思路/解决方案"></a>本文思路/解决方案</h2><p>通过考虑特征图中每一个位置的加权和来得到特定位置的响应。</p><p>一方面可以直接学习到数据中远距离的信息，另一方面使用较浅层的网络也能实现比较好的结果，而且作者设计的non-local模块不改变数据的大小，可以方便的插在现有的网络中。</p><p>简单来说，non-local的思路如下，其中$x_i$为输出位置，$x_j$为数据中的每一个点，使用$f(x_i,x_j)$计算两者之间的关系并作为权重计算输入数据特征$g(x)$的加权和。</p><script type="math/tex; mode=display">y_i = \frac{1}{C(x)}\sum\limits_{\forall j}f(x_i, x_j)g(x_j)</script><p>在实际使用过程中，函数$f(\cdot)$和$g(\cdot)$有多种选择。后者常选用$1\times1\times1$的卷积实现。</p><div class="table-container"><table><thead><tr><th>Function Type</th><th>Pairwise Function</th></tr></thead><tbody><tr><td>Gaussian</td><td>$f(x_i,x_j) = e^{x_i^T x_j}$</td></tr><tr><td>Embedded Gaussian</td><td>$f(x_i, x_j) =e^{\theta(x_i)^T\phi(x_j)}$</td></tr><tr><td>Dot product</td><td>$f(x_i,x_j) = \theta(x_i)^T\phi(x_j)$</td></tr><tr><td>Concatenation</td><td>$f(x_i, x_j) = ReLU(w_f^T[\theta(x_i),\phi(x_j)])$<br>其中$[\cdot, \cdot]$表示连接得向量并经$w_f$变成标量</td></tr></tbody></table></div><p>通过将non-local block定义为残差结构，使得模块输出的形状不发生变化，可以将non-local block插入到已有的预训练模型中，而不改变其性能（$W_z$初始化为0）。通过在较高的特征层加入该block，同时引入降采样，可以减小引入的计算量。</p><script type="math/tex; mode=display">z_i = W_z y_i + x_i</script><img src="/2020/10/11/non-local-network/non-local-block.png" title="non-local结构"><h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>经过测试，添加了non-local block的模型具有更高的预测准确率，在non-local block中选择不同的函数计算数据之间的距离（即$f(x_i,x_j)$）对于最后的模型效果影响不大。而且在模型中添加了时空维度上的nonn-local block后效果相比单纯的时间或空间维度的效果更好。</p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>提出了一种non-local的结构学习数据中距离比较远的特征的影响。并且实现了一种non-local block可以插入到现有的网络结构中并提升其性能。</p>]]></content>
     
@@ -43,11 +71,11 @@
   </entry>
   
   <entry>
-    <title>【论文】：Feature Extraction for Visual Speaker Authentication against Computer-Generated Video Attacks</title>
+    <title>【论文】Feature Extraction for Visual Speaker Authentication against Computer-Generated Video Attacks</title>
     <link href="http://yangleisx.github.io/2020/10/08/dea-net/"/>
     <id>http://yangleisx.github.io/2020/10/08/dea-net/</id>
     <published>2020-10-08T08:18:37.000Z</published>
-    <updated>2020-10-08T08:27:44.866Z</updated>
+    <updated>2020-10-11T06:19:38.708Z</updated>
     
     <content type="html"><![CDATA[<p>论文题目：Feature Extraction for Visual Speaker Authentication against Computer-Generated Video Attacks</p><p>作者：Jun Ma, Shilin Wang, Senior Member, IEEE, Aixin Zhang and Alan Wee-Chung Liew</p><p>会议/时间：IEEE ICIP 2020</p><a id="more"></a><h2 id="论文目标"><a href="#论文目标" class="headerlink" title="论文目标"></a>论文目标</h2><p>使用唇语特征进行身份认证具有一定的活体检测能力，但是容易受到使用DeepFake等技术构建的视频攻击，因此构建一个神经网络从视频中提取动态的说话习惯信息，同时尽量减少唇语特征身份认证对于唇部静态特征的依赖。</p><h2 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h2><p>之前的工作中他人使用了唇部的图像和运动特征、纹理描述符等方式实现了比较不错的结果。作者所在 团队之前的工作中使用3D残差单元实现了唇部动态和静态特征的提取。</p><p>近来使用DeepFake换脸技术可以很容易伪造讲话视频，甚至可以在单照片的数据集上实现。使用唇部特征的认证系统由于过多依赖静态特征，受到一定的威胁。</p><p>本文提出的网络结构的基础包括frame difference、self-attention、non-local neural network<sup><a href="#fn_1" id="reffn_1">1</a></sup>等。</p><h2 id="本文思路-解决方案"><a href="#本文思路-解决方案" class="headerlink" title="本文思路/解决方案"></a>本文思路/解决方案</h2><p>构建了一个深度神经网络结构提取用户唇部特征用于认证。包括两个模块：Difference block（Diff-block）和Dynamic Response block（DR-block）两者相互补用于提取用户动态讲话特征信息。</p><h3 id="Diff-block"><a href="#Diff-block" class="headerlink" title="Diff-block"></a>Diff-block</h3><p>给定长度为T帧的视频，通过计算每一帧图像与其他T-1帧图像的相关性来消除静态特征。</p><img src="/2020/10/08/dea-net/diff-block.png" title="Diff-Block模块结构"><script type="math/tex; mode=display">Y_t = \sum\limits_{t\neq j}f(x_t,x_j)\times(x_t-x_j)\\f(x_t, x_j) = softmax(\theta(x_t)^T\varphi(x_j))</script><p>其中$\theta(x_t)$和$\varphi(x_j)$为输入数据分别经由两组不同的Conv+Pool之后得到的，经过转置和相乘得到 $T*T$ 形状的张量，表示两帧数据之间的相关性。将原数据经过 <strong>D-value操作</strong> 之后得到每一帧与其他帧的差值，并按照上述操作得到的相关性矩阵加权求和得到最终的输出。</p><img src="/2020/10/08/dea-net/d-value.png" title="D-value操作"><h3 id="DR-block"><a href="#DR-block" class="headerlink" title="DR-block"></a>DR-block</h3><p>用于提取像素级的全局动态信息，通过计算同一空间位置上的像素在不同时间位置的差异实现。</p><img src="/2020/10/08/dea-net/dr-block.png" title="DR-Block模块结构"><script type="math/tex; mode=display">Y_{(t,h,w,c)} = \sum\limits_{t\neq j}g(p(t,h,w,c),p(j,h,w,c))\times p(j,h,w,c)\\g(p(t,h,w,c),p(j,h,w,c))=softmax(|p(t,h,w,c)-p(j,h,w,c)|)</script><p>其中$g(p(t,h,w,c),p(j,h,w,c))$计算相同空间位置不同时间位置的像素差异。原数据首先经过 <strong>D_value操作</strong> 和softmax后得到了像素值的差异。原数据经过 <strong>Select-T操作</strong> 提取到特征，按照上述操作得到的差异矩阵加权求和得到了最终的输出。</p><img src="/2020/10/08/dea-net/select-t.png" title="Select-T操作"><h3 id="DEA-Net"><a href="#DEA-Net" class="headerlink" title="DEA_Net"></a>DEA_Net</h3><img src="/2020/10/08/dea-net/dea-net.png" title="DEA-Net网络结构"><p>在上述两个处理单元的基础上得到了Dynamic Enhances Authentication Network（DEA_Net）用于分类任务。</p><h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>使用GRID数据集用于模型的评估和测试，使用Faceswap工具生成攻击视频。经过测试，本文提出的模型与SOTA模型相比拥有更低的FAR和HTER，取得了比较好的结果。可以证明Diff-block和DR-block结合能够有效的消除数据中的静态特征，更好的对抗换脸攻击。</p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol><li>提出了两个网络单元用于消除数据中的静态特征，提取动态特征用于识别和认证。</li><li>使用了non-local neural network的结构，增大了感知域，使得浅层网络可以学习到更多的全局信息。</li></ol><blockquote id="fn_1"><sup>1</sup>. X.L. Wang, R. Girshick, A. Gupta, and K.M. He, “Non-local neural networks,” Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition, pp. 7794-7803, 2018.<a href="#reffn_1" title="Jump back to footnote [1] in the text."> &#8617;</a></blockquote>]]></content>
     
@@ -258,30 +286,6 @@
   </entry>
   
   <entry>
-    <title>【论文】Deep Learning Face Representation by Joint Identification-Verification</title>
-    <link href="http://yangleisx.github.io/2020/06/06/deepid2/"/>
-    <id>http://yangleisx.github.io/2020/06/06/deepid2/</id>
-    <published>2020-06-06T07:48:29.000Z</published>
-    <updated>2020-06-06T12:08:25.532Z</updated>
-    
-    <content type="html"><![CDATA[<p>论文题目：Deep Learning Face Representation by Joint Identification-Verification</p><p>作者：Yi Sun、 Xiaogang Wang、 Xiaoou Tang</p><p>时间：2014</p><p>链接：<a href="https://arxiv.org/pdf/1406.4773.pdf" target="_blank" rel="noopener">原文链接</a></p><a id="more"></a><h2 id="论文目标"><a href="#论文目标" class="headerlink" title="论文目标"></a>论文目标</h2><p>在面部识别中，关键任务是提取面部特征，并增大类间距离、减小类内距离。</p><h2 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h2><p>在之前的工作中，本文作者提出的DeepID使用softmax作为输出用于身份验证，达到了比较好的效果。其他诸如LDA、metric learning等方法使用线性模型或使用浅层网络，具有一定的局限性。</p><h2 id="本文思路-解决方案"><a href="#本文思路-解决方案" class="headerlink" title="本文思路/解决方案"></a>本文思路/解决方案</h2><p>同时使用两种supervisory signal来指导模型的学习，即同时使用identification（给定输入，判断属于哪一个类别，多分类）和verification（给定两个输入，判断是否属于同一类别，二分类），前者可以增大类间距离，后者减小类内距离。</p><p>深度神经网络的结构与本文作者<a href="http://www.ee.cuhk.edu.hk/~xgwang/papers/sunWTcvpr14.pdf" target="_blank" rel="noopener">之前的工作</a>基本相同，即包括四层卷积和三层最大池化，经过跨层连接得到长度为160的特征向量。</p><p>使用特征网络的输出向量分别用于identification和verification，反向传播时使用超参数$\lambda$对两个损失函数的梯度加权。在前者使用softmax得到输出并优化cross-entropy loss。在后者使用基于L1/L2正则和cosine相似的损失函数，并对比较其效果。</p><p>基于cosine相似:<script type="math/tex">Verif(f_i,f_j, y_{ij}, \theta_{ve}) = \frac{1}{2}(y_{ij}-\sigma(wd+b))^2</script>，其中$\sigma$为sigmoid函数，<script type="math/tex">d = \frac{f_i · f_j}{||f_i||_2·||f_j||_2}</script>。</p><p>基于L2的:<script type="math/tex">Verif(f_i,f_j, y_{ij}, \theta_{ij}) = \begin{cases} \frac{1}{2}||f_i - f_j||^2 &if\ y_{ij}=1\\\frac{1}{2}\max(0, m-||f_i - f_j||^2)&if\ y_{ij}=-1\end{cases}</script>，其中<script type="math/tex">y_{ij}</script>表示输入是否为同一类别，$ m $为指定的边界，在训练过程中手动调整。</p><p>训练过程中，每一张图片选择了400个patch，包括不同位置、大小、通道（RGB or 灰度），训练得到200个网络。</p><p>测试Verification时，通过前后向贪婪算法选择其中效果最好的25个得到$25*160=4000$维度的特征向量，并通过PCA压缩，便于识别和预测。在预测时分别使用L2 Norm模型和联合贝叶斯模型来得到结果。</p><h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>对于超参数$\lambda$的选择，通过测试可以发现在0.05处达到最高。当$\lambda=0$或者$\lambda=+\infty$时，据无法得到比较好的效果，说明identification和verification对于特征提取都具有重要作用。</p><p>与DeepID中的情况相同，训练时使用的类别越多，学习效果越好。</p><p>使用联合贝叶斯模型实现预测可以得到更高的准确率。同时在训练过程中，使用L2正则的损失函数效果更好。</p><p>多次选择效果比较好的patch组合，使用得到的结果结合SVM进行预测，整体系统的性能达到了99.15%的识别准确率。</p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol><li>使用identification和verification结合的方式，合理选择权重超参数，使得学习效果进一步提升。</li><li>在verification中测试多种损失函数，最终选择了效果最好的基于L2的模型。</li></ol>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;论文题目：Deep Learning Face Representation by Joint Identification-Verification&lt;/p&gt;
-&lt;p&gt;作者：Yi Sun、 Xiaogang Wang、 Xiaoou Tang&lt;/p&gt;
-&lt;p&gt;时间：2014&lt;/p&gt;
-&lt;p&gt;链接：&lt;a href=&quot;https://arxiv.org/pdf/1406.4773.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;原文链接&lt;/a&gt;&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="论文阅读" scheme="http://YangLeiSX.github.io/categories/论文阅读/"/>
-    
-    
-    <category term="Deep Learning" scheme="http://YangLeiSX.github.io/tags/Deep-Learning/"/>
-    
-  </entry>
-  
-  <entry>
     <title>【论文】FaceNet：A Unified Embedding for Face Recognition and Clustering</title>
     <link href="http://yangleisx.github.io/2020/06/06/facenet/"/>
     <id>http://yangleisx.github.io/2020/06/06/facenet/</id>
@@ -295,6 +299,30 @@
 &lt;p&gt;作者：Florian Schroff、Dmitry Kalenichenko、James Philbin&lt;/p&gt;
 &lt;p&gt;会议/时间：2015&lt;/p&gt;
 &lt;p&gt;链接：&lt;a href=&quot;https://arxiv.org/pdf/1503.03832.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;原文链接&lt;/a&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="论文阅读" scheme="http://YangLeiSX.github.io/categories/论文阅读/"/>
+    
+    
+    <category term="Deep Learning" scheme="http://YangLeiSX.github.io/tags/Deep-Learning/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【论文】Deep Learning Face Representation by Joint Identification-Verification</title>
+    <link href="http://yangleisx.github.io/2020/06/06/deepid2/"/>
+    <id>http://yangleisx.github.io/2020/06/06/deepid2/</id>
+    <published>2020-06-06T07:48:29.000Z</published>
+    <updated>2020-06-06T12:08:25.532Z</updated>
+    
+    <content type="html"><![CDATA[<p>论文题目：Deep Learning Face Representation by Joint Identification-Verification</p><p>作者：Yi Sun、 Xiaogang Wang、 Xiaoou Tang</p><p>时间：2014</p><p>链接：<a href="https://arxiv.org/pdf/1406.4773.pdf" target="_blank" rel="noopener">原文链接</a></p><a id="more"></a><h2 id="论文目标"><a href="#论文目标" class="headerlink" title="论文目标"></a>论文目标</h2><p>在面部识别中，关键任务是提取面部特征，并增大类间距离、减小类内距离。</p><h2 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h2><p>在之前的工作中，本文作者提出的DeepID使用softmax作为输出用于身份验证，达到了比较好的效果。其他诸如LDA、metric learning等方法使用线性模型或使用浅层网络，具有一定的局限性。</p><h2 id="本文思路-解决方案"><a href="#本文思路-解决方案" class="headerlink" title="本文思路/解决方案"></a>本文思路/解决方案</h2><p>同时使用两种supervisory signal来指导模型的学习，即同时使用identification（给定输入，判断属于哪一个类别，多分类）和verification（给定两个输入，判断是否属于同一类别，二分类），前者可以增大类间距离，后者减小类内距离。</p><p>深度神经网络的结构与本文作者<a href="http://www.ee.cuhk.edu.hk/~xgwang/papers/sunWTcvpr14.pdf" target="_blank" rel="noopener">之前的工作</a>基本相同，即包括四层卷积和三层最大池化，经过跨层连接得到长度为160的特征向量。</p><p>使用特征网络的输出向量分别用于identification和verification，反向传播时使用超参数$\lambda$对两个损失函数的梯度加权。在前者使用softmax得到输出并优化cross-entropy loss。在后者使用基于L1/L2正则和cosine相似的损失函数，并对比较其效果。</p><p>基于cosine相似:<script type="math/tex">Verif(f_i,f_j, y_{ij}, \theta_{ve}) = \frac{1}{2}(y_{ij}-\sigma(wd+b))^2</script>，其中$\sigma$为sigmoid函数，<script type="math/tex">d = \frac{f_i · f_j}{||f_i||_2·||f_j||_2}</script>。</p><p>基于L2的:<script type="math/tex">Verif(f_i,f_j, y_{ij}, \theta_{ij}) = \begin{cases} \frac{1}{2}||f_i - f_j||^2 &if\ y_{ij}=1\\\frac{1}{2}\max(0, m-||f_i - f_j||^2)&if\ y_{ij}=-1\end{cases}</script>，其中<script type="math/tex">y_{ij}</script>表示输入是否为同一类别，$ m $为指定的边界，在训练过程中手动调整。</p><p>训练过程中，每一张图片选择了400个patch，包括不同位置、大小、通道（RGB or 灰度），训练得到200个网络。</p><p>测试Verification时，通过前后向贪婪算法选择其中效果最好的25个得到$25*160=4000$维度的特征向量，并通过PCA压缩，便于识别和预测。在预测时分别使用L2 Norm模型和联合贝叶斯模型来得到结果。</p><h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>对于超参数$\lambda$的选择，通过测试可以发现在0.05处达到最高。当$\lambda=0$或者$\lambda=+\infty$时，据无法得到比较好的效果，说明identification和verification对于特征提取都具有重要作用。</p><p>与DeepID中的情况相同，训练时使用的类别越多，学习效果越好。</p><p>使用联合贝叶斯模型实现预测可以得到更高的准确率。同时在训练过程中，使用L2正则的损失函数效果更好。</p><p>多次选择效果比较好的patch组合，使用得到的结果结合SVM进行预测，整体系统的性能达到了99.15%的识别准确率。</p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol><li>使用identification和verification结合的方式，合理选择权重超参数，使得学习效果进一步提升。</li><li>在verification中测试多种损失函数，最终选择了效果最好的基于L2的模型。</li></ol>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;论文题目：Deep Learning Face Representation by Joint Identification-Verification&lt;/p&gt;
+&lt;p&gt;作者：Yi Sun、 Xiaogang Wang、 Xiaoou Tang&lt;/p&gt;
+&lt;p&gt;时间：2014&lt;/p&gt;
+&lt;p&gt;链接：&lt;a href=&quot;https://arxiv.org/pdf/1406.4773.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;原文链接&lt;/a&gt;&lt;/p&gt;</summary>
     
     
     
@@ -392,9 +420,9 @@
     <category term="开发经历" scheme="http://YangLeiSX.github.io/categories/开发经历/"/>
     
     
-    <category term="OpenSSL" scheme="http://YangLeiSX.github.io/tags/OpenSSL/"/>
-    
     <category term="Qt" scheme="http://YangLeiSX.github.io/tags/Qt/"/>
+    
+    <category term="OpenSSL" scheme="http://YangLeiSX.github.io/tags/OpenSSL/"/>
     
   </entry>
   
@@ -461,27 +489,6 @@
     
     
     <category term="C/C++" scheme="http://YangLeiSX.github.io/tags/C-C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>HTTPS初步理解</title>
-    <link href="http://yangleisx.github.io/2020/04/14/websec-https/"/>
-    <id>http://yangleisx.github.io/2020/04/14/websec-https/</id>
-    <published>2020-04-14T08:34:05.000Z</published>
-    <updated>2020-05-19T02:49:05.907Z</updated>
-    
-    <content type="html"><![CDATA[<p>相关概念：SSL、TLS、证书。</p><a id="more"></a><p>SSL或TLS运行在传输层和应用层之间。（早期称为SSL，后期称为TLS）。用户网络加密通讯。</p><p>HTTPS可以看作HTTP+TLS，包括两个部分：握手协议+记录协议。</p><p>链接流程（握手协议）主要流程：</p><ol><li>客户端HELLO（发送支持的TLS版本）</li><li>服务器HELLO（选择TLS版本，发送服务器证书）</li><li>客户端检查证书，生成主密钥（随机数）并使用服务器证书加密</li><li>服务器解密后对主密钥加密并发回（类似Diffie Hellman交换）</li><li>客户端验证主密钥，使用主密钥得到交换密钥用于非对称加密</li><li>服务器验证客户端（可选）</li></ol><p>主要概念：使用服务器的公钥加密一个信息，服务器使用公钥解密后将该信息以客户端公钥加密后发回。用户客户端和服务器之间的验证。</p><p>记录协议中将应用层数据分段、压缩、添加下层首部（HTTP）、对称加密、添加TLS头部并发送。</p><p>证书包括公钥内容和私钥拥有者的信息。属于可信第三方（公钥基础设施PKI），用于证明公钥内容正确性。</p><p>通常由CA机构使用自己的私钥为服务器的证书请求添加数字签名。拿到证书以后，客户端通过使用CA的公钥解密得到证书内部的服务器公钥。CA使用层次签名，顶级CA的证书使用自签名，其公钥在全网公开。</p>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;相关概念：SSL、TLS、证书。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="基础知识" scheme="http://YangLeiSX.github.io/categories/基础知识/"/>
-    
-    
-    <category term="HTTPS" scheme="http://YangLeiSX.github.io/tags/HTTPS/"/>
     
   </entry>
   
