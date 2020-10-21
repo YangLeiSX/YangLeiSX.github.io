@@ -6,7 +6,7 @@
   <link href="http://yangleisx.github.io/atom.xml" rel="self"/>
   
   <link href="http://yangleisx.github.io/"/>
-  <updated>2020-10-20T14:07:54.819Z</updated>
+  <updated>2020-10-21T07:14:22.219Z</updated>
   <id>http://yangleisx.github.io/</id>
   
   <author>
@@ -17,11 +17,37 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>【论文】Character Region Awareness for Text Detection</title>
+    <link href="http://yangleisx.github.io/2020/10/21/craft/"/>
+    <id>http://yangleisx.github.io/2020/10/21/craft/</id>
+    <published>2020-10-21T07:10:45.000Z</published>
+    <updated>2020-10-21T07:14:22.219Z</updated>
+    
+    <content type="html"><![CDATA[<p>论文题目：Character Region Awareness for Text Detection</p><p>作者：Youngmin Baek, Bado Lee, Dongyoon Han, Sangdoo Yun, and Hwalsuk Lee</p><p>会议/时间：CVPR2019</p><p>链接：<a href="https://arxiv.org/pdf/1904.01941.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/1904.01941.pdf</a></p><a id="more"></a><h2 id="论文目标"><a href="#论文目标" class="headerlink" title="论文目标"></a>论文目标</h2><p>今年来使用深度神经网络实现的文本检测得到许多关注，但是过去的文本检测工作大多使用边界框框选每一个词，存在一定的缺陷，例如在单词非常长或者扭曲畸形的情况下效果不好，本文提出了一种基于检测单个字符的文本检测模型，通过检测连续的字符实现自下而上的单词检测。由于成本非常高，现有的文本检测数据库并没有提供字符级的标注，文中使用弱监督学习方法，可以在单词级标注的数据集上训练字符级模型。</p><h2 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h2><p>很多的文本检测模型（即regression-based text detectors），使用了目标检测模型中常用的边框回归思路。尽管取得了比较好的效果，但是不能应对实际场景下的各种形状的文字。一些文本检测模型（segmentation-based text detectors），在像素级分割和检测文本区域。还有一些端到端的文本检测工具将文本检测和识别任务结合在一起，可以避免一些背景中的图形的影响，提高检测效果。大多数的文本检测是以单词为识别单位，但是在标注和划分时很难确定，造成效果较差。</p><h2 id="本文思路-解决方案"><a href="#本文思路-解决方案" class="headerlink" title="本文思路/解决方案"></a>本文思路/解决方案</h2><p>本文构建卷积神经网络，从图像中学习得到字符（region score）和字符之间的连接关系（affinity score），从而从数据中检测单词和句子。</p><p>模型使用添加了BatchNormal的VGG-16作为基本结构，通过添加解码器和短路连接构建了类似U-Net的模型结构，最终输出2通道的特征图。</p><img src="/2020/10/21/craft/model.png" class="model"><p>模型输出的特征图分别表示字符和字符之间的连接关系。region score表示当前像素为一个字符中心点的概率，affnity score表示当前像素为两个字符中间点的概率。本文使用了高斯热力图来表示字符的位置，相比使用几何形状框选，更容易表示各种形状的字符。</p><p>数据标注的生成方式 如下，分别对每一个字符使用四边形框选，在每个框中选择上下两个三角的中心点生成新的四边形，将二维高斯热图变换填充进去得到。</p><img src="/2020/10/21/craft/feature.png" class="feature"><p>在训练过程中，由于实际的数据集只有单词级或者句子级的标注，首先使用合成的样本训练得到一个临时的模型，然后将实际数据集中的单词或者句子裁剪出来通过模型得到单词边界框，与原数据预测的结果相比计算置信度。一种可行的方法是使用字符框的个数与单词长度相比较得到置信度，作为计算目标函数时的像素权重。即</p><script type="math/tex; mode=display">L = \sum\limits_{p} S_c(p)\cdot(||S_r(p) - S_r^*(p)||^2+||S_a(p) - S_as^*(p)||^2_2)</script><img src="/2020/10/21/craft/training.png" class="training"><p>最后在预测时需要进行相应的后处理，例如使用矩形框将检测到的文本从原数据裁剪出来包括如下操作：分别设置阈值将特征图转为二值，使用连通区域标记技术<sup><a href="#fn_1" id="reffn_1">1</a></sup>从二值图中框选单词，最后选择一个矩形框<sup><a href="#fn_2" id="reffn_2">2</a></sup>将上述连通区域框选出来。或者使用多边形折线框框选：每个字符使用相同长度的竖线表示，竖线的中点连线得到单词中线，上述竖线转至与中线垂直，以端点为多边形的顶点绘制中线的平行线。</p><img src="/2020/10/21/craft/postope.png" class="post_operation"><h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>在选择的六个数据集上，经过训练和测试，都实现了超过SOTA的效果。可以证明使用字符级的检测效果比较好。</p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>提出了一种基于检测单字符从而实现文本检测的方法，针对数据标注比较少的情况引入了弱监督的训练方式，取得了比较好的结果。</p><p>模型通过检测字符而不是单词，在感受野比较小的情况下具有较好的鲁棒性，但是只能针对字符相分离的语言，不能处理孟加拉语、阿拉伯语等语言。模型中只有文本检测没有文本识别，与端到端的模型相比性能受限，但是在多个数据集上都取得了非常好的结果，证明泛化能力比较强。</p><blockquote id="fn_1, 2"><sup>1, 2</sup>. 可以使用opencv中提供的connectedComponents函数和minAreaRect函数等实现。<a href="#reffn_1, 2" title="Jump back to footnote [1, 2] in the text."> &#8617;</a></blockquote>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;论文题目：Character Region Awareness for Text Detection&lt;/p&gt;
+&lt;p&gt;作者：Youngmin Baek, Bado Lee, Dongyoon Han, Sangdoo Yun, and Hwalsuk Lee&lt;/p&gt;
+&lt;p&gt;会议/时间：CVPR2019&lt;/p&gt;
+&lt;p&gt;链接：&lt;a href=&quot;https://arxiv.org/pdf/1904.01941.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://arxiv.org/pdf/1904.01941.pdf&lt;/a&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="论文阅读" scheme="http://YangLeiSX.github.io/categories/论文阅读/"/>
+    
+    
+    <category term="Deep Learning" scheme="http://YangLeiSX.github.io/tags/Deep-Learning/"/>
+    
+    <category term="Text Detection" scheme="http://YangLeiSX.github.io/tags/Text-Detection/"/>
+    
+  </entry>
+  
+  <entry>
     <title>【论文】Challenging Common Assumptions in the Unsupervised Learning of Disentangled Representations</title>
     <link href="http://yangleisx.github.io/2020/10/20/challenge-disentangled/"/>
     <id>http://yangleisx.github.io/2020/10/20/challenge-disentangled/</id>
     <published>2020-10-20T14:06:26.000Z</published>
-    <updated>2020-10-20T14:07:54.819Z</updated>
+    <updated>2020-10-21T07:14:47.814Z</updated>
     
     <content type="html"><![CDATA[<p>论文题目：Challenging Common Assumptions in the Unsupervised Learning of Disentangled Representations</p><p>作者：Francesco Locatello, Stefan Bauer, Mario Lucic, Gunnar Rätsch, Sylvain Gelly, Bernhard Schölkopf,  Olivier Bachem</p><p>会议/时间：ICML2019</p><p>链接：<a href="https://arxiv.org/pdf/1811.12359.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/1811.12359.pdf</a></p><a id="more"></a><h2 id="论文目标"><a href="#论文目标" class="headerlink" title="论文目标"></a>论文目标</h2><p>近年来关于disentangled representation 的unsupervised learning相关的研究非常多，其核心观点为现实世界中的数据是通过一些单独的可解释的元素生成的，可以通过无监督学习的方式学习到数据的一种表示。本文通过理论分析，证明在模型和数据不添加归纳偏置的情况下这种无监督学习是不可能实现的，同时文中在多个数据集上训练了近年来的相关模型。最终提出了进一步研究的方向。</p><h2 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h2><p>目前效果比较好的模型大多是基于变分自编码器（Variational Autoencoder，VAE），即认为现实世界中的数据来源于一个高维隐变量$z \sim P(z)$，实际观察到的数据为$x$，通过建立一个自编码器，包括编码器和解码器学习得到$P(x|z)$和$Q(z|x)$，其中使用$Q(z|x)$近似实际的$P(z|x)$，从而从数据$x$中学到一个表示$r(x)$去寻找隐变量$z$。</p><p>这一领域之前的研究包括独立成分分析（Independent Component Analysis，ICA）等。</p><h2 id="本文思路-解决方案"><a href="#本文思路-解决方案" class="headerlink" title="本文思路/解决方案"></a>本文思路/解决方案</h2><p>给定如下的理论</p><blockquote><p>For $d &gt; 1$ , let $z \sim P$ denote any distribution which admits a density $p(z) = \prod_{i=1}^{d}p(z_i)$. Then, there exists an infinite family of bijective functions f : supp(z) → supp(z) such that $\frac {\partial f_i(u)}{\partial u_j}$ almost everywhere for all $i$ and $j$ (i.e., $z$ and $f(z)$ are completely entangled) and $P(z \leq u) = P(f(z) \leq u)$ for all $u \in supp(z)$ (i.e., they have the same marginal distribution).</p></blockquote><p>可以得到，对于给定的数据$x$，可以找到无限多的$p(z)$满足要求，且这些$p(z)$相互等价并满足disentangled的要求，一个无监督的模型难以区分这些$p(z)$。因此在实际的模型中，需要为模型结构和数据集引入合理的归纳偏置（inductive bias）。</p><p>在实验设计中，使用到的模型为添加了正则项的VAE，包括betaVAE、AnnealedVAE、FactorVAE、beta-TCVAE、DIP-VAE等。在模型的度量标准中，使用了包括BetaVAE Metric、FactorVAE Metric、MIG(Mutual Information Gap)、Modularity、SAP Score等方法。使用到的数据集包括四个3D空间变化的数据集和三个随机的噪声数据集。</p><p>在归纳偏置中，为了控制变量，对于所有的模型使用相同的卷积结构、优化算法、超参数，使用相同的Gaussian Encoder和Bernoulli Decoder，使用相同的隐变量维度（=10），构建模型进行测试。仅使用不同的正则项和不同的正则项权重。</p><h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><ol><li>当正则化系数增大时，使用拟合高斯的采样得到的相关性减小，使用均值表示的相关性增大。可以证明上述模型可以得到不同维度相关性比较弱的聚合先验，但是并不能表示均值表示也是不相关的。</li><li>在不同的性能度量中，除了Modularity以外的几种都是相关的，只是在不同的数据集上的相关性有差异。</li><li>模型的性能受到随机初始化和超参数的影响比较大，目标函数在其中影响比较小。</li><li>如何选择无监督模型仍然等待得到解决。在不同数据集和度量指标之间的超参数迁移用处不大。</li><li>实验并不能证明这些disentangled表示对于下游的任务有所帮助。</li></ol><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>在将来的研究中可以将重点更多放在如下三个方面：1）归纳偏置和显/隐性监督，2）disentangled representation的实际效益，3）实验设置和数据集的多样性。</p>]]></content>
     
@@ -40,7 +66,7 @@
     
     <category term="Auto Encoder" scheme="http://YangLeiSX.github.io/tags/Auto-Encoder/"/>
     
-    <category term="Disentangled Representation Learning" scheme="http://YangLeiSX.github.io/tags/Disentangled-Representation-Learning/"/>
+    <category term="Disentangled Learning" scheme="http://YangLeiSX.github.io/tags/Disentangled-Learning/"/>
     
   </entry>
   
@@ -286,30 +312,6 @@
   </entry>
   
   <entry>
-    <title>【论文】FaceNet：A Unified Embedding for Face Recognition and Clustering</title>
-    <link href="http://yangleisx.github.io/2020/06/06/facenet/"/>
-    <id>http://yangleisx.github.io/2020/06/06/facenet/</id>
-    <published>2020-06-06T07:48:29.000Z</published>
-    <updated>2020-06-14T02:49:15.205Z</updated>
-    
-    <content type="html"><![CDATA[<p>论文题目：FaceNet: A Unified Embedding for Face Recognition and Clustering</p><p>作者：Florian Schroff、Dmitry Kalenichenko、James Philbin</p><p>会议/时间：2015</p><p>链接：<a href="https://arxiv.org/pdf/1503.03832.pdf" target="_blank" rel="noopener">原文链接</a></p><a id="more"></a><h2 id="论文目标"><a href="#论文目标" class="headerlink" title="论文目标"></a>论文目标</h2><p>学习一种直接的从面部图片到欧氏空间向量的映射，用于人脸识别、分类和聚类等工作。欧氏空间向量之间的距离表示图片内人脸的相似度。</p><h2 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h2><p>过去的人脸识别网络中往往通过人脸识别/分类等任务训练，最终将其中的某一层提取出来用作特征向量的生成。缺点在于泛化能力可能不够强，而且往往生成的特征向量长度比较大，效率较低。多数研究中对于较长的特征向量使用PCA简化。</p><h2 id="本文思路-解决方案"><a href="#本文思路-解决方案" class="headerlink" title="本文思路/解决方案"></a>本文思路/解决方案</h2><p>通过引入triplet loss和online triplet mining method，直接学习得到特征向量，具体是对于深度神经网络的输出，经过L2Norm后得到向量，并使用Triplet loss优化。本文作者使用的两种深度网络分别来自Zeiler&amp;Fergus Model和Szegedy’s Inception Model，将其视作黑箱并训练。</p><p>文中假设相同的人输入的数据分布在欧氏空间内的一个超平面，当给定一组triplet（包括锚anchor、正例positive、反例negative，其中anchor和positive是同一类）时，则有<script type="math/tex">||f(x_i^a)-f(x_i^p)||^2_2+\alpha < ||f(x_i^a)-f(x_i^n)||^2_2</script>，即正例的距离与反例距离的差值不小于给定的边界值$\alpha$。从而得到优化目标为<script type="math/tex">triplet\ loss = \sum\limits_{i}^{N}\left[||f(x_i^a)-f(x_i^p)||^2_2+\alpha - ||f(x_i^a)-f(x_i^n)||^2_2 \right]_+</script>。</p><p>在训练过程中，需要选择合适的数据计算损失函数，如果选择简单的triplet会导致收敛缓慢，训练效果较差。因此在训练过程中，对于每一个给定的数据<script type="math/tex">x_i^a</script>，选择距离最大的正例(<script type="math/tex">\arg\max_{x_i^p}||f(x_i^a)-f(x_i^p)||^2_2</script>)和距离最小的反例(<script type="math/tex">\arg\min||f(x_i^a)-f(x_i^n)||^2</script>)，称为hard取样。</p><p>在实际的训练过程中，获得满足要求的triplet是不可能的，两种可行的方法包括：offline方式（每次训练N步后计算距离并选择triplet）、online方法（在每一个batch中选择满足要求的数据）。选择后者时需要注意保证每一个batch中都必须含有正例和反例。</p><p>当在训练开始时就选择hard采样时，会导致模型进入局部最优，因此提出了semi-hard取样，即选择那些满足<script type="math/tex">||f(x_i^a)-f(x_i^p)||^2_2 < ||f(x_i^a)-f(x_i^n)||^2_2</script>的反例数据组成triplet进行训练。</p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol><li>提出了triplet loss，便于直接训练一个图像到向量的映射。</li><li>分析了选择triplet的方式，使用semi-hard策略解决hard策略的缺点。</li></ol>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;论文题目：FaceNet: A Unified Embedding for Face Recognition and Clustering&lt;/p&gt;
-&lt;p&gt;作者：Florian Schroff、Dmitry Kalenichenko、James Philbin&lt;/p&gt;
-&lt;p&gt;会议/时间：2015&lt;/p&gt;
-&lt;p&gt;链接：&lt;a href=&quot;https://arxiv.org/pdf/1503.03832.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;原文链接&lt;/a&gt;&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="论文阅读" scheme="http://YangLeiSX.github.io/categories/论文阅读/"/>
-    
-    
-    <category term="Deep Learning" scheme="http://YangLeiSX.github.io/tags/Deep-Learning/"/>
-    
-  </entry>
-  
-  <entry>
     <title>【论文】Deep Learning Face Representation by Joint Identification-Verification</title>
     <link href="http://yangleisx.github.io/2020/06/06/deepid2/"/>
     <id>http://yangleisx.github.io/2020/06/06/deepid2/</id>
@@ -323,6 +325,30 @@
 &lt;p&gt;作者：Yi Sun、 Xiaogang Wang、 Xiaoou Tang&lt;/p&gt;
 &lt;p&gt;时间：2014&lt;/p&gt;
 &lt;p&gt;链接：&lt;a href=&quot;https://arxiv.org/pdf/1406.4773.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;原文链接&lt;/a&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="论文阅读" scheme="http://YangLeiSX.github.io/categories/论文阅读/"/>
+    
+    
+    <category term="Deep Learning" scheme="http://YangLeiSX.github.io/tags/Deep-Learning/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【论文】FaceNet：A Unified Embedding for Face Recognition and Clustering</title>
+    <link href="http://yangleisx.github.io/2020/06/06/facenet/"/>
+    <id>http://yangleisx.github.io/2020/06/06/facenet/</id>
+    <published>2020-06-06T07:48:29.000Z</published>
+    <updated>2020-06-14T02:49:15.205Z</updated>
+    
+    <content type="html"><![CDATA[<p>论文题目：FaceNet: A Unified Embedding for Face Recognition and Clustering</p><p>作者：Florian Schroff、Dmitry Kalenichenko、James Philbin</p><p>会议/时间：2015</p><p>链接：<a href="https://arxiv.org/pdf/1503.03832.pdf" target="_blank" rel="noopener">原文链接</a></p><a id="more"></a><h2 id="论文目标"><a href="#论文目标" class="headerlink" title="论文目标"></a>论文目标</h2><p>学习一种直接的从面部图片到欧氏空间向量的映射，用于人脸识别、分类和聚类等工作。欧氏空间向量之间的距离表示图片内人脸的相似度。</p><h2 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h2><p>过去的人脸识别网络中往往通过人脸识别/分类等任务训练，最终将其中的某一层提取出来用作特征向量的生成。缺点在于泛化能力可能不够强，而且往往生成的特征向量长度比较大，效率较低。多数研究中对于较长的特征向量使用PCA简化。</p><h2 id="本文思路-解决方案"><a href="#本文思路-解决方案" class="headerlink" title="本文思路/解决方案"></a>本文思路/解决方案</h2><p>通过引入triplet loss和online triplet mining method，直接学习得到特征向量，具体是对于深度神经网络的输出，经过L2Norm后得到向量，并使用Triplet loss优化。本文作者使用的两种深度网络分别来自Zeiler&amp;Fergus Model和Szegedy’s Inception Model，将其视作黑箱并训练。</p><p>文中假设相同的人输入的数据分布在欧氏空间内的一个超平面，当给定一组triplet（包括锚anchor、正例positive、反例negative，其中anchor和positive是同一类）时，则有<script type="math/tex">||f(x_i^a)-f(x_i^p)||^2_2+\alpha < ||f(x_i^a)-f(x_i^n)||^2_2</script>，即正例的距离与反例距离的差值不小于给定的边界值$\alpha$。从而得到优化目标为<script type="math/tex">triplet\ loss = \sum\limits_{i}^{N}\left[||f(x_i^a)-f(x_i^p)||^2_2+\alpha - ||f(x_i^a)-f(x_i^n)||^2_2 \right]_+</script>。</p><p>在训练过程中，需要选择合适的数据计算损失函数，如果选择简单的triplet会导致收敛缓慢，训练效果较差。因此在训练过程中，对于每一个给定的数据<script type="math/tex">x_i^a</script>，选择距离最大的正例(<script type="math/tex">\arg\max_{x_i^p}||f(x_i^a)-f(x_i^p)||^2_2</script>)和距离最小的反例(<script type="math/tex">\arg\min||f(x_i^a)-f(x_i^n)||^2</script>)，称为hard取样。</p><p>在实际的训练过程中，获得满足要求的triplet是不可能的，两种可行的方法包括：offline方式（每次训练N步后计算距离并选择triplet）、online方法（在每一个batch中选择满足要求的数据）。选择后者时需要注意保证每一个batch中都必须含有正例和反例。</p><p>当在训练开始时就选择hard采样时，会导致模型进入局部最优，因此提出了semi-hard取样，即选择那些满足<script type="math/tex">||f(x_i^a)-f(x_i^p)||^2_2 < ||f(x_i^a)-f(x_i^n)||^2_2</script>的反例数据组成triplet进行训练。</p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol><li>提出了triplet loss，便于直接训练一个图像到向量的映射。</li><li>分析了选择triplet的方式，使用semi-hard策略解决hard策略的缺点。</li></ol>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;论文题目：FaceNet: A Unified Embedding for Face Recognition and Clustering&lt;/p&gt;
+&lt;p&gt;作者：Florian Schroff、Dmitry Kalenichenko、James Philbin&lt;/p&gt;
+&lt;p&gt;会议/时间：2015&lt;/p&gt;
+&lt;p&gt;链接：&lt;a href=&quot;https://arxiv.org/pdf/1503.03832.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;原文链接&lt;/a&gt;&lt;/p&gt;</summary>
     
     
     
@@ -467,28 +493,6 @@
     
     
     <category term="Qt" scheme="http://YangLeiSX.github.io/tags/Qt/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>C++并发编程:线程创建和运行</title>
-    <link href="http://yangleisx.github.io/2020/04/16/cpp-thread-01/"/>
-    <id>http://yangleisx.github.io/2020/04/16/cpp-thread-01/</id>
-    <published>2020-04-16T07:18:34.000Z</published>
-    <updated>2020-05-19T02:10:24.990Z</updated>
-    
-    <content type="html"><![CDATA[<p>使用C++11实现的标准线程库进行并发编程</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;thread&gt;</span></span></span><br></pre></td></tr></table></figure><a id="more"></a><h2 id="创建和结束线程"><a href="#创建和结束线程" class="headerlink" title="创建和结束线程"></a>创建和结束线程</h2><h3 id="创建线程"><a href="#创建线程" class="headerlink" title="创建线程"></a>创建线程</h3><p>使用thread类的构造函数创建线程</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// initFunc 是线程中要执行的函数名</span></span><br><span class="line"><span class="built_in">std</span>::<span class="function">thread <span class="title">t</span><span class="params">(initFunc)</span></span>;</span><br></pre></td></tr></table></figure><p>实际上，任何可执行的对象都可以被传入线程中</p><p>包括函数、可执行类/结构体等</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 可执行类的定义</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">callable_class</span>&#123;</span></span><br><span class="line">  <span class="keyword">int</span> &amp;i;</span><br><span class="line">  callable_class(<span class="keyword">int</span> &amp;i_):i(i_)&#123;&#125;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">operator</span><span class="params">()</span><span class="params">()</span> <span class="keyword">const</span> </span>&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"The value i have is "</span> &lt;&lt; i &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h4 id="函数传参"><a href="#函数传参" class="headerlink" title="函数传参"></a>函数传参</h4><p>线程的iniFunc可以有多个参数</p><p>在构造函数中的函数指针后跟参数列表</p><p>注意，thread的构造函数默认按值传参，即<strong>复制</strong>到线程变量内部</p><p><strong><em>如果initFunc需要引用传参 则要使用 std::ref()</em></strong></p><p><strong><em>如果形参和实参类型不同 则要显式使用类型转换</em></strong></p><h3 id="结束线程"><a href="#结束线程" class="headerlink" title="结束线程"></a>结束线程</h3><p>选择线程分离或者结合</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">std</span>::<span class="function">thread <span class="title">t</span><span class="params">(initFunc)</span></span>;</span><br><span class="line"><span class="comment">// 线程分离</span></span><br><span class="line"><span class="comment">// 显式决定不等待线程执行结束</span></span><br><span class="line">t.detach();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 线程结合</span></span><br><span class="line"><span class="comment">// 等待线程执行结束</span></span><br><span class="line">t.join();</span><br></pre></td></tr></table></figure><h4 id="线程分离"><a href="#线程分离" class="headerlink" title="线程分离"></a>线程分离</h4><p>分离后的线程无法通信无法直接控制</p><p>守护线程通常被分离，运行在后台</p><h4 id="线程结合"><a href="#线程结合" class="headerlink" title="线程结合"></a>线程结合</h4><p>通常需要保证所有的线程都被结合</p><p>一种方法是RAII（资源获取即初始化），使用一个保护类包裹</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">thread_guard</span>&#123;</span></span><br><span class="line">  <span class="built_in">std</span>::thread t;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="comment">// 只允许显式类型转换</span></span><br><span class="line">  explicit thread_guard(std::thread t_):t(std::move(t_))&#123;</span><br><span class="line">    <span class="keyword">if</span>(!t.joinable)</span><br><span class="line">      <span class="keyword">throw</span> <span class="built_in">std</span>::logit_error(<span class="string">"No thread"</span>);</span><br><span class="line">  &#125;  </span><br><span class="line">  <span class="comment">// 保证程序/函数结束时线程被合并</span></span><br><span class="line">  ~thread_guard()&#123;t.join();&#125;</span><br><span class="line">  <span class="comment">// 不生成默认构造函数和赋值函数</span></span><br><span class="line">  thread_guard(thread_guard <span class="keyword">const</span> &amp;) = <span class="keyword">delete</span>;</span><br><span class="line">  thread_guard&amp; <span class="keyword">operator</span>=(thread_guard <span class="keyword">const</span> &amp;) = <span class="keyword">delete</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;使用C++11实现的标准线程库进行并发编程&lt;/p&gt;
-&lt;figure class=&quot;highlight c++&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;#&lt;span class=&quot;meta-keyword&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;meta-string&quot;&gt;&amp;lt;thread&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
-    
-    
-    
-    <category term="代码学习" scheme="http://YangLeiSX.github.io/categories/代码学习/"/>
-    
-    
-    <category term="C/C++" scheme="http://YangLeiSX.github.io/tags/C-C/"/>
     
   </entry>
   
