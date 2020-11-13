@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://YangLeiSX.github.io/2020/11/13/kernel-crypto/</loc>
+    <lastmod>2020-11-13</lastmod>
+  </url>
+  <url>
     <loc>http://YangLeiSX.github.io/2020/11/13/netlink-socket/</loc>
     <lastmod>2020-11-13</lastmod>
   </url>
