@@ -2,14 +2,21 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://yangleisx.github.io/2020/11/13/kernel-crypto/</loc>
+    <loc>http://yangleisx.github.io/2020/11/14/sqlite-c/</loc>
+    
+    <lastmod>2020-11-14</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yangleisx.github.io/2020/11/13/netlink-socket/</loc>
     
     <lastmod>2020-11-13</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yangleisx.github.io/2020/11/13/netlink-socket/</loc>
+    <loc>http://yangleisx.github.io/2020/11/13/kernel-crypto/</loc>
     
     <lastmod>2020-11-13</lastmod>
     
@@ -550,7 +557,7 @@
 
   <url>
     <loc>http://yangleisx.github.io/</loc>
-    <lastmod>2020-11-13</lastmod>
+    <lastmod>2020-11-14</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -558,245 +565,252 @@
   
   <url>
     <loc>http://yangleisx.github.io/tags/Deep-Learning/</loc>
-    <lastmod>2020-11-13</lastmod>
+    <lastmod>2020-11-14</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://yangleisx.github.io/tags/Machine-Translate/</loc>
-    <lastmod>2020-11-13</lastmod>
+    <lastmod>2020-11-14</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://yangleisx.github.io/tags/Neural-Network/</loc>
-    <lastmod>2020-11-13</lastmod>
+    <lastmod>2020-11-14</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://yangleisx.github.io/tags/Trojan/</loc>
-    <lastmod>2020-11-13</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://yangleisx.github.io/tags/C-C/</loc>
-    <lastmod>2020-11-13</lastmod>
+    <lastmod>2020-11-14</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://yangleisx.github.io/tags/Auto-Encoder/</loc>
-    <lastmod>2020-11-13</lastmod>
+    <lastmod>2020-11-14</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://yangleisx.github.io/tags/Disentangled-Learning/</loc>
-    <lastmod>2020-11-13</lastmod>
+    <lastmod>2020-11-14</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://yangleisx.github.io/tags/Text-Detection/</loc>
-    <lastmod>2020-11-13</lastmod>
+    <loc>http://yangleisx.github.io/tags/C-C/</loc>
+    <lastmod>2020-11-14</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://yangleisx.github.io/tags/Computer-Vision/</loc>
-    <lastmod>2020-11-13</lastmod>
+    <lastmod>2020-11-14</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://yangleisx.github.io/tags/Linux/</loc>
-    <lastmod>2020-11-13</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://yangleisx.github.io/tags/iptables/</loc>
-    <lastmod>2020-11-13</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://yangleisx.github.io/tags/MacOS/</loc>
-    <lastmod>2020-11-13</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://yangleisx.github.io/tags/Homebrew/</loc>
-    <lastmod>2020-11-13</lastmod>
+    <loc>http://yangleisx.github.io/tags/Text-Detection/</loc>
+    <lastmod>2020-11-14</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://yangleisx.github.io/tags/Python/</loc>
-    <lastmod>2020-11-13</lastmod>
+    <lastmod>2020-11-14</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://yangleisx.github.io/tags/pip/</loc>
-    <lastmod>2020-11-13</lastmod>
+    <lastmod>2020-11-14</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://yangleisx.github.io/tags/MacOS/</loc>
+    <lastmod>2020-11-14</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://yangleisx.github.io/tags/Homebrew/</loc>
+    <lastmod>2020-11-14</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://yangleisx.github.io/tags/Linux/</loc>
+    <lastmod>2020-11-14</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://yangleisx.github.io/tags/iptables/</loc>
+    <lastmod>2020-11-14</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://yangleisx.github.io/tags/Hexo/</loc>
-    <lastmod>2020-11-13</lastmod>
+    <lastmod>2020-11-14</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://yangleisx.github.io/tags/LaTeX/</loc>
-    <lastmod>2020-11-13</lastmod>
+    <lastmod>2020-11-14</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://yangleisx.github.io/tags/Make/</loc>
-    <lastmod>2020-11-13</lastmod>
+    <lastmod>2020-11-14</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://yangleisx.github.io/tags/Machine-Learning/</loc>
-    <lastmod>2020-11-13</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://yangleisx.github.io/tags/Qt/</loc>
-    <lastmod>2020-11-13</lastmod>
+    <lastmod>2020-11-14</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://yangleisx.github.io/tags/OpenSSL/</loc>
-    <lastmod>2020-11-13</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://yangleisx.github.io/tags/Socket/</loc>
-    <lastmod>2020-11-13</lastmod>
+    <lastmod>2020-11-14</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://yangleisx.github.io/tags/HTTPS/</loc>
-    <lastmod>2020-11-13</lastmod>
+    <lastmod>2020-11-14</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://yangleisx.github.io/tags/SSH/</loc>
-    <lastmod>2020-11-13</lastmod>
+    <lastmod>2020-11-14</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://yangleisx.github.io/tags/Socket/</loc>
+    <lastmod>2020-11-14</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://yangleisx.github.io/tags/Qt/</loc>
+    <lastmod>2020-11-14</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://yangleisx.github.io/tags/Orange-Pi/</loc>
-    <lastmod>2020-11-13</lastmod>
+    <lastmod>2020-11-14</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://yangleisx.github.io/tags/Matplotlib/</loc>
-    <lastmod>2020-11-13</lastmod>
+    <lastmod>2020-11-14</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://yangleisx.github.io/tags/Regular-Expression/</loc>
-    <lastmod>2020-11-13</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://yangleisx.github.io/tags/STM32/</loc>
-    <lastmod>2020-11-13</lastmod>
+    <lastmod>2020-11-14</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://yangleisx.github.io/tags/PyTorch/</loc>
-    <lastmod>2020-11-13</lastmod>
+    <lastmod>2020-11-14</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://yangleisx.github.io/tags/STM32/</loc>
+    <lastmod>2020-11-14</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://yangleisx.github.io/tags/tmux/</loc>
-    <lastmod>2020-11-13</lastmod>
+    <lastmod>2020-11-14</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://yangleisx.github.io/tags/Verilog-HDL/</loc>
-    <lastmod>2020-11-13</lastmod>
+    <lastmod>2020-11-14</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://yangleisx.github.io/tags/Graphviz/</loc>
-    <lastmod>2020-11-13</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://yangleisx.github.io/tags/Winsock/</loc>
-    <lastmod>2020-11-13</lastmod>
+    <lastmod>2020-11-14</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://yangleisx.github.io/tags/Windows/</loc>
-    <lastmod>2020-11-13</lastmod>
+    <lastmod>2020-11-14</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://yangleisx.github.io/tags/WinAPI/</loc>
-    <lastmod>2020-11-13</lastmod>
+    <lastmod>2020-11-14</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://yangleisx.github.io/tags/Winsock/</loc>
+    <lastmod>2020-11-14</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://yangleisx.github.io/tags/SQL/</loc>
+    <lastmod>2020-11-14</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
@@ -805,42 +819,42 @@
   
   <url>
     <loc>http://yangleisx.github.io/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/</loc>
-    <lastmod>2020-11-13</lastmod>
+    <lastmod>2020-11-14</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://yangleisx.github.io/categories/%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0/</loc>
-    <lastmod>2020-11-13</lastmod>
+    <lastmod>2020-11-14</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://yangleisx.github.io/categories/%E5%AE%9E%E7%94%A8%E5%B7%A5%E5%85%B7/</loc>
-    <lastmod>2020-11-13</lastmod>
+    <lastmod>2020-11-14</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://yangleisx.github.io/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</loc>
-    <lastmod>2020-11-13</lastmod>
+    <lastmod>2020-11-14</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://yangleisx.github.io/categories/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</loc>
-    <lastmod>2020-11-13</lastmod>
+    <lastmod>2020-11-14</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://yangleisx.github.io/categories/%E5%BC%80%E5%8F%91%E7%BB%8F%E5%8E%86/</loc>
-    <lastmod>2020-11-13</lastmod>
+    <lastmod>2020-11-14</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
