@@ -56,19 +56,22 @@
   };
 </script>
 
-  <meta name="description" content="论文笔记:Effective Approaches to Attention-based Neural Machine Translation">
-<meta name="keywords" content="Deep Learning,Machine Translate">
+  <meta name="description" content="论文题目：Shape Robust Text Detection with Progressive Scale Expansion Network 作者：Wenhai Wang, Enze Xie, Xiang Li, Wenbo Hou, Tong Lu, Gang Yu, Shuai Shao 会议/时间：CVPR2019 链接：https://arxiv.org/pdf/1903.12473">
+<meta name="keywords" content="Deep Learning,Computer Vision,Text Detection">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【论文】Effective Approaches to Attention-based Neural Machine Translation">
-<meta property="og:url" content="http://YangLeiSX.github.io/2020/02/02/attention/index.html">
+<meta property="og:title" content="【论文】Shape Robust Text Detection with Progressive Scale Expansion Network">
+<meta property="og:url" content="http://YangLeiSX.github.io/2020/11/19/psenet/index.html">
 <meta property="og:site_name" content="杨磊的博客">
-<meta property="og:description" content="论文笔记:Effective Approaches to Attention-based Neural Machine Translation">
+<meta property="og:description" content="论文题目：Shape Robust Text Detection with Progressive Scale Expansion Network 作者：Wenhai Wang, Enze Xie, Xiang Li, Wenbo Hou, Tong Lu, Gang Yu, Shuai Shao 会议/时间：CVPR2019 链接：https://arxiv.org/pdf/1903.12473">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-05-19T02:02:01.604Z">
+<meta property="og:image" content="http://yangleisx.github.io/2020/11/19/psenet/pipeline.png">
+<meta property="og:image" content="http://yangleisx.github.io/2020/11/19/psenet/algorithm.png">
+<meta property="og:updated_time" content="2020-11-19T02:59:46.722Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="【论文】Effective Approaches to Attention-based Neural Machine Translation">
-<meta name="twitter:description" content="论文笔记:Effective Approaches to Attention-based Neural Machine Translation">
-  <link rel="canonical" href="http://YangLeiSX.github.io/2020/02/02/attention/">
+<meta name="twitter:title" content="【论文】Shape Robust Text Detection with Progressive Scale Expansion Network">
+<meta name="twitter:description" content="论文题目：Shape Robust Text Detection with Progressive Scale Expansion Network 作者：Wenhai Wang, Enze Xie, Xiang Li, Wenbo Hou, Tong Lu, Gang Yu, Shuai Shao 会议/时间：CVPR2019 链接：https://arxiv.org/pdf/1903.12473">
+<meta name="twitter:image" content="http://yangleisx.github.io/2020/11/19/psenet/pipeline.png">
+  <link rel="canonical" href="http://YangLeiSX.github.io/2020/11/19/psenet/">
 
 
 <script id="page-configurations">
@@ -82,7 +85,7 @@
   };
 </script>
 
-  <title>【论文】Effective Approaches to Attention-based Neural Machine Translation | 杨磊的博客</title>
+  <title>【论文】Shape Robust Text Detection with Progressive Scale Expansion Network | 杨磊的博客</title>
   
 
 
@@ -255,7 +258,7 @@
   
   
   <div class="post-block post">
-    <link itemprop="mainEntityOfPage" href="http://YangLeiSX.github.io/2020/02/02/attention/">
+    <link itemprop="mainEntityOfPage" href="http://YangLeiSX.github.io/2020/11/19/psenet/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Yang Lei">
@@ -267,7 +270,7 @@
       <meta itemprop="name" content="杨磊的博客">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">【论文】Effective Approaches to Attention-based Neural Machine Translation
+        <h1 class="post-title" itemprop="name headline">【论文】Shape Robust Text Detection with Progressive Scale Expansion Network
 
           
         </h1>
@@ -283,19 +286,11 @@
                 
               
 
-              <time title="Created: 2020-02-02 22:29:36" itemprop="dateCreated datePublished" datetime="2020-02-02T22:29:36+08:00">2020-02-02</time>
+              <time title="Created: 2020-11-19 10:55:55 / Modified: 10:59:46" itemprop="dateCreated datePublished" datetime="2020-11-19T10:55:55+08:00">2020-11-19</time>
             </span>
           
             
 
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-05-19 10:02:01" itemprop="dateModified" datetime="2020-05-19T10:02:01+08:00">2020-05-19</time>
-              </span>
             
           
             <span class="post-meta-item">
@@ -321,7 +316,7 @@
               
                 <span class="post-meta-item-text">Symbols count in article: </span>
               
-              <span>3.4k</span> 
+              <span>2.9k</span> 
             </span>
           
             <span class="post-meta-item" title="Reading time">
@@ -331,7 +326,7 @@
               
                 <span class="post-meta-item-text">Reading time &asymp;</span>
               
-              <span>3 mins.</span>
+              <span>2 mins.</span>
             </span>
           
 
@@ -344,41 +339,41 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>论文笔记:Effective Approaches to Attention-based Neural Machine Translation</p>
+        <p>论文题目：Shape Robust Text Detection with Progressive Scale Expansion Network</p>
+<p>作者：Wenhai Wang, Enze Xie, Xiang Li, Wenbo Hou, Tong Lu, Gang Yu, Shuai Shao</p>
+<p>会议/时间：CVPR2019</p>
+<p>链接：<a href="https://arxiv.org/pdf/1903.12473.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/1903.12473.pdf</a></p>
 <a id="more"></a>
-<p>开源项目地址：<a href="http://nlp.stanford.edu/projects/nmt" target="_blank" rel="noopener">stanford.edu</a>或者<a href="https://github.com/tensorflow/nmt" target="_blank" rel="noopener">github</a></p>
-<h2 id="主要内容"><a href="#主要内容" class="headerlink" title="主要内容"></a>主要内容</h2><p>NMT使用RNN的架构来实现序列到序列的学习。Attention机制被广泛用于训练神经网络并提升其性能。</p>
-<p>因此可以使用attention机制通过聚焦于输入序列的某一部分来提高NMT的性能。</p>
-<p>文中构建了两种使用attention的NMT模型：global模型和locol模型。前者注意输入序列全体，后者每次针对输入序列的一个子集。两种模型的结构都很简单，而且后者的计算成本更低。</p>
-<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>传统NMT模型包括一个编码器和一个解码器，前者将输入映射到固定长度的向量$\mathbf{S}$，后者将向量映射到输出序列。</p>
-<p>其具体实现有CNN-RNN结构，也有RNN-RNN结构（包括LSTM-LSTM，GRU-GRU等）。</p>
-<p>其他的实现中使用$\mathbf{S}$作为初始化解码器的工具，而使用attention机制的模型在整个翻译过程中都将$\mathbf{S}$用做参考。</p>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>使用深度LSTM作为编码器和解码器。</p>
-<p>目标函数为$J = \sum _{(x,y)\in \mathbb{D}}-logp(y|x)$其中$\mathbb{D}$为训练数据。</p>
-<p>globel和locol两种不同的模型区别在于内容向量$c_t$的生成方式不同。当内容向量$c_t$生成后，即可计算输出。</p>
-<p>即首先计算attentional hidden state:$\tilde{h}_t = tanh(W_c [c_t;h_t])$。</p>
-<p>然后得到预测向量 $p(y<em>t|y</em>{&lt; t}, x) = softmax(W_s \tilde{h}_t)$ 。</p>
-<h3 id="global-attention"><a href="#global-attention" class="headerlink" title="global attention"></a>global attention</h3><p>考虑到编码器的所有隐含状态，通过编码器状态$\bar{h}_s$和解码器状态$h_t$通过score()函数得到global align weights即$a_t$，这里的向量$a_t$为可变长度的。最终使用$a_t$对$\bar{h}_s$加权得到$c_t$从而得到$\hat{h}_t$.</p>
-<p>具体score函数见文献原文。</p>
-<p>global attention考虑到所有的输入符号，计算成本比较高，而且无法处理较长的序列。</p>
-<h3 id="locol-attention"><a href="#locol-attention" class="headerlink" title="locol attention"></a>locol attention</h3><p>借鉴soft和hard attention的思想<sup><a href="#fn_2" id="reffn_2">2</a></sup>，使用加窗的方式，考虑一部分的隐状态。</p>
-<p>首先确定位置$p_t$，然后根据位于$[p_t-D,p_t+D]$的编码器状态使用相同的score()函数得到$a_t$。不同的是这里的$a_t$为固定长度($2D+1$)的向量。</p>
-<p>关于位置$p_t$的确定有不同的方法。</p>
-<p>locol-m方法：令$p_t = t$,使用前述方法计算$a_t$。</p>
-<p>locol-p方法：通过学习到的参数预测，即令$p_t = S·sigmoid(v_p^Ttanh(W_p h_t))$，其中 $v_p$ 和 $W_p$为学习得到的参数，S为输入序列长度。同时计算$a_t = align(h_t,\bar{h}_s) exp(- \frac{(s-p_t)^2}{2\sigma^2})$，其中$\sigma = \frac{D}{2}$。</p>
-<h3 id="input-feeding"><a href="#input-feeding" class="headerlink" title="input-feeding"></a>input-feeding</h3><p>将上一输出作为输入传入网络用于产生下一输出。</p>
-<h3 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h3><p>使用WMT的英语-德语双向翻译任务，共4.5M句子，包括116M英语单词110M德语单词。</p>
-<p>选择其中的50k单词作为训练的单词表。每个LSTM具有四层，每层1000单元，每个单元为1000维张量。</p>
-<h2 id="评价"><a href="#评价" class="headerlink" title="评价"></a>评价</h2><p>global attention和local attention相比其他人的实现<sup><a href="#fn_1" id="reffn_1">1</a></sup>更加简单</p>
-<p>通过input-feeding使得之前学习得到的结果得到充分利用，这一方法也可以用于非attention的其他RNN架构的网络中。</p>
-<p>最终训练结果在WMT上得分23.0超过了最好的系统。</p>
-<p>论文实现的系统具有更低的test cost。可以更好的处理长句子。</p>
-<blockquote id="fn_1">
-<sup>1</sup>. <a href="https://arxiv.org/pdf/1409.0473" target="_blank" rel="noopener">Neural Machine Translation by Jointly Learning to Align and Translate</a><a href="#reffn_1" title="Jump back to footnote [1] in the text."> &#8617;</a>
-</blockquote>
-<blockquote id="fn_2">
-<sup>2</sup>. <a href="http://proceedings.mlr.press/v37/xuc15.pdf" target="_blank" rel="noopener">Show,Attend and Tell:Neural Image Caption Generation with Visual Attention</a><a href="#reffn_2" title="Jump back to footnote [2] in the text."> &#8617;</a>
-</blockquote>
+<h2 id="论文目标"><a href="#论文目标" class="headerlink" title="论文目标"></a>论文目标</h2><p>在当前的文字检测算法在应用时有两个问题：当前的算法通常得到一个四边形边界框，难以检测任意形状的文本；如果两行文本距离比较近，有可能会被框选为同一个边界框。因此提出了PSENet，可以有效的解决上述的两个问题。</p>
+<h2 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h2><p>现有的基于CNN的文本检测模型可以分为两类：基于回归的方案和基于分割的方案。前者生成四边形的边界框，无法处理任意形状的文本，后者使用像素级的分类得到目标区域，但是很难区分开相聚比较近的目标。</p>
+<p>基于回归的文本检测方案大多是基于通用的目标检测模型，包括Faster R-CNN等。其他的文本检测模型还有TextBoxes、EAST等。大多数这一类的模型都需要设计Anchor而且由多个处理阶段组成，可能会导致性能比较差。基于分割的文本检测方案主要使用FCN，例如通过FCN获得热力图等，再进行后处理获得文本位置。</p>
+<h2 id="本文思路-解决方案"><a href="#本文思路-解决方案" class="headerlink" title="本文思路/解决方案"></a>本文思路/解决方案</h2><p>本文提出的PSENet是基于分割的方案，每一个预测的分割称为kernel，形状相似但是大小不同，最后设计了一个基于BFS的渐进扩展算法，将原本的kernel扩展得到最终的预测分割。由于使用渐近扩展式的算法，对于最小尺寸的kernel，可以区分开距离较近的文本，同时也可以解决小尺寸分割难以覆盖完整文本的问题。</p>
+<p>模型结构是基于ResNet的FPN结构，从中选取不同大小的特征图连接得到混合特征图，最后通过卷积等操作得到不同尺寸的多个分割图，再经过尺寸扩展得到预测结果。</p>
+<img src="/2020/11/19/psenet/pipeline.png" class="pipeline">
+<p>在这个尺寸扩展算法中，首先选择了尺寸最小的分割图进行连通域分析作为kernel，然后将其他的分割图作为输入，通过Scale Expansion算法计算新的扩展后的kernel，最终得到结果。作者提到对于位于多个文本之间的像素，使用先来先服务的方式合并到不同的标签中，同时由于使用了渐进式的方法，这些边界上的重合并不会影响最终的处理结果，这可能也是作者选择多个不同尺寸的分割图渐近处理的原因。</p>
+<img src="/2020/11/19/psenet/algorithm.png" class="algorithm">
+<p>在训练过程中，为了获得不同尺寸的分割图，需要提供对应的标签供学习，作者使用了Vatti clipping algorithm来将最初的文本框标签收缩一定的像素得到这些标签。算法中使用到的像素值通过下面的公式计算得到。其中m为最小的缩放比例，n为不同尺寸的分割图的个数。</p>
+<script type="math/tex; mode=display">
+d_i = \frac{\mathrm{Area}(p_n)\times(1-r_i^2)}{\mathrm{Perimeter}(p_n)}\notag\\
+r_i = 1 - \frac{(1-m)\times(n-i)}{n-1}</script><p>在实验中作者使用了Dice Coefficient作为模型的评价指标，使用了完整尺寸的标签和缩放后的标签上的Dice系数作为损失函数来指导模型的学习。其中对于完整尺寸的标签，使用Online Hard Example Mining(OHEM)来获得一个mask协助训练。</p>
+<script type="math/tex; mode=display">
+L = \lambda L_c + (1-\lambda)L_s\notag\\
+L_c = 1 - D(S_n\cdot M, G_n \cdot M)\notag\\
+L_s = 1 - \frac{\sum\limits^{n-1} D(S_i\cdot W, G_i \cdot W)}{n-1}\notag\\
+W_{x,y} = \left\{
+\begin{align}
+1,& \quad if\ S_{n,x,y} \geq0.5;\notag\\
+0,& \quad otherwise\notag\\
+\end{align}
+\right.</script><h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>实验包括了四个数据集：CTW1500、Total-Text、ICDAR2015和ICDAR2017MLT。模型使用预训练好的ResNet，在IC17-MLT上训练，而且没有使用另外的人造数据集。实验讨论的结果包括：</p>
+<ol>
+<li>最小尺寸的kernel并不能直接作为模型的输出，模型的F-measure结果比较差，而且文本框内容的识别结果也比较差。</li>
+<li>对于最小缩放比例m的选择，选择太大或者太小都会导致性能的下降。</li>
+<li>分割图的个数n增加时，性能会有一定的上升，但是不能无限制增大，在n大于5之后性能提升不大。</li>
+<li>修改模型骨架，例如增加ResNet的层数也会提升模型的性能。</li>
+</ol>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>使用了基于FPN的结构，将不同尺度的特征图上采样并连接在一起。</p>
+<p>获得不同尺度下的分割图，再从小到大渐进式的合并，不仅可以检测到任意形状的文本，也可以避免将距离比较近的文本识别为同一对象。</p>
 
     </div>
 
@@ -418,7 +413,7 @@
     <strong>Post author:  </strong>Yang Lei</li>
   <li class="post-copyright-link">
     <strong>Post link: </strong>
-    <a href="http://YangLeiSX.github.io/2020/02/02/attention/" title="【论文】Effective Approaches to Attention-based Neural Machine Translation">http://YangLeiSX.github.io/2020/02/02/attention/</a>
+    <a href="http://YangLeiSX.github.io/2020/11/19/psenet/" title="【论文】Shape Robust Text Detection with Progressive Scale Expansion Network">http://YangLeiSX.github.io/2020/11/19/psenet/</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.</li>
@@ -435,7 +430,9 @@
             
               <a href="/tags/Deep-Learning/" rel="tag"><i class="fa fa-tag"></i> Deep Learning</a>
             
-              <a href="/tags/Machine-Translate/" rel="tag"><i class="fa fa-tag"></i> Machine Translate</a>
+              <a href="/tags/Computer-Vision/" rel="tag"><i class="fa fa-tag"></i> Computer Vision</a>
+            
+              <a href="/tags/Text-Detection/" rel="tag"><i class="fa fa-tag"></i> Text Detection</a>
             
           </div>
         
@@ -445,8 +442,8 @@
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2020/02/02/seq2seq/" rel="next" title="【论文】Sequence to Sequence Learning with Neural Networks">
-                  <i class="fa fa-chevron-left"></i> 【论文】Sequence to Sequence Learning with Neural Networks
+                <a href="/2020/11/14/sqlite-c/" rel="next" title="SQLite的C语言使用">
+                  <i class="fa fa-chevron-left"></i> SQLite的C语言使用
                 </a>
               
             </div>
@@ -454,10 +451,6 @@
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-              
-                <a href="/2020/02/03/tmux/" rel="prev" title="TMUX 使用">
-                  TMUX 使用 <i class="fa fa-chevron-right"></i>
-                </a>
               
             </div>
           </div>
@@ -509,7 +502,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#主要内容"><span class="nav-number">1.</span> <span class="nav-text">主要内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">2.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现"><span class="nav-number">3.</span> <span class="nav-text">实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#global-attention"><span class="nav-number">3.1.</span> <span class="nav-text">global attention</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#locol-attention"><span class="nav-number">3.2.</span> <span class="nav-text">locol attention</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#input-feeding"><span class="nav-number">3.3.</span> <span class="nav-text">input-feeding</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#具体实现"><span class="nav-number">3.4.</span> <span class="nav-text">具体实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#评价"><span class="nav-number">4.</span> <span class="nav-text">评价</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#论文目标"><span class="nav-number">1.</span> <span class="nav-text">论文目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关工作"><span class="nav-number">2.</span> <span class="nav-text">相关工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本文思路-解决方案"><span class="nav-number">3.</span> <span class="nav-text">本文思路/解决方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结果"><span class="nav-number">4.</span> <span class="nav-text">结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->
@@ -751,7 +744,7 @@
       repo: 'yangleisx.github.io',
       owner: 'yangleisx',
       admin: ['yangleisx'],
-      id: '4b8dd075c96d2f0e9099dfd499631b00',
+      id: '7dbd045044185fb7c78d0c8a122c0f6e',
         language: window.navigator.language || window.navigator.userLanguage,
       
       distractionFreeMode: 'true'
