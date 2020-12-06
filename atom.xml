@@ -6,7 +6,7 @@
   <link href="http://yangleisx.github.io/atom.xml" rel="self"/>
   
   <link href="http://yangleisx.github.io/"/>
-  <updated>2020-11-19T02:59:46.722Z</updated>
+  <updated>2020-12-06T03:04:42.648Z</updated>
   <id>http://yangleisx.github.io/</id>
   
   <author>
@@ -17,11 +17,39 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>【论文】EAST:An Efficient and Accurate Scene Text Detector</title>
+    <link href="http://yangleisx.github.io/2020/12/06/east-textdetection/"/>
+    <id>http://yangleisx.github.io/2020/12/06/east-textdetection/</id>
+    <published>2020-12-06T03:01:22.000Z</published>
+    <updated>2020-12-06T03:04:42.648Z</updated>
+    
+    <content type="html"><![CDATA[<p>论文题目：EAST: An Efficient and Accurate Scene Text Detector</p><p>作者：Xinyu Zhou, Cong Yao, He Wen, Yuzhi Wang, Shuchang Zhou, Weiran He, and Jiajun Liang</p><p>会议/时间：CVPR2017</p><p>链接：<a href="https://arxiv.org/abs/1704.03155v2" target="_blank" rel="noopener">https://arxiv.org/abs/1704.03155v2</a></p><a id="more"></a><h2 id="论文目标"><a href="#论文目标" class="headerlink" title="论文目标"></a>论文目标</h2><p>传统的文字检测模型尽管可以取得不错的效果，但是往往由多个阶段和结构组成，这样复杂的结构往往会影响到整体的性能，因此本文的作者设计了一种简单快速的pipeline，可以从给定图像中直接检测到文本的位置。通过使用一个简单的神经网络而不是多个模块组合的方式加快了处理的速度，简化了模型的复杂度。</p><h2 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h2><p>常规的处理方法依赖于人工设计的特征，例如SWT和MSER等模型通过边缘检测等方式。但是这些依赖人工设计特征的算法在处理一些有挑战性的场景时效果比较差，例如低分辨率或者出现失真的情况下。</p><p>相比之下，基于深度神经网络的文本检测算法由于能取得更好的效果，逐渐成为主流，包括使用CNN对文本检测的结果进行筛选或者使用FCN生成热力图/分割图对原始图像处理得到检测结果。但是多数基于深度神经网络的模型由多个阶段组成，结构比较复杂性能也比较差。</p><h2 id="本文思路-解决方案"><a href="#本文思路-解决方案" class="headerlink" title="本文思路/解决方案"></a>本文思路/解决方案</h2><p>本文设计了一个基于FCN的神经网络，且完整的模型只有两个阶段，省去了冗余的中间处理阶段，即神经网络得到预测的文本框，再通过非极大值抑制得到最终的预测结果。</p><p>基于FCN的网络结构设计如下，通过神经网络直接得到了三类型的输出：Score Map、Rotated Box、Quadrangle。其中的score map为置信度，置信度超过给定阈值的预测框通过NMS得到最终的输出。通过使用U-Net可以融合不同尺度的特征，有助于检测不同大小的文本目标。</p><img src="/2020/12/06/east-textdetection/model.png" class="model"><p>在生成GT时，将原本的四边形缩小到0.7倍并二值化可以得到Score Map，对于没有RBOX标注的数据，首先根据QUAD创建一个最小矩形，再计算每个点到四个边界的距离得到RBOX标注。</p><img src="/2020/12/06/east-textdetection/gt.png" class="gt"><p>对于损失函数的计算，采用了Score Map损失和Geometry损失的加权平均值。由于在自然场景下的图像中，检测目标与背景占据的面积不均衡，在计算Loss的时候会受到影响，为了不引入额外的处理流程，计算Score Map损失时使用了class-balanced cross-entropy，可以比较好的解决正反例不均衡的情况。</p><script type="math/tex; mode=display">\begin{aligned}L_s =&\; \operatorname{balances-xent}(\mathbf{\hat{Y}}, \mathbf{Y^*}) \\=& -\beta\mathbf{Y^*}\log\mathbf{\hat{Y}}-(1-\beta)(1-\mathbf{Y^*})\log(1-\mathbf{\hat{Y}}) \\\beta =&\; 1 - \frac{\sum_{y^*\in\mathbf{Y^*}}y^*}{|\mathbf{Y^*}|}\end{aligned}</script><p>对于Geometry输出的损失函数，在RBOX的情形中，对于AABB部分使用IOU损失，对于倾斜角的部分使用余弦函数计算损失。</p><script type="math/tex; mode=display">\begin{aligned}L_{AABB} =&\; -\log\operatorname{IoU}(\mathbf{\hat{R}},\mathbf{R^*}) \\=&\;-\log\frac{|\mathbf{\hat{R}}\cap\mathbf{R^*}|}{|\mathbf{\hat{R}}\cup\mathbf{R^*}|} \\L_\theta(\hat{\theta},\theta^*) =&\;1 - \operatorname{cos}(\hat{\theta} - \theta^*) \\L_g =&\;L_{AABB} + \lambda_\theta L_\theta\end{aligned}</script><p>在QUAD的情形中，使用增加了正则项的smoothed-L1损失计算。</p><script type="math/tex; mode=display">\begin{aligned}L_g =&\; L_{QUAD}(\mathbf{\hat{Q}},\mathbf{Q^*}) \\=&\;\min\limits_{\mathbf{\tilde{Q}} \in P_{\mathbf{Q^*}}}\sum\limits_{c_i \in C_{\mathbf{Q}} \\\tilde{c}_i\in C_{\mathbf{\tilde{Q}}}} \frac{\operatorname{smoothed_{L1}}(c_i - \tilde{c}_i)}{8 \times N_{\mathbf{Q^*}}} \\N_{\mathbf{Q^*}} =&\;\min\limits_{i=1}^{4}D(p_i, p_{(i \operatorname{mod} 4)+1})\end{aligned}</script><p>对于模型输出的结果，使用阈值筛选之后，再使用作者设计的一种基于合并候选框的NMS算法处理得到结果。</p><h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>在ICDAR2015、COCO-Text和MSRA-TD500三个数据集上进行测试。同时对于模型的骨架也使用了PVANET、PVANET2x和VGG16三种不同的结构进行测试（网络框架都在InageNet上预训练）。经测试模型在上述数据集上能取得超过SOTA的F值。在处理速度上也能达到比较高的FPS。</p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本文提出的EAST模型，通过减少冗余的处理阶段，得到了简单快速的处理效果，通过FCN网络直接生成预测的结果（geometry map），结合NMS处理多余的候选框，可以得到比较好的效果。</p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;论文题目：EAST: An Efficient and Accurate Scene Text Detector&lt;/p&gt;
+&lt;p&gt;作者：Xinyu Zhou, Cong Yao, He Wen, Yuzhi Wang, Shuchang Zhou, Weiran He, and Jiajun Liang&lt;/p&gt;
+&lt;p&gt;会议/时间：CVPR2017&lt;/p&gt;
+&lt;p&gt;链接：&lt;a href=&quot;https://arxiv.org/abs/1704.03155v2&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://arxiv.org/abs/1704.03155v2&lt;/a&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="论文阅读" scheme="http://YangLeiSX.github.io/categories/论文阅读/"/>
+    
+    
+    <category term="Deep Learning" scheme="http://YangLeiSX.github.io/tags/Deep-Learning/"/>
+    
+    <category term="Computer Vision" scheme="http://YangLeiSX.github.io/tags/Computer-Vision/"/>
+    
+    <category term="Text Detection" scheme="http://YangLeiSX.github.io/tags/Text-Detection/"/>
+    
+  </entry>
+  
+  <entry>
     <title>【论文】Shape Robust Text Detection with Progressive Scale Expansion Network</title>
     <link href="http://yangleisx.github.io/2020/11/19/psenet/"/>
     <id>http://yangleisx.github.io/2020/11/19/psenet/</id>
     <published>2020-11-19T02:55:55.000Z</published>
-    <updated>2020-11-19T02:59:46.722Z</updated>
+    <updated>2020-12-06T03:04:43.959Z</updated>
     
     <content type="html"><![CDATA[<p>论文题目：Shape Robust Text Detection with Progressive Scale Expansion Network</p><p>作者：Wenhai Wang, Enze Xie, Xiang Li, Wenbo Hou, Tong Lu, Gang Yu, Shuai Shao</p><p>会议/时间：CVPR2019</p><p>链接：<a href="https://arxiv.org/pdf/1903.12473.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/1903.12473.pdf</a></p><a id="more"></a><h2 id="论文目标"><a href="#论文目标" class="headerlink" title="论文目标"></a>论文目标</h2><p>在当前的文字检测算法在应用时有两个问题：当前的算法通常得到一个四边形边界框，难以检测任意形状的文本；如果两行文本距离比较近，有可能会被框选为同一个边界框。因此提出了PSENet，可以有效的解决上述的两个问题。</p><h2 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h2><p>现有的基于CNN的文本检测模型可以分为两类：基于回归的方案和基于分割的方案。前者生成四边形的边界框，无法处理任意形状的文本，后者使用像素级的分类得到目标区域，但是很难区分开相聚比较近的目标。</p><p>基于回归的文本检测方案大多是基于通用的目标检测模型，包括Faster R-CNN等。其他的文本检测模型还有TextBoxes、EAST等。大多数这一类的模型都需要设计Anchor而且由多个处理阶段组成，可能会导致性能比较差。基于分割的文本检测方案主要使用FCN，例如通过FCN获得热力图等，再进行后处理获得文本位置。</p><h2 id="本文思路-解决方案"><a href="#本文思路-解决方案" class="headerlink" title="本文思路/解决方案"></a>本文思路/解决方案</h2><p>本文提出的PSENet是基于分割的方案，每一个预测的分割称为kernel，形状相似但是大小不同，最后设计了一个基于BFS的渐进扩展算法，将原本的kernel扩展得到最终的预测分割。由于使用渐近扩展式的算法，对于最小尺寸的kernel，可以区分开距离较近的文本，同时也可以解决小尺寸分割难以覆盖完整文本的问题。</p><p>模型结构是基于ResNet的FPN结构，从中选取不同大小的特征图连接得到混合特征图，最后通过卷积等操作得到不同尺寸的多个分割图，再经过尺寸扩展得到预测结果。</p><img src="/2020/11/19/psenet/pipeline.png" class="pipeline"><p>在这个尺寸扩展算法中，首先选择了尺寸最小的分割图进行连通域分析作为kernel，然后将其他的分割图作为输入，通过Scale Expansion算法计算新的扩展后的kernel，最终得到结果。作者提到对于位于多个文本之间的像素，使用先来先服务的方式合并到不同的标签中，同时由于使用了渐进式的方法，这些边界上的重合并不会影响最终的处理结果，这可能也是作者选择多个不同尺寸的分割图渐近处理的原因。</p><img src="/2020/11/19/psenet/algorithm.png" class="algorithm"><p>在训练过程中，为了获得不同尺寸的分割图，需要提供对应的标签供学习，作者使用了Vatti clipping algorithm来将最初的文本框标签收缩一定的像素得到这些标签。算法中使用到的像素值通过下面的公式计算得到。其中m为最小的缩放比例，n为不同尺寸的分割图的个数。</p><script type="math/tex; mode=display">d_i = \frac{\mathrm{Area}(p_n)\times(1-r_i^2)}{\mathrm{Perimeter}(p_n)}\notag\\r_i = 1 - \frac{(1-m)\times(n-i)}{n-1}</script><p>在实验中作者使用了Dice Coefficient作为模型的评价指标，使用了完整尺寸的标签和缩放后的标签上的Dice系数作为损失函数来指导模型的学习。其中对于完整尺寸的标签，使用Online Hard Example Mining(OHEM)来获得一个mask协助训练。</p><script type="math/tex; mode=display">L = \lambda L_c + (1-\lambda)L_s\notag\\L_c = 1 - D(S_n\cdot M, G_n \cdot M)\notag\\L_s = 1 - \frac{\sum\limits^{n-1} D(S_i\cdot W, G_i \cdot W)}{n-1}\notag\\W_{x,y} = \left\{\begin{align}1,& \quad if\ S_{n,x,y} \geq0.5;\notag\\0,& \quad otherwise\notag\\\end{align}\right.</script><h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>实验包括了四个数据集：CTW1500、Total-Text、ICDAR2015和ICDAR2017MLT。模型使用预训练好的ResNet，在IC17-MLT上训练，而且没有使用另外的人造数据集。实验讨论的结果包括：</p><ol><li>最小尺寸的kernel并不能直接作为模型的输出，模型的F-measure结果比较差，而且文本框内容的识别结果也比较差。</li><li>对于最小缩放比例m的选择，选择太大或者太小都会导致性能的下降。</li><li>分割图的个数n增加时，性能会有一定的上升，但是不能无限制增大，在n大于5之后性能提升不大。</li><li>修改模型骨架，例如增加ResNet的层数也会提升模型的性能。</li></ol><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>使用了基于FPN的结构，将不同尺度的特征图上采样并连接在一起。</p><p>获得不同尺度下的分割图，再从小到大渐进式的合并，不仅可以检测到任意形状的文本，也可以避免将距离比较近的文本识别为同一对象。</p>]]></content>
     
@@ -479,30 +507,6 @@
 &lt;p&gt;作者：Yi Sun、 Xiaogang Wang、 Xiaoou Tang&lt;/p&gt;
 &lt;p&gt;时间：2014&lt;/p&gt;
 &lt;p&gt;链接：&lt;a href=&quot;https://arxiv.org/pdf/1406.4773.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;原文链接&lt;/a&gt;&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="论文阅读" scheme="http://YangLeiSX.github.io/categories/论文阅读/"/>
-    
-    
-    <category term="Deep Learning" scheme="http://YangLeiSX.github.io/tags/Deep-Learning/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【论文】Deep Learning Face Representation from Predicting 10000 Classes</title>
-    <link href="http://yangleisx.github.io/2020/06/06/deepid/"/>
-    <id>http://yangleisx.github.io/2020/06/06/deepid/</id>
-    <published>2020-06-06T07:42:29.000Z</published>
-    <updated>2020-06-06T12:30:16.904Z</updated>
-    
-    <content type="html"><![CDATA[<p>论文题目：Deep Learning Face Representation from Predicting 10,000 Classes</p><p>会议：CVPR2014</p><p>作者：Yi Sun、Xiaogang Wang、 Xiaoou Tang</p><p>链接：<a href="http://www.ee.cuhk.edu.hk/~xgwang/papers/sunWTcvpr14.pdf" target="_blank" rel="noopener">原文链接</a></p><a id="more"></a><h2 id="论文目标"><a href="#论文目标" class="headerlink" title="论文目标"></a>论文目标</h2><p>通过深度神经网络学习高层次的图像特征并用于身份验证。</p><h2 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h2><p>无限制条件下的面部识别和验证是近年来的研究热点，大多面部识别算法是通过浅层模型学习到的超完备的底层特征实现。</p><h2 id="本文思路-解决方案"><a href="#本文思路-解决方案" class="headerlink" title="本文思路/解决方案"></a>本文思路/解决方案</h2><p>通过深度卷积神经网络学习得到特征表示并用于面部识别。其中的特征表示通过深度神经网络的最后一层得到，称为DeepID（Deep Hidden Identity Features）。这一特征表示被用于最后的多分类识别任务，保证了卷积神经网络可以充分的学习到每个人的特征，具有更好的泛化能力。</p><p>网络结构如下</p><p><img src="//YangLeiSX.github.io/2020/06/06/deepid/deepid1_model.png" alt="网络结构"></p><p>通过跨层连接，保证DeepID可以获取到更多的信息，学习到更高级的特征（Conv4之后的特征更加高级/抽象）。跨层连接使用公式<script type="math/tex">y_i = \max(0, \sum\limits_{i}x_i^1\omega_{i,j}^1+\sum\limits_{i}x_i^2\omega_{i,j}^2+b_j)</script>实现，其中的$\omega$为权重。最终使用softmax层作为预测输出。</p><p>特征提取部分的具体工作方式：每一张照片，划分为10个位置，每个位置选取三个不同的输入规模，每个照片得到RGB和灰度图，即每一条数据得到$10\times3\times2=60$条数据（patches）作为输入，训练60个网络。对于每一个卷积网络，给定数据，将其翻转后，得到两个向量作为输出，总的输出数据量为$160<em>2</em>60$。</p><p><img src="//YangLeiSX.github.io/2020/06/06/deepid/deepid1_structure.png" alt="系统结构"></p><p>在面部识别的预测中，使用联合贝叶斯方法。同时也测试了使用深度神经网络进行预测。</p><h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>在CelebFaces上训练，在LFW上测试，达到了SOTA的效果。</p><p>测试中可以发现添加了跨层连接的模型具有更低的验证错误率和更高的预测正确率。</p><p><img src="//YangLeiSX.github.io/2020/06/06/deepid/deepid1_test.png" alt="测试结果"></p><p>使用更多的patch与仅使用一张图片作为输入相比也具有更高的识别准确率。</p><p>与现有的识别算法比较，具有更高的识别准确率（97.45%）。</p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol><li>提出了跨层连接（multi-scale），可以显著提高识别准确率。</li><li>使用同一张照片的多个patch作为输入，包括不同的位置，不同的大小，不同的通道（RGB、灰度），并将60个网络的输出合并作为预测的依据，可以提高识别准确率。</li><li>通过增加识别的人数（多分类的输出）可以使得特征网络学习到关键的信息。</li></ol>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;论文题目：Deep Learning Face Representation from Predicting 10,000 Classes&lt;/p&gt;
-&lt;p&gt;会议：CVPR2014&lt;/p&gt;
-&lt;p&gt;作者：Yi Sun、Xiaogang Wang、 Xiaoou Tang&lt;/p&gt;
-&lt;p&gt;链接：&lt;a href=&quot;http://www.ee.cuhk.edu.hk/~xgwang/papers/sunWTcvpr14.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;原文链接&lt;/a&gt;&lt;/p&gt;</summary>
     
     
     
