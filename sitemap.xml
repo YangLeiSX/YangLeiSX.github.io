@@ -2,14 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://yangleisx.github.io/2019/09/29/test-page/</loc>
+    <loc>http://yangleisx.github.io/2021/01/07/2020-review/</loc>
     
     <lastmod>2021-01-07</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yangleisx.github.io/2021/01/07/2020-review/</loc>
+    <loc>http://yangleisx.github.io/2019/09/29/test-page/</loc>
     
     <lastmod>2021-01-07</lastmod>
     
@@ -585,20 +585,6 @@
 
   
   <url>
-    <loc>http://yangleisx.github.io/tags/Deep-Learning/</loc>
-    <lastmod>2021-01-07</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://yangleisx.github.io/tags/Machine-Translate/</loc>
-    <lastmod>2021-01-07</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://yangleisx.github.io/tags/Neural-Network/</loc>
     <lastmod>2021-01-07</lastmod>
     <changefreq>daily</changefreq>
@@ -607,6 +593,13 @@
   
   <url>
     <loc>http://yangleisx.github.io/tags/Trojan/</loc>
+    <lastmod>2021-01-07</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://yangleisx.github.io/tags/Deep-Learning/</loc>
     <lastmod>2021-01-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -627,6 +620,13 @@
   </url>
   
   <url>
+    <loc>http://yangleisx.github.io/tags/Machine-Translate/</loc>
+    <lastmod>2021-01-07</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://yangleisx.github.io/tags/C-C/</loc>
     <lastmod>2021-01-07</lastmod>
     <changefreq>daily</changefreq>
@@ -641,13 +641,6 @@
   </url>
   
   <url>
-    <loc>http://yangleisx.github.io/tags/Computer-Vision/</loc>
-    <lastmod>2021-01-07</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://yangleisx.github.io/tags/MacOS/</loc>
     <lastmod>2021-01-07</lastmod>
     <changefreq>daily</changefreq>
@@ -656,6 +649,13 @@
   
   <url>
     <loc>http://yangleisx.github.io/tags/Homebrew/</loc>
+    <lastmod>2021-01-07</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://yangleisx.github.io/tags/Computer-Vision/</loc>
     <lastmod>2021-01-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -732,7 +732,7 @@
   </url>
   
   <url>
-    <loc>http://yangleisx.github.io/tags/Qt/</loc>
+    <loc>http://yangleisx.github.io/tags/Make/</loc>
     <lastmod>2021-01-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -746,7 +746,7 @@
   </url>
   
   <url>
-    <loc>http://yangleisx.github.io/tags/Make/</loc>
+    <loc>http://yangleisx.github.io/tags/Qt/</loc>
     <lastmod>2021-01-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -754,6 +754,13 @@
   
   <url>
     <loc>http://yangleisx.github.io/tags/Orange-Pi/</loc>
+    <lastmod>2021-01-07</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://yangleisx.github.io/tags/PyTorch/</loc>
     <lastmod>2021-01-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -768,13 +775,6 @@
   
   <url>
     <loc>http://yangleisx.github.io/tags/Regular-Expression/</loc>
-    <lastmod>2021-01-07</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://yangleisx.github.io/tags/PyTorch/</loc>
     <lastmod>2021-01-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -839,14 +839,14 @@
 
   
   <url>
-    <loc>http://yangleisx.github.io/categories/%E6%9D%82%E8%B0%88/</loc>
+    <loc>http://yangleisx.github.io/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/</loc>
     <lastmod>2021-01-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://yangleisx.github.io/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/</loc>
+    <loc>http://yangleisx.github.io/categories/%E6%9D%82%E8%B0%88/</loc>
     <lastmod>2021-01-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
