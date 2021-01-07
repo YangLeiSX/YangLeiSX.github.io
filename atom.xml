@@ -6,7 +6,7 @@
   <link href="http://yangleisx.github.io/atom.xml" rel="self"/>
   
   <link href="http://yangleisx.github.io/"/>
-  <updated>2020-12-06T03:04:42.648Z</updated>
+  <updated>2021-01-07T11:33:31.035Z</updated>
   <id>http://yangleisx.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>2020年度总结</title>
+    <link href="http://yangleisx.github.io/2021/01/07/2020-review/"/>
+    <id>http://yangleisx.github.io/2021/01/07/2020-review/</id>
+    <published>2021-01-07T11:20:58.000Z</published>
+    <updated>2021-01-07T11:33:31.035Z</updated>
+    
+    <content type="html"><![CDATA[<p>蛮早的时候就打算写点东西总结一下我的2020年。但是一直都没顾得上，一直拖到现在。</p><p>回顾一下这博客的历史，我大概是在2018年初开始使用Hexo为框架写一点东西并且放在Github Pages，但是18年中的时候，由于电脑的SSD烧坏，所有的代码和笔记都没有了（如果没有这事我也不会开始学着定期备份我的资料），也就一直都没再次开通。一方面是觉得整个过程有点繁琐，另一方面也是觉得自己其实没有太多的东西可以发出来。但是后来慢慢地又开始觉得写点东西做记录对于自己还是蛮好的，于是再次萌生了搭个博客分享给大家的念头，最终在2019年九月的时候付诸实际再次把博客搭起来。</p><p>记得那时这博客还部署在宿舍的一台小服务器上，说小并不过分，因为实际上只是一块arm核的开发板。似乎是OrangePi系列的最小的型号，大概5cm见方，RAM只有256M。当然了这样的小开发板并不能支持7*24h的工作，在十一月份就不堪重负烧掉了。于是我再次将博客部署在Github Pages上，并且把他加入了Google搜索。</p><p>从2019年九月底的时候再一次开通博客到现在，总共写了78篇各种各样内容的东西（想用“文章”这个词，又觉得太大了，不如用“笔记”更好一点）。其中19年的三个月25篇，20年全年只有53篇。</p><p>大概回顾一下之前写的东西，19年发的笔记基本都是对之前学过的东西做的总结，比如之前参加美赛时候学LaTeX的一些记录，Linux的学习记录等，也有一些是平时上课的复习笔记。那个时候更多的把这个博客作为笔记的管理工具，既然平时喜欢总结一些笔记，不如整理一下发出来，以后自己看的时候也方便，可以直接打开浏览器来看。</p><p>20年前期写的东西有一些是论文笔记，还有一些是深度学习相关的，主要是因为要参加2020年的信安竞赛，为了准备自己的项目，补充了一些机器学习相关的知识（可以看到有在做一些西瓜书和花书的读书笔记，并且烂尾了）。</p><p>20年大多数的文章都是平时上课和考试复习过程中总结的课程相关的内容，因为平时有总结笔记的习惯，觉得删掉也是浪费，不如总结一下发上来。后来发现其实还是非常有用的，比如说每次Google给我发月度报告的时候我都会发现，我浏览量最高的笔记不是别的，而是在Clion上搭建STM32的开发环境的记录（其实还是比较愧疚的，那笔记我写的太简单了，应该多配一点图什么的）。其中还有一些是读代码过程中学到的一些库的使用方式，我也都总结了一下发了上来。</p><p>20年还有很多笔记是读论文的记录，我觉得这一部分将会变成未来很长一段时间的主流。由于我毕设的题目是与Text Detection相关的内容，在接下来的至少半年时间内，我主要的精力应该都是放在与OCR有关的内容上。例如阅读这个领域相关的论文，写一些论文的阅读笔记。因为主要使用PyTorch完成毕设，应该还会有一些笔记是关于PyTorch和OpenCV的使用技巧的，例如一些代码段的记录。比如说最近就在看SynthText数据集的生成代码，感觉可以从中学到很多实用的Python编程技巧，如果可能的话，我也会把自己的理解写一写发上来。</p><p>回顾2020年发的各种笔记，这一年中发生的各种事情也仿佛就在我面前，从寒假期间速成PyTorch，准备信安竞赛的项目。到学期中为了顺利完成大作业疯狂学习QT，调试STM32，速成NodeJS。再到暑假的时候为了准备面试而自学网安概论的相关知识。最后再到20年后半年没有什么特别的压力，随便看看随便写写。这个博客记录了我一整年的成长过程，我也希望能够这么一直记录下去。</p><p>2021年内，我希望我能有不少于50篇左右的笔记能在这里和大家分享，我希望这些笔记包括：西瓜书和花书的后续一些章节、python中的一些函数库的用法（Counter、pickle、shutil、Colorize、tqdm等）、近几年的其他Text Detection相关论文、CRAFT模型复现、SynthText中文引擎（最后这两个应该会在我的Github上更新）。如果flag不会倒的话，应该不久之后就能看到其中的一些笔记。</p><p>2020年结束了，2021年开始了。希望我能在新的一年里不停的进步，也希望看到这段话的hxd们新的一年里心想事成。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;蛮早的时候就打算写点东西总结一下我的2020年。但是一直都没顾得上，一直拖到现在。&lt;/p&gt;
+&lt;p&gt;回顾一下这博客的历史，我大概是在2018年初开始使用Hexo为框架写一点东西并且放在Github Pages，但是18年中的时候，由于电脑的SSD烧坏，所有的代码和笔记都没有了</summary>
+      
+    
+    
+    
+    <category term="杂谈" scheme="http://YangLeiSX.github.io/categories/杂谈/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>【论文】EAST:An Efficient and Accurate Scene Text Detector</title>
@@ -38,9 +61,9 @@
     
     <category term="Deep Learning" scheme="http://YangLeiSX.github.io/tags/Deep-Learning/"/>
     
-    <category term="Computer Vision" scheme="http://YangLeiSX.github.io/tags/Computer-Vision/"/>
-    
     <category term="Text Detection" scheme="http://YangLeiSX.github.io/tags/Text-Detection/"/>
+    
+    <category term="Computer Vision" scheme="http://YangLeiSX.github.io/tags/Computer-Vision/"/>
     
   </entry>
   
@@ -66,9 +89,9 @@
     
     <category term="Deep Learning" scheme="http://YangLeiSX.github.io/tags/Deep-Learning/"/>
     
-    <category term="Computer Vision" scheme="http://YangLeiSX.github.io/tags/Computer-Vision/"/>
-    
     <category term="Text Detection" scheme="http://YangLeiSX.github.io/tags/Text-Detection/"/>
+    
+    <category term="Computer Vision" scheme="http://YangLeiSX.github.io/tags/Computer-Vision/"/>
     
   </entry>
   
@@ -466,30 +489,6 @@
     <category term="Windows" scheme="http://YangLeiSX.github.io/tags/Windows/"/>
     
     <category term="WinAPI" scheme="http://YangLeiSX.github.io/tags/WinAPI/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【论文】FaceNet：A Unified Embedding for Face Recognition and Clustering</title>
-    <link href="http://yangleisx.github.io/2020/06/06/facenet/"/>
-    <id>http://yangleisx.github.io/2020/06/06/facenet/</id>
-    <published>2020-06-06T07:48:29.000Z</published>
-    <updated>2020-06-14T02:49:15.205Z</updated>
-    
-    <content type="html"><![CDATA[<p>论文题目：FaceNet: A Unified Embedding for Face Recognition and Clustering</p><p>作者：Florian Schroff、Dmitry Kalenichenko、James Philbin</p><p>会议/时间：2015</p><p>链接：<a href="https://arxiv.org/pdf/1503.03832.pdf" target="_blank" rel="noopener">原文链接</a></p><a id="more"></a><h2 id="论文目标"><a href="#论文目标" class="headerlink" title="论文目标"></a>论文目标</h2><p>学习一种直接的从面部图片到欧氏空间向量的映射，用于人脸识别、分类和聚类等工作。欧氏空间向量之间的距离表示图片内人脸的相似度。</p><h2 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h2><p>过去的人脸识别网络中往往通过人脸识别/分类等任务训练，最终将其中的某一层提取出来用作特征向量的生成。缺点在于泛化能力可能不够强，而且往往生成的特征向量长度比较大，效率较低。多数研究中对于较长的特征向量使用PCA简化。</p><h2 id="本文思路-解决方案"><a href="#本文思路-解决方案" class="headerlink" title="本文思路/解决方案"></a>本文思路/解决方案</h2><p>通过引入triplet loss和online triplet mining method，直接学习得到特征向量，具体是对于深度神经网络的输出，经过L2Norm后得到向量，并使用Triplet loss优化。本文作者使用的两种深度网络分别来自Zeiler&amp;Fergus Model和Szegedy’s Inception Model，将其视作黑箱并训练。</p><p>文中假设相同的人输入的数据分布在欧氏空间内的一个超平面，当给定一组triplet（包括锚anchor、正例positive、反例negative，其中anchor和positive是同一类）时，则有<script type="math/tex">||f(x_i^a)-f(x_i^p)||^2_2+\alpha < ||f(x_i^a)-f(x_i^n)||^2_2</script>，即正例的距离与反例距离的差值不小于给定的边界值$\alpha$。从而得到优化目标为<script type="math/tex">triplet\ loss = \sum\limits_{i}^{N}\left[||f(x_i^a)-f(x_i^p)||^2_2+\alpha - ||f(x_i^a)-f(x_i^n)||^2_2 \right]_+</script>。</p><p>在训练过程中，需要选择合适的数据计算损失函数，如果选择简单的triplet会导致收敛缓慢，训练效果较差。因此在训练过程中，对于每一个给定的数据<script type="math/tex">x_i^a</script>，选择距离最大的正例(<script type="math/tex">\arg\max_{x_i^p}||f(x_i^a)-f(x_i^p)||^2_2</script>)和距离最小的反例(<script type="math/tex">\arg\min||f(x_i^a)-f(x_i^n)||^2</script>)，称为hard取样。</p><p>在实际的训练过程中，获得满足要求的triplet是不可能的，两种可行的方法包括：offline方式（每次训练N步后计算距离并选择triplet）、online方法（在每一个batch中选择满足要求的数据）。选择后者时需要注意保证每一个batch中都必须含有正例和反例。</p><p>当在训练开始时就选择hard采样时，会导致模型进入局部最优，因此提出了semi-hard取样，即选择那些满足<script type="math/tex">||f(x_i^a)-f(x_i^p)||^2_2 < ||f(x_i^a)-f(x_i^n)||^2_2</script>的反例数据组成triplet进行训练。</p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol><li>提出了triplet loss，便于直接训练一个图像到向量的映射。</li><li>分析了选择triplet的方式，使用semi-hard策略解决hard策略的缺点。</li></ol>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;论文题目：FaceNet: A Unified Embedding for Face Recognition and Clustering&lt;/p&gt;
-&lt;p&gt;作者：Florian Schroff、Dmitry Kalenichenko、James Philbin&lt;/p&gt;
-&lt;p&gt;会议/时间：2015&lt;/p&gt;
-&lt;p&gt;链接：&lt;a href=&quot;https://arxiv.org/pdf/1503.03832.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;原文链接&lt;/a&gt;&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="论文阅读" scheme="http://YangLeiSX.github.io/categories/论文阅读/"/>
-    
-    
-    <category term="Deep Learning" scheme="http://YangLeiSX.github.io/tags/Deep-Learning/"/>
     
   </entry>
   
