@@ -6,7 +6,7 @@
   <link href="http://yangleisx.github.io/atom.xml" rel="self"/>
   
   <link href="http://yangleisx.github.io/"/>
-  <updated>2021-01-07T11:40:22.927Z</updated>
+  <updated>2021-03-05T06:42:29.737Z</updated>
   <id>http://yangleisx.github.io/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>【论文】Real-time Scene Text Detection with Differentiable Binarization</title>
+    <link href="http://yangleisx.github.io/2021/03/05/db-module/"/>
+    <id>http://yangleisx.github.io/2021/03/05/db-module/</id>
+    <published>2021-03-05T06:39:17.000Z</published>
+    <updated>2021-03-05T06:42:29.737Z</updated>
+    
+    <content type="html"><![CDATA[<p>论文题目：Real-time Scene Text Detection with Differentiable Binarization</p><p>作者：Minghui Liao, Zhaoyi Wan, Cong Yao, Kai Chen, Xiang Bai</p><p>会议/时间：AAAI2020</p><p>链接：<a href="https://arxiv.org/pdf/1911.08947.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/1911.08947.pdf</a></p><a id="more"></a><h2 id="论文目标"><a href="#论文目标" class="headerlink" title="论文目标"></a>论文目标</h2><p>基于目标分割的文本检测系统通常能取得比较好的结果，尤其是在检测形状比较多变的文本目标的时候，但是基于分割的系统通常需要设计后处理算法，对模型输出的概率图加以处理得到文本区域的位置。为此本文设计了Differentiable Binarization模块，使得模型同时输出分割图和阈值，使用模型输出的阈值对分割图进行二值化可以得到比较好的结果。</p><h2 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h2><p>近年来图像文本检测的算法主要分为两类，即基于回归的和基于分割的。前者包括TextBoxes、SSD、EAST、SegLink等，后者包括Mask TextSpotter、PSENet等。同时有一些快速文本检测算法，旨在在不损失精确度的情况下提高预测的速度。例如在SSD的基础上发展了TextBoxes++和RRD等，在PVANet基础上发展EAST等。</p><h2 id="本文思路-解决方案"><a href="#本文思路-解决方案" class="headerlink" title="本文思路/解决方案"></a>本文思路/解决方案</h2><p>整体使用特征金字塔结构，不同尺度的特征图融合得到特征F，在此基础上得到预测图和阈值图，利用阈值图T对预测图P二值化，得到二值化的图像B，最终得到检测结果。在训练过程中预测图和二值化图使用相同的目标监督，在预测的时候可以通过预测图或者二值化图中的任意一个得到目标检测结果。</p><img src="/2021/03/05/db-module/model.png" class="model"><p>为了便于梯度传播，这里使用了可微的二值化函数代替标准的二值化。</p><script type="math/tex; mode=display">\begin{align}\hat{B}_{i,j} = \frac{1}{1+e^{-k(P_{i,j}-T_{i,j})}}\end{align}</script><p>同时在文章中使用的ResNet-18和ResNet-50中采用了可变形卷积取代原本的卷积操作，经实验有一定的性能提升。</p><img src="/2021/03/05/db-module/gt.png" class="gt"><p>在生成标签时，使用Vatti算法，将多边形框收缩得到预测图的标签。同时将多边形框收缩和膨胀，其中的区域作为阈值图的区域，阈值图的取值由距离原多边形框的距离确定。</p><p>在计算loss的时候，使用 Binary Cross-Entropy(BCE)作为预测图和二值化图的损失函数，使用L1距离作为阈值图的损失函数。其中$R_d$是膨胀后的边界框内部的像素，$S_l$是用于计算的数据集合。</p><script type="math/tex; mode=display">\begin{align}L &= L_s+\alpha L_b+\beta L_t \\L_s = L_b &= \sum\limits_{i \in S_l}y_i\log x_i + (1-y_i)\log(1-x_i) \\L_t &= \sum\limits_{i\in R_d}|y_i^* - x_i^*|\end{align}</script><h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>使用了可变形卷积和DB模块之后，模型在CTW1500和MSRA-TD500上的性能均有所提升。为阈值图添加监督之后性能也有所提升。在卷曲文本、多语言文本、多朝向文本上的效果均相比之前的模型有所提升。</p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>引入了DB模块，通过二值化阈值的预测提升检测的结果，同时使用了比较精简的模型，具有较快的处理速度。</p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;论文题目：Real-time Scene Text Detection with Differentiable Binarization&lt;/p&gt;
+&lt;p&gt;作者：Minghui Liao, Zhaoyi Wan, Cong Yao, Kai Chen, Xiang Bai&lt;/p&gt;
+&lt;p&gt;会议/时间：AAAI2020&lt;/p&gt;
+&lt;p&gt;链接：&lt;a href=&quot;https://arxiv.org/pdf/1911.08947.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://arxiv.org/pdf/1911.08947.pdf&lt;/a&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="论文阅读" scheme="http://YangLeiSX.github.io/categories/论文阅读/"/>
+    
+    
+    <category term="Deep Learning" scheme="http://YangLeiSX.github.io/tags/Deep-Learning/"/>
+    
+    <category term="Text Detection" scheme="http://YangLeiSX.github.io/tags/Text-Detection/"/>
+    
+  </entry>
   
   <entry>
     <title>2020年度总结</title>
@@ -485,30 +511,6 @@
     <category term="Windows" scheme="http://YangLeiSX.github.io/tags/Windows/"/>
     
     <category term="WinAPI" scheme="http://YangLeiSX.github.io/tags/WinAPI/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【论文】Deep Learning Face Representation by Joint Identification-Verification</title>
-    <link href="http://yangleisx.github.io/2020/06/06/deepid2/"/>
-    <id>http://yangleisx.github.io/2020/06/06/deepid2/</id>
-    <published>2020-06-06T07:48:29.000Z</published>
-    <updated>2020-06-06T12:08:25.532Z</updated>
-    
-    <content type="html"><![CDATA[<p>论文题目：Deep Learning Face Representation by Joint Identification-Verification</p><p>作者：Yi Sun、 Xiaogang Wang、 Xiaoou Tang</p><p>时间：2014</p><p>链接：<a href="https://arxiv.org/pdf/1406.4773.pdf" target="_blank" rel="noopener">原文链接</a></p><a id="more"></a><h2 id="论文目标"><a href="#论文目标" class="headerlink" title="论文目标"></a>论文目标</h2><p>在面部识别中，关键任务是提取面部特征，并增大类间距离、减小类内距离。</p><h2 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h2><p>在之前的工作中，本文作者提出的DeepID使用softmax作为输出用于身份验证，达到了比较好的效果。其他诸如LDA、metric learning等方法使用线性模型或使用浅层网络，具有一定的局限性。</p><h2 id="本文思路-解决方案"><a href="#本文思路-解决方案" class="headerlink" title="本文思路/解决方案"></a>本文思路/解决方案</h2><p>同时使用两种supervisory signal来指导模型的学习，即同时使用identification（给定输入，判断属于哪一个类别，多分类）和verification（给定两个输入，判断是否属于同一类别，二分类），前者可以增大类间距离，后者减小类内距离。</p><p>深度神经网络的结构与本文作者<a href="http://www.ee.cuhk.edu.hk/~xgwang/papers/sunWTcvpr14.pdf" target="_blank" rel="noopener">之前的工作</a>基本相同，即包括四层卷积和三层最大池化，经过跨层连接得到长度为160的特征向量。</p><p>使用特征网络的输出向量分别用于identification和verification，反向传播时使用超参数$\lambda$对两个损失函数的梯度加权。在前者使用softmax得到输出并优化cross-entropy loss。在后者使用基于L1/L2正则和cosine相似的损失函数，并对比较其效果。</p><p>基于cosine相似:<script type="math/tex">Verif(f_i,f_j, y_{ij}, \theta_{ve}) = \frac{1}{2}(y_{ij}-\sigma(wd+b))^2</script>，其中$\sigma$为sigmoid函数，<script type="math/tex">d = \frac{f_i · f_j}{||f_i||_2·||f_j||_2}</script>。</p><p>基于L2的:<script type="math/tex">Verif(f_i,f_j, y_{ij}, \theta_{ij}) = \begin{cases} \frac{1}{2}||f_i - f_j||^2 &if\ y_{ij}=1\\\frac{1}{2}\max(0, m-||f_i - f_j||^2)&if\ y_{ij}=-1\end{cases}</script>，其中<script type="math/tex">y_{ij}</script>表示输入是否为同一类别，$ m $为指定的边界，在训练过程中手动调整。</p><p>训练过程中，每一张图片选择了400个patch，包括不同位置、大小、通道（RGB or 灰度），训练得到200个网络。</p><p>测试Verification时，通过前后向贪婪算法选择其中效果最好的25个得到$25*160=4000$维度的特征向量，并通过PCA压缩，便于识别和预测。在预测时分别使用L2 Norm模型和联合贝叶斯模型来得到结果。</p><h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>对于超参数$\lambda$的选择，通过测试可以发现在0.05处达到最高。当$\lambda=0$或者$\lambda=+\infty$时，据无法得到比较好的效果，说明identification和verification对于特征提取都具有重要作用。</p><p>与DeepID中的情况相同，训练时使用的类别越多，学习效果越好。</p><p>使用联合贝叶斯模型实现预测可以得到更高的准确率。同时在训练过程中，使用L2正则的损失函数效果更好。</p><p>多次选择效果比较好的patch组合，使用得到的结果结合SVM进行预测，整体系统的性能达到了99.15%的识别准确率。</p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol><li>使用identification和verification结合的方式，合理选择权重超参数，使得学习效果进一步提升。</li><li>在verification中测试多种损失函数，最终选择了效果最好的基于L2的模型。</li></ol>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;论文题目：Deep Learning Face Representation by Joint Identification-Verification&lt;/p&gt;
-&lt;p&gt;作者：Yi Sun、 Xiaogang Wang、 Xiaoou Tang&lt;/p&gt;
-&lt;p&gt;时间：2014&lt;/p&gt;
-&lt;p&gt;链接：&lt;a href=&quot;https://arxiv.org/pdf/1406.4773.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;原文链接&lt;/a&gt;&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="论文阅读" scheme="http://YangLeiSX.github.io/categories/论文阅读/"/>
-    
-    
-    <category term="Deep Learning" scheme="http://YangLeiSX.github.io/tags/Deep-Learning/"/>
     
   </entry>
   
