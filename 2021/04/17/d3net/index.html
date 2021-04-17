@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/appleicon.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.0">
+  <link rel="mask-icon" href="/images/logo.jpg?v=7.4.0" color="#222">
+  <link rel="alternate" href="/atom.xml" title="杨磊的博客" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.4.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"always","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="论文题目：Densely connected multidilated convolutional networks for dense prediction tasks 作者：Naoya Takahashi, Yuki Mitsufuji 会议/时间：CVPR2021 链接: arXiv:2011.1184v1">
+<meta name="keywords" content="Semantic Segmentation,Audio Source Separation">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【论文】Densely connected multidilated convolutional networks for dense prediction tasks">
+<meta property="og:url" content="http://YangLeiSX.github.io/2021/04/17/d3net/index.html">
+<meta property="og:site_name" content="杨磊的博客">
+<meta property="og:description" content="论文题目：Densely connected multidilated convolutional networks for dense prediction tasks 作者：Naoya Takahashi, Yuki Mitsufuji 会议/时间：CVPR2021 链接: arXiv:2011.1184v1">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yangleisx.github.io/2021/04/17/d3net/densenet-block.png">
+<meta property="og:image" content="http://yangleisx.github.io/2021/04/17/d3net/dilated-conv.png">
+<meta property="og:image" content="http://yangleisx.github.io/2021/04/17/d3net/d3net-block-viz.png">
+<meta property="og:image" content="http://yangleisx.github.io/2021/04/17/d3net/d3net-d3block.png">
+<meta property="og:image" content="http://yangleisx.github.io/2021/04/17/d3net/d3net-result.png">
+<meta property="og:image" content="http://yangleisx.github.io/2021/04/17/d3net/d3net-result2.png">
+<meta property="og:updated_time" content="2021-04-17T09:35:05.573Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【论文】Densely connected multidilated convolutional networks for dense prediction tasks">
+<meta name="twitter:description" content="论文题目：Densely connected multidilated convolutional networks for dense prediction tasks 作者：Naoya Takahashi, Yuki Mitsufuji 会议/时间：CVPR2021 链接: arXiv:2011.1184v1">
+<meta name="twitter:image" content="http://yangleisx.github.io/2021/04/17/d3net/densenet-block.png">
+  <link rel="canonical" href="http://YangLeiSX.github.io/2021/04/17/d3net/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>【论文】Densely connected multidilated convolutional networks for dense prediction tasks | 杨磊的博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">杨磊的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">人的本能是追逐从他身边飞走的东西，却逃避追逐他的东西。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="Searching..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="http://YangLeiSX.github.io/2021/04/17/d3net/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杨磊的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">【论文】Densely connected multidilated convolutional networks for dense prediction tasks
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2021-04-17 17:28:42 / Modified: 17:35:05" itemprop="dateCreated datePublished" datetime="2021-04-17T17:28:42+08:00">2021-04-17</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/论文阅读/" itemprop="url" rel="index"><span itemprop="name">论文阅读</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              
+              <span>2.3k</span> 
+            </span>
+          
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              
+              <span>2 mins.</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>论文题目：Densely connected multidilated convolutional networks for dense prediction tasks</p>
+<p>作者：Naoya Takahashi, Yuki Mitsufuji</p>
+<p>会议/时间：CVPR2021</p>
+<p>链接: <a href="https://arxiv.org/abs/2011.11844" target="_blank" rel="noopener">arXiv:2011.1184v1</a></p>
+<a id="more"></a>
+<h2 id="论文目标"><a href="#论文目标" class="headerlink" title="论文目标"></a>论文目标</h2><p>在密集预测任务中，模型通常需要处理和学习非常大范围的上下文信息，为了满足这一需求，常用的方法包括增加模型的深度（例如Resnet和DenseNet）、增加模型的宽度（例如Inception）。一种效果比较好的方式是增加短路链接使得低层特征能够传递到比较高的卷积层中，因此在ResNet的基础上有了DenseNet。更深的网络具有的优点是高层的卷积模块具有更大的感受野，从而可以学习到更大范围的上下文信息。但是更深的网络通常比较难以训练。为了增大感受野而不增加深度，常用的方法包括空洞卷积，使用注意力机制，使用特征金字塔网络等。</p>
+<p>为了进一步提升在密集预测任务上的效果，作者将空洞卷积引入了DenseNet中，并且设计了D2-Block模块和D3Net网络，消除简单使用空洞卷积可能会引入的混淆问题，并在图像分割和语音讲话人分离两个任务上测试，取得了不错的效果。</p>
+<h2 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h2><p>在DenseNet中，使用了稠密的短路链接，每一层卷积层的输入都是之前的所有卷积层的输出，充分利用了不同尺度的特征图的信息，从而学习到输入数据在不同尺度上的信息。同时也增加了丰富的梯度流，使得模型能学到更丰富的信息。</p>
+<img src="/2021/04/17/d3net/densenet-block.png" class="densenet-block">
+<p>在空洞卷积或者说膨胀卷积中，在计算卷积操作的时候为卷积核之间填充了0，从而能显著的增加感受野。考虑到使用相同的膨胀因子导致的网格效应，可以采用HDC的思路，选择若干层为一组，组内使用逐渐增大的膨胀因子，使用多组连接得到完整的网络。</p>
+<img src="/2021/04/17/d3net/dilated-conv.png" class="dilated-conv">
+<h2 id="本文方法"><a href="#本文方法" class="headerlink" title="本文方法"></a>本文方法</h2><p>设计了一个将空洞卷积引入稠密卷积模块的方法，从而设计了D2-Block和D3Net。</p>
+<p>在设计D2-Block的时候，直接将空洞卷积引入了DenseNet的Dense-Block中，此时由于增加了稠密连接，最后一层使用膨胀因子为4的空洞卷积时，其感受野之间出现了盲区，可能会丢失一些局部的信息。</p>
+<p>因此文章中提出了混合膨胀因子的空洞卷积，也就是较高层的卷积层在计算空洞卷积的时候，对于不同层输入的特征图使用不同的膨胀因子，从而避免了上述的盲区，捕捉到更多的信息。</p>
+<img src="/2021/04/17/d3net/d3net-block-viz.png" class="d3net-block-viz">
+<p>文章中将上述的D2-Block通过稠密连接相组合得到D3-Block。同时使用HDC的思路来设置参数，每一组内的膨胀系数都是互素而且逐渐增加的，同时多次重复来实现锯齿形的膨胀因子。</p>
+<img src="/2021/04/17/d3net/d3net-d3block.png" class="d3net-d3block">
+<p>同时参考DenseNet的设计，在每一个D2-Block的前后都设计了Bottleneck和Compress模块，从而避免模型中的通道数量无限制的增加。</p>
+<h2 id="实验结果分析"><a href="#实验结果分析" class="headerlink" title="实验结果分析"></a>实验结果分析</h2><p>文章中进行了两组密集预测任务的实验，分别是语义分割和音频源分离。</p>
+<p>在第一个任务中使用CityScapes数据集。<br><img src="/2021/04/17/d3net/d3net-result.png" class="d3net-result"></p>
+<p>第二个任务使用MUSDB18数据集。<br><img src="/2021/04/17/d3net/d3net-result2.png" class="d3net-result2"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>将空洞卷积引入了DenseNet中。提出了混合膨胀因子的空洞卷积。</p>
+
+    </div>
+
+    
+    
+    
+        
+      
+        <div id="reward-container">
+  <div>维护不易，请杨磊喝杯奶茶吧。</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.png" alt="Yang Lei WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/alipay.png" alt="Yang Lei Alipay">
+        <p>Alipay</p>
+      </div>
+
+  </div>
+</div>
+
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>Yang Lei</li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="http://YangLeiSX.github.io/2021/04/17/d3net/" title="【论文】Densely connected multidilated convolutional networks for dense prediction tasks">http://YangLeiSX.github.io/2021/04/17/d3net/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.</li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/Semantic-Segmentation/" rel="tag"><i class="fa fa-tag"></i> Semantic Segmentation</a>
+            
+              <a href="/tags/Audio-Source-Separation/" rel="tag"><i class="fa fa-tag"></i> Audio Source Separation</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2021/03/05/db-module/" rel="next" title="【论文】Real-time Scene Text Detection with Differentiable Binarization">
+                  <i class="fa fa-chevron-left"></i> 【论文】Real-time Scene Text Detection with Differentiable Binarization
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="gitalk-container"></div>
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#论文目标"><span class="nav-number">1.</span> <span class="nav-text">论文目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关工作"><span class="nav-number">2.</span> <span class="nav-text">相关工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本文方法"><span class="nav-number">3.</span> <span class="nav-text">本文方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实验结果分析"><span class="nav-number">4.</span> <span class="nav-text">实验结果分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.gif"
+      alt="Yang Lei">
+  <p class="site-author-name" itemprop="name">Yang Lei</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">81</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-name">tags</span>
+        </a>
+      </div>
+    
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/yangleisx" title="GitHub &rarr; https://github.com/yangleisx" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:yangleisxn@icloud.com" title="E-Mail &rarr; mailto:yangleisxn@icloud.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 – <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang Lei</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">Symbols count total: </span>
+    
+    <span title="Symbols count total">156k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">Reading time total &asymp;</span>
+    
+    <span title="Reading time total">2:10</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.0"></script><script src="/js/motion.js?v=7.4.0"></script>
+<script src="/js/schemes/pisces.js?v=7.4.0"></script>
+<script src="/js/next-boot.js?v=7.4.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: 'f7e6a6c2390813f27c6a',
+      clientSecret: '20e3b1db26b09d1c3575768ec6d9e686d48153a2',
+      repo: 'yangleisx.github.io',
+      owner: 'yangleisx',
+      admin: ['yangleisx'],
+      id: '9609aadd5b4d8ad5c95326f6640b78ed',
+        language: window.navigator.language || window.navigator.userLanguage,
+      
+      distractionFreeMode: 'true'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
+
+</body>
+</html>

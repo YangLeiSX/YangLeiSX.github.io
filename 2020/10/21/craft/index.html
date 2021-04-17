@@ -68,7 +68,7 @@
 <meta property="og:image" content="http://yangleisx.github.io/2020/10/21/craft/feature.png">
 <meta property="og:image" content="http://yangleisx.github.io/2020/10/21/craft/training.png">
 <meta property="og:image" content="http://yangleisx.github.io/2020/10/21/craft/postope.png">
-<meta property="og:updated_time" content="2020-10-21T07:14:22.219Z">
+<meta property="og:updated_time" content="2021-04-10T10:03:20.319Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【论文】Character Region Awareness for Text Detection">
 <meta name="twitter:description" content="论文题目：Character Region Awareness for Text Detection 作者：Youngmin Baek, Bado Lee, Dongyoon Han, Sangdoo Yun, and Hwalsuk Lee 会议/时间：CVPR2019 链接：https://arxiv.org/pdf/1904.01941.pdf">
@@ -288,11 +288,19 @@
                 
               
 
-              <time title="Created: 2020-10-21 15:10:45 / Modified: 15:14:22" itemprop="dateCreated datePublished" datetime="2020-10-21T15:10:45+08:00">2020-10-21</time>
+              <time title="Created: 2020-10-21 15:10:45" itemprop="dateCreated datePublished" datetime="2020-10-21T15:10:45+08:00">2020-10-21</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-04-10 18:03:20" itemprop="dateModified" datetime="2021-04-10T18:03:20+08:00">2021-04-10</time>
+              </span>
             
           
             <span class="post-meta-item">
@@ -356,7 +364,7 @@
 <img src="/2020/10/21/craft/feature.png" class="feature">
 <p>在训练过程中，由于实际的数据集只有单词级或者句子级的标注，首先使用合成的样本训练得到一个临时的模型，然后将实际数据集中的单词或者句子裁剪出来通过模型得到单词边界框，与原数据预测的结果相比计算置信度。一种可行的方法是使用字符框的个数与单词长度相比较得到置信度，作为计算目标函数时的像素权重。即</p>
 <script type="math/tex; mode=display">
-L = \sum\limits_{p} S_c(p)\cdot(||S_r(p) - S_r^*(p)||^2+||S_a(p) - S_as^*(p)||^2_2)</script><img src="/2020/10/21/craft/training.png" class="training">
+L = \sum\limits_{p} S_c(p)\cdot(||S_r(p) - S_r^*(p)||^2_2+||S_a(p) - S_a^*(p)||^2_2)</script><img src="/2020/10/21/craft/training.png" class="training">
 <p>最后在预测时需要进行相应的后处理，例如使用矩形框将检测到的文本从原数据裁剪出来包括如下操作：分别设置阈值将特征图转为二值，使用连通区域标记技术<sup><a href="#fn_1" id="reffn_1">1</a></sup>从二值图中框选单词，最后选择一个矩形框<sup><a href="#fn_2" id="reffn_2">2</a></sup>将上述连通区域框选出来。或者使用多边形折线框框选：每个字符使用相同长度的竖线表示，竖线的中点连线得到单词中线，上述竖线转至与中线垂直，以端点为多边形的顶点绘制中线的平行线。</p>
 <img src="/2020/10/21/craft/postope.png" class="post_operation">
 <h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>在选择的六个数据集上，经过训练和测试，都实现了超过SOTA的效果。可以证明使用字符级的检测效果比较好。</p>
@@ -514,7 +522,7 @@ L = \sum\limits_{p} S_c(p)\cdot(||S_r(p) - S_r^*(p)||^2+||S_a(p) - S_as^*(p)||^2
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">80</span>
+          <span class="site-state-item-count">81</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -540,7 +548,7 @@ L = \sum\limits_{p} S_c(p)\cdot(||S_r(p) - S_r^*(p)||^2+||S_a(p) - S_as^*(p)||^2
             <a href="/tags/">
           
         
-        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-count">38</span>
         <span class="site-state-item-name">tags</span>
         </a>
       </div>
@@ -607,14 +615,14 @@ L = \sum\limits_{p} S_c(p)\cdot(||S_r(p) - S_r^*(p)||^2+||S_a(p) - S_as^*(p)||^2
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
     
-    <span title="Symbols count total">155k</span>
+    <span title="Symbols count total">156k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
     
-    <span title="Reading time total">2:09</span>
+    <span title="Reading time total">2:10</span>
 </div>
 
         
