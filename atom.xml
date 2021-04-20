@@ -6,7 +6,7 @@
   <link href="http://yangleisx.github.io/atom.xml" rel="self"/>
   
   <link href="http://yangleisx.github.io/"/>
-  <updated>2021-04-17T09:35:05.573Z</updated>
+  <updated>2021-04-20T06:30:42.925Z</updated>
   <id>http://yangleisx.github.io/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>【论文】Densely Connected Convolutional Networks</title>
+    <link href="http://yangleisx.github.io/2021/04/20/densenet/"/>
+    <id>http://yangleisx.github.io/2021/04/20/densenet/</id>
+    <published>2021-04-20T06:23:12.000Z</published>
+    <updated>2021-04-20T06:30:42.925Z</updated>
+    
+    <content type="html"><![CDATA[<p>论文题目： Densely Connected Convolutional Networks</p><p>作者： Gao Huang, Zhuang Liu, Laurens van der Maaten, Kilian Q. Weinberger</p><p>会议/时间：CVPR2017</p><p>链接: <a href="https://arxiv.org/pdf/1608.06993.pdf" target="_blank" rel="noopener">arXiv</a></p><a id="more"></a><h2 id="论文目标"><a href="#论文目标" class="headerlink" title="论文目标"></a>论文目标</h2><p>在CNN中，增加模型深度可以增加卷积层的感受野，从而提升CNN的性能，但是深度太大的CNN在训练的时候会出现梯度消失的问题。根据ResNet 残差网络的设计，通过添加短路链接可以使得比较深的网络更容易训练和收敛。</p><p>为了进一步融合不同尺度特征，本文提出的DenseNet模型通过添加稠密的短路链接可以使特征图得到充分的利用，增大梯度信息流，从而减少参数数量，提升模型的性能。通过稠密的短路连接，每一个卷积层都可以看作与输入的数据和最后的全连接层直接相连，从而得到充分的监督。</p><h2 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h2><p>在Highway Network中，首次引入了短路连接的思想，从而使得训练上百层的神经网络成为可能。在ResNet 残差网络中，通过短路连接，将每一个Residual Block的输入通过恒等映射直接连接到输出，实现了突破性的提升。在Stochastic Depth网络中训练的时候随机跳过了模型中的某些层，实际上也能取得非常不错的效果，这就证明在非常深的模型中有一些卷积层的存在其实是冗余的。</p><p>与上述模型不同的是，在GoogLeNet和FractalNet中使用了Inception结构增加模型宽度的方式来提升模型的性能。</p><p>其他的提升性能的思路包括：NIN（在卷积层中添加多层感知机提取丰富特征），DSN（使用一些分类器监督卷积的中间结果），DFN（将不同网络的中间层融合在一起）等。</p><h2 id="本文方法"><a href="#本文方法" class="headerlink" title="本文方法"></a>本文方法</h2><p>将多个卷积层组合得到Dense Block，其中每一个卷积层的输入都是之前所有层的输出按通道连接得到。即<script type="math/tex">x_l = H_l([x_0, x_1, ..., x_{l-1}])</script>。同时需要注意，每一个卷积层都是由带有bottleneck的混合卷积操作组成的，其中的混合卷积操作指BatchNorm + ReLU + Conv3x3组成，通道数为<script type="math/tex">k</script>，bottleneck是指BatchNorm + ReLU + Conv1x1组成，通道数为<script type="math/tex">4k</script>。这里的<script type="math/tex">k</script>成为Growth Rate，即每通过一个卷积层，通道数都会增加<script type="math/tex">k</script>个。</p><img src="/2021/04/20/densenet/densenet-block.png" class="densenet-block"><p>在每一个Dense Block之中的特征图大小是相同的，在相邻的DenseBlock之间引入Transition层，包括Conv1x1和Pooling2x2，其中的卷积操作用于压缩通道数量，防止通道数量无限制的增大，而池化操作用于压缩特征图数量。最终得到完整的DenseNet结构如下。<br><img src="/2021/04/20/densenet/densenet-model2.png" class="densenet-model"></p><p>在实验中提出的不同大小的模型结构如下：<br><img src="/2021/04/20/densenet/densenet-structure.png" class="densenet-structure"></p><h2 id="结果分析"><a href="#结果分析" class="headerlink" title="结果分析"></a>结果分析</h2><p>模型在CIFAR、SVHN、ImageNet等任务上测试，结果与现有的SOTA模型相比，取得了比较大的提升。<br><img src="/2021/04/20/densenet/densenet-vs-sota.png" class="densenet-vs-sota"></p><p>重点比较了ResNet，证明了DenseNet使用更小的模型参数也能取得与ResNet相近甚至更好的效果，证明了之前提到了使用DenseNet可以减少模型参数的说法。<br><img src="/2021/04/20/densenet/densenet-vs-resnet.png" class="densenet-vs-resnet"></p><p>需要注意的是，尽管DenseNet模型参数数量很少，但是由于包含稠密连接，最直接的实现在训练和优化的时候中间变量需要占用大量的显存，空间效率很低。因此本文的作者在另一篇文章<sup><a href="#fn_1" id="reffn_1">1</a></sup>中提出了DenseNet的优化实现。</p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>使用稠密的短路连接，使得模型学到丰富的不同尺度的信息，使梯度信息的传播最大化，从而在减少参数数量的基础上提升模型的性能。</p><p><sup><a href="#fn_1" id="reffn_1">1</a></sup>:G. Pleiss, D. Chen, G. Huang, T. Li, L. van der Maaten, and K. Q. Weinberger. Memory-efficient implementation of densenets. arXiv preprint arXiv:1707.06990, 2017. 5</p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;论文题目： Densely Connected Convolutional Networks&lt;/p&gt;
+&lt;p&gt;作者： Gao Huang, Zhuang Liu, Laurens van der Maaten, Kilian Q. Weinberger&lt;/p&gt;
+&lt;p&gt;会议/时间：CVPR2017&lt;/p&gt;
+&lt;p&gt;链接: &lt;a href=&quot;https://arxiv.org/pdf/1608.06993.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;arXiv&lt;/a&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="论文阅读" scheme="http://YangLeiSX.github.io/categories/论文阅读/"/>
+    
+    
+    <category term="Image Recognition" scheme="http://YangLeiSX.github.io/tags/Image-Recognition/"/>
+    
+    <category term="Backbone" scheme="http://YangLeiSX.github.io/tags/Backbone/"/>
+    
+  </entry>
   
   <entry>
     <title>【论文】Densely connected multidilated convolutional networks for dense prediction tasks</title>
@@ -487,30 +513,6 @@
     
     
     <category term="Windows" scheme="http://YangLeiSX.github.io/tags/Windows/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【论文】A Discriminative Feature Learning Approach for Deep Face Recognition</title>
-    <link href="http://yangleisx.github.io/2020/06/13/center-loss/"/>
-    <id>http://yangleisx.github.io/2020/06/13/center-loss/</id>
-    <published>2020-06-13T08:41:50.000Z</published>
-    <updated>2020-06-13T08:51:13.317Z</updated>
-    
-    <content type="html"><![CDATA[<p>论文题目：A Discriminative Feature Learning Approach for Deep Face Recognition</p><p>作者：Yandong Wen, Kaipeng Zhang, Zhifeng Li, and Yu Qiao</p><p>会议/时间：ECCV2016</p><p>链接：<a href="https://ydwen.github.io/papers/WenECCV16.pdf" target="_blank" rel="noopener">原文链接</a></p><a id="more"></a><h2 id="论文目标"><a href="#论文目标" class="headerlink" title="论文目标"></a>论文目标</h2><p>之前的工作中仅仅使用Softmax loss作为模型的监督信号，学到的模型具有一定判别能力(Separable)，本文通过介绍一种新的Centor Loss作为监督信号进行学习，使模型学到更具有判别能力(Discriminative)的特征。Centor Loss可以学习到一类特征的分类中心并减小类内距离，从而更具有更强的判别能力。</p><h2 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h2><p>传统的度量学习(Metric Learning)中，由于识别样本在训练集中出现过，使用Softmax可以起到比较好的学习效果。但是在面识别任务中，很难预先搜集到所有可能的实体的数据用于学习，因此对于泛化能力的要求更高。这就要求学习到的特征具有更小的类内距离和更大的类间距离。</p><p>使用contrastive loss或者triplet loss对于pair/triplet的取样要求比较高，使用精心设计的取样方法可以在一定程度上避免，但是引入了更高的计算复杂度。</p><h2 id="本文思路-解决方案"><a href="#本文思路-解决方案" class="headerlink" title="本文思路/解决方案"></a>本文思路/解决方案</h2><p>首先定义了centor loss函数<script type="math/tex">\mathcal{L}_c = \frac{1}{2}\sum\limits_{i=1}^{m}||\mathbb{x}_i-\mathbb{c}_{y_i}||^2_2</script>，其中$\mathbb{c}$表示对应的类的中心。</p><p>直观的想法是在每一轮学习结束后将所有同类别数据的特征求均值，但是在大规模数据库中难以实现，因此采用每一批中同类别的数据的特征求均值用于类中心的更新。即令<script type="math/tex">\Delta\mathbb{c}_j = \frac{\sum\limits_{i=1}^{m}\delta(y_i=j)(\mathbb{c}_j - \mathbb{x}_i)}{1+\sum\limits_{i=1}^{m}\delta(y_j = j)}</script>。其中$\delta(condition) = condition\ is\ true ? 1: 0$，同时引入一个超参数$\alpha$作为类的中心更新时的“学习率”。</p><p>完整的loss function为<script type="math/tex">\mathcal{L} = \mathcal{L}_s + \lambda\mathcal{L}_c</script>，其中$\lambda$为权重系数。</p><p>网络结构如下：可以看到引入了跨层连接和Joint Supervision Signal。</p><p><img src="//YangLeiSX.github.io/2020/06/13/center-loss/center_loss_structure.png" alt="模型结构"></p><p>训练结果如下：可以看到在引入了Center Loss之后，类间距离显著减小，判别能力增强。</p><p><img src="//YangLeiSX.github.io/2020/06/13/center-loss/center_loss_1.png" alt="学习结果"></p><h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>可以发现$\lambda=0$时的学习效果较差，当<script type="math/tex">\lambda</script>太大时学习效果也会下降，测试得到的参数为<script type="math/tex">\lambda=0.03</script>。</p><p>可以发现<script type="math/tex">\alpha</script>的取值对结果影响不大（不为零时），测试得到的参数为<script type="math/tex">\alpha=0.5</script>。</p><p>最终实现的模型在小数据库训练，LFW达到了99.28%泛化准确率，YTF达到了94.9%的泛化准确率。</p><p>在MegaFace数据库上测试的结果中，本文的模型均达到了更好的性能。</p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol><li>提出了Center Loss，使用Center Loss结合Softmax Loss实现具有判别力的模型学习。</li><li>使用了跨层连接的模型结构。</li><li>使用Joint Supervision Signal，合理选择权重超参数。</li></ol>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;论文题目：A Discriminative Feature Learning Approach for Deep Face Recognition&lt;/p&gt;
-&lt;p&gt;作者：Yandong Wen, Kaipeng Zhang, Zhifeng Li, and Yu Qiao&lt;/p&gt;
-&lt;p&gt;会议/时间：ECCV2016&lt;/p&gt;
-&lt;p&gt;链接：&lt;a href=&quot;https://ydwen.github.io/papers/WenECCV16.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;原文链接&lt;/a&gt;&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="论文阅读" scheme="http://YangLeiSX.github.io/categories/论文阅读/"/>
-    
-    
-    <category term="Deep Learning" scheme="http://YangLeiSX.github.io/tags/Deep-Learning/"/>
     
   </entry>
   
