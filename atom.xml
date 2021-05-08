@@ -6,7 +6,7 @@
   <link href="http://yangleisx.github.io/atom.xml" rel="self"/>
   
   <link href="http://yangleisx.github.io/"/>
-  <updated>2021-04-20T06:30:42.925Z</updated>
+  <updated>2021-05-08T04:04:10.518Z</updated>
   <id>http://yangleisx.github.io/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>【论文】ContourNet： Taking a Further Step toward Accurate Arbitrary-shaped Scene Text Detection</title>
+    <link href="http://yangleisx.github.io/2021/05/08/contournet/"/>
+    <id>http://yangleisx.github.io/2021/05/08/contournet/</id>
+    <published>2021-05-08T03:58:37.000Z</published>
+    <updated>2021-05-08T04:04:10.518Z</updated>
+    
+    <content type="html"><![CDATA[<p>论文题目：ContourNet: Taking a Further Step toward Accurate Arbitrary-shaped Scene Text Detection</p><p>作者：Yuxin Wang, Hongtao Xie, Zhengjun Zha, Mengting Xing, Zilong Fu, Yongdong Zhang</p><p>会议/时间：CVPR2020</p><p>链接: <a href="https://arxiv.org/pdf/2004.04940.pdf" target="_blank" rel="noopener">arXiv</a></p><a id="more"></a><h2 id="论文目标"><a href="#论文目标" class="headerlink" title="论文目标"></a>论文目标</h2><p>目前的图像文本检测算法常常会将一些纹理信息识别为文本，得到假正例，而且图像文本常常具有多种尺度大小和形状，难以识别。<br>在论文中提出了一种模型，通过引入自适应区域建议网络和正交的纹理敏感模块来解决上述问题。前者是一种区域大小无关的RPN网络，使用IoU监督，后者可以从正交的两个方向上检测纹理信息，有效避免假正例。模型检测结果为目标的若干个轮廓点，可以通过进一步后处理得到多边形边界框。</p><h2 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h2><p>近年来图像文本检测算法对于假正例的问题有多种解决思路：SPCNET中使用了语义特征来修正边界框，或者也可以使用置信度等修正边界框。</p><p>对于图像尺度多变的问题，MSR使用了多尺度网络结构、DSRN提出了双向多尺度关系网络等。</p><p>在传统文本检测中常用的算法包括连通域分析和滑窗处理。在深度模型中常用的思路包括基于边界框回归的思路和基于语义的思路。前者包括EAST、DDR、LOMO等首先需要使用Anchor-Based或者Anchor-Free的思路生成边界框。后者需要对分割图进行后处理。</p><h2 id="本文方法"><a href="#本文方法" class="headerlink" title="本文方法"></a>本文方法</h2><p>模型包括两个部分，前半部分Adaptive-RPN生成文本所在区域，然后使用LOTM进行两个方向的处理得到文本轮廓点。<br><img src="/2021/05/08/contournet/contournet-model.png" title="model"></p><p>在Adaptive-RPN中，传统方法是使用生成四个值${\Delta x, \Delta y, \Delta w, \Delta h}$去优化得到矩形区域，使用$l_1\ Loss$监督。但是这样的方式对于区域的大小比较敏感。</p><p>本文中一方面使用$N$个点来表示$RoI$，其中一个点表示区域中心，剩下$N-1$个点表示区域的边框，根据这$N$个点的最边界点得到$RoI$。另一方面使用$IoU\ Loss$来监督这个$N$个点的回归，对尺度不敏感。计算最边界点的方式如下：</p><script type="math/tex; mode=display">\begin{aligned}Proposal = & \{x_{tl}, y_{tl}, x_{rb}, y_{rb}\} \\= & \{\min\{x_r\}_{r=1}^n, \min\{y_r\}_{r=1}^n, \\\ & \ \max\{x_r\}_{r=1}^n, \max\{y_r\}_{r=1}^n\}\end{aligned}</script><p>在获得文本边界点的时候，使用了相互正交的两个方向上的特征分别得到轮廓点热力图。文中假设对于一个文字在两个方向上都具有明显的特征，但是其他无意义的纹理通常只在一个方向上具有比较明显的特征，因此可以通过两个方向上的分别处理区分开。<br><img src="/2021/05/08/contournet/contournet-lotm.png" title="lotm"></p><p>接着在后处理算法中将两个轮廓点热力图合并起来得到文本轮廓点。其算法如下，首先分别进行NMS处理减少多余的点，然后将两个方向上都都具有较高置信度的点作为输出得到轮廓点。最终通过[[Alpha-Shape Algorithm]]得到多边形边界框。<br><img src="/2021/05/08/contournet/contournet-algo.png" title="algo"></p><p>需要注意在生成监督的时候，对于两个方向上的轮廓点都使用相同的监督，即通过原始多边形边界框生成的宽度不低于2个像素的边框（这里是我的理解，原文如下）。</p><blockquote><p>we use <code>distance_transform_edt</code> in <em>Scipy</em> to obtain the two-points wide edge.</p></blockquote><h2 id="结果分析"><a href="#结果分析" class="headerlink" title="结果分析"></a>结果分析</h2><p>对于Adap-RPN中表示RoI的点的数量的实验。<br><img src="/2021/05/08/contournet/contournet-exp-rpn.png" title="exp-rpn"></p><p>对于Adap_RPN的有效性的实验。<br><img src="/2021/05/08/contournet/contournet-exp-rpn2.png" title="exp-rpn2"></p><p>对于LOTM中$1<em>N$和$N</em>1$卷积长度的实验。<br><img src="/2021/05/08/contournet/contournet-exp-lotm.png" title="exp-lotm"></p><p>对于LOTM的两方向特征融合效果的实验。<br><img src="/2021/05/08/contournet/contournet-exp-lotm2.png" title="exp-lotm2"></p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>在三个任务上（弯曲文本：Total-Text，长弯曲文本：CTW1500，多方向文本：ICDAR2015）均相对SOTA有一定的提升。可以看到本文方法有效减少了假正例的出现。</p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;论文题目：ContourNet: Taking a Further Step toward Accurate Arbitrary-shaped Scene Text Detection&lt;/p&gt;
+&lt;p&gt;作者：Yuxin Wang, Hongtao Xie, Zhengjun Zha, Mengting Xing, Zilong Fu, Yongdong Zhang&lt;/p&gt;
+&lt;p&gt;会议/时间：CVPR2020&lt;/p&gt;
+&lt;p&gt;链接: &lt;a href=&quot;https://arxiv.org/pdf/2004.04940.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;arXiv&lt;/a&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="论文阅读" scheme="http://YangLeiSX.github.io/categories/论文阅读/"/>
+    
+    
+    <category term="Text Detection" scheme="http://YangLeiSX.github.io/tags/Text-Detection/"/>
+    
+    <category term="Region Proposal Network" scheme="http://YangLeiSX.github.io/tags/Region-Proposal-Network/"/>
+    
+  </entry>
   
   <entry>
     <title>【论文】Densely Connected Convolutional Networks</title>
@@ -492,27 +518,6 @@
     <category term="SSH" scheme="http://YangLeiSX.github.io/tags/SSH/"/>
     
     <category term="Socket" scheme="http://YangLeiSX.github.io/tags/Socket/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Windows安全管理工具总结</title>
-    <link href="http://yangleisx.github.io/2020/06/25/windows-security-tools/"/>
-    <id>http://yangleisx.github.io/2020/06/25/windows-security-tools/</id>
-    <published>2020-06-25T09:00:51.000Z</published>
-    <updated>2020-06-25T09:04:15.401Z</updated>
-    
-    <content type="html"><![CDATA[<p>简单整理Windows安全课堂上讲解和提及的各种安全工具。</p><a id="more"></a><h2 id="CMD-命令"><a href="#CMD-命令" class="headerlink" title="CMD 命令"></a>CMD 命令</h2><ul><li><p>ver：查看内核版本。</p></li><li><p>systeminfo：查看系统信息，包括版本，补丁等大量信息。</p></li><li><p>set：查看所有的环境变量。</p></li><li><p>sc：查询服务信息。</p><ul><li>sc query [service name] 查询状态</li><li>sc qc [service name] 查询配置</li><li>sc start [service name] 启动需要手动启动的服务/驱动</li><li>sc stop [service name] 停止服务</li><li>sc showsid [service name] 查看服务的SID</li></ul></li><li><p>attrib：修改文件属性</p><ul><li><p>例如隐藏文件：添加hidden和system属性</p><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; attrib +h +s file-name</span><br></pre></td></tr></table></figure></li></ul></li><li><p>whoami：显示域名和用户名（没有加入域时，显示主机名）。</p><ul><li>whoami /user显示用户名和SID</li><li>whoami /all显示详细信息（特权、权限、所属组等）</li><li>whoami /all 显示详细的用户访问控制令牌信息</li></ul></li><li><p>hostname：查看主机名称</p></li><li><p>net：用户和用户组操作</p><ul><li>net user [username] 查看用户信息</li><li>net user [username] /add 添加新的用户</li><li>net user [username] [password] /add添加用户</li><li>net user [username] /del</li><li>net localgroup [groupname] [username] /add 用户加入本地组</li></ul></li><li><p>makecab：压缩工具</p></li><li><p>wusa：补丁安装命令</p></li><li><p>netstat：查看网络连接信息，各种参数参见help信息</p></li><li><p>reg：注册表管理工具</p><ul><li>reg save [hkey] [filename] 将注册表导出到文件中</li></ul></li><li><p>cacls：查看客体的安全访问控制项ACE</p></li></ul><h2 id="系统工具（cmd-R）"><a href="#系统工具（cmd-R）" class="headerlink" title="系统工具（cmd+R）"></a>系统工具（cmd+R）</h2><ul><li>regedit：（Registry Editer）注册表查看和编辑。</li><li>services.msc：服务控制面板（位于控制面板-系统和安全-管理工具-服务），查看和管理系统服务（只能看到用户态服务）。</li><li>secpol.msc：（Security Policy）本地安全策略配置。</li><li>syskey：SAM锁定工具，可以将密码存入本地或软盘。</li><li>msinfo32.exe：查看所有加载的驱动程序。</li><li>control：控制面板</li><li>eventvwr：（Event Viewer）审计日志查看器</li><li>certmgr.msc：（Certificate Manager）证书管理工具</li></ul><h2 id="其他工具"><a href="#其他工具" class="headerlink" title="其他工具"></a>其他工具</h2><ul><li>PE文件查看器：<ul><li>PE Explorer。</li><li>Stud_PE。</li><li>PEiD：可以看到加壳工具和编译工具。</li></ul></li><li>DarkRemoteRAT：一个木马软件</li><li><p>Agony：一个RootKit代码演示工具</p><ul><li>agony -p [进程名] 隐藏进程</li><li>agony -f [文件名] 隐藏文件/文件夹</li></ul></li><li><p>SystInternalsSuite工具集：</p><ul><li>autoruns：查看自启动项（注册表，自启动目录，服务，计划程序等）</li><li>procexp（process explorer）：查看进程信息（父子进程关系，进程加载的DLL和句柄列表，访问控制令牌，DEP，ASLR，完整性级别，虚拟化等，包括svchost内部的具体服务，进程的网络连接信息）</li><li>tcpview：查看网络连接、端口、数据等</li><li>procmon（process monitor）：检查和记录进程的各种操作</li><li>PsGetSid：查看用户的SID（默认显示主机SID）</li><li>psexec：运行程序<ul><li>使用-s参数可以使用SYSTEM权限运行程序</li><li>使用-l参数可以使用Low完整性级别运行程序</li></ul></li><li>procdump：进程内存导出工具</li><li>AccessChk：查看主客体对象的完整性级别</li><li>Strings：二进制代码的明文字符串查找</li></ul></li><li>RootKit/BootKit检测工具<ul><li>XueTr（XT）：一个RootKit检测查看工具</li><li>PowerTool（PT）：可以检测到Bootkit和Rootkit</li><li>IceSword：不再更新，经典</li><li>RootkitUnhooker（RKU）</li><li>Kaspersky TDSSKiller：可以检测到Bootkit和Rootkit</li></ul></li><li>OSR Driver Loader：一个向系统加载驱动的工具。</li><li>nc：一个常见的网络监控和通信工具。“网络的瑞士军刀”</li><li>wireshark：一个开源的网络数据包分析软件。</li><li>沙箱工具（用于动态分析）：<ul><li>SSM沙箱：System Safety Monitor，给系统函数加hook</li><li>Cuckoo：开源的沙箱，使用最多</li><li>Anubis沙箱</li><li>Norman沙箱</li><li>GFI沙箱</li></ul></li><li>OllyDbg：一个常见的动态分析调试工具。</li><li>静态分析工具：<ul><li>IDA Pro：高级分析工具</li><li>Depends：查看链接库，导入导出表</li><li>Dependancy Walker</li></ul></li><li>明文字符串查找：<ul><li>BinText：查看明文字符串，包括函数名等</li><li>Strings</li></ul></li><li>加壳识别和脱壳：<ul><li>VMUnpacker</li><li>UPX：可以加壳和脱壳</li><li>UnPEPack</li><li>ASPack unpacker</li></ul></li><li>文件格式识别：<ul><li>PEid：检查是否加壳，检测编译工具</li><li>FileAnalyzer</li></ul></li><li>反病毒引擎扫描：<ul><li>VirusScan</li><li>VirusTool</li></ul></li><li>mimikatz：一个获得登陆用户明文密码的工具</li><li>winhex：二进制读写工具，直接操纵硬盘而不是使用WinAPI</li><li>SAMINside：SAM文件解析和读取工具</li><li>本地密码破解工具：<ul><li>L0phtCrack</li><li>SAMInside</li><li>Ophcrack</li></ul></li><li>Windows本地密码散列导出工具：<ul><li>Pwdump</li><li>wce：Windows密码凭证编辑器</li><li>gsecdump</li><li>copypwd</li><li>QuarksPwDump</li></ul></li><li>提取登录用户明文密码：<ul><li>wce：Windows密码凭证编辑器</li><li>mimikatz</li></ul></li><li>数据恢复工具：<ul><li>EasyRecovery</li><li>FinalData</li></ul></li></ul><h2 id="参考Github项目"><a href="#参考Github项目" class="headerlink" title="参考Github项目"></a>参考Github项目</h2><ul><li>UACME</li><li>LOLBAS</li><li>BypassAntiVirus</li></ul>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;简单整理Windows安全课堂上讲解和提及的各种安全工具。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="实用工具" scheme="http://YangLeiSX.github.io/categories/实用工具/"/>
-    
-    
-    <category term="Windows" scheme="http://YangLeiSX.github.io/tags/Windows/"/>
     
   </entry>
   

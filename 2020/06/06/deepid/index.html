@@ -67,7 +67,7 @@
 <meta property="og:image" content="http://yangleisx.github.io/2020/06/06/deepid/deepid1_model.png">
 <meta property="og:image" content="http://yangleisx.github.io/2020/06/06/deepid/deepid1_structure.png">
 <meta property="og:image" content="http://yangleisx.github.io/2020/06/06/deepid/deepid1_test.png">
-<meta property="og:updated_time" content="2020-06-06T12:30:16.904Z">
+<meta property="og:updated_time" content="2021-05-08T04:05:40.353Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【论文】Deep Learning Face Representation from Predicting 10000 Classes">
 <meta name="twitter:description" content="论文题目：Deep Learning Face Representation from Predicting 10,000 Classes 会议：CVPR2014 作者：Yi Sun、Xiaogang Wang、 Xiaoou Tang 链接：原文链接">
@@ -287,11 +287,19 @@
                 
               
 
-              <time title="Created: 2020-06-06 15:42:29 / Modified: 20:30:16" itemprop="dateCreated datePublished" datetime="2020-06-06T15:42:29+08:00">2020-06-06</time>
+              <time title="Created: 2020-06-06 15:42:29" itemprop="dateCreated datePublished" datetime="2020-06-06T15:42:29+08:00">2020-06-06</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-05-08 12:05:40" itemprop="dateModified" datetime="2021-05-08T12:05:40+08:00">2021-05-08</time>
+              </span>
             
           
             <span class="post-meta-item">
@@ -348,15 +356,12 @@
 <h2 id="论文目标"><a href="#论文目标" class="headerlink" title="论文目标"></a>论文目标</h2><p>通过深度神经网络学习高层次的图像特征并用于身份验证。</p>
 <h2 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h2><p>无限制条件下的面部识别和验证是近年来的研究热点，大多面部识别算法是通过浅层模型学习到的超完备的底层特征实现。</p>
 <h2 id="本文思路-解决方案"><a href="#本文思路-解决方案" class="headerlink" title="本文思路/解决方案"></a>本文思路/解决方案</h2><p>通过深度卷积神经网络学习得到特征表示并用于面部识别。其中的特征表示通过深度神经网络的最后一层得到，称为DeepID（Deep Hidden Identity Features）。这一特征表示被用于最后的多分类识别任务，保证了卷积神经网络可以充分的学习到每个人的特征，具有更好的泛化能力。</p>
-<p>网络结构如下</p>
-<p><img src="//YangLeiSX.github.io/2020/06/06/deepid/deepid1_model.png" alt="网络结构"></p>
+<p>网络结构如下<br><img src="/2020/06/06/deepid/deepid1_model.png" title="deepid1_model"></p>
 <p>通过跨层连接，保证DeepID可以获取到更多的信息，学习到更高级的特征（Conv4之后的特征更加高级/抽象）。跨层连接使用公式<script type="math/tex">y_i = \max(0, \sum\limits_{i}x_i^1\omega_{i,j}^1+\sum\limits_{i}x_i^2\omega_{i,j}^2+b_j)</script>实现，其中的$\omega$为权重。最终使用softmax层作为预测输出。</p>
-<p>特征提取部分的具体工作方式：每一张照片，划分为10个位置，每个位置选取三个不同的输入规模，每个照片得到RGB和灰度图，即每一条数据得到$10\times3\times2=60$条数据（patches）作为输入，训练60个网络。对于每一个卷积网络，给定数据，将其翻转后，得到两个向量作为输出，总的输出数据量为$160<em>2</em>60$。</p>
-<p><img src="//YangLeiSX.github.io/2020/06/06/deepid/deepid1_structure.png" alt="系统结构"></p>
+<p>特征提取部分的具体工作方式：每一张照片，划分为10个位置，每个位置选取三个不同的输入规模，每个照片得到RGB和灰度图，即每一条数据得到$10\times3\times2=60$条数据（patches）作为输入，训练60个网络。对于每一个卷积网络，给定数据，将其翻转后，得到两个向量作为输出，总的输出数据量为$160<em>2</em>60$。<br><img src="/2020/06/06/deepid/deepid1_structure.png" title="deepid1_structure"></p>
 <p>在面部识别的预测中，使用联合贝叶斯方法。同时也测试了使用深度神经网络进行预测。</p>
 <h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>在CelebFaces上训练，在LFW上测试，达到了SOTA的效果。</p>
-<p>测试中可以发现添加了跨层连接的模型具有更低的验证错误率和更高的预测正确率。</p>
-<p><img src="//YangLeiSX.github.io/2020/06/06/deepid/deepid1_test.png" alt="测试结果"></p>
+<p>测试中可以发现添加了跨层连接的模型具有更低的验证错误率和更高的预测正确率。<br><img src="/2020/06/06/deepid/deepid1_test.png" title="deepid1_test"></p>
 <p>使用更多的patch与仅使用一张图片作为输入相比也具有更高的识别准确率。</p>
 <p>与现有的识别算法比较，具有更高的识别准确率（97.45%）。</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
@@ -511,7 +516,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">82</span>
+          <span class="site-state-item-count">83</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -604,14 +609,14 @@
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
     
-    <span title="Symbols count total">158k</span>
+    <span title="Symbols count total">159k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
     
-    <span title="Reading time total">2:11</span>
+    <span title="Reading time total">2:13</span>
 </div>
 
         
