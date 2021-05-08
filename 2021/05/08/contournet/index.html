@@ -71,7 +71,7 @@
 <meta property="og:image" content="http://yangleisx.github.io/2021/05/08/contournet/contournet-exp-rpn2.png">
 <meta property="og:image" content="http://yangleisx.github.io/2021/05/08/contournet/contournet-exp-lotm.png">
 <meta property="og:image" content="http://yangleisx.github.io/2021/05/08/contournet/contournet-exp-lotm2.png">
-<meta property="og:updated_time" content="2021-05-08T04:04:10.518Z">
+<meta property="og:updated_time" content="2021-05-08T04:15:29.486Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【论文】ContourNet： Taking a Further Step toward Accurate Arbitrary-shaped Scene Text Detection">
 <meta name="twitter:description" content="论文题目：ContourNet: Taking a Further Step toward Accurate Arbitrary-shaped Scene Text Detection 作者：Yuxin Wang, Hongtao Xie, Zhengjun Zha, Mengting Xing, Zilong Fu, Yongdong Zhang 会议/时间：CVPR2020 链接: arXiv">
@@ -291,7 +291,7 @@
                 
               
 
-              <time title="Created: 2021-05-08 11:58:37 / Modified: 12:04:10" itemprop="dateCreated datePublished" datetime="2021-05-08T11:58:37+08:00">2021-05-08</time>
+              <time title="Created: 2021-05-08 11:58:37 / Modified: 12:15:29" itemprop="dateCreated datePublished" datetime="2021-05-08T11:58:37+08:00">2021-05-08</time>
             </span>
           
             
@@ -362,14 +362,14 @@ Proposal = & \{x_{tl}, y_{tl}, x_{rb}, y_{rb}\} \\
 = & \{\min\{x_r\}_{r=1}^n, \min\{y_r\}_{r=1}^n, \\
 \ & \ \max\{x_r\}_{r=1}^n, \max\{y_r\}_{r=1}^n\}
 \end{aligned}</script><p>在获得文本边界点的时候，使用了相互正交的两个方向上的特征分别得到轮廓点热力图。文中假设对于一个文字在两个方向上都具有明显的特征，但是其他无意义的纹理通常只在一个方向上具有比较明显的特征，因此可以通过两个方向上的分别处理区分开。<br><img src="/2021/05/08/contournet/contournet-lotm.png" title="lotm"></p>
-<p>接着在后处理算法中将两个轮廓点热力图合并起来得到文本轮廓点。其算法如下，首先分别进行NMS处理减少多余的点，然后将两个方向上都都具有较高置信度的点作为输出得到轮廓点。最终通过[[Alpha-Shape Algorithm]]得到多边形边界框。<br><img src="/2021/05/08/contournet/contournet-algo.png" title="algo"></p>
+<p>接着在后处理算法中将两个轮廓点热力图合并起来得到文本轮廓点。其算法如下，首先分别进行NMS处理减少多余的点，然后将两个方向上都都具有较高置信度的点作为输出得到轮廓点。最终通过Alpha-Shape Algorithm得到多边形边界框。<br><img src="/2021/05/08/contournet/contournet-algo.png" title="algo"></p>
 <p>需要注意在生成监督的时候，对于两个方向上的轮廓点都使用相同的监督，即通过原始多边形边界框生成的宽度不低于2个像素的边框（这里是我的理解，原文如下）。</p>
 <blockquote>
 <p>we use <code>distance_transform_edt</code> in <em>Scipy</em> to obtain the two-points wide edge.</p>
 </blockquote>
 <h2 id="结果分析"><a href="#结果分析" class="headerlink" title="结果分析"></a>结果分析</h2><p>对于Adap-RPN中表示RoI的点的数量的实验。<br><img src="/2021/05/08/contournet/contournet-exp-rpn.png" title="exp-rpn"></p>
 <p>对于Adap_RPN的有效性的实验。<br><img src="/2021/05/08/contournet/contournet-exp-rpn2.png" title="exp-rpn2"></p>
-<p>对于LOTM中$1<em>N$和$N</em>1$卷积长度的实验。<br><img src="/2021/05/08/contournet/contournet-exp-lotm.png" title="exp-lotm"></p>
+<p>对于LOTM中$1*N$和$N*1$卷积长度的实验。<br><img src="/2021/05/08/contournet/contournet-exp-lotm.png" title="exp-lotm"></p>
 <p>对于LOTM的两方向特征融合效果的实验。<br><img src="/2021/05/08/contournet/contournet-exp-lotm2.png" title="exp-lotm2"></p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>在三个任务上（弯曲文本：Total-Text，长弯曲文本：CTW1500，多方向文本：ICDAR2015）均相对SOTA有一定的提升。可以看到本文方法有效减少了假正例的出现。</p>
 
