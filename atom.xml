@@ -6,7 +6,7 @@
   <link href="http://yangleisx.github.io/atom.xml" rel="self"/>
   
   <link href="http://yangleisx.github.io/"/>
-  <updated>2021-05-11T09:36:20.114Z</updated>
+  <updated>2021-07-10T06:54:46.039Z</updated>
   <id>http://yangleisx.github.io/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>【论文】MOST： A Multi-Oriented Scene Text Detector with Localization Refinement</title>
+    <link href="http://yangleisx.github.io/2021/07/09/most/"/>
+    <id>http://yangleisx.github.io/2021/07/09/most/</id>
+    <published>2021-07-09T01:35:24.000Z</published>
+    <updated>2021-07-10T06:54:46.039Z</updated>
+    
+    <content type="html"><![CDATA[<p>论文题目：MOST: A Multi-Oriented Scene Text Detector with Localization Refinement</p><p>作者：Minghang He, Minghui Liao, Zhibo Yang, Humen Zhong, Jun Tang, Wenqing Cheng, Cong Yao, Yongpan Wang, Xiang Bai</p><p>会议/时间：CVPR 2021</p><p>链接: <a href="https://arxiv.org/abs/2104.01070" target="_blank" rel="noopener">arXiv</a></p><a id="more"></a><h2 id="论文目标"><a href="#论文目标" class="headerlink" title="论文目标"></a>论文目标</h2><p>传统的文本检测算法对于长文本和小文本的检测效果比较差。为了解决长文本和小文本的检测问题，引入了新的NMS、IoU Loss和特征对齐模块。</p><p>例如在EAST中，由于使用分类输出作为NMS的权重，而且模型感受野比较小，很难获得足够的信息检测到长文本。</p><h2 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h2><p>现有的文本检测算法主要包括两种思路，自下而上和自上而下。其中前者主要是检测到文本中的部分元素，然后合并得到完整的检测结果，包括SegLink、TextSnake、CRAFT、PSENet等，由于需要复杂的后处理算法处理模型的输出结果，整体的处理效率受限制，而且后处理算法的效果也会影响到整体的结果。后者直接使用模型输出文本边框的检测结果，包括EAST、TextBoxes等。自上而下的又可以分为一阶段的和两阶段的，前者直接输出模型结果，后者包括Mask TextSpotter系列，使用类似Mask R-CNN的思路，首先使用RPN输出Proposal。</p><p>在LOMO模型中，使用了迭代优化模型，使用RoI Transform迭代优化模型结果，从而解决长文本的检测问题。</p><h2 id="本文方法"><a href="#本文方法" class="headerlink" title="本文方法"></a>本文方法</h2><p>模型整体结构如下，特征提取模块使用了基于ResNet50的FPN网络，上下两个分支来自EAST中的分类和位置预测图。<br><img src="/2021/07/09/most/most-pipeline.png" title="pipeline"></p><p>来自EAST的两个分支的监督与EAST相同。分类分支使用向内收缩后的文本框表示，位置预测图包括四个通道，表示当前位置距离文本框上下左右的距离。<br><img src="/2021/07/09/most/most-gt.png" title="gt"></p><p>TFAM的结构如下。首先生成粗检测结果，然后将粗检测结果和特征传入变形卷积层中。其中变形卷积选择采样点有两种方式，分别是Feature-Based Sampling和Localization-Based Sampling。其中，前者是使用额外的卷积来计算采样点的偏移量，后者是直接使用当前点预测的粗检测框的位置作为偏移后的采样点。<br><img src="/2021/07/09/most/most-tfam.png" title="tfam"></p><p>本文中提出的Position-awareness NMS与EAST中的locality-awareness NMS不同。在EAST中进行的NMS是，是利用加权平均的方式，使用Text/Non-Text分类的结果作为权值进行加权和然后进行正常的NMS。</p><p>本文中提出的PA-NMS基于一个假设，距离边界越近的点，得到的距离边界的距离越准确，因此在聚合的时候使用的权重为当前点距离边界的位置。当使用边框p和q聚合得到m时，计算过程如下。其中TBLR分别为EAST输出的Geo-Map的四个通道，即Position-Awareness Map。<br><img src="/2021/07/09/most/most-panms.png" title="panms"></p><p>其中Position-Awareness Map（相当于EAST中的Geo-Map归一化到0-1）的生成方式如下。<br><img src="/2021/07/09/most/most-pamap.png" title="pamap"></p><p>在损失函数的选择上，原本EAST中使用IoU-Loss。但是文中提到如下观点。因此引入了Instance-wise IoU Loss。</p><blockquote><p>the large text region contains far more positive samples than the small text region, which makes the regression loss bias towards large and long text instances.</p></blockquote><p>其中$N_t$为Text Instance的数量，$S_j$为每个Text Instance中Positive Sample的数量。（这里我没有很清楚具体Text Instance和Positive Sample的定义，为理解为对于每一个Text/Non-Text分类为真的点都要计算IoU，对于面积比较大的文本计算IoU的次数比较多，导致模型偏重大文本和长文本。）<br><img src="/2021/07/09/most/most-insiou.png" title="insiou"></p><p>最终的损失函数定义如下，完整的损失包括分类损失、检测损失、位置损失。分类损失使用BCE-Loss计算，位置损失使用Smoothed L1-Loss计算。在检测损失中包括了检测结果的IoU-Loss和边界框角度的Cosine-Loss。</p><script type="math/tex; mode=display">\begin{align}L &= L_s + \lambda_{gc} L_{gc} + \lambda_{gr} L_{gr}+ \lambda_{p} L_{p} \\L_s &= \operatorname{BCE-Loss}() \\L_g &= L_{iou} + \lambda_{i} L_{ins-iou} + \lambda_{\theta} L_{\theta} \\L_{\theta} &= \frac{1}{|\Omega|}\sum\limits_{i \in \Omega}1-\cos (\hat{\theta_i} - \theta_i^*) \\L_p &= \frac{1}{4|\Omega|}\sum\limits_{i \in \Omega}\sum\limits_{\Psi \in \{L,R,T,B\}}\operatorname{SmoothedL1}(\hat{\Psi_i}-\Psi_i^*)\end{align}</script><h2 id="结果分析"><a href="#结果分析" class="headerlink" title="结果分析"></a>结果分析</h2><p>在数据集SynthText上预训练，在数据集MLT17、MTWI、IC15、MSRA-TD500(with HUST-TR400)上训练和测试。</p><p>在Ablation Study中，证明Localization-Based Sampling相比Feature-Based Sampling效果更好，而同时结合这两种的效果最好。同时也证明了本文中提出的TFAM、PA-NMS、Instance-wise IoU Loss都能提升模型的性能。<br><img src="/2021/07/09/most/most-ablation.png" title="ablation"></p><p>在与SOTA模型的比较中，MOST也都能获得不错的性能提升。</p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>为了解决长文本的检测问题，引入了TFAM扩展感受野修正粗检测结果。<br>为了解决不同大小的文本的检测问题，引入了Instance-wise IoU Loss，防止损失函数过度关注大文本和长文本目标。<br>在NMS阶段引入了Position-Aware NMS，可以更好的合并检测框。</p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;论文题目：MOST: A Multi-Oriented Scene Text Detector with Localization Refinement&lt;/p&gt;
+&lt;p&gt;作者：Minghang He, Minghui Liao, Zhibo Yang, Humen Zhong, Jun Tang, Wenqing Cheng, Cong Yao, Yongpan Wang, Xiang Bai&lt;/p&gt;
+&lt;p&gt;会议/时间：CVPR 2021&lt;/p&gt;
+&lt;p&gt;链接: &lt;a href=&quot;https://arxiv.org/abs/2104.01070&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;arXiv&lt;/a&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="论文阅读" scheme="http://YangLeiSX.github.io/categories/论文阅读/"/>
+    
+    
+    <category term="Text_Detection" scheme="http://YangLeiSX.github.io/tags/Text-Detection/"/>
+    
+  </entry>
   
   <entry>
     <title>【论文】Feature Pyramid Networks for Object Detection</title>
@@ -492,25 +516,6 @@
     <category term="C/C++" scheme="http://YangLeiSX.github.io/tags/C-C/"/>
     
     <category term="MacOS" scheme="http://YangLeiSX.github.io/tags/MacOS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>我的Windows电脑装了哪些软件</title>
-    <link href="http://yangleisx.github.io/2020/09/12/software-list-windows/"/>
-    <id>http://yangleisx.github.io/2020/09/12/software-list-windows/</id>
-    <published>2020-09-12T14:17:08.000Z</published>
-    <updated>2020-09-12T14:33:07.255Z</updated>
-    
-    <content type="html"><![CDATA[<p>最近抽空整理了一下电脑里面装了一些什么软件，毕竟没有备份，如果机器出了什么问题，重新装机时候也有个参考，另一个原因也算是推荐一些好用的小工具吧。<br>从Mac选手换到Windows刚开始有点不适应，大半年过去了现在觉得习惯了还挺方便的。</p><a id="more"></a><table>    <tr>        <td colspan="2" style="text-align:center; font-size:30px">办公软件</td>    </tr>    <tr>        <td>Adobe Acrobat DC</td>        <td>PDF 阅读和编辑工具</td>    </tr>    <tr>        <td>Microsoft Office（Word、Powerpoint、Excel）</td>        <td>众所周知的办公套件</td>    </tr>    <tr>        <td>Microsoft OneDrive</td>        <td>微软云盘</td>    </tr>    <tr>        <td>Typora</td>        <td>众所周知的Markdown 编辑器</td>    </tr>    <tr>        <td colspan="2" style="text-align:center; font-size:30px">编程相关</td>    </tr>    <tr>        <td>MinGW</td>        <td>C/C++ 编译环境</td>    </tr>    <tr>        <td>Anaconda</td>        <td>Python 包管理环境</td>    </tr>    <tr>        <td>Java（JDK）</td>        <td>Java 开发环境</td>    </tr>    <tr>        <td>Clion</td>        <td>用于C/C++ 的IDE</td>    </tr>    <tr>        <td>IntelliJ IDEA</td>        <td>用于Java 的IDE</td>    </tr>    <tr>        <td>PyCharm</td>        <td>用于Python 的IDE</td>    </tr>    <tr>        <td>Qt（Qt Creator）</td>        <td>开发Qt 程序的IDE 和环境</td>    </tr>    <tr>        <td>MATLAB</td>        <td>众所周知的数学处理程序</td>    </tr>    <tr>        <td>Microsoft Visual Studio</td>        <td>宇宙第一IDE</td>    </tr>    <tr>        <td>Microsoft Visual Studio Code</td>        <td>比较常用的编辑器</td>    </tr>    <tr>        <td>VMware Workstation</td>        <td>虚拟机管理软件</td>    </tr>    <tr>        <td>Wireshark</td>        <td>抓包和网络分析工具</td>    </tr>    <tr>        <td>texlive</td>        <td>LaTeX 编译环境</td>    </tr>    <tr>        <td>Windows Terminal Preview</td>        <td>Windows 原生终端</td>    </tr>    <tr>        <td>Windows Subsystem for Linux（Ubuntu）</td>        <td>Windows 子系统</td>    </tr>    <tr>        <td>WinSCP</td>        <td>可视化的SCP 文件传输工具</td>    </tr>    <tr>        <td>Git</td>        <td>众所周知的代码管理工具</td>    </tr>    <tr>        <td>gVim</td>        <td>众所周知的编辑器</td>    </tr>    <tr>        <td>Scoop</td>        <td>Windows 环境的包管理工具</td>    </tr>     <tr>        <td colspan="2" style="text-align:center; font-size:30px">其他工具</td>    </tr>    <tr>        <td>BitTorrent</td>        <td>BT 文件下载工具</td>    </tr>    <tr>        <td>Motrix</td>        <td>一个开源的下载器</td>    </tr>    <tr>        <td>百度网盘</td>        <td>众所周知的网盘</td>    </tr>    <tr>        <td>Clash</td>        <td>代理服务器管理工具</td>    </tr>    <tr>        <td>ShareX</td>        <td>截图工具</td>    </tr>    <tr>        <td>Wox</td>        <td>文件搜索和启动器(结合Everything 使用)</td>    </tr>    <tr>        <td>Everything</td>        <td>文件搜索工具</td>    </tr>    <tr>        <td>PowerToys</td>        <td>微软官方提供的一套工具</td>    </tr>    <tr>        <td>Stardock Fences</td>        <td>桌面图标管理工具</td>    </tr>    <tr>        <td>GeekUninstaller</td>        <td>非常好用的卸载工具</td>    </tr>    <tr>        <td>RealTemp</td>        <td>实时温度检测工具</td>    </tr>    <tr>        <td>Shadowsocks</td>        <td>众所周知的代理服务器管理</td>    </tr>    <tr>        <td>v2rayN</td>        <td>代理服务器管理工具</td>    </tr>    <tr>        <td>SysinternalsSuite</td>        <td>微软官方的系统管理工具</td>    </tr>    <tr>        <td>Microsoft To Do</td>        <td>日程和待办清单管理</td>    </tr>    <tr>        <td>QuickLook</td>        <td>空格键预览工具</td>    </tr>    <tr>        <td>FileZilla</td>        <td>FTP 文件传输工具</td>    </tr>    <tr>        <td>火绒安全</td>        <td>杀毒和安全管理工具</td>    </tr>    <tr>        <td>欧陆词典</td>        <td>非常好用的词典</td>    </tr>    <tr>        <td>ZOOM</td>        <td>视频会议工具</td>    </tr>    <tr>        <td>腾讯会议</td>        <td>视频会议工具</td>    </tr>    <tr>        <td>Google Chrome</td>        <td>众所周知的浏览器</td>    </tr>    <tr>        <td>PotPlayer</td>        <td>一个比较好用的播放器</td>    </tr>    <tr>        <td>Logitech G HUB</td>        <td>罗技设备管理工具</td>    </tr>    <tr>        <td>Teamviewer</td>        <td>远程登录和管理工具</td>    </tr>    <tr>        <td>VNCServer</td>        <td>远程登录和管理工具</td>    </tr></table>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;最近抽空整理了一下电脑里面装了一些什么软件，毕竟没有备份，如果机器出了什么问题，重新装机时候也有个参考，另一个原因也算是推荐一些好用的小工具吧。&lt;br&gt;从Mac选手换到Windows刚开始有点不适应，大半年过去了现在觉得习惯了还挺方便的。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="实用工具" scheme="http://YangLeiSX.github.io/categories/实用工具/"/>
-    
     
   </entry>
   

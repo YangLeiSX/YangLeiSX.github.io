@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/appleicon.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.0">
+  <link rel="mask-icon" href="/images/logo.jpg?v=7.4.0" color="#222">
+  <link rel="alternate" href="/atom.xml" title="杨磊的博客" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.4.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"always","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="论文题目：MOST: A Multi-Oriented Scene Text Detector with Localization Refinement 作者：Minghang He, Minghui Liao, Zhibo Yang, Humen Zhong, Jun Tang, Wenqing Cheng, Cong Yao, Yongpan Wang, Xiang Bai 会议/时间：CVP">
+<meta name="keywords" content="Text_Detection">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【论文】MOST： A Multi-Oriented Scene Text Detector with Localization Refinement">
+<meta property="og:url" content="http://YangLeiSX.github.io/2021/07/09/most/index.html">
+<meta property="og:site_name" content="杨磊的博客">
+<meta property="og:description" content="论文题目：MOST: A Multi-Oriented Scene Text Detector with Localization Refinement 作者：Minghang He, Minghui Liao, Zhibo Yang, Humen Zhong, Jun Tang, Wenqing Cheng, Cong Yao, Yongpan Wang, Xiang Bai 会议/时间：CVP">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yangleisx.github.io/2021/07/09/most/most-pipeline.png">
+<meta property="og:image" content="http://yangleisx.github.io/2021/07/09/most/most-gt.png">
+<meta property="og:image" content="http://yangleisx.github.io/2021/07/09/most/most-tfam.png">
+<meta property="og:image" content="http://yangleisx.github.io/2021/07/09/most/most-panms.png">
+<meta property="og:image" content="http://yangleisx.github.io/2021/07/09/most/most-pamap.png">
+<meta property="og:image" content="http://yangleisx.github.io/2021/07/09/most/most-insiou.png">
+<meta property="og:image" content="http://yangleisx.github.io/2021/07/09/most/most-ablation.png">
+<meta property="og:updated_time" content="2021-07-10T06:54:46.039Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【论文】MOST： A Multi-Oriented Scene Text Detector with Localization Refinement">
+<meta name="twitter:description" content="论文题目：MOST: A Multi-Oriented Scene Text Detector with Localization Refinement 作者：Minghang He, Minghui Liao, Zhibo Yang, Humen Zhong, Jun Tang, Wenqing Cheng, Cong Yao, Yongpan Wang, Xiang Bai 会议/时间：CVP">
+<meta name="twitter:image" content="http://yangleisx.github.io/2021/07/09/most/most-pipeline.png">
+  <link rel="canonical" href="http://YangLeiSX.github.io/2021/07/09/most/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>【论文】MOST： A Multi-Oriented Scene Text Detector with Localization Refinement | 杨磊的博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">杨磊的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">人的本能是追逐从他身边飞走的东西，却逃避追逐他的东西。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="Searching..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="http://YangLeiSX.github.io/2021/07/09/most/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杨磊的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">【论文】MOST： A Multi-Oriented Scene Text Detector with Localization Refinement
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2021-07-09 09:35:24" itemprop="dateCreated datePublished" datetime="2021-07-09T09:35:24+08:00">2021-07-09</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-07-10 14:54:46" itemprop="dateModified" datetime="2021-07-10T14:54:46+08:00">2021-07-10</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/论文阅读/" itemprop="url" rel="index"><span itemprop="name">论文阅读</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              
+              <span>3.8k</span> 
+            </span>
+          
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              
+              <span>3 mins.</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>论文题目：MOST: A Multi-Oriented Scene Text Detector with Localization Refinement</p>
+<p>作者：Minghang He, Minghui Liao, Zhibo Yang, Humen Zhong, Jun Tang, Wenqing Cheng, Cong Yao, Yongpan Wang, Xiang Bai</p>
+<p>会议/时间：CVPR 2021</p>
+<p>链接: <a href="https://arxiv.org/abs/2104.01070" target="_blank" rel="noopener">arXiv</a></p>
+<a id="more"></a>
+<h2 id="论文目标"><a href="#论文目标" class="headerlink" title="论文目标"></a>论文目标</h2><p>传统的文本检测算法对于长文本和小文本的检测效果比较差。为了解决长文本和小文本的检测问题，引入了新的NMS、IoU Loss和特征对齐模块。</p>
+<p>例如在EAST中，由于使用分类输出作为NMS的权重，而且模型感受野比较小，很难获得足够的信息检测到长文本。</p>
+<h2 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h2><p>现有的文本检测算法主要包括两种思路，自下而上和自上而下。其中前者主要是检测到文本中的部分元素，然后合并得到完整的检测结果，包括SegLink、TextSnake、CRAFT、PSENet等，由于需要复杂的后处理算法处理模型的输出结果，整体的处理效率受限制，而且后处理算法的效果也会影响到整体的结果。后者直接使用模型输出文本边框的检测结果，包括EAST、TextBoxes等。自上而下的又可以分为一阶段的和两阶段的，前者直接输出模型结果，后者包括Mask TextSpotter系列，使用类似Mask R-CNN的思路，首先使用RPN输出Proposal。</p>
+<p>在LOMO模型中，使用了迭代优化模型，使用RoI Transform迭代优化模型结果，从而解决长文本的检测问题。</p>
+<h2 id="本文方法"><a href="#本文方法" class="headerlink" title="本文方法"></a>本文方法</h2><p>模型整体结构如下，特征提取模块使用了基于ResNet50的FPN网络，上下两个分支来自EAST中的分类和位置预测图。<br><img src="/2021/07/09/most/most-pipeline.png" title="pipeline"></p>
+<p>来自EAST的两个分支的监督与EAST相同。分类分支使用向内收缩后的文本框表示，位置预测图包括四个通道，表示当前位置距离文本框上下左右的距离。<br><img src="/2021/07/09/most/most-gt.png" title="gt"></p>
+<p>TFAM的结构如下。首先生成粗检测结果，然后将粗检测结果和特征传入变形卷积层中。其中变形卷积选择采样点有两种方式，分别是Feature-Based Sampling和Localization-Based Sampling。其中，前者是使用额外的卷积来计算采样点的偏移量，后者是直接使用当前点预测的粗检测框的位置作为偏移后的采样点。<br><img src="/2021/07/09/most/most-tfam.png" title="tfam"></p>
+<p>本文中提出的Position-awareness NMS与EAST中的locality-awareness NMS不同。在EAST中进行的NMS是，是利用加权平均的方式，使用Text/Non-Text分类的结果作为权值进行加权和然后进行正常的NMS。</p>
+<p>本文中提出的PA-NMS基于一个假设，距离边界越近的点，得到的距离边界的距离越准确，因此在聚合的时候使用的权重为当前点距离边界的位置。当使用边框p和q聚合得到m时，计算过程如下。其中TBLR分别为EAST输出的Geo-Map的四个通道，即Position-Awareness Map。<br><img src="/2021/07/09/most/most-panms.png" title="panms"></p>
+<p>其中Position-Awareness Map（相当于EAST中的Geo-Map归一化到0-1）的生成方式如下。<br><img src="/2021/07/09/most/most-pamap.png" title="pamap"></p>
+<p>在损失函数的选择上，原本EAST中使用IoU-Loss。但是文中提到如下观点。因此引入了Instance-wise IoU Loss。</p>
+<blockquote>
+<p>the large text region contains far more positive samples than the small text region, which makes the regression loss bias towards large and long text instances.</p>
+</blockquote>
+<p>其中$N_t$为Text Instance的数量，$S_j$为每个Text Instance中Positive Sample的数量。（这里我没有很清楚具体Text Instance和Positive Sample的定义，为理解为对于每一个Text/Non-Text分类为真的点都要计算IoU，对于面积比较大的文本计算IoU的次数比较多，导致模型偏重大文本和长文本。）<br><img src="/2021/07/09/most/most-insiou.png" title="insiou"></p>
+<p>最终的损失函数定义如下，完整的损失包括分类损失、检测损失、位置损失。分类损失使用BCE-Loss计算，位置损失使用Smoothed L1-Loss计算。在检测损失中包括了检测结果的IoU-Loss和边界框角度的Cosine-Loss。</p>
+<script type="math/tex; mode=display">
+\begin{align}
+L &= L_s + \lambda_{gc} L_{gc} + \lambda_{gr} L_{gr}+ \lambda_{p} L_{p} \\
+L_s &= \operatorname{BCE-Loss}() \\
+L_g &= L_{iou} + \lambda_{i} L_{ins-iou} + \lambda_{\theta} L_{\theta} \\
+L_{\theta} &= \frac{1}{|\Omega|}\sum\limits_{i \in \Omega}1-\cos (\hat{\theta_i} - \theta_i^*) \\
+L_p &= \frac{1}{4|\Omega|}\sum\limits_{i \in \Omega}\sum\limits_{\Psi \in \{L,R,T,B\}}\operatorname{SmoothedL1}(\hat{\Psi_i}-\Psi_i^*)
+\end{align}</script><h2 id="结果分析"><a href="#结果分析" class="headerlink" title="结果分析"></a>结果分析</h2><p>在数据集SynthText上预训练，在数据集MLT17、MTWI、IC15、MSRA-TD500(with HUST-TR400)上训练和测试。</p>
+<p>在Ablation Study中，证明Localization-Based Sampling相比Feature-Based Sampling效果更好，而同时结合这两种的效果最好。同时也证明了本文中提出的TFAM、PA-NMS、Instance-wise IoU Loss都能提升模型的性能。<br><img src="/2021/07/09/most/most-ablation.png" title="ablation"></p>
+<p>在与SOTA模型的比较中，MOST也都能获得不错的性能提升。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>为了解决长文本的检测问题，引入了TFAM扩展感受野修正粗检测结果。<br>为了解决不同大小的文本的检测问题，引入了Instance-wise IoU Loss，防止损失函数过度关注大文本和长文本目标。<br>在NMS阶段引入了Position-Aware NMS，可以更好的合并检测框。</p>
+
+    </div>
+
+    
+    
+    
+        
+      
+        <div id="reward-container">
+  <div>维护不易，请杨磊喝杯奶茶吧。</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.png" alt="Yang Lei WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/alipay.png" alt="Yang Lei Alipay">
+        <p>Alipay</p>
+      </div>
+
+  </div>
+</div>
+
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>Yang Lei</li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="http://YangLeiSX.github.io/2021/07/09/most/" title="【论文】MOST： A Multi-Oriented Scene Text Detector with Localization Refinement">http://YangLeiSX.github.io/2021/07/09/most/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.</li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/Text-Detection/" rel="tag"><i class="fa fa-tag"></i> Text_Detection</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2021/05/11/fpn/" rel="next" title="【论文】Feature Pyramid Networks for Object Detection">
+                  <i class="fa fa-chevron-left"></i> 【论文】Feature Pyramid Networks for Object Detection
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="gitalk-container"></div>
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#论文目标"><span class="nav-number">1.</span> <span class="nav-text">论文目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关工作"><span class="nav-number">2.</span> <span class="nav-text">相关工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本文方法"><span class="nav-number">3.</span> <span class="nav-text">本文方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结果分析"><span class="nav-number">4.</span> <span class="nav-text">结果分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.gif"
+      alt="Yang Lei">
+  <p class="site-author-name" itemprop="name">Yang Lei</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">85</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-name">tags</span>
+        </a>
+      </div>
+    
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/yangleisx" title="GitHub &rarr; https://github.com/yangleisx" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:yangleisxn@icloud.com" title="E-Mail &rarr; mailto:yangleisxn@icloud.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 – <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang Lei</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">Symbols count total: </span>
+    
+    <span title="Symbols count total">163k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">Reading time total &asymp;</span>
+    
+    <span title="Reading time total">2:16</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.0"></script><script src="/js/motion.js?v=7.4.0"></script>
+<script src="/js/schemes/pisces.js?v=7.4.0"></script>
+<script src="/js/next-boot.js?v=7.4.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+    
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+  
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: 'f7e6a6c2390813f27c6a',
+      clientSecret: '20e3b1db26b09d1c3575768ec6d9e686d48153a2',
+      repo: 'yangleisx.github.io',
+      owner: 'yangleisx',
+      admin: ['yangleisx'],
+      id: '824f04fc62625a09c02d0e448557f8cf',
+        language: window.navigator.language || window.navigator.userLanguage,
+      
+      distractionFreeMode: 'true'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
+
+</body>
+</html>
