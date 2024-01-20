@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Publications | YangLeiSX</title>
+    <link>https://yangleisx.github.io/publication/</link>
+      <atom:link href="https://yangleisx.github.io/publication/index.xml" rel="self" type="application/rss+xml" />
+    <description>Publications</description>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Fri, 15 Mar 2024 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://yangleisx.github.io/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png</url>
+      <title>Publications</title>
+      <link>https://yangleisx.github.io/publication/</link>
+    </image>
+    
+    <item>
+      <title>Speaker-Adaptive LipReading via Spatio-Temporal Information Learning</title>
+      <link>https://yangleisx.github.io/publication/icassp-udp/</link>
+      <pubDate>Fri, 15 Mar 2024 00:00:00 +0000</pubDate>
+      <guid>https://yangleisx.github.io/publication/icassp-udp/</guid>
+      <description>&lt;!-- 
+
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    Click the &lt;em&gt;Cite&lt;/em&gt; button above to demo the feature to enable visitors to import publication metadata into their reference management software.
+  &lt;/div&gt;
+&lt;/div&gt;
+
+
+
+
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    Create your slides in Markdown - click the &lt;em&gt;Slides&lt;/em&gt; button to check out the example.
+  &lt;/div&gt;
+&lt;/div&gt;
+
+
+Add the publication&#39;s **full text** or **supplementary notes** here. You can use rich formatting such as including [code, math, and images](https://docs.hugoblox.com/content/writing-markdown-latex/). --&gt;
+&lt;p&gt;In this paper, we propose a novel speaker-adaptive lipreading model.
+For front-end network, conv-based LoRA modules are used to adapt to speaker’s space features.
+For back-end network, a plug-and-play TAWL module is designed to learn temporal characteristics.
+An Adapter module is finally employed to bridge the adaptation knowledge from front-end and back-end.
+The experiments show that the proposed method achieve the state-of-the-art performance on both word-level and sentence-level dataset with fewer training parameters.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Lip Feature Disentanglement for Visual Speaker Authentication in Natural Scenes</title>
+      <link>https://yangleisx.github.io/publication/tcsvt-vsa/</link>
+      <pubDate>Wed, 10 Jan 2024 00:00:00 +0000</pubDate>
+      <guid>https://yangleisx.github.io/publication/tcsvt-vsa/</guid>
+      <description>&lt;!-- 
+
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    Click the &lt;em&gt;Cite&lt;/em&gt; button above to demo the feature to enable visitors to import publication metadata into their reference management software.
+  &lt;/div&gt;
+&lt;/div&gt;
+
+
+
+
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    Create your slides in Markdown - click the &lt;em&gt;Slides&lt;/em&gt; button to check out the example.
+  &lt;/div&gt;
+&lt;/div&gt;
+
+
+Add the publication&#39;s **full text** or **supplementary notes** here. You can use rich formatting such as including [code, math, and images](https://docs.hugoblox.com/content/writing-markdown-latex/). --&gt;
+&lt;p&gt;In this paper, we proposed a visual speaker authentication system using the random prompt text scheme to meet the requirements of mobile applications. Lip features are disentangled into three parts, i.e. the static identity features, the dynamic identity features and the content features by the proposed TDVSA-Net. The experiment results show that the content features obtained the lowest WER in speaker- independent lip-reading compared with other lipreading models, and the identity features had comparable performance with the state-of-the-art methods on detecting human imposters and DeepFake imposters and exhibits more robustness when facing different image qualities. Therefore, our VSA system can be a feasible solution for today’s widely used mobile applications.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Fine-Grained Lip Image Segmentation using Fuzzy Logic and Graph Reasoning</title>
+      <link>https://yangleisx.github.io/publication/tfs-lip-seg/</link>
+      <pubDate>Mon, 24 Jul 2023 00:00:00 +0000</pubDate>
+      <guid>https://yangleisx.github.io/publication/tfs-lip-seg/</guid>
+      <description>&lt;!-- 
+
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    Click the &lt;em&gt;Cite&lt;/em&gt; button above to demo the feature to enable visitors to import publication metadata into their reference management software.
+  &lt;/div&gt;
+&lt;/div&gt;
+
+
+
+
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    Create your slides in Markdown - click the &lt;em&gt;Slides&lt;/em&gt; button to check out the example.
+  &lt;/div&gt;
+&lt;/div&gt;
+
+
+Add the publication&#39;s **full text** or **supplementary notes** here. You can use rich formatting such as including [code, math, and images](https://docs.hugoblox.com/content/writing-markdown-latex/). --&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;architecture&#34; srcset=&#34;
+               /publication/tfs-lip-seg/arch_hubbb5e5881b85d57c3d897455c10934fb_213827_8787c92a488becb6ebd22e394cd0bbc1.webp 400w,
+               /publication/tfs-lip-seg/arch_hubbb5e5881b85d57c3d897455c10934fb_213827_e8214ec4b9e93bf9d498b7b4136aeca2.webp 760w,
+               /publication/tfs-lip-seg/arch_hubbb5e5881b85d57c3d897455c10934fb_213827_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/publication/tfs-lip-seg/arch_hubbb5e5881b85d57c3d897455c10934fb_213827_8787c92a488becb6ebd22e394cd0bbc1.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;396&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;In this paper, we proposed a new lip segmentation method based on fuzzy convolutional neural network with graph reasoning that can learn high-level semantics. The fuzzy learning module and the fuzzy graph reasoning module help the deep convolutional neural network to handle uncertainties around ambiguous boundaries, capture global information, and improve multi-class lip region segmentation. In addition, a fine-grained lip region dataset is released for multi-class segmentation studies. Our proposed approach achieved satisfactory performance on the test set, with 94.36% pixel accuracy and 74.89% mIoU. The experiment results have demonstrated that the proposed method can be applied in many lip-related applications to obtain accurate and robust lip region segmentation in natural scenes.&lt;/p&gt;
+&lt;p&gt;However, the proposed network cannot achieve satisfactory results in certain scenarios, specifically in cases of occlusion or extreme lighting conditions. This limitation can be attributed to the FLRSeg dataset, which is derived from the VSA dataset that was collected for speaker authentication and thus required unobstructed lip movements. In our future work, we will further improve the segmentation performance in various situations and explore the potential of leveraging the segmentation results in downstream tasks, such as lip reading and visual speaker authentication, to enhance performance and accelerate converge.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Leveraging Multi-task Learning for Unambiguous and Flexible Deep Neural Network Watermarking</title>
+      <link>https://yangleisx.github.io/publication/aaaiw-mtl-watermark/</link>
+      <pubDate>Mon, 28 Feb 2022 00:00:00 +0000</pubDate>
+      <guid>https://yangleisx.github.io/publication/aaaiw-mtl-watermark/</guid>
+      <description>&lt;!-- 
+
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    Click the &lt;em&gt;Cite&lt;/em&gt; button above to demo the feature to enable visitors to import publication metadata into their reference management software.
+  &lt;/div&gt;
+&lt;/div&gt;
+
+
+
+
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    Create your slides in Markdown - click the &lt;em&gt;Slides&lt;/em&gt; button to check out the example.
+  &lt;/div&gt;
+&lt;/div&gt;
+
+
+Add the publication&#39;s **full text** or **supplementary notes** here. You can use rich formatting such as including [code, math, and images](https://docs.hugoblox.com/content/writing-markdown-latex/). --&gt;
+&lt;p&gt;This paper presents MTLSign, an MTL-based DNN watermarking scheme. We examine the basic security requirements for the DNN watermark, especially the unambiguity, and propose to embed the watermark as an additional task.&lt;/p&gt;
+&lt;p&gt;The proposed scheme explicitly meets security requirements by corresponding regularizers. With a decentralized consensus protocol, MTLSign is secure against adaptive attacks. It is true that like any other white-box DNN watermarking scheme, MTLSign remains vulnerable to functionality equivalence attacks such as the neuron permutation. This is one of the aspects that require further effort to increase the applicability of DNN watermarks.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
