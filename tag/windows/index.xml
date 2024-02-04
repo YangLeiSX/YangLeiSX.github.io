@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Windows | YangLeiSX</title>
+    <link>https://yangleisx.github.io/tag/windows/</link>
+      <atom:link href="https://yangleisx.github.io/tag/windows/index.xml" rel="self" type="application/rss+xml" />
+    <description>Windows</description>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Thu, 25 Jun 2020 17:00:51 +0800</lastBuildDate>
+    <image>
+      <url>https://yangleisx.github.io/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_512x512_fill_lanczos_center_3.png</url>
+      <title>Windows</title>
+      <link>https://yangleisx.github.io/tag/windows/</link>
+    </image>
+    
+    <item>
+      <title>Windows安全管理工具总结</title>
+      <link>https://yangleisx.github.io/post/win-sec-tool/</link>
+      <pubDate>Thu, 25 Jun 2020 17:00:51 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/win-sec-tool/</guid>
+      <description>&lt;p&gt;简单整理Windows安全课堂上讲解和提及的各种安全工具。&lt;/p&gt;
+&lt;h2 id=&#34;cmd-命令&#34;&gt;CMD 命令&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;ver：查看内核版本。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;systeminfo：查看系统信息，包括版本，补丁等大量信息。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;set：查看所有的环境变量。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;sc：查询服务信息。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;sc query [service name] 查询状态&lt;/li&gt;
+&lt;li&gt;sc qc [service name] 查询配置&lt;/li&gt;
+&lt;li&gt;sc start [service name] 启动需要手动启动的服务/驱动&lt;/li&gt;
+&lt;li&gt;sc stop [service name] 停止服务&lt;/li&gt;
+&lt;li&gt;sc showsid [service name] 查看服务的SID&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;attrib：修改文件属性&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;例如隐藏文件：添加hidden和system属性&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-powershell&#34; data-lang=&#34;powershell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;attrib&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;h &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;s&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;file-name&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;whoami：显示域名和用户名（没有加入域时，显示主机名）。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;whoami /user显示用户名和SID&lt;/li&gt;
+&lt;li&gt;whoami /all显示详细信息（特权、权限、所属组等）&lt;/li&gt;
+&lt;li&gt;whoami /all 显示详细的用户访问控制令牌信息&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;hostname：查看主机名称&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;net：用户和用户组操作&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;net user [username] 查看用户信息&lt;/li&gt;
+&lt;li&gt;net user [username] /add 添加新的用户&lt;/li&gt;
+&lt;li&gt;net user [username] [password] /add添加用户&lt;/li&gt;
+&lt;li&gt;net user [username] /del&lt;/li&gt;
+&lt;li&gt;net localgroup [groupname] [username] /add 用户加入本地组&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;makecab：压缩工具&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;wusa：补丁安装命令&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;netstat：查看网络连接信息，各种参数参见help信息&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;reg：注册表管理工具&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;reg save [hkey] [filename] 将注册表导出到文件中&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;cacls：查看客体的安全访问控制项ACE&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;系统工具cmdr&#34;&gt;系统工具（cmd+R）&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;regedit：（Registry Editer）注册表查看和编辑。&lt;/li&gt;
+&lt;li&gt;services.msc：服务控制面板（位于控制面板-系统和安全-管理工具-服务），查看和管理系统服务（只能看到用户态服务）。&lt;/li&gt;
+&lt;li&gt;secpol.msc：（Security Policy）本地安全策略配置。&lt;/li&gt;
+&lt;li&gt;syskey：SAM锁定工具，可以将密码存入本地或软盘。&lt;/li&gt;
+&lt;li&gt;msinfo32.exe：查看所有加载的驱动程序。&lt;/li&gt;
+&lt;li&gt;control：控制面板&lt;/li&gt;
+&lt;li&gt;eventvwr：（Event Viewer）审计日志查看器&lt;/li&gt;
+&lt;li&gt;certmgr.msc：（Certificate Manager）证书管理工具&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;其他工具&#34;&gt;其他工具&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;PE文件查看器：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;PE Explorer。&lt;/li&gt;
+&lt;li&gt;Stud_PE。&lt;/li&gt;
+&lt;li&gt;PEiD：可以看到加壳工具和编译工具。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;DarkRemoteRAT：一个木马软件&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Agony：一个RootKit代码演示工具&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;agony -p [进程名] 隐藏进程&lt;/li&gt;
+&lt;li&gt;agony -f [文件名] 隐藏文件/文件夹&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;SystInternalsSuite工具集：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;autoruns：查看自启动项（注册表，自启动目录，服务，计划程序等）&lt;/li&gt;
+&lt;li&gt;procexp（process explorer）：查看进程信息（父子进程关系，进程加载的DLL和句柄列表，访问控制令牌，DEP，ASLR，完整性级别，虚拟化等，包括svchost内部的具体服务，进程的网络连接信息）&lt;/li&gt;
+&lt;li&gt;tcpview：查看网络连接、端口、数据等&lt;/li&gt;
+&lt;li&gt;procmon（process monitor）：检查和记录进程的各种操作&lt;/li&gt;
+&lt;li&gt;PsGetSid：查看用户的SID（默认显示主机SID）&lt;/li&gt;
+&lt;li&gt;psexec：运行程序
+&lt;ul&gt;
+&lt;li&gt;使用-s参数可以使用SYSTEM权限运行程序&lt;/li&gt;
+&lt;li&gt;使用-l参数可以使用Low完整性级别运行程序&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;procdump：进程内存导出工具&lt;/li&gt;
+&lt;li&gt;AccessChk：查看主客体对象的完整性级别&lt;/li&gt;
+&lt;li&gt;Strings：二进制代码的明文字符串查找&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;RootKit/BootKit检测工具&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;XueTr（XT）：一个RootKit检测查看工具&lt;/li&gt;
+&lt;li&gt;PowerTool（PT）：可以检测到Bootkit和Rootkit&lt;/li&gt;
+&lt;li&gt;IceSword：不再更新，经典&lt;/li&gt;
+&lt;li&gt;RootkitUnhooker（RKU）&lt;/li&gt;
+&lt;li&gt;Kaspersky TDSSKiller：可以检测到Bootkit和Rootkit&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;OSR Driver Loader：一个向系统加载驱动的工具。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;nc：一个常见的网络监控和通信工具。“网络的瑞士军刀”&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;wireshark：一个开源的网络数据包分析软件。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;沙箱工具（用于动态分析）：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;SSM沙箱：System Safety Monitor，给系统函数加hook&lt;/li&gt;
+&lt;li&gt;Cuckoo：开源的沙箱，使用最多&lt;/li&gt;
+&lt;li&gt;Anubis沙箱&lt;/li&gt;
+&lt;li&gt;Norman沙箱&lt;/li&gt;
+&lt;li&gt;GFI沙箱&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;OllyDbg：一个常见的动态分析调试工具。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;静态分析工具：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;IDA Pro：高级分析工具&lt;/li&gt;
+&lt;li&gt;Depends：查看链接库，导入导出表&lt;/li&gt;
+&lt;li&gt;Dependancy Walker&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;明文字符串查找：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;BinText：查看明文字符串，包括函数名等&lt;/li&gt;
+&lt;li&gt;Strings&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;加壳识别和脱壳：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;VMUnpacker&lt;/li&gt;
+&lt;li&gt;UPX：可以加壳和脱壳&lt;/li&gt;
+&lt;li&gt;UnPEPack&lt;/li&gt;
+&lt;li&gt;ASPack unpacker&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;文件格式识别：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;PEid：检查是否加壳，检测编译工具&lt;/li&gt;
+&lt;li&gt;FileAnalyzer&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;反病毒引擎扫描：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;VirusScan&lt;/li&gt;
+&lt;li&gt;VirusTool&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;mimikatz：一个获得登陆用户明文密码的工具&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;winhex：二进制读写工具，直接操纵硬盘而不是使用WinAPI&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;SAMINside：SAM文件解析和读取工具&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;本地密码破解工具：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;L0phtCrack&lt;/li&gt;
+&lt;li&gt;SAMInside&lt;/li&gt;
+&lt;li&gt;Ophcrack&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Windows本地密码散列导出工具：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Pwdump&lt;/li&gt;
+&lt;li&gt;wce：Windows密码凭证编辑器&lt;/li&gt;
+&lt;li&gt;gsecdump&lt;/li&gt;
+&lt;li&gt;copypwd&lt;/li&gt;
+&lt;li&gt;QuarksPwDump&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;提取登录用户明文密码：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;wce：Windows密码凭证编辑器&lt;/li&gt;
+&lt;li&gt;mimikatz&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;数据恢复工具：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;EasyRecovery&lt;/li&gt;
+&lt;li&gt;FinalData&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;参考github项目&#34;&gt;参考Github项目&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;UACME&lt;/li&gt;
+&lt;li&gt;LOLBAS&lt;/li&gt;
+&lt;li&gt;BypassAntiVirus&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>WinAPI的数据类型(字符串)</title>
+      <link>https://yangleisx.github.io/post/win-api-type/</link>
+      <pubDate>Thu, 11 Jun 2020 11:47:34 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/win-api-type/</guid>
+      <description>&lt;p&gt;刚开始使用Windows提供的各种API函数时，对于函数参数的类型感到非常的迷惑，实际上Windows中对于各种C++数据类型做了封装和处理，得到了一组Windows的变量类型，其中的部分字符和字符串的定义如下。&lt;/p&gt;
+&lt;p&gt;其他的类型定义可以在具体使用时搜索查看头文件（例如&lt;code&gt;#include &amp;lt;Windows.h&amp;gt;&lt;/code&gt;）或者MSDN。&lt;/p&gt;
+&lt;h2 id=&#34;字符和字符串类型&#34;&gt;字符和字符串类型&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;变量类型&lt;/th&gt;
+&lt;th&gt;解释&lt;/th&gt;
+&lt;th&gt;定义&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;CHAR&lt;/td&gt;
+&lt;td&gt;ANSI型字符&lt;/td&gt;
+&lt;td&gt;char&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;WCHAT&lt;/td&gt;
+&lt;td&gt;Unicode型字符&lt;/td&gt;
+&lt;td&gt;wchar_t&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;TCHAR&lt;/td&gt;
+&lt;td&gt;自适应字符（ANSI or Unicode）&lt;/td&gt;
+&lt;td&gt;可变&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;LPSTR/PSTR&lt;/td&gt;
+&lt;td&gt;ANSI型字符串&lt;/td&gt;
+&lt;td&gt;char*&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;LPWSTR/PWSTR&lt;/td&gt;
+&lt;td&gt;Unicode型字符串&lt;/td&gt;
+&lt;td&gt;wchar_t*&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;LPTSTR/PTSTR&lt;/td&gt;
+&lt;td&gt;自适应字符串（ANSI or Unicode）&lt;/td&gt;
+&lt;td&gt;可变&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;LPCSTR/PCSTR&lt;/td&gt;
+&lt;td&gt;常量ANSI型字符串&lt;/td&gt;
+&lt;td&gt;const char*&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;LPCWSTR/PCWSTR&lt;/td&gt;
+&lt;td&gt;常量Unicode型字符串&lt;/td&gt;
+&lt;td&gt;const wchar_t*&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;LPCTSTR/PCTSTR&lt;/td&gt;
+&lt;td&gt;常量自适应字符串&lt;/td&gt;
+&lt;td&gt;可变&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;其中的前缀LP/P，可以理解为表示指针Pointer（字符串变量为字符数组的首地址指针）。&lt;/p&gt;
+&lt;h2 id=&#34;字符串函数&#34;&gt;字符串函数&lt;/h2&gt;
+&lt;p&gt;绝大多数操作字符串的函数都提供了A和W两种，例如RegOpenExA()和RegOpenExW()，同时提供了自适应的版本RegOpenEx()，A为后缀的函数参数通常为ANSI型，W为后缀的函数参数通常为Unicode型，无后缀的函数使用自适应定义。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-C++&#34; data-lang=&#34;C++&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#ifdef UNICODE
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#define TCHAR Wchar_t
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#else
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#define TCHAR char
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#endif
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#ifdef UNICODE
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#define RegOpenEx RegOpenExW
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#else
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#define RegOpenEx RegOpenExA
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#endif
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;a href=&#34;https://docs.microsoft.com/en-us/windows/win32/learnwin32/working-with-strings&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;参考MSDN&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

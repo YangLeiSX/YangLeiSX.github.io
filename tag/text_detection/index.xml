@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Text_Detection | YangLeiSX</title>
+    <link>https://yangleisx.github.io/tag/text_detection/</link>
+      <atom:link href="https://yangleisx.github.io/tag/text_detection/index.xml" rel="self" type="application/rss+xml" />
+    <description>Text_Detection</description>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Fri, 09 Jul 2021 09:35:24 +0800</lastBuildDate>
+    <image>
+      <url>https://yangleisx.github.io/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_512x512_fill_lanczos_center_3.png</url>
+      <title>Text_Detection</title>
+      <link>https://yangleisx.github.io/tag/text_detection/</link>
+    </image>
+    
+    <item>
+      <title>【论文】MOST: A Multi-Oriented Scene Text Detector with Localization Refinement</title>
+      <link>https://yangleisx.github.io/post/paper-most/</link>
+      <pubDate>Fri, 09 Jul 2021 09:35:24 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/paper-most/</guid>
+      <description>&lt;p&gt;论文题目：MOST: A Multi-Oriented Scene Text Detector with Localization Refinement&lt;/p&gt;
+&lt;p&gt;作者：Minghang He, Minghui Liao, Zhibo Yang, Humen Zhong, Jun Tang, Wenqing Cheng, Cong Yao, Yongpan Wang, Xiang Bai&lt;/p&gt;
+&lt;p&gt;会议/时间：CVPR 2021&lt;/p&gt;
+&lt;p&gt;链接: &lt;a href=&#34;https://arxiv.org/abs/2104.01070&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;arXiv&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;论文目标&#34;&gt;论文目标&lt;/h2&gt;
+&lt;p&gt;传统的文本检测算法对于长文本和小文本的检测效果比较差。为了解决长文本和小文本的检测问题，引入了新的NMS、IoU Loss和特征对齐模块。&lt;/p&gt;
+&lt;p&gt;例如在EAST中，由于使用分类输出作为NMS的权重，而且模型感受野比较小，很难获得足够的信息检测到长文本。&lt;/p&gt;
+&lt;h2 id=&#34;相关工作&#34;&gt;相关工作&lt;/h2&gt;
+&lt;p&gt;现有的文本检测算法主要包括两种思路，自下而上和自上而下。其中前者主要是检测到文本中的部分元素，然后合并得到完整的检测结果，包括SegLink、TextSnake、CRAFT、PSENet等，由于需要复杂的后处理算法处理模型的输出结果，整体的处理效率受限制，而且后处理算法的效果也会影响到整体的结果。后者直接使用模型输出文本边框的检测结果，包括EAST、TextBoxes等。自上而下的又可以分为一阶段的和两阶段的，前者直接输出模型结果，后者包括Mask TextSpotter系列，使用类似Mask R-CNN的思路，首先使用RPN输出Proposal。&lt;/p&gt;
+&lt;p&gt;在LOMO模型中，使用了迭代优化模型，使用RoI Transform迭代优化模型结果，从而解决长文本的检测问题。&lt;/p&gt;
+&lt;h2 id=&#34;本文方法&#34;&gt;本文方法&lt;/h2&gt;
+&lt;p&gt;模型整体结构如下，特征提取模块使用了基于ResNet50的FPN网络，上下两个分支来自EAST中的分类和位置预测图。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;most-pipeline.png&#34; srcset=&#34;
+               /post/paper-most/most-pipeline_hub31138c7ee6e9798cb996bcbff1b8f7d_346123_90d84ada2f6cfb838eedfe8a52152213.webp 400w,
+               /post/paper-most/most-pipeline_hub31138c7ee6e9798cb996bcbff1b8f7d_346123_cf9492e490e7456149c388e67ec49618.webp 760w,
+               /post/paper-most/most-pipeline_hub31138c7ee6e9798cb996bcbff1b8f7d_346123_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-most/most-pipeline_hub31138c7ee6e9798cb996bcbff1b8f7d_346123_90d84ada2f6cfb838eedfe8a52152213.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;301&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;来自EAST的两个分支的监督与EAST相同。分类分支使用向内收缩后的文本框表示，位置预测图包括四个通道，表示当前位置距离文本框上下左右的距离。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;most-gt.png&#34; srcset=&#34;
+               /post/paper-most/most-gt_hu7103210d8ba9e0b562c6310c4fffebfc_451183_8653220c4fee0ef897227ab56f9ddf65.webp 400w,
+               /post/paper-most/most-gt_hu7103210d8ba9e0b562c6310c4fffebfc_451183_b2f8e574cb9fb0d08a8db18c8a90d11b.webp 760w,
+               /post/paper-most/most-gt_hu7103210d8ba9e0b562c6310c4fffebfc_451183_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-most/most-gt_hu7103210d8ba9e0b562c6310c4fffebfc_451183_8653220c4fee0ef897227ab56f9ddf65.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;240&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;TFAM的结构如下。首先生成粗检测结果，然后将粗检测结果和特征传入变形卷积层中。其中变形卷积选择采样点有两种方式，分别是Feature-Based Sampling和Localization-Based Sampling。其中，前者是使用额外的卷积来计算采样点的偏移量，后者是直接使用当前点预测的粗检测框的位置作为偏移后的采样点。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;most-tfam.png&#34; srcset=&#34;
+               /post/paper-most/most-tfam_hu6803c23a0ad86228c678a3104e3dbd5b_432206_9ed97911bd2b65e0d3fd48fd5842fcc2.webp 400w,
+               /post/paper-most/most-tfam_hu6803c23a0ad86228c678a3104e3dbd5b_432206_1a6bfc22dff6cae982f62af9d8290c2b.webp 760w,
+               /post/paper-most/most-tfam_hu6803c23a0ad86228c678a3104e3dbd5b_432206_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-most/most-tfam_hu6803c23a0ad86228c678a3104e3dbd5b_432206_9ed97911bd2b65e0d3fd48fd5842fcc2.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;512&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;本文中提出的Position-awareness NMS与EAST中的locality-awareness NMS不同。在EAST中进行的NMS是，是利用加权平均的方式，使用Text/Non-Text分类的结果作为权值进行加权和然后进行正常的NMS。&lt;/p&gt;
+&lt;p&gt;本文中提出的PA-NMS基于一个假设，距离边界越近的点，得到的距离边界的距离越准确，因此在聚合的时候使用的权重为当前点距离边界的位置。当使用边框p和q聚合得到m时，计算过程如下。其中TBLR分别为EAST输出的Geo-Map的四个通道，即Position-Awareness Map。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;most-panms.png&#34; srcset=&#34;
+               /post/paper-most/most-panms_hua80365d90b236e6f2e7f6ba060013aca_83329_0e302c004c8515de1a9b0172c204ab27.webp 400w,
+               /post/paper-most/most-panms_hua80365d90b236e6f2e7f6ba060013aca_83329_a8cd634d2d0323fdcbdd20baf445786c.webp 760w,
+               /post/paper-most/most-panms_hua80365d90b236e6f2e7f6ba060013aca_83329_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-most/most-panms_hua80365d90b236e6f2e7f6ba060013aca_83329_0e302c004c8515de1a9b0172c204ab27.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;277&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;其中Position-Awareness Map（相当于EAST中的Geo-Map归一化到0-1）的生成方式如下。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;most-pamap.png&#34; srcset=&#34;
+               /post/paper-most/most-pamap_hua804e58035a47ad1df6d5d88dfa673dd_52251_039a270f42ddd0c3ed534b8bf53f1904.webp 400w,
+               /post/paper-most/most-pamap_hua804e58035a47ad1df6d5d88dfa673dd_52251_f1386455a4a7e6d0ec986a8c805c3c1c.webp 760w,
+               /post/paper-most/most-pamap_hua804e58035a47ad1df6d5d88dfa673dd_52251_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-most/most-pamap_hua804e58035a47ad1df6d5d88dfa673dd_52251_039a270f42ddd0c3ed534b8bf53f1904.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;252&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;在损失函数的选择上，原本EAST中使用IoU-Loss。但是文中提到如下观点。因此引入了Instance-wise IoU Loss。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;the large text region contains far more positive samples than the small text region, which makes the regression loss bias towards large and long text instances.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;其中$N_t$为Text Instance的数量，$S_j$为每个Text Instance中Positive Sample的数量。（这里我没有很清楚具体Text Instance和Positive Sample的定义，为理解为对于每一个Text/Non-Text分类为真的点都要计算IoU，对于面积比较大的文本计算IoU的次数比较多，导致模型偏重大文本和长文本。）
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;most-insiou.png&#34; srcset=&#34;
+               /post/paper-most/most-insiou_huc1f2e63174bd72e887a50fc6f8bf9a73_28498_116a830ef35c364f0388ca9fc05ef442.webp 400w,
+               /post/paper-most/most-insiou_huc1f2e63174bd72e887a50fc6f8bf9a73_28498_c1bdb124d511971e01531898f032fbee.webp 760w,
+               /post/paper-most/most-insiou_huc1f2e63174bd72e887a50fc6f8bf9a73_28498_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-most/most-insiou_huc1f2e63174bd72e887a50fc6f8bf9a73_28498_116a830ef35c364f0388ca9fc05ef442.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;176&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;最终的损失函数定义如下，完整的损失包括分类损失、检测损失、位置损失。分类损失使用BCE-Loss计算，位置损失使用Smoothed L1-Loss计算。在检测损失中包括了检测结果的IoU-Loss和边界框角度的Cosine-Loss。
+
+
+
+$$\begin{align}
+L &amp;= L_s + \lambda_{gc} L_{gc} + \lambda_{gr} L_{gr}+ \lambda_{p} L_{p} \\
+L_s &amp;= \operatorname{BCE-Loss}() \\
+L_g &amp;= L_{iou} + \lambda_{i} L_{ins-iou} + \lambda_{\theta} L_{\theta} \\
+L_{\theta} &amp;= \frac{1}{|\Omega|}\sum\limits_{i \in \Omega}1-\cos (\hat{\theta_i} - \theta_i^*) \\
+L_p &amp;= \frac{1}{4|\Omega|}\sum\limits_{i \in \Omega}\sum\limits_{\Psi \in \{L,R,T,B\}}\operatorname{SmoothedL1}(\hat{\Psi_i}-\Psi_i^*)
+\end{align}$$
+&lt;/p&gt;
+&lt;h2 id=&#34;结果分析&#34;&gt;结果分析&lt;/h2&gt;
+&lt;p&gt;在数据集SynthText上预训练，在数据集MLT17、MTWI、IC15、MSRA-TD500(with HUST-TR400)上训练和测试。&lt;/p&gt;
+&lt;p&gt;在Ablation Study中，证明Localization-Based Sampling相比Feature-Based Sampling效果更好，而同时结合这两种的效果最好。同时也证明了本文中提出的TFAM、PA-NMS、Instance-wise IoU Loss都能提升模型的性能。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;ablation&#34; srcset=&#34;
+               /post/paper-most/most-ablation_hue0c9503d6af440e8a3f646eaf775485f_152871_5af1d345682da5bb47713e36183257c6.webp 400w,
+               /post/paper-most/most-ablation_hue0c9503d6af440e8a3f646eaf775485f_152871_df100e4cfc453b26b2436f2f70e01c17.webp 760w,
+               /post/paper-most/most-ablation_hue0c9503d6af440e8a3f646eaf775485f_152871_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-most/most-ablation_hue0c9503d6af440e8a3f646eaf775485f_152871_5af1d345682da5bb47713e36183257c6.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;213&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;在与SOTA模型的比较中，MOST也都能获得不错的性能提升。&lt;/p&gt;
+&lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
+&lt;p&gt;为了解决长文本的检测问题，引入了TFAM扩展感受野修正粗检测结果。
+为了解决不同大小的文本的检测问题，引入了Instance-wise IoU Loss，防止损失函数过度关注大文本和长文本目标。
+在NMS阶段引入了Position-Aware NMS，可以更好的合并检测框。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

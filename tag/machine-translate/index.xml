@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Machine Translate | YangLeiSX</title>
+    <link>https://yangleisx.github.io/tag/machine-translate/</link>
+      <atom:link href="https://yangleisx.github.io/tag/machine-translate/index.xml" rel="self" type="application/rss+xml" />
+    <description>Machine Translate</description>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Tue, 04 Feb 2020 16:40:41 +0800</lastBuildDate>
+    <image>
+      <url>https://yangleisx.github.io/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_512x512_fill_lanczos_center_3.png</url>
+      <title>Machine Translate</title>
+      <link>https://yangleisx.github.io/tag/machine-translate/</link>
+    </image>
+    
+    <item>
+      <title>【论文】Attention is All You Need</title>
+      <link>https://yangleisx.github.io/post/paper-transformer/</link>
+      <pubDate>Tue, 04 Feb 2020 16:40:41 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/paper-transformer/</guid>
+      <description>&lt;p&gt;论文题目: Attention is All You Need&lt;/p&gt;
+&lt;p&gt;开源项目地址:&lt;a href=&#34;https://github.com/tensorflow/tensor2tensor&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;github&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;主要内容&#34;&gt;主要内容&lt;/h2&gt;
+&lt;p&gt;文章实现了一种仅使用attention机制，完全去除卷积网络和循环网络的结构，称为Transformer网络。&lt;/p&gt;
+&lt;p&gt;在实现比较高的准确性的基础上，具有较低的计算成本。&lt;/p&gt;
+&lt;h2 id=&#34;背景&#34;&gt;背景&lt;/h2&gt;
+&lt;p&gt;目前常用的序列处理模型通常使用一个编码器和一个解码器，在两者的连接中使用attention机制，而且编码器和解码器的实现使用复杂的CNN和RNN。&lt;/p&gt;
+&lt;p&gt;由于RNN结构引入的时序逻辑不利于并行计算，引入比较高的计算成本。因此Transformer结构中除去了RNN而仅使用attention结构来学习序列前后的相关性。&lt;/p&gt;
+&lt;p&gt;在transformer中仅使用self-attention机制来学习序列中不同元素之间的关系。&lt;/p&gt;
+&lt;h2 id=&#34;实现&#34;&gt;实现&lt;/h2&gt;
+&lt;p&gt;使用self-attention和full connect实现。&lt;/p&gt;
+&lt;p&gt;编码器的实现中，使用若干个块，每个块包括一个multi-head attention层和一个全联接的feed foward层，其中每一层都引入了残差连接和正规化，构成$LayerNorm(x + Sublayer(x))$的结构。&lt;/p&gt;
+&lt;p&gt;解码器的实现中，同样使用若干个块，每个块为编码器的基本块之前加上一个masked multi-head attention结构。同时将上一时刻的输出作为下一个时刻的输入，使得输出仅由之前的输入决定。&lt;/p&gt;
+&lt;p&gt;Scaled Dot-Product Attention的结构为将Q(uery)、K(ey)、V(alue)映射得到输出。输入为$d_k$维的Key向量和$d_v$维的Value向量，计算方法为矩阵相乘的结果缩放后再Softmax得到Value元素对应的权重，即$Attention(Q,K,V) = Softmax(\frac{QK^T}{\sqrt{d_k}})V$。使用矩阵乘法的实现计算更快。&lt;/p&gt;
+&lt;p&gt;Multi-head Attnetion为多个Attention层组合得到。通过将V、K、Q线性投影到h个attention网络，将其结果通过concat组合之后再线性投影得到结果，即$MultiHead(Q,K,V) = Concat(head_1,hed_2&amp;hellip;)W^O$，其中$head_i = Attention(QW^Q_i, KW^K_i, VW^V_i)$。&lt;/p&gt;
+&lt;p&gt;注意解码器的Q来自解码器上一输出经过Masked Multi-Head Attention的结果，K、V来自编码器的输出。而编码器的Q、K、V来自上一层的输出。&lt;/p&gt;
+&lt;p&gt;在Masked Multi-Head Attention中，SoftMax的输出被屏蔽（设置为$-\infty$）。&lt;/p&gt;
+&lt;p&gt;在Attention之后的Feed Forward网络中，使用两次ReLU得到$FFN(x) = max(0, xW_1+b_1)W_2+b_2$。&lt;/p&gt;
+&lt;p&gt;对于输入，还需要进行embedding和positional encoding操作。使用learned embeddings将输入转化为向量。后者引入顺序和位置信息，使用$PE_{(pos,2i)} = sin(pos/10000^{2i/d_{model}})$和$PE_{(pos,2i+1)} = cos(pos/10000^{2i/d_{model}})$，其中pos为位置，i为维数。&lt;/p&gt;
+&lt;p&gt;对于输出，使用线性转换（learned linear transformation）和softmax将输出转变为概率。这里的线性转换和输入的embeddings使用相同的权重（embedding中乘$\sqrt{d_{model}}$,即向量规模的平方根）。&lt;/p&gt;
+&lt;h2 id=&#34;评价&#34;&gt;评价&lt;/h2&gt;
+&lt;p&gt;使用attention相比直接使用卷积或循环，计算复杂度比较低，同时更有利于并行计算。&lt;/p&gt;
+&lt;p&gt;同时attention结构更有助于学习长句子，能学习到距离较远的信息。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【论文】Sequence to Sequence Learning with Neural Networks</title>
+      <link>https://yangleisx.github.io/post/paper-seq2seq/</link>
+      <pubDate>Sun, 02 Feb 2020 22:26:13 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/paper-seq2seq/</guid>
+      <description>&lt;p&gt;论文笔记:Sequence to Sequence Learning with Neural Networks&lt;/p&gt;
+&lt;h2 id=&#34;主要内容&#34;&gt;主要内容&lt;/h2&gt;
+&lt;p&gt;使用一个深度LSTM网络将输入序列映射到固定长度的向量，再使用另一个深度LSTM网络将该向量映射（decode）到目标序列。&lt;/p&gt;
+&lt;h2 id=&#34;背景&#34;&gt;背景&lt;/h2&gt;
+&lt;p&gt;DNN在语音识别和视觉识别领域有非常好的效果，但是仅能用于输入和输出可以化为（encode）相同的固定规模（known and fixed）的向量。很多实际问题中输入和输出需要用未知长度的向量表示。&lt;/p&gt;
+&lt;p&gt;LSTM可以在具有长期时间相关性（long range temporal dependencies）的数据中具有比较好的学习效果，因此用于在输入序列和相应的输出序列之间进行学习。&lt;/p&gt;
+&lt;p&gt;同时通过在训练中反转输入序列引入短期依赖便于训练和优化。&lt;/p&gt;
+&lt;h2 id=&#34;实现方式&#34;&gt;实现方式&lt;/h2&gt;
+&lt;h3 id=&#34;原理&#34;&gt;原理&lt;/h3&gt;
+&lt;p&gt;使用单个RNN由给定输入序列$(x_1,x_2,&amp;hellip;,x_t)$计算输出序列$(y_1,y_2,&amp;hellip;,y_t)$的方法如下：&lt;/p&gt;
+&lt;p&gt;$h_t = sigm(W^{hx}x_t + W^{hh}h_{t-1})$、$y_t = W^{yh}h_t$。但是并不能用于不同长度的输入和输出序列。&lt;/p&gt;
+&lt;p&gt;因此使用两个LSTM取代两个RNN来实现长期时间相关性的学习。&lt;/p&gt;
+&lt;p&gt;在LSTM中使用条件概率的计算方法如下：&lt;/p&gt;
+&lt;p&gt;$p(y_1,&amp;hellip;,y_{T&amp;rsquo;}|x_1,&amp;hellip;,x_T) = \prod_{t=1}^{T&amp;rsquo;}p(y_t|v,y_1,&amp;hellip;,y_{t-1})$，其中v是输入序列的一种表示。&lt;/p&gt;
+&lt;p&gt;具体实现中，==使用两个深度LSTM网络，每个网络具有4层，用于训练的输入序列反转。==&lt;/p&gt;
+&lt;p&gt;每个LSTM通过最大化对数几率进行训练，目标函数为$\frac{1}{|S|}\sum_{(T,S)\in \mathbb{S}} logp(T|S)$，其中$\mathbb{S}$为训练集。&lt;/p&gt;
+&lt;p&gt;预测时依据$\hat{T} = arg max_{\mathbf{T}} p(T|S)$，使用自左向右的Beam Search算法&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;得到翻译结果。&lt;/p&gt;
+&lt;p&gt;输入序列反转后，训练的性能提高（原文使用“最小时滞 minimal time lag”加以解释：输入序列和输出序列的开头几个单词的距离减小）。可以认为输出序列的前半部分正确率较高而后半部分表现比较差。&lt;/p&gt;
+&lt;h3 id=&#34;实现&#34;&gt;实现&lt;/h3&gt;
+&lt;p&gt;使用WMT&#39;14 英语-法语数据库进行训练。&lt;/p&gt;
+&lt;p&gt;每个LSTM网络有4层，每层1000个单元，每个数据使用1000维张量表示。&lt;/p&gt;
+&lt;p&gt;输入词汇量160000，输出词汇量80000。输出时使用8000输入的softmax。共有384M参数。&lt;/p&gt;
+&lt;p&gt;为了防止梯度爆炸，每一个batch训练结束后对梯度正规化。&lt;/p&gt;
+&lt;h2 id=&#34;评价&#34;&gt;评价&lt;/h2&gt;
+&lt;h3 id=&#34;结果&#34;&gt;结果&lt;/h3&gt;
+&lt;p&gt;训练结果使用BLEU打分，在WMT‘14数据库上得到37.0分&lt;/p&gt;
+&lt;h3 id=&#34;结果评价&#34;&gt;结果评价&lt;/h3&gt;
+&lt;p&gt;使用深度LSTM网络实现的sequence到sequence模型在机器翻译问题上取得了不错的效果。&lt;/p&gt;
+&lt;p&gt;其在较长的句子上性能比较好。并且可以处理主动语态和被动语态。&lt;/p&gt;
+&lt;h2 id=&#34;参考&#34;&gt;参考&lt;/h2&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.jianshu.com/p/c7aab93b944d&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Beam Search&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

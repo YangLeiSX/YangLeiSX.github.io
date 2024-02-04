@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Semantic Segmentation | YangLeiSX</title>
+    <link>https://yangleisx.github.io/tag/semantic-segmentation/</link>
+      <atom:link href="https://yangleisx.github.io/tag/semantic-segmentation/index.xml" rel="self" type="application/rss+xml" />
+    <description>Semantic Segmentation</description>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Sun, 04 Feb 2024 15:47:49 +0800</lastBuildDate>
+    <image>
+      <url>https://yangleisx.github.io/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_512x512_fill_lanczos_center_3.png</url>
+      <title>Semantic Segmentation</title>
+      <link>https://yangleisx.github.io/tag/semantic-segmentation/</link>
+    </image>
+    
+    <item>
+      <title>【论文】Improving Semantic Segmentation in Aerial Imagery via Graph Reasoning and Disentangled Learning</title>
+      <link>https://yangleisx.github.io/post/paper-pgr/</link>
+      <pubDate>Sun, 04 Feb 2024 15:47:49 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/paper-pgr/</guid>
+      <description>&lt;p&gt;论文题目： Improving Semantic Segmentation in Aerial Imagery via Graph Reasoning and Disentangled Learning&lt;/p&gt;
+&lt;p&gt;作者：Ruigang Niu, Xian Sun, Yu Tian, Wenhui Diao, Yingchao Feng, Kun Fu&lt;/p&gt;
+&lt;p&gt;会议/时间：TGRS2021&lt;/p&gt;
+&lt;p&gt;链接: &lt;a href=&#34;https://www.researchgate.net/publication/355465205_Improving_Semantic_Segmentation_in_Aerial_Imagery_via_Graph_Reasoning_and_Disentangled_Learning&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;ResearchGate&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;论文目标&#34;&gt;论文目标&lt;/h2&gt;
+&lt;p&gt;在航空影像分割问题中，由于存在前景背景不平衡，类内数据差异较大以及密集/小目标的存在，性能受到限制。文章通过引入Graph Reasoning 图推理和Disentangled Representation Learning 解耦表示学习的思路，提升在航空影像上分割的效果。&lt;/p&gt;
+&lt;p&gt;为了提取丰富的上下文信息，之前的工作使用了FCN、ASPP等方式，也可以使用基于Attention 注意力机制的方式。为了进一步增加上下文信息，可以使用Graph Reasoning 图推理的方式。&lt;/p&gt;
+&lt;p&gt;对于密集目标、小目标等容易出现特征含糊不清的问题，引入了解耦的多分支的结构。使用多任务学习的方式来解决分割和边缘检测的问题。&lt;/p&gt;
+&lt;h2 id=&#34;相关工作&#34;&gt;相关工作&lt;/h2&gt;
+&lt;p&gt;使用GR的算法中，GloRe使用1D卷积在全连接图上实现图卷积，SPyGR直接在像素空间上做图卷积，忽略了像素空间和语义空间之间的语义差异。CDGC引入了从粗检测到精细化的方式（有点类似OCRNet？）DisenGCN将GCN和Disentangled Learning两者相结合。&lt;/p&gt;
+&lt;h2 id=&#34;本文方法&#34;&gt;本文方法&lt;/h2&gt;
+&lt;p&gt;整体结构图下。首先使用FPN得到层次特征，使用GR模块处理特征。将特征送入双分支解耦学习模块，分别进行前景估计和边缘对齐，最后将所有的特征融合到一起进行预测。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;pgr-disen-structure.png&#34; srcset=&#34;
+               /post/paper-pgr/pgr-disen-structure_hu42f8ef22bf07443464a7487f6234e4fa_749556_1b6c4f43f1efdd36f12839363fd2fc3d.webp 400w,
+               /post/paper-pgr/pgr-disen-structure_hu42f8ef22bf07443464a7487f6234e4fa_749556_4f1285a31cde5c716561f54ffaa91409.webp 760w,
+               /post/paper-pgr/pgr-disen-structure_hu42f8ef22bf07443464a7487f6234e4fa_749556_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-pgr/pgr-disen-structure_hu42f8ef22bf07443464a7487f6234e4fa_749556_1b6c4f43f1efdd36f12839363fd2fc3d.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;353&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;这里的图卷积模块，吸收了HBP 层次双线性池化的思想，将相邻的三个不同分辨率的特征图进行缩放之后计算Hadamard积然后映射到若干个点，然后进行图卷积，最后使用卷积得到的结果对原本的特征相乘在映射回到原本的像素空间中。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;pgr-disen-gr.png&#34; srcset=&#34;
+               /post/paper-pgr/pgr-disen-gr_hu7af98c730b489b2d0f9d0d6f35621975_41429_a08ed3f5d2c397be56ce578b7b000673.webp 400w,
+               /post/paper-pgr/pgr-disen-gr_hu7af98c730b489b2d0f9d0d6f35621975_41429_fd1cebc680eb0e5bb3e8913573be0ce0.webp 760w,
+               /post/paper-pgr/pgr-disen-gr_hu7af98c730b489b2d0f9d0d6f35621975_41429_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-pgr/pgr-disen-gr_hu7af98c730b489b2d0f9d0d6f35621975_41429_a08ed3f5d2c397be56ce578b7b000673.webp&#34;
+               width=&#34;708&#34;
+               height=&#34;250&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;使用HBP 层次双线性池化进行映射的时候有如下公式进行池化。
+$$G_{proj}(F^2, \mathcal{U}(F^1), \mathcal{U}(F^3)) = \frac{1}{H_2W_2}\sum\limits_{i=1}^{H_2W_2} f^2_i\circ f&amp;rsquo;^1_i\circ f&amp;rsquo;^3_i$$&lt;/p&gt;
+&lt;p&gt;最后按通道分成g组，即 $C = g\times d$ ，可以认为分成了g个节点，每一个节点的特征维度为d（可以认为是d个像素空间的点构成了一个图空间的点）。在进行图卷积的时候，令 $H = \sigma(A_g X W_g)$ ，其中 $A_g\in R^{N\times N},X\in R^{N \times C},W_g\in R^{C\times F}$ ，这里的$N$就是上面的$g$，$C$就是上面的$d$。&lt;/p&gt;
+&lt;p&gt;在邻接矩阵的设计上，使用了四种不同的策略，分别是固定为一跳邻居、单位阵初始化的可学习参数、正态分布初始化的可学习参数、均匀分布初始化的可学习参数。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;pgr-disen-adj.png&#34; srcset=&#34;
+               /post/paper-pgr/pgr-disen-adj_hubce0fc37d4f14e646f179ebf00ee670e_78264_a79abd52f3160dacce050992d11ece86.webp 400w,
+               /post/paper-pgr/pgr-disen-adj_hubce0fc37d4f14e646f179ebf00ee670e_78264_17222b45add156dc27f84114a6c75a1a.webp 760w,
+               /post/paper-pgr/pgr-disen-adj_hubce0fc37d4f14e646f179ebf00ee670e_78264_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-pgr/pgr-disen-adj_hubce0fc37d4f14e646f179ebf00ee670e_78264_a79abd52f3160dacce050992d11ece86.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;252&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;最后在反向映射的过程中，采用了类似SE-Net的方式，将图卷积得到的结果作为通道注意力与原始数据相乘。&lt;/p&gt;
+&lt;p&gt;在前景估计分支，作者使用了贝叶斯理论, 实际结构是学习得到一个分割图然后concat起来。使用了 $B = \delta(M_{fg} \cdot I\parallel (1-M_{fg}) \cdot I \parallel I)$ 的拼接方式。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;pgr-disen-entimation.png&#34; srcset=&#34;
+               /post/paper-pgr/pgr-disen-fg-entimation_hu39e31c122b11baf80fda755c39575483_96734_d7c214f8f9c1a65893de4f0ed376a1b6.webp 400w,
+               /post/paper-pgr/pgr-disen-fg-entimation_hu39e31c122b11baf80fda755c39575483_96734_553d67e70d91f4335104636b7bbba46e.webp 760w,
+               /post/paper-pgr/pgr-disen-fg-entimation_hu39e31c122b11baf80fda755c39575483_96734_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-pgr/pgr-disen-fg-entimation_hu39e31c122b11baf80fda755c39575483_96734_d7c214f8f9c1a65893de4f0ed376a1b6.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;288&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;在边界对齐模块，作者号称使用了类似Optical Flow 光流的思想，学习得到一个类似光流的边界检测图然后与原本的特征相结合。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;pgr-disen-bam.png&#34; srcset=&#34;
+               /post/paper-pgr/pgr-disen-bam_hu9308b3195789f8350ee447770743ed12_69347_d17ddba4976fef5bd87de8a377c734e1.webp 400w,
+               /post/paper-pgr/pgr-disen-bam_hu9308b3195789f8350ee447770743ed12_69347_1002431e9a39250de6d30aa15a451515.webp 760w,
+               /post/paper-pgr/pgr-disen-bam_hu9308b3195789f8350ee447770743ed12_69347_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-pgr/pgr-disen-bam_hu9308b3195789f8350ee447770743ed12_69347_d17ddba4976fef5bd87de8a377c734e1.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;435&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;在最后损失函数设计上，对于最后的分割使用Cross Emtropy 交叉熵，前景使用BCE_Loss和Dice Loss，添加了类似PSPNet中的辅助Loss。&lt;/p&gt;
+&lt;h2 id=&#34;结果分析&#34;&gt;结果分析&lt;/h2&gt;
+&lt;p&gt;在iSAID数据集和Vaihingen、Cityscapes数据集上测试了性能。
+基本模型结构使用预训练的ResNet-50/101。&lt;/p&gt;
+&lt;p&gt;简单看一下Ablation Study的效果。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;pgr-disen-ablation.png&#34; srcset=&#34;
+               /post/paper-pgr/pgr-disen-ablation_hu24765524787a58c68c7eace6997cea4b_123171_914aee42f9e522e84faf29050ee657f2.webp 400w,
+               /post/paper-pgr/pgr-disen-ablation_hu24765524787a58c68c7eace6997cea4b_123171_dccf4094bbbb4bae7b9225a66c84ebd3.webp 760w,
+               /post/paper-pgr/pgr-disen-ablation_hu24765524787a58c68c7eace6997cea4b_123171_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-pgr/pgr-disen-ablation_hu24765524787a58c68c7eace6997cea4b_123171_914aee42f9e522e84faf29050ee657f2.webp&#34;
+               width=&#34;659&#34;
+               height=&#34;760&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
+&lt;p&gt;使用了图推理的方式提取上下文信息。这一部分的论文还蛮多的，这里用了一种分组的方式来进行处理。比直接使用像素点的节约时间和空间，用通道注意力的方式进行反向映射的方式也成本比较低。&lt;/p&gt;
+&lt;p&gt;使用了多分支的模型，分别学习分割图和边缘检测。利用边缘检测增强分割效果的想法蛮常见的。例如【论文】Boundary-aware Graph Reasoning for Semantic Segmentation或者【论文】Real-time Scene Text Detection with Differentiable Binarization|。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【论文】Spatial Pyramid Based Graph Reasoning for Semantic Segmentation</title>
+      <link>https://yangleisx.github.io/post/paper-spygr/</link>
+      <pubDate>Wed, 06 Jul 2022 10:01:45 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/paper-spygr/</guid>
+      <description>&lt;p&gt;论文题目：Spatial Pyramid Based Graph Reasoning for Semantic Segmentation&lt;/p&gt;
+&lt;p&gt;作者：Xia Li,Yibo Yang, Qijie Zhao, Tiancheng Shen, Zhouchen Lin, Hong Liu&lt;/p&gt;
+&lt;p&gt;会议/时间：CVPR2020&lt;/p&gt;
+&lt;p&gt;链接: &lt;a href=&#34;https://arxiv.org/abs/2003.10211&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;arXiv&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;论文目标&#34;&gt;论文目标&lt;/h2&gt;
+&lt;p&gt;通过在基于GCN/UNet的结构中添加Graph Reasoning 图推理来引入长距离的上下文信息依赖。使用Non-Local Block等Attention 注意力机制的解决方案计算复杂度比较高。使用图卷积网络的解决方案通常需要首先将网格状的图像数据转换/映射到图网络数据，这个映射过程的成本比较高，而且可学习的映射可能会损失数据中在空间上的关系。&lt;/p&gt;
+&lt;p&gt;通常的图卷积网络定义在非欧式空间中，不能直接添加到现有的CNN结构中，因此论文作者设计了一个数据有关的相似度矩阵作为图卷积中的Laplacian矩阵进行图卷积的计算。&lt;/p&gt;
+&lt;h2 id=&#34;本文方法&#34;&gt;本文方法&lt;/h2&gt;
+&lt;p&gt;整体结构如下，在FCN特征融合的部分添加GR模块，进行长距离依赖的学习。
+
+
+
+$$\begin{align}
+Y^{(s+1)} &amp;= GR(X^{(s+1)}) + \Pi_{up}(Y^{(s)}) \\
+Y^{(0)} &amp;= GR(X^{(0)}) \\
+X^{(s)} &amp;= \Pi_{down}(X^{(s+1)})
+\end{align}$$
+&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;pyramid-gr.png&#34; srcset=&#34;
+               /post/paper-spygr/pyramid-gr_hua88d50e9be7b3cee7c60c017afaca377_674928_d848671f6a2e5737c3b04fd0ec4a585e.webp 400w,
+               /post/paper-spygr/pyramid-gr_hua88d50e9be7b3cee7c60c017afaca377_674928_029a92ebfe656e3e1bd4ad0704f38c8c.webp 760w,
+               /post/paper-spygr/pyramid-gr_hua88d50e9be7b3cee7c60c017afaca377_674928_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-spygr/pyramid-gr_hua88d50e9be7b3cee7c60c017afaca377_674928_d848671f6a2e5737c3b04fd0ec4a585e.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;318&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;考虑到 $H^{l+1} = \sigma(\tilde L H^lW^l)$ 的图卷积网络通用格式，其中 $\tilde L = I - \tilde D^{-\frac{1}{2}} \tilde A \tilde D^{-\frac{1}{2}}$,$\tilde A = A + I$ ，有 $\tilde D_{ii} = \sum_j \tilde A_{ij}$ 。如果不使用欧式空间到图网络空间的映射，直接在特征图上进行图卷积。需要对模型做相应的修改。&lt;/p&gt;
+&lt;p&gt;上式中的 $\tilde A$ 表示正规化之后的邻接矩阵，或者称为相似度矩阵，在这个论文中使用 $\tilde A_{ij} = \phi(X)_i \tilde\Lambda(X) \phi(X)_j^T$ 计算，即使用位置无关但是数据有关的点乘注意力实现。而不是使用训练得到的固定的邻接矩阵。这里的 $\tilde \Lambda$ 的计算方式采用类似通道注意力的方式实现，即先进行GAP然后卷积，最后得到对角矩阵。&lt;/p&gt;
+&lt;p&gt;使用 $\tilde D$ 提供了正则化，不需要再进行Softmax操作。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;pyramid-gr-module.png&#34; srcset=&#34;
+               /post/paper-spygr/pyramid-gr-module_hu1238d42526964fea1e9636e9ca1e81a1_49527_9cf1ec54a0f6f230764943dafc315287.webp 400w,
+               /post/paper-spygr/pyramid-gr-module_hu1238d42526964fea1e9636e9ca1e81a1_49527_4ee2c7c3de0562ceece74e02b3c76a91.webp 760w,
+               /post/paper-spygr/pyramid-gr-module_hu1238d42526964fea1e9636e9ca1e81a1_49527_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-spygr/pyramid-gr-module_hu1238d42526964fea1e9636e9ca1e81a1_49527_9cf1ec54a0f6f230764943dafc315287.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;462&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;在之前的图推理方法中，将像素数据映射到Interspace中，得到图结构的节点数量远少于原本的像素数量，本文中直接实现的在像素域上的计算方法计算量比较大，因此引入了简化方法。即在计算 $\tilde D$ 的时候并不是直接计算 $\tilde A \in R^{HW \times HW}$ ，而是引入一个全1的向量，得到 $\tilde D = diag(\tilde A \cdot \vec 1) = diag(\phi(\tilde\Lambda(\phi^T \cdot \vec 1)))$ ，将所有的矩阵计算变为和一个向量的运算。计算左乘 $\tilde L X$ 的时候使用 $\tilde LX = X - \tilde D^{-\frac{1}{2}} \phi\tilde\Lambda\phi^T\tilde D^{-\frac{1}{2}}X = X - P(\tilde\Lambda(P^TX))$ ，其中 $P = \tilde D^{-\frac{1}{2}}\phi$ 。&lt;/p&gt;
+&lt;h2 id=&#34;结果分析&#34;&gt;结果分析&lt;/h2&gt;
+&lt;p&gt;首先进行Ablation Study。对于GR模块提出的Laplacian各个部分进行对比。可以看到效果提升。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;spygr-ablation.png&#34; srcset=&#34;
+               /post/paper-spygr/spygr-ablation_huec8741a7a4086f59ec669dfad179ae4f_33872_b32cd73615180a77476d4e5e81aa7fb0.webp 400w,
+               /post/paper-spygr/spygr-ablation_huec8741a7a4086f59ec669dfad179ae4f_33872_b3a1229d56c980564da0b7fe56f55955.webp 760w,
+               /post/paper-spygr/spygr-ablation_huec8741a7a4086f59ec669dfad179ae4f_33872_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-spygr/spygr-ablation_huec8741a7a4086f59ec669dfad179ae4f_33872_b32cd73615180a77476d4e5e81aa7fb0.webp&#34;
+               width=&#34;693&#34;
+               height=&#34;335&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;在Cityscapes、Pascal VOC和MS COCO数据集上做了实验。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;spygr-cityscape.png&#34; srcset=&#34;
+               /post/paper-spygr/spygr-cityscape_huf0e89c5e640b42fe0b9bae93bf830710_168459_39a18939874adc1b5367312f767da526.webp 400w,
+               /post/paper-spygr/spygr-cityscape_huf0e89c5e640b42fe0b9bae93bf830710_168459_07064a8f2d92102c24f893bd817cbf17.webp 760w,
+               /post/paper-spygr/spygr-cityscape_huf0e89c5e640b42fe0b9bae93bf830710_168459_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-spygr/spygr-cityscape_huf0e89c5e640b42fe0b9bae93bf830710_168459_39a18939874adc1b5367312f767da526.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;305&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;spygr-coco.png&#34; srcset=&#34;
+               /post/paper-spygr/spygr-coco_hu77a24da1243c1607444b679260beedcc_61234_50ee974f8a73cead750622a0b03c72e8.webp 400w,
+               /post/paper-spygr/spygr-coco_hu77a24da1243c1607444b679260beedcc_61234_c42dbfbf8a8f9c98fcdff277a5966e5c.webp 760w,
+               /post/paper-spygr/spygr-coco_hu77a24da1243c1607444b679260beedcc_61234_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-spygr/spygr-coco_hu77a24da1243c1607444b679260beedcc_61234_50ee974f8a73cead750622a0b03c72e8.webp&#34;
+               width=&#34;683&#34;
+               height=&#34;349&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

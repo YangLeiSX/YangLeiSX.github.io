@@ -5,7 +5,7 @@
     <link>https://yangleisx.github.io/tag/text-detection/</link>
       <atom:link href="https://yangleisx.github.io/tag/text-detection/index.xml" rel="self" type="application/rss+xml" />
     <description>Text Detection</description>
-    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Sat, 20 Jan 2024 20:20:17 +0800</lastBuildDate>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Fri, 15 Oct 2021 16:19:26 +0800</lastBuildDate>
     <image>
       <url>https://yangleisx.github.io/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_512x512_fill_lanczos_center_3.png</url>
       <title>Text Detection</title>
@@ -13,10 +13,217 @@
     </image>
     
     <item>
+      <title>【论文】Look More Than Once: An Accurate Detector for Text of Arbitrary Shapes</title>
+      <link>https://yangleisx.github.io/post/paper-lomo/</link>
+      <pubDate>Fri, 15 Oct 2021 16:19:26 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/paper-lomo/</guid>
+      <description>&lt;p&gt;论文题目：Look More Than Once: An Accurate Detector for Text of Arbitrary Shapes&lt;/p&gt;
+&lt;p&gt;作者：Chengquan Zhang， Borong Liang， Zuming Huang， Mengyi En，Junyu Han，Errui Ding， Xinghao Ding&lt;/p&gt;
+&lt;p&gt;会议/时间：CVPR2019&lt;/p&gt;
+&lt;p&gt;链接: &lt;a href=&#34;https://ieeexplore.ieee.org/document/8953775&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;ieeexplore&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;论文目标&#34;&gt;论文目标&lt;/h2&gt;
+&lt;p&gt;现有模型受到感受野的限制，很难实现对于长文本和弯曲文本的准确识别。论文中设计实现了一个LOMO网络，首先通过DR获得粗检测结果，再使用IRM迭代优化结果，最后使用SEM得到任意多边形的文本检测结果。&lt;/p&gt;
+&lt;h2 id=&#34;相关工作&#34;&gt;相关工作&lt;/h2&gt;
+&lt;p&gt;目前的文本检测有三种思路：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;基于Component，检测到文本部分然后通过后处理合并。例如CTPN、SegLink、WordSup等。&lt;/li&gt;
+&lt;li&gt;基于Detection，类似通用的目标检测。例如TextBoxes、RRD、RRPN、EAST等。&lt;/li&gt;
+&lt;li&gt;基于Segmentation，类似语义分割。例如TextSnake、PSENet等。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;本文方法&#34;&gt;本文方法&lt;/h2&gt;
+&lt;p&gt;整体的模型结构如下。基本的特征提取部分使用ResNet50和FPN实现。最终得到1/4大小的128通道的特征图。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;lomo_structure&#34; srcset=&#34;
+               /post/paper-lomo/lomo_structure_hue5e8f1c01a26b4b030fc1d74546bd49e_76805_90fa04cb99324adf5342fc0c2d8bb44f.webp 400w,
+               /post/paper-lomo/lomo_structure_hue5e8f1c01a26b4b030fc1d74546bd49e_76805_8154e8a1b9b69e022ffc9331f28fdd46.webp 760w,
+               /post/paper-lomo/lomo_structure_hue5e8f1c01a26b4b030fc1d74546bd49e_76805_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-lomo/lomo_structure_hue5e8f1c01a26b4b030fc1d74546bd49e_76805_90fa04cb99324adf5342fc0c2d8bb44f.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;222&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;提取到的图像特征首先经过Direct Regressor得到粗检测结果。这里DR的设计与EAST基本相同，包括test/non-text分类结果和四个边界点的偏移值。在训练分类结果时使用了一种改进的Dice-Loss。其中的权重$w$被设置为与文本框的短边长度称反比。
+$$L_{cls} = 1 - \frac{2 * sum(y * \hat{y} * w)}{sum(y*w) + sum(\hat{y} * w)}$$&lt;/p&gt;
+&lt;p&gt;IRM的结构如下。首先根据DR的结果，从FPN的特征中使用ROI Transform提取特征，并使用卷积和Sigmoid激活得到四个通道的注意力图（分别为四个边角）。通过Reduce-Sum和卷积得到四个边角的偏移量。对DR的结果进行修正。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;lomo_irm&#34; srcset=&#34;
+               /post/paper-lomo/lomo_irm_hua6a8cc7fafa855021711f1ab194f25b8_224730_030a8c2816d9869d78572a4437806822.webp 400w,
+               /post/paper-lomo/lomo_irm_hua6a8cc7fafa855021711f1ab194f25b8_224730_1de9dc4e39bd20eab806ddac74fa802e.webp 760w,
+               /post/paper-lomo/lomo_irm_hua6a8cc7fafa855021711f1ab194f25b8_224730_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-lomo/lomo_irm_hua6a8cc7fafa855021711f1ab194f25b8_224730_030a8c2816d9869d78572a4437806822.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;408&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;IRM部分的损失函数为使用Smoothed-L1来监督。
+$$L_{irm} = \frac{1}{K*8}\sum\limits_{k=1}^{K}\sum\limits_{j=1}^{8}smooth_{L1}(c_k^j - \hat{c}_k^j)$$&lt;/p&gt;
+&lt;p&gt;SEM的结构如下。根据IRM修正之后的结果，进一步得到多边形框的结果。除去上述检测框中的背景部分。首先同样是使用ROI Transform提取特征，然后经过两次上采样之后，再生成预测结果，包括文本区域、文本中心线（收缩后的文本区域）、边界偏置。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;lomo_sem&#34; srcset=&#34;
+               /post/paper-lomo/lomo_sem_hu197b4a28fc238235005fe279f206a35c_463791_dcab21e3b7cb6bbd41effc2d60e9e701.webp 400w,
+               /post/paper-lomo/lomo_sem_hu197b4a28fc238235005fe279f206a35c_463791_c500b747ebe86e80595781b39993d294.webp 760w,
+               /post/paper-lomo/lomo_sem_hu197b4a28fc238235005fe279f206a35c_463791_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-lomo/lomo_sem_hu197b4a28fc238235005fe279f206a35c_463791_dcab21e3b7cb6bbd41effc2d60e9e701.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;334&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;要想得到文本检测结果，需要首先在文本中心线上采样N个点，然后根据边界偏置得到文本行的上下边界上的控制点，相连接得到多边形框。&lt;/p&gt;
+&lt;p&gt;在训练时，首先使用生成数据对DR部分进行训练，然后才使用真实数据同时训练三个分支。为了防止训练时DR产生的错误结果影响另外两分支的训练，将DR结果中的50%随机替换为GT。在预测的时候DR的结果经过NMS之后再经过多次IRM，最后通过SEM得到结果。&lt;/p&gt;
+&lt;h2 id=&#34;结果分析&#34;&gt;结果分析&lt;/h2&gt;
+&lt;p&gt;ablation study显示，IRM迭代次数增加可以提升模型性能，但是相应的处理时间增加，因此权衡之后设置为2。在IRM中，添加四个角点的注意力图也可以提升模型性能。&lt;/p&gt;
+&lt;p&gt;ablation study显示，添加SEM可以显著提升模型性能（7.17%）。对于SEM结果的处理中，采样点数量增加效果提升并逐渐收敛，因此选择为7。&lt;/p&gt;
+&lt;p&gt;在长文本数据集ICDAR2017-RCTW上的效果如下。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;lomo_exp&#34; srcset=&#34;
+               /post/paper-lomo/lomo_exp_hue6cf532ef9bb217ee46ab7eb14485d58_87274_c25b22cd1421810eef90d6091023cd11.webp 400w,
+               /post/paper-lomo/lomo_exp_hue6cf532ef9bb217ee46ab7eb14485d58_87274_013795f36ed5a8900db90377dbb84780.webp 760w,
+               /post/paper-lomo/lomo_exp_hue6cf532ef9bb217ee46ab7eb14485d58_87274_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-lomo/lomo_exp_hue6cf532ef9bb217ee46ab7eb14485d58_87274_c25b22cd1421810eef90d6091023cd11.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;369&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;在弯曲文本数据集ICDAR2015上的效果如下。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;lomo_exp_ic15&#34; srcset=&#34;
+               /post/paper-lomo/lomo_exp_ic15_hu6ba3ca2b944b614b37850df321849ae3_197529_368999009f1fcda3df853bd004c83b20.webp 400w,
+               /post/paper-lomo/lomo_exp_ic15_hu6ba3ca2b944b614b37850df321849ae3_197529_550e6de229affa5bc7a23a582e8b28b9.webp 760w,
+               /post/paper-lomo/lomo_exp_ic15_hu6ba3ca2b944b614b37850df321849ae3_197529_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-lomo/lomo_exp_ic15_hu6ba3ca2b944b614b37850df321849ae3_197529_368999009f1fcda3df853bd004c83b20.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;735&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;在多语言数据集ICDAR2017-MLT上的效果如下。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;lomo_exp_ic17&#34; srcset=&#34;
+               /post/paper-lomo/lomo_exp_ic17_hu48cfa2842547b2094ad750e232ad9020_114588_31408eaa332c57853f96034bb042dbfa.webp 400w,
+               /post/paper-lomo/lomo_exp_ic17_hu48cfa2842547b2094ad750e232ad9020_114588_12907b4145ded085e0c5feb464cdef92.webp 760w,
+               /post/paper-lomo/lomo_exp_ic17_hu48cfa2842547b2094ad750e232ad9020_114588_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-lomo/lomo_exp_ic17_hu48cfa2842547b2094ad750e232ad9020_114588_31408eaa332c57853f96034bb042dbfa.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;550&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
+&lt;p&gt;设计了IRM在粗检测结果上精调。
+设计了SEM实现文本框形状的优化，从四边形变换为任意形状。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>【论文】Shape Robust Text Detection with Progressive Scale Expansion Network</title>
-      <link>https://yangleisx.github.io/post/psenet/</link>
-      <pubDate>Sat, 20 Jan 2024 20:20:17 +0800</pubDate>
-      <guid>https://yangleisx.github.io/post/psenet/</guid>
+      <link>https://yangleisx.github.io/post/paper-psenet/</link>
+      <pubDate>Thu, 19 Nov 2020 10:55:55 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/paper-psenet/</guid>
       <description>&lt;p&gt;论文题目：Shape Robust Text Detection with Progressive Scale Expansion Network&lt;/p&gt;
 &lt;p&gt;作者：Wenhai Wang, Enze Xie, Xiang Li, Wenbo Hou, Tong Lu, Gang Yu, Shuai Shao&lt;/p&gt;
 &lt;p&gt;会议/时间：CVPR2019&lt;/p&gt;
@@ -50,10 +257,10 @@
 &lt;figure  &gt;
   &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
     &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;algorithm&#34; srcset=&#34;
-               /post/psenet/algorithm_hud4cda9c211fdf528e67360bca4084d03_138031_d0c1d0e711bbff73edf17c946f5196ad.webp 400w,
-               /post/psenet/algorithm_hud4cda9c211fdf528e67360bca4084d03_138031_6a4e39df643c92d65b747a3533f377a0.webp 760w,
-               /post/psenet/algorithm_hud4cda9c211fdf528e67360bca4084d03_138031_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
-               src=&#34;https://yangleisx.github.io/post/psenet/algorithm_hud4cda9c211fdf528e67360bca4084d03_138031_d0c1d0e711bbff73edf17c946f5196ad.webp&#34;
+               /post/paper-psenet/algorithm_hud4cda9c211fdf528e67360bca4084d03_138031_d0c1d0e711bbff73edf17c946f5196ad.webp 400w,
+               /post/paper-psenet/algorithm_hud4cda9c211fdf528e67360bca4084d03_138031_6a4e39df643c92d65b747a3533f377a0.webp 760w,
+               /post/paper-psenet/algorithm_hud4cda9c211fdf528e67360bca4084d03_138031_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-psenet/algorithm_hud4cda9c211fdf528e67360bca4084d03_138031_d0c1d0e711bbff73edf17c946f5196ad.webp&#34;
                width=&#34;760&#34;
                height=&#34;564&#34;
                loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;

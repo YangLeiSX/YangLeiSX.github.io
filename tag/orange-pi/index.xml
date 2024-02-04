@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Orange Pi | YangLeiSX</title>
+    <link>https://yangleisx.github.io/tag/orange-pi/</link>
+      <atom:link href="https://yangleisx.github.io/tag/orange-pi/index.xml" rel="self" type="application/rss+xml" />
+    <description>Orange Pi</description>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Tue, 15 Oct 2019 18:46:56 +0800</lastBuildDate>
+    <image>
+      <url>https://yangleisx.github.io/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_512x512_fill_lanczos_center_3.png</url>
+      <title>Orange Pi</title>
+      <link>https://yangleisx.github.io/tag/orange-pi/</link>
+    </image>
+    
+    <item>
+      <title>Orange Pi的使用</title>
+      <link>https://yangleisx.github.io/post/orange-pi/</link>
+      <pubDate>Tue, 15 Oct 2019 18:46:56 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/orange-pi/</guid>
+      <description>&lt;p&gt;使用较低配置的orange pi作为树莓派的替代品&lt;/p&gt;
+&lt;p&gt;可以在内网搭建web服务器，ftp服务器等用于学习&lt;/p&gt;
+&lt;h2 id=&#34;基本配置&#34;&gt;基本配置&lt;/h2&gt;
+&lt;h3 id=&#34;下载镜像&#34;&gt;下载镜像&lt;/h3&gt;
+&lt;p&gt;最开始使用ubuntu core for orange pie 但是ubuntu SSO账号设置有问题 总是密码错误无法登陆&lt;/p&gt;
+&lt;p&gt;后来下载armbian镜像 MacOS端使用软件Etcher写入内存卡中&lt;/p&gt;
+&lt;h3 id=&#34;开机&#34;&gt;开机&lt;/h3&gt;
+&lt;p&gt;插卡 上电 使用网线与路由器连接 等灯常亮 查看mac地址和IP地址&lt;/p&gt;
+&lt;h3 id=&#34;连接&#34;&gt;连接&lt;/h3&gt;
+&lt;p&gt;armbian默认的用户为root 密码为1234&lt;/p&gt;
+&lt;p&gt;使用ssh连接 根据引导更改密码 创建新的用户 设置密码&lt;/p&gt;
+&lt;p&gt;根据指示 使用armbian-config设置Wi-Fi&lt;/p&gt;
+&lt;p&gt;更改/etc/sudoers文件为自己的用户设置管理员权限（可选）&lt;/p&gt;
+&lt;p&gt;更新软件 apt update 和 apt upgrade&lt;/p&gt;
+&lt;p&gt;在主机设置 ssh-copy-id username@address 并输入密码设置ssh公钥免密登陆&lt;/p&gt;
+&lt;h2 id=&#34;基本软件安装&#34;&gt;基本软件安装&lt;/h2&gt;
+&lt;p&gt;常用软件大多系统内置 例如vim，make，g++等&lt;/p&gt;
+&lt;p&gt;还需要安装一些常用的软件(自选)：&lt;/p&gt;
+&lt;p&gt;基本软件：ssh tree less  vnc git&lt;/p&gt;
+&lt;p&gt;web服务器：apache2/nignx&lt;/p&gt;
+&lt;p&gt;MySQL数据库：mysql-server mysql-client libmysqlclient-dev&lt;/p&gt;
+&lt;p&gt;PHP支持：php&lt;/p&gt;
+&lt;p&gt;项目编译：cmake make&lt;/p&gt;
+&lt;p&gt;JAVA环境：default-jre default-jdk&lt;/p&gt;
+&lt;p&gt;Python环境：python python3 python3-pip virtualenv&lt;/p&gt;
+&lt;p&gt;NodeJS环境：npm&lt;/p&gt;
+&lt;p&gt;&amp;hellip;&lt;/p&gt;
+&lt;p&gt;mysql需要切换至root登陆 然后添加新用户并发放权限&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;CREATE USER &amp;lsquo;username&amp;rsquo;@&amp;rsquo;localhost&amp;rsquo; IDENTIFIED BY &amp;lsquo;passwd&amp;rsquo;&lt;/p&gt;
+&lt;p&gt;GRANT ALL ON *.* TO &amp;lsquo;username&amp;rsquo;@&amp;rsquo;localhost&amp;rsquo;&lt;/p&gt;
+&lt;p&gt;SET PASSWORD FOR &amp;lsquo;username&amp;rsquo;@&amp;rsquo;localhost&amp;rsquo; = PASSWORD(&amp;ldquo;passwd&amp;rdquo;)&lt;/p&gt;
+&lt;p&gt;SET PASSWORD = PASSWORD(&amp;ldquo;passwd&amp;rdquo;)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;路由器设置&#34;&gt;路由器设置&lt;/h2&gt;
+&lt;p&gt;将Wi-Fi动态DHCP设置为静态IP地址分发 确定一个合适的IP地址&lt;/p&gt;
+&lt;p&gt;设置端口转发 将路由器的22端口转发板子的22端口用于外网ssh连接&lt;/p&gt;
+&lt;p&gt;将路由器的80端口转发板子的80端口用于外网对web服务器的访问&lt;/p&gt;
+&lt;p&gt;或者直接使用路由器的DMZ功能&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>iptables | YangLeiSX</title>
+    <link>https://yangleisx.github.io/tag/iptables/</link>
+      <atom:link href="https://yangleisx.github.io/tag/iptables/index.xml" rel="self" type="application/rss+xml" />
+    <description>iptables</description>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Sun, 20 Oct 2019 14:24:52 +0800</lastBuildDate>
+    <image>
+      <url>https://yangleisx.github.io/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_512x512_fill_lanczos_center_3.png</url>
+      <title>iptables</title>
+      <link>https://yangleisx.github.io/tag/iptables/</link>
+    </image>
+    
+    <item>
+      <title>iptables常用规则</title>
+      <link>https://yangleisx.github.io/post/iptables-rules/</link>
+      <pubDate>Sun, 20 Oct 2019 14:24:52 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/iptables-rules/</guid>
+      <description>&lt;p&gt;常见的服务的iptables规则设置&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;注意：配置规则时注意协议的双向性&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;在安全性更高的系统中可以为每一条命令具体指定双方的IP地址。&lt;/p&gt;
+&lt;h2 id=&#34;基本设置&#34;&gt;基本设置&lt;/h2&gt;
+&lt;p&gt;使用脚本配置规则时要首先清空所有规则&lt;/p&gt;
+&lt;p&gt;同时建议将默认规则设置为DROP，即使用白名单&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# flush all rules&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;iptables -F -t filter
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;iptables -F -t mangle
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;iptables -F -t nat
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# set default rules&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;iptables -P INPUT DROP
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;iptables -P OUTPUT DROP
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;iptables -P FORWARD DROP
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;http服务&#34;&gt;HTTP服务&lt;/h2&gt;
+&lt;p&gt;http服务默认使用tcp协议的80端口&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# I.open http port:80&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;iptables -t filter -A INPUT -p tcp --dport &lt;span class=&#34;m&#34;&gt;80&lt;/span&gt; -j ACCEPT
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;iptables -t filter -A OUTPUT -p tcp --sport &lt;span class=&#34;m&#34;&gt;80&lt;/span&gt; -j ACCEPT
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;ping命令&#34;&gt;ping命令&lt;/h2&gt;
+&lt;p&gt;ping命令使用icmp协议&lt;/p&gt;
+&lt;p&gt;发送方发送icmp-type=8，即icmp-request，
+接收方发送icmp-type=0，即icmp-reply&lt;/p&gt;
+&lt;p&gt;注意方向性，可以只放行一个方向的ping命令&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# II.open ping&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 1. open outbound&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;iptables -t filter -I INPUT -p icmp --icmp-type &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; -j ACCEPT
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;iptables -t filter -I OUTPUT -p icmp --icmp-type &lt;span class=&#34;m&#34;&gt;8&lt;/span&gt; -j ACCEPT
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 2. open inbound&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;iptables -t filter -I INPUT -p icmp --icmp-type &lt;span class=&#34;m&#34;&gt;8&lt;/span&gt; -j ACCEPT
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;iptables -t filter -I OUTPUT -p icmp --icmp-type &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; -j ACCEPT
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;ftp服务&#34;&gt;FTP服务&lt;/h2&gt;
+&lt;p&gt;FTP可以按主动模式或者被动模式运行，客户端登录时指定运行模式&lt;/p&gt;
+&lt;p&gt;统一使用TCP协议，使用21端口发送控制命令。&lt;/p&gt;
+&lt;p&gt;抓包分析可以发现，FTP的连接和传输过程主要分为三部分：控制连接建立和命令传输，文件传输，控制端口释放。
+因此在iptables规则的设计要根据FTP协议的工作方式确定。&lt;/p&gt;
+&lt;h3 id=&#34;主动模式&#34;&gt;主动模式&lt;/h3&gt;
+&lt;p&gt;使用20端口传输数据。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# III.open ftp active&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 1. open control port:21&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;iptables -t filter -A INPUT -p tcp --dport &lt;span class=&#34;m&#34;&gt;21&lt;/span&gt; -j ACCEPT
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;iptables -t filter -A OUTPUT -p tcp --sport &lt;span class=&#34;m&#34;&gt;21&lt;/span&gt; -j ACCEPT
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 2. open data port:20&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;iptables -t filter -A INPUT -p tcp --dport &lt;span class=&#34;m&#34;&gt;20&lt;/span&gt; -j ACCEPT
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;iptables -t filter -A OUTPUT  -p tcp --sport &lt;span class=&#34;m&#34;&gt;20&lt;/span&gt; -j ACCEPT
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;被动模式&#34;&gt;被动模式&lt;/h3&gt;
+&lt;p&gt;使用随机生成的端口发送数据，端口范围可以在/etc/vsftpd.conf指定。&lt;/p&gt;
+&lt;p&gt;因此要使用状态监测来放行相关的端口。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# IV.open ftp passive&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 1. open control port:21&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;iptables -A INPUT -p tcp --dport &lt;span class=&#34;m&#34;&gt;21&lt;/span&gt; -j ACCEPT
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;iptables -A OUTPUT -p tcp --sport &lt;span class=&#34;m&#34;&gt;21&lt;/span&gt; -j ACCEPT
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 2. open data port:random port&amp;gt;=1024&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;iptables -A INPUT -p tcp --sport 1024: --dport 1024: -m state --state NEW,RELATED,ESTABLISHED -j ACCEPT
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;iptables -A OUTPUT -p tcp --sport 1024: --dport 1024: -m state --state RELATED,ESTABLISHED -j ACCEPT
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;ssh连接&#34;&gt;SSH连接&lt;/h2&gt;
+&lt;p&gt;默认使用TCP协议的22端口。&lt;/p&gt;
+&lt;p&gt;同样可以只放行一个方向的数据。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# V. open ssh port:22&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 1. open ssh inbound&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;iptables -A INPUT -p tcp --dport &lt;span class=&#34;m&#34;&gt;22&lt;/span&gt; -j ACCEPT
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;iptables -A OUTPUT -p tcp --sport &lt;span class=&#34;m&#34;&gt;22&lt;/span&gt; -m state --state ESTABLISHED,RELATED -j ACCEPT
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 2. open ssh outbound&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;iptables -A OUTPUT -p tcp --dport &lt;span class=&#34;m&#34;&gt;22&lt;/span&gt; -j ACCEPT
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;iptables -A INPUT -p tcp --sport &lt;span class=&#34;m&#34;&gt;22&lt;/span&gt; -m state --state ESTABLISHED,RELATED -j ACCEPT
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>iptables基础使用</title>
+      <link>https://yangleisx.github.io/post/iptables/</link>
+      <pubDate>Sun, 13 Oct 2019 23:11:37 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/iptables/</guid>
+      <description>&lt;p&gt;iptables的使用方法简单记录.&lt;/p&gt;
+&lt;h2 id=&#34;数据包的传递&#34;&gt;数据包的传递&lt;/h2&gt;
+&lt;h3 id=&#34;发往本机&#34;&gt;发往本机&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;网卡接收&lt;/li&gt;
+&lt;li&gt;mangle的PREROUTING&lt;/li&gt;
+&lt;li&gt;nat的PREROUTING（做DNAT转换）&lt;/li&gt;
+&lt;li&gt;路由判断本机/转发&lt;/li&gt;
+&lt;li&gt;mangle的INPUT&lt;/li&gt;
+&lt;li&gt;filter的INPUT&lt;/li&gt;
+&lt;li&gt;到达应用程序&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;发往外部&#34;&gt;发往外部&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;生成数据，路由判断&lt;/li&gt;
+&lt;li&gt;mangle的OUTPUT&lt;/li&gt;
+&lt;li&gt;nat的OUTPUT&lt;/li&gt;
+&lt;li&gt;filter的OUTPUT&lt;/li&gt;
+&lt;li&gt;mangle的POSTROUTING&lt;/li&gt;
+&lt;li&gt;nat的POSTROUTING（SNAT转换）&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;转发&#34;&gt;转发&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;网卡接收&lt;/li&gt;
+&lt;li&gt;mangle的PREROUTING&lt;/li&gt;
+&lt;li&gt;nat的PREROUTING&lt;/li&gt;
+&lt;li&gt;路由判断&lt;/li&gt;
+&lt;li&gt;mangle的FORWARD&lt;/li&gt;
+&lt;li&gt;filter的FORWARD&lt;/li&gt;
+&lt;li&gt;mangle的POSTROUTING&lt;/li&gt;
+&lt;li&gt;nat的POSTROUTING（SNAT转换）&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;命令使用&#34;&gt;命令使用&lt;/h2&gt;
+&lt;p&gt;命令格式&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;iptables -t TABLE &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;-operation&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; CHAIN &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;-matches &lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; -j TARGET
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;即主要内容五部分：表、操作、链、匹配、目标动作&lt;/p&gt;
+&lt;p&gt;TABLE包括：filter，nat，mangle&lt;/p&gt;
+&lt;p&gt;CHAIN包括：INPUT，OUTPUT，FORWARD，PREROUTING，POSTROUTING&lt;/p&gt;
+&lt;p&gt;TARGET包括：ACCEPT、DROP、SNAT、DNAT&lt;/p&gt;
+&lt;p&gt;operation包括：-A(ppend添加) -I(sert插入) -D(elete删除) -R(eplace替换) -L(ist显示所有) -P(默认策略) -X(删除链) -N(新建链) -F(清空规则) -Z(清空计数器)&lt;/p&gt;
+&lt;p&gt;match包括：-p(rotocol协议) -s/d(源/目标IP) &amp;ndash;s/dport(源/目标端口) -i/o(interface进出网络接口)&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

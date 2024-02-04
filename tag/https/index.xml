@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>HTTPS | YangLeiSX</title>
+    <link>https://yangleisx.github.io/tag/https/</link>
+      <atom:link href="https://yangleisx.github.io/tag/https/index.xml" rel="self" type="application/rss+xml" />
+    <description>HTTPS</description>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Tue, 14 Apr 2020 16:34:05 +0800</lastBuildDate>
+    <image>
+      <url>https://yangleisx.github.io/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_512x512_fill_lanczos_center_3.png</url>
+      <title>HTTPS</title>
+      <link>https://yangleisx.github.io/tag/https/</link>
+    </image>
+    
+    <item>
+      <title>HTTPS初步理解</title>
+      <link>https://yangleisx.github.io/post/https/</link>
+      <pubDate>Tue, 14 Apr 2020 16:34:05 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/https/</guid>
+      <description>&lt;p&gt;相关概念：SSL、TLS、证书。&lt;/p&gt;
+&lt;p&gt;SSL或TLS运行在传输层和应用层之间。（早期称为SSL，后期称为TLS）。用户网络加密通讯。&lt;/p&gt;
+&lt;p&gt;HTTPS可以看作HTTP+TLS，包括两个部分：握手协议+记录协议。&lt;/p&gt;
+&lt;p&gt;链接流程（握手协议）主要流程：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;客户端HELLO（发送支持的TLS版本）&lt;/li&gt;
+&lt;li&gt;服务器HELLO（选择TLS版本，发送服务器证书）&lt;/li&gt;
+&lt;li&gt;客户端检查证书，生成主密钥（随机数）并使用服务器证书加密&lt;/li&gt;
+&lt;li&gt;服务器解密后对主密钥加密并发回（类似Diffie Hellman交换）&lt;/li&gt;
+&lt;li&gt;客户端验证主密钥，使用主密钥得到交换密钥用于非对称加密&lt;/li&gt;
+&lt;li&gt;服务器验证客户端（可选）&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;主要概念：使用服务器的公钥加密一个信息，服务器使用公钥解密后将该信息以客户端公钥加密后发回。用户客户端和服务器之间的验证。&lt;/p&gt;
+&lt;p&gt;记录协议中将应用层数据分段、压缩、添加下层首部（HTTP）、对称加密、添加TLS头部并发送。&lt;/p&gt;
+&lt;p&gt;证书包括公钥内容和私钥拥有者的信息。属于可信第三方（公钥基础设施PKI），用于证明公钥内容正确性。&lt;/p&gt;
+&lt;p&gt;通常由CA机构使用自己的私钥为服务器的证书请求添加数字签名。拿到证书以后，客户端通过使用CA的公钥解密得到证书内部的服务器公钥。CA使用层次签名，顶级CA的证书使用自签名，其公钥在全网公开。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

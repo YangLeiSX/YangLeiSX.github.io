@@ -5,7 +5,7 @@
     <link>https://yangleisx.github.io/category/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/</link>
       <atom:link href="https://yangleisx.github.io/category/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/index.xml" rel="self" type="application/rss+xml" />
     <description>论文阅读</description>
-    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Sat, 20 Jan 2024 20:20:17 +0800</lastBuildDate>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Sun, 04 Feb 2024 15:47:49 +0800</lastBuildDate>
     <image>
       <url>https://yangleisx.github.io/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_512x512_fill_lanczos_center_3.png</url>
       <title>论文阅读</title>
@@ -13,10 +13,1272 @@
     </image>
     
     <item>
+      <title>【论文】Improving Semantic Segmentation in Aerial Imagery via Graph Reasoning and Disentangled Learning</title>
+      <link>https://yangleisx.github.io/post/paper-pgr/</link>
+      <pubDate>Sun, 04 Feb 2024 15:47:49 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/paper-pgr/</guid>
+      <description>&lt;p&gt;论文题目： Improving Semantic Segmentation in Aerial Imagery via Graph Reasoning and Disentangled Learning&lt;/p&gt;
+&lt;p&gt;作者：Ruigang Niu, Xian Sun, Yu Tian, Wenhui Diao, Yingchao Feng, Kun Fu&lt;/p&gt;
+&lt;p&gt;会议/时间：TGRS2021&lt;/p&gt;
+&lt;p&gt;链接: &lt;a href=&#34;https://www.researchgate.net/publication/355465205_Improving_Semantic_Segmentation_in_Aerial_Imagery_via_Graph_Reasoning_and_Disentangled_Learning&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;ResearchGate&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;论文目标&#34;&gt;论文目标&lt;/h2&gt;
+&lt;p&gt;在航空影像分割问题中，由于存在前景背景不平衡，类内数据差异较大以及密集/小目标的存在，性能受到限制。文章通过引入Graph Reasoning 图推理和Disentangled Representation Learning 解耦表示学习的思路，提升在航空影像上分割的效果。&lt;/p&gt;
+&lt;p&gt;为了提取丰富的上下文信息，之前的工作使用了FCN、ASPP等方式，也可以使用基于Attention 注意力机制的方式。为了进一步增加上下文信息，可以使用Graph Reasoning 图推理的方式。&lt;/p&gt;
+&lt;p&gt;对于密集目标、小目标等容易出现特征含糊不清的问题，引入了解耦的多分支的结构。使用多任务学习的方式来解决分割和边缘检测的问题。&lt;/p&gt;
+&lt;h2 id=&#34;相关工作&#34;&gt;相关工作&lt;/h2&gt;
+&lt;p&gt;使用GR的算法中，GloRe使用1D卷积在全连接图上实现图卷积，SPyGR直接在像素空间上做图卷积，忽略了像素空间和语义空间之间的语义差异。CDGC引入了从粗检测到精细化的方式（有点类似OCRNet？）DisenGCN将GCN和Disentangled Learning两者相结合。&lt;/p&gt;
+&lt;h2 id=&#34;本文方法&#34;&gt;本文方法&lt;/h2&gt;
+&lt;p&gt;整体结构图下。首先使用FPN得到层次特征，使用GR模块处理特征。将特征送入双分支解耦学习模块，分别进行前景估计和边缘对齐，最后将所有的特征融合到一起进行预测。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;pgr-disen-structure.png&#34; srcset=&#34;
+               /post/paper-pgr/pgr-disen-structure_hu42f8ef22bf07443464a7487f6234e4fa_749556_1b6c4f43f1efdd36f12839363fd2fc3d.webp 400w,
+               /post/paper-pgr/pgr-disen-structure_hu42f8ef22bf07443464a7487f6234e4fa_749556_4f1285a31cde5c716561f54ffaa91409.webp 760w,
+               /post/paper-pgr/pgr-disen-structure_hu42f8ef22bf07443464a7487f6234e4fa_749556_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-pgr/pgr-disen-structure_hu42f8ef22bf07443464a7487f6234e4fa_749556_1b6c4f43f1efdd36f12839363fd2fc3d.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;353&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;这里的图卷积模块，吸收了HBP 层次双线性池化的思想，将相邻的三个不同分辨率的特征图进行缩放之后计算Hadamard积然后映射到若干个点，然后进行图卷积，最后使用卷积得到的结果对原本的特征相乘在映射回到原本的像素空间中。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;pgr-disen-gr.png&#34; srcset=&#34;
+               /post/paper-pgr/pgr-disen-gr_hu7af98c730b489b2d0f9d0d6f35621975_41429_a08ed3f5d2c397be56ce578b7b000673.webp 400w,
+               /post/paper-pgr/pgr-disen-gr_hu7af98c730b489b2d0f9d0d6f35621975_41429_fd1cebc680eb0e5bb3e8913573be0ce0.webp 760w,
+               /post/paper-pgr/pgr-disen-gr_hu7af98c730b489b2d0f9d0d6f35621975_41429_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-pgr/pgr-disen-gr_hu7af98c730b489b2d0f9d0d6f35621975_41429_a08ed3f5d2c397be56ce578b7b000673.webp&#34;
+               width=&#34;708&#34;
+               height=&#34;250&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;使用HBP 层次双线性池化进行映射的时候有如下公式进行池化。
+$$G_{proj}(F^2, \mathcal{U}(F^1), \mathcal{U}(F^3)) = \frac{1}{H_2W_2}\sum\limits_{i=1}^{H_2W_2} f^2_i\circ f&amp;rsquo;^1_i\circ f&amp;rsquo;^3_i$$&lt;/p&gt;
+&lt;p&gt;最后按通道分成g组，即 $C = g\times d$ ，可以认为分成了g个节点，每一个节点的特征维度为d（可以认为是d个像素空间的点构成了一个图空间的点）。在进行图卷积的时候，令 $H = \sigma(A_g X W_g)$ ，其中 $A_g\in R^{N\times N},X\in R^{N \times C},W_g\in R^{C\times F}$ ，这里的$N$就是上面的$g$，$C$就是上面的$d$。&lt;/p&gt;
+&lt;p&gt;在邻接矩阵的设计上，使用了四种不同的策略，分别是固定为一跳邻居、单位阵初始化的可学习参数、正态分布初始化的可学习参数、均匀分布初始化的可学习参数。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;pgr-disen-adj.png&#34; srcset=&#34;
+               /post/paper-pgr/pgr-disen-adj_hubce0fc37d4f14e646f179ebf00ee670e_78264_a79abd52f3160dacce050992d11ece86.webp 400w,
+               /post/paper-pgr/pgr-disen-adj_hubce0fc37d4f14e646f179ebf00ee670e_78264_17222b45add156dc27f84114a6c75a1a.webp 760w,
+               /post/paper-pgr/pgr-disen-adj_hubce0fc37d4f14e646f179ebf00ee670e_78264_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-pgr/pgr-disen-adj_hubce0fc37d4f14e646f179ebf00ee670e_78264_a79abd52f3160dacce050992d11ece86.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;252&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;最后在反向映射的过程中，采用了类似SE-Net的方式，将图卷积得到的结果作为通道注意力与原始数据相乘。&lt;/p&gt;
+&lt;p&gt;在前景估计分支，作者使用了贝叶斯理论, 实际结构是学习得到一个分割图然后concat起来。使用了 $B = \delta(M_{fg} \cdot I\parallel (1-M_{fg}) \cdot I \parallel I)$ 的拼接方式。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;pgr-disen-entimation.png&#34; srcset=&#34;
+               /post/paper-pgr/pgr-disen-fg-entimation_hu39e31c122b11baf80fda755c39575483_96734_d7c214f8f9c1a65893de4f0ed376a1b6.webp 400w,
+               /post/paper-pgr/pgr-disen-fg-entimation_hu39e31c122b11baf80fda755c39575483_96734_553d67e70d91f4335104636b7bbba46e.webp 760w,
+               /post/paper-pgr/pgr-disen-fg-entimation_hu39e31c122b11baf80fda755c39575483_96734_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-pgr/pgr-disen-fg-entimation_hu39e31c122b11baf80fda755c39575483_96734_d7c214f8f9c1a65893de4f0ed376a1b6.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;288&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;在边界对齐模块，作者号称使用了类似Optical Flow 光流的思想，学习得到一个类似光流的边界检测图然后与原本的特征相结合。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;pgr-disen-bam.png&#34; srcset=&#34;
+               /post/paper-pgr/pgr-disen-bam_hu9308b3195789f8350ee447770743ed12_69347_d17ddba4976fef5bd87de8a377c734e1.webp 400w,
+               /post/paper-pgr/pgr-disen-bam_hu9308b3195789f8350ee447770743ed12_69347_1002431e9a39250de6d30aa15a451515.webp 760w,
+               /post/paper-pgr/pgr-disen-bam_hu9308b3195789f8350ee447770743ed12_69347_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-pgr/pgr-disen-bam_hu9308b3195789f8350ee447770743ed12_69347_d17ddba4976fef5bd87de8a377c734e1.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;435&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;在最后损失函数设计上，对于最后的分割使用Cross Emtropy 交叉熵，前景使用BCE_Loss和Dice Loss，添加了类似PSPNet中的辅助Loss。&lt;/p&gt;
+&lt;h2 id=&#34;结果分析&#34;&gt;结果分析&lt;/h2&gt;
+&lt;p&gt;在iSAID数据集和Vaihingen、Cityscapes数据集上测试了性能。
+基本模型结构使用预训练的ResNet-50/101。&lt;/p&gt;
+&lt;p&gt;简单看一下Ablation Study的效果。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;pgr-disen-ablation.png&#34; srcset=&#34;
+               /post/paper-pgr/pgr-disen-ablation_hu24765524787a58c68c7eace6997cea4b_123171_914aee42f9e522e84faf29050ee657f2.webp 400w,
+               /post/paper-pgr/pgr-disen-ablation_hu24765524787a58c68c7eace6997cea4b_123171_dccf4094bbbb4bae7b9225a66c84ebd3.webp 760w,
+               /post/paper-pgr/pgr-disen-ablation_hu24765524787a58c68c7eace6997cea4b_123171_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-pgr/pgr-disen-ablation_hu24765524787a58c68c7eace6997cea4b_123171_914aee42f9e522e84faf29050ee657f2.webp&#34;
+               width=&#34;659&#34;
+               height=&#34;760&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
+&lt;p&gt;使用了图推理的方式提取上下文信息。这一部分的论文还蛮多的，这里用了一种分组的方式来进行处理。比直接使用像素点的节约时间和空间，用通道注意力的方式进行反向映射的方式也成本比较低。&lt;/p&gt;
+&lt;p&gt;使用了多分支的模型，分别学习分割图和边缘检测。利用边缘检测增强分割效果的想法蛮常见的。例如【论文】Boundary-aware Graph Reasoning for Semantic Segmentation或者【论文】Real-time Scene Text Detection with Differentiable Binarization|。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【论文】Tensor Low-Rank Reconstruction for Semantic Segmentation</title>
+      <link>https://yangleisx.github.io/post/paper-low-rank-sep/</link>
+      <pubDate>Wed, 06 Jul 2022 10:12:10 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/paper-low-rank-sep/</guid>
+      <description>&lt;p&gt;论文题目：Tensor Low-Rank Reconstruction for Semantic Segmentation&lt;/p&gt;
+&lt;p&gt;作者：Wanli Chen, Xinge Zhu, Ruoqi Sun, Junjun He, Ruiyu Li, Xiaoyong Shen, Bei Yu&lt;/p&gt;
+&lt;p&gt;会议/时间：ECCV 2020&lt;/p&gt;
+&lt;p&gt;链接: &lt;a href=&#34;https://link.springer.com/chapter/10.1007/978-3-030-58520-4_4&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;springer&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;本文方法&#34;&gt;本文方法&lt;/h2&gt;
+&lt;p&gt;整体结构如下。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;recos-arch1.png&#34; srcset=&#34;
+               /post/paper-low-rank-sep/recos-arch1_hu069fd8b011d1e96f783ea6641c2f5cfb_112593_2fd73f95fbbdf333ea3c080704b89497.webp 400w,
+               /post/paper-low-rank-sep/recos-arch1_hu069fd8b011d1e96f783ea6641c2f5cfb_112593_b9d3c72cb80ba9153904f90d75b193e2.webp 760w,
+               /post/paper-low-rank-sep/recos-arch1_hu069fd8b011d1e96f783ea6641c2f5cfb_112593_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-low-rank-sep/recos-arch1_hu069fd8b011d1e96f783ea6641c2f5cfb_112593_2fd73f95fbbdf333ea3c080704b89497.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;251&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;低秩分解可以形式化为 $$A = \sum\limits_{i=1}^{r} \lambda_i v_{ci}\otimes v_{hi}\otimes v_{wi}$$&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;recos-arch.png&#34; srcset=&#34;
+               /post/paper-low-rank-sep/recos-arch_hu35440024ba1845106099448d5976593f_42553_6cfb8bc206a938223841e52c387b40ff.webp 400w,
+               /post/paper-low-rank-sep/recos-arch_hu35440024ba1845106099448d5976593f_42553_7b830f0d3adf610b83166ef4a1c77192.webp 760w,
+               /post/paper-low-rank-sep/recos-arch_hu35440024ba1845106099448d5976593f_42553_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-low-rank-sep/recos-arch_hu35440024ba1845106099448d5976593f_42553_6cfb8bc206a938223841e52c387b40ff.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;170&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;特征分解模块的定义如下。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;recos-de.png&#34; srcset=&#34;
+               /post/paper-low-rank-sep/recos-de_hu2b8c5659f1d0de09116353714db60356_71676_192d64e12951fc2b423af58c9b91b813.webp 400w,
+               /post/paper-low-rank-sep/recos-de_hu2b8c5659f1d0de09116353714db60356_71676_0614b8b5deb912c11361099533df9c4e.webp 760w,
+               /post/paper-low-rank-sep/recos-de_hu2b8c5659f1d0de09116353714db60356_71676_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-low-rank-sep/recos-de_hu2b8c5659f1d0de09116353714db60356_71676_192d64e12951fc2b423af58c9b91b813.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;452&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;特征重构模块的定义如下。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;recons-recons.png&#34; srcset=&#34;
+               /post/paper-low-rank-sep/recons-recons_hucbf10b5c5ca3e958955f72c7c975fe4b_69399_383c9b7ba37645e044df0e65d5d8a1b9.webp 400w,
+               /post/paper-low-rank-sep/recons-recons_hucbf10b5c5ca3e958955f72c7c975fe4b_69399_fea66ce5f47eb1edb56ee9d6fc9b4037.webp 760w,
+               /post/paper-low-rank-sep/recons-recons_hucbf10b5c5ca3e958955f72c7c975fe4b_69399_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-low-rank-sep/recons-recons_hucbf10b5c5ca3e958955f72c7c975fe4b_69399_383c9b7ba37645e044df0e65d5d8a1b9.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;330&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;论文里面给了矩阵分解和一些传统方法之间的差异。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;recons-se.png&#34; srcset=&#34;
+               /post/paper-low-rank-sep/recons-se_hu1e2b20a682aa392830359daad6619bbc_18909_1f0342d011e1ac232c9687c3c866b077.webp 400w,
+               /post/paper-low-rank-sep/recons-se_hu1e2b20a682aa392830359daad6619bbc_18909_7bb3a36972c048a74c40c817264b94c5.webp 760w,
+               /post/paper-low-rank-sep/recons-se_hu1e2b20a682aa392830359daad6619bbc_18909_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-low-rank-sep/recons-se_hu1e2b20a682aa392830359daad6619bbc_18909_1f0342d011e1ac232c9687c3c866b077.webp&#34;
+               width=&#34;454&#34;
+               height=&#34;258&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;recons-cbam.png&#34; srcset=&#34;
+               /post/paper-low-rank-sep/recons-cbam_hu14fb0848504c3af276c469b5cb966298_15043_8c05f2f5aea3a3b23f606a371e78cb31.webp 400w,
+               /post/paper-low-rank-sep/recons-cbam_hu14fb0848504c3af276c469b5cb966298_15043_a97f3752f8a53fe60fd41bea092cd6bc.webp 760w,
+               /post/paper-low-rank-sep/recons-cbam_hu14fb0848504c3af276c469b5cb966298_15043_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-low-rank-sep/recons-cbam_hu14fb0848504c3af276c469b5cb966298_15043_8c05f2f5aea3a3b23f606a371e78cb31.webp&#34;
+               width=&#34;708&#34;
+               height=&#34;110&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【论文】Spatial Pyramid Based Graph Reasoning for Semantic Segmentation</title>
+      <link>https://yangleisx.github.io/post/paper-spygr/</link>
+      <pubDate>Wed, 06 Jul 2022 10:01:45 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/paper-spygr/</guid>
+      <description>&lt;p&gt;论文题目：Spatial Pyramid Based Graph Reasoning for Semantic Segmentation&lt;/p&gt;
+&lt;p&gt;作者：Xia Li,Yibo Yang, Qijie Zhao, Tiancheng Shen, Zhouchen Lin, Hong Liu&lt;/p&gt;
+&lt;p&gt;会议/时间：CVPR2020&lt;/p&gt;
+&lt;p&gt;链接: &lt;a href=&#34;https://arxiv.org/abs/2003.10211&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;arXiv&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;论文目标&#34;&gt;论文目标&lt;/h2&gt;
+&lt;p&gt;通过在基于GCN/UNet的结构中添加Graph Reasoning 图推理来引入长距离的上下文信息依赖。使用Non-Local Block等Attention 注意力机制的解决方案计算复杂度比较高。使用图卷积网络的解决方案通常需要首先将网格状的图像数据转换/映射到图网络数据，这个映射过程的成本比较高，而且可学习的映射可能会损失数据中在空间上的关系。&lt;/p&gt;
+&lt;p&gt;通常的图卷积网络定义在非欧式空间中，不能直接添加到现有的CNN结构中，因此论文作者设计了一个数据有关的相似度矩阵作为图卷积中的Laplacian矩阵进行图卷积的计算。&lt;/p&gt;
+&lt;h2 id=&#34;本文方法&#34;&gt;本文方法&lt;/h2&gt;
+&lt;p&gt;整体结构如下，在FCN特征融合的部分添加GR模块，进行长距离依赖的学习。
+
+
+
+$$\begin{align}
+Y^{(s+1)} &amp;= GR(X^{(s+1)}) + \Pi_{up}(Y^{(s)}) \\
+Y^{(0)} &amp;= GR(X^{(0)}) \\
+X^{(s)} &amp;= \Pi_{down}(X^{(s+1)})
+\end{align}$$
+&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;pyramid-gr.png&#34; srcset=&#34;
+               /post/paper-spygr/pyramid-gr_hua88d50e9be7b3cee7c60c017afaca377_674928_d848671f6a2e5737c3b04fd0ec4a585e.webp 400w,
+               /post/paper-spygr/pyramid-gr_hua88d50e9be7b3cee7c60c017afaca377_674928_029a92ebfe656e3e1bd4ad0704f38c8c.webp 760w,
+               /post/paper-spygr/pyramid-gr_hua88d50e9be7b3cee7c60c017afaca377_674928_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-spygr/pyramid-gr_hua88d50e9be7b3cee7c60c017afaca377_674928_d848671f6a2e5737c3b04fd0ec4a585e.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;318&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;考虑到 $H^{l+1} = \sigma(\tilde L H^lW^l)$ 的图卷积网络通用格式，其中 $\tilde L = I - \tilde D^{-\frac{1}{2}} \tilde A \tilde D^{-\frac{1}{2}}$,$\tilde A = A + I$ ，有 $\tilde D_{ii} = \sum_j \tilde A_{ij}$ 。如果不使用欧式空间到图网络空间的映射，直接在特征图上进行图卷积。需要对模型做相应的修改。&lt;/p&gt;
+&lt;p&gt;上式中的 $\tilde A$ 表示正规化之后的邻接矩阵，或者称为相似度矩阵，在这个论文中使用 $\tilde A_{ij} = \phi(X)_i \tilde\Lambda(X) \phi(X)_j^T$ 计算，即使用位置无关但是数据有关的点乘注意力实现。而不是使用训练得到的固定的邻接矩阵。这里的 $\tilde \Lambda$ 的计算方式采用类似通道注意力的方式实现，即先进行GAP然后卷积，最后得到对角矩阵。&lt;/p&gt;
+&lt;p&gt;使用 $\tilde D$ 提供了正则化，不需要再进行Softmax操作。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;pyramid-gr-module.png&#34; srcset=&#34;
+               /post/paper-spygr/pyramid-gr-module_hu1238d42526964fea1e9636e9ca1e81a1_49527_9cf1ec54a0f6f230764943dafc315287.webp 400w,
+               /post/paper-spygr/pyramid-gr-module_hu1238d42526964fea1e9636e9ca1e81a1_49527_4ee2c7c3de0562ceece74e02b3c76a91.webp 760w,
+               /post/paper-spygr/pyramid-gr-module_hu1238d42526964fea1e9636e9ca1e81a1_49527_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-spygr/pyramid-gr-module_hu1238d42526964fea1e9636e9ca1e81a1_49527_9cf1ec54a0f6f230764943dafc315287.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;462&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;在之前的图推理方法中，将像素数据映射到Interspace中，得到图结构的节点数量远少于原本的像素数量，本文中直接实现的在像素域上的计算方法计算量比较大，因此引入了简化方法。即在计算 $\tilde D$ 的时候并不是直接计算 $\tilde A \in R^{HW \times HW}$ ，而是引入一个全1的向量，得到 $\tilde D = diag(\tilde A \cdot \vec 1) = diag(\phi(\tilde\Lambda(\phi^T \cdot \vec 1)))$ ，将所有的矩阵计算变为和一个向量的运算。计算左乘 $\tilde L X$ 的时候使用 $\tilde LX = X - \tilde D^{-\frac{1}{2}} \phi\tilde\Lambda\phi^T\tilde D^{-\frac{1}{2}}X = X - P(\tilde\Lambda(P^TX))$ ，其中 $P = \tilde D^{-\frac{1}{2}}\phi$ 。&lt;/p&gt;
+&lt;h2 id=&#34;结果分析&#34;&gt;结果分析&lt;/h2&gt;
+&lt;p&gt;首先进行Ablation Study。对于GR模块提出的Laplacian各个部分进行对比。可以看到效果提升。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;spygr-ablation.png&#34; srcset=&#34;
+               /post/paper-spygr/spygr-ablation_huec8741a7a4086f59ec669dfad179ae4f_33872_b32cd73615180a77476d4e5e81aa7fb0.webp 400w,
+               /post/paper-spygr/spygr-ablation_huec8741a7a4086f59ec669dfad179ae4f_33872_b3a1229d56c980564da0b7fe56f55955.webp 760w,
+               /post/paper-spygr/spygr-ablation_huec8741a7a4086f59ec669dfad179ae4f_33872_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-spygr/spygr-ablation_huec8741a7a4086f59ec669dfad179ae4f_33872_b32cd73615180a77476d4e5e81aa7fb0.webp&#34;
+               width=&#34;693&#34;
+               height=&#34;335&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;在Cityscapes、Pascal VOC和MS COCO数据集上做了实验。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;spygr-cityscape.png&#34; srcset=&#34;
+               /post/paper-spygr/spygr-cityscape_huf0e89c5e640b42fe0b9bae93bf830710_168459_39a18939874adc1b5367312f767da526.webp 400w,
+               /post/paper-spygr/spygr-cityscape_huf0e89c5e640b42fe0b9bae93bf830710_168459_07064a8f2d92102c24f893bd817cbf17.webp 760w,
+               /post/paper-spygr/spygr-cityscape_huf0e89c5e640b42fe0b9bae93bf830710_168459_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-spygr/spygr-cityscape_huf0e89c5e640b42fe0b9bae93bf830710_168459_39a18939874adc1b5367312f767da526.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;305&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;spygr-coco.png&#34; srcset=&#34;
+               /post/paper-spygr/spygr-coco_hu77a24da1243c1607444b679260beedcc_61234_50ee974f8a73cead750622a0b03c72e8.webp 400w,
+               /post/paper-spygr/spygr-coco_hu77a24da1243c1607444b679260beedcc_61234_c42dbfbf8a8f9c98fcdff277a5966e5c.webp 760w,
+               /post/paper-spygr/spygr-coco_hu77a24da1243c1607444b679260beedcc_61234_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-spygr/spygr-coco_hu77a24da1243c1607444b679260beedcc_61234_50ee974f8a73cead750622a0b03c72e8.webp&#34;
+               width=&#34;683&#34;
+               height=&#34;349&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【论文】Embedding Watermarks into Deep Neural Networks</title>
+      <link>https://yangleisx.github.io/post/paper-uchida/</link>
+      <pubDate>Tue, 19 Oct 2021 12:36:21 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/paper-uchida/</guid>
+      <description>&lt;p&gt;论文题目： Embedding Watermarks into Deep Neural Networks&lt;/p&gt;
+&lt;p&gt;作者： Yusuke Uchida, Yuki Nagai,  Shigeyuki Sakazawa&lt;/p&gt;
+&lt;p&gt;会议/时间：ICMR 2017&lt;/p&gt;
+&lt;p&gt;链接: &lt;a href=&#34;https://arxiv.org/pdf/1701.04082.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;arXiv&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;论文目标&#34;&gt;论文目标&lt;/h2&gt;
+&lt;p&gt;目前预训练深度神经网络的应用越来越广，需要一种数字水印技术来保护预训练深度神经网络的知识产权，避免被滥用。论文首先定义了水印技术的场景，并提出了一种水印嵌入技术，可以在模型训练、精调或者蒸馏过程中嵌入到目标模型中且不影响模型性能。并且面对攻击者的精调和剪枝等行为时仍能保留在模型中。&lt;/p&gt;
+&lt;h2 id=&#34;问题定义&#34;&gt;问题定义&lt;/h2&gt;
+&lt;h3 id=&#34;模型水印要求&#34;&gt;模型水印要求&lt;/h3&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;要求&lt;/th&gt;
+&lt;th&gt;解释&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Fidelity&lt;/td&gt;
+&lt;td&gt;添加水印之后模型的性能没有明显下降&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Robustness&lt;/td&gt;
+&lt;td&gt;模型经过修改后水印仍存在&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Capacity&lt;/td&gt;
+&lt;td&gt;水印技术应该能够嵌入大量信息&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Security&lt;/td&gt;
+&lt;td&gt;水印应该难以被他人读写和修改&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Efficiency&lt;/td&gt;
+&lt;td&gt;嵌入和提取水印的过程应该足够快&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;模型水印嵌入方法&#34;&gt;模型水印嵌入方法&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;在训练过程中嵌入（Train From Scratch）&lt;/li&gt;
+&lt;li&gt;在精调过程中嵌入（Fine-Tuning）&lt;/li&gt;
+&lt;li&gt;在蒸馏过程中嵌入（Model Distillation）&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;攻击方法&#34;&gt;攻击方法&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;精调（Fine Tuning）&lt;/li&gt;
+&lt;li&gt;模型压缩（Model Compression）&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;本文方法&#34;&gt;本文方法&lt;/h2&gt;
+&lt;p&gt;主要考虑卷积神经网络中卷积层的参数。对于一个$Kernel-Size=S$，输入通道数为$D$，输出通道数（卷积核数量）为$L$的卷积层，不考虑偏置，其参数为$W \in \mathbb{R}^{S\times S\times D\times L}$。计算多个卷积核的均值
+$ {\bar W}_{i,j,k}=\frac{1}{L}\sum_l W_{i,j,k,l} $，并展平得到$w \in \mathbb{R}^M(M = S\times S\times D)$作为嵌入的目标。将$T$-bit的信息$b\in {0,1}^T$嵌入其中。&lt;/p&gt;
+&lt;p&gt;在提取时，使用$b_j = s(\sum_i X_{ji}\omega_i)$计算嵌入的信息。其中$\omega$表示卷积核均值，$X \in \mathbb{R}^{T \times M}$表示嵌入密钥，$s(\cdot)$为阶跃函数。&lt;/p&gt;
+&lt;p&gt;在训练时，为了将信息嵌入模型中，在原本的损失函数上添加了一个权重参数正则项$E(\omega)=E_0(\omega)+\lambda E_R(\omega)$。&lt;/p&gt;
+&lt;p&gt;考虑到上述的模型提取方式类似二分类方法，因此添加的权重参数正则项使用BCE损失，使用训练过程中的参数提取结果作为监督。&lt;/p&gt;
+
+
+
+$$\begin{aligned}
+E_R(\omega)=&amp; -\sum\limits_{j=1}^{T}(b_j \log(y_j)+(1-b_j)\log(1-y_j)) \\
+y_j =&amp; \sigma(\sum_i X_{ji}\omega_i)\\
+\sigma(x) =&amp; \frac{1}{1+\exp(-x)}
+\end{aligned}$$
+
+&lt;p&gt;关于密钥$X$的设计，考虑到水印的性能，有三种设计形式：$X^{direct}$的每一行为独热码，直接将信息映射到参数中。$X^{diff}$的每一行包含一个1和一个-1，其他的为0，将信息映射到参数的差值中。$X^{random}$的数字采样于标准正态分布。&lt;/p&gt;
+&lt;h2 id=&#34;结果分析&#34;&gt;结果分析&lt;/h2&gt;
+&lt;h3 id=&#34;ablation-study&#34;&gt;Ablation Study&lt;/h3&gt;
+&lt;p&gt;关于密钥$W$的设计，实验证明使用$X^{direct}$和$X^{diff}$嵌入都会造成较大的性能下降。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;uchilda-ablation1.png&#34; srcset=&#34;
+               /post/paper-uchida/uchilda-ablation1_hu020f76b2fac645ca040c9c2b8808f584_142443_1bd43ab42c65fc7fdb45609cc364b9c1.webp 400w,
+               /post/paper-uchida/uchilda-ablation1_hu020f76b2fac645ca040c9c2b8808f584_142443_ccbcb82027d7180cd0974a8bdfd23099.webp 760w,
+               /post/paper-uchida/uchilda-ablation1_hu020f76b2fac645ca040c9c2b8808f584_142443_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-uchida/uchilda-ablation1_hu020f76b2fac645ca040c9c2b8808f584_142443_1bd43ab42c65fc7fdb45609cc364b9c1.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;543&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;uchilda-ablation2.png&#34; srcset=&#34;
+               /post/paper-uchida/uchilda-ablation2_huaef4544ec3ceb6f08c6e3feb7087e296_46728_1e07467dd2f6378ce66c6b35ed63ff23.webp 400w,
+               /post/paper-uchida/uchilda-ablation2_huaef4544ec3ceb6f08c6e3feb7087e296_46728_1ab0144af431bf0f6e6e89f66de398d8.webp 760w,
+               /post/paper-uchida/uchilda-ablation2_huaef4544ec3ceb6f08c6e3feb7087e296_46728_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-uchida/uchilda-ablation2_huaef4544ec3ceb6f08c6e3feb7087e296_46728_1e07467dd2f6378ce66c6b35ed63ff23.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;275&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;而且可以看到$X^{random}$不仅不造成性能下降，而且对原始的参数分布影响不大。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;uchilda-abliation3.png&#34; srcset=&#34;
+               /post/paper-uchida/uchilda-abliation3_hu8a490fff758d59cf3b93fae55dab670d_249995_a6ed559bf7cbc000374f8c1d8b49bcee.webp 400w,
+               /post/paper-uchida/uchilda-abliation3_hu8a490fff758d59cf3b93fae55dab670d_249995_e82fa27997d65097fbd4801db80fb355.webp 760w,
+               /post/paper-uchida/uchilda-abliation3_hu8a490fff758d59cf3b93fae55dab670d_249995_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-uchida/uchilda-abliation3_hu8a490fff758d59cf3b93fae55dab670d_249995_a6ed559bf7cbc000374f8c1d8b49bcee.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;437&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;经过实验发现，当嵌入的信息量超过卷积层参数数量的时候，嵌入损失和性能下降会变得明显。而且采用直接嵌入的方式会难以在性能下降和嵌入损失之间达到均衡。&lt;/p&gt;
+&lt;h3 id=&#34;robustness&#34;&gt;Robustness&lt;/h3&gt;
+&lt;p&gt;实验证实这一方法可以应对Fine-Tuning和迁移学习。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;uchilda-robust1.png&#34; srcset=&#34;
+               /post/paper-uchida/uchilda-robust1_huccaa388cb5e18fe485032a5cd4aac933_80855_1e815e01e225c4374d4915f17889c389.webp 400w,
+               /post/paper-uchida/uchilda-robust1_huccaa388cb5e18fe485032a5cd4aac933_80855_ec7316e2cd02db623a28f1750a8e7ecd.webp 760w,
+               /post/paper-uchida/uchilda-robust1_huccaa388cb5e18fe485032a5cd4aac933_80855_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-uchida/uchilda-robust1_huccaa388cb5e18fe485032a5cd4aac933_80855_1e815e01e225c4374d4915f17889c389.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;177&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;面对剪枝操作时，特别是按照权重升序的剪枝方法时仍然能保留水印。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;uchilda-pruning1.png&#34; srcset=&#34;
+               /post/paper-uchida/uchilda-pruning1_hue91a7d15437d84b47e8ef38ad2aed188_91203_27b08dd1792170c989c0f5c347a2b6a4.webp 400w,
+               /post/paper-uchida/uchilda-pruning1_hue91a7d15437d84b47e8ef38ad2aed188_91203_c46dae44bca9c8d43f6139b063b93ec3.webp 760w,
+               /post/paper-uchida/uchilda-pruning1_hue91a7d15437d84b47e8ef38ad2aed188_91203_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-uchida/uchilda-pruning1_hue91a7d15437d84b47e8ef38ad2aed188_91203_27b08dd1792170c989c0f5c347a2b6a4.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;601&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;uchilda-pruning2.png&#34; srcset=&#34;
+               /post/paper-uchida/uchilda-pruning2_hu3941a9e9d4bde31df4b05641e9000461_73404_c9f333fa2af0b1a553759469bced3d65.webp 400w,
+               /post/paper-uchida/uchilda-pruning2_hu3941a9e9d4bde31df4b05641e9000461_73404_370e6c1705370d35e683fb378e996f50.webp 760w,
+               /post/paper-uchida/uchilda-pruning2_hu3941a9e9d4bde31df4b05641e9000461_73404_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-uchida/uchilda-pruning2_hu3941a9e9d4bde31df4b05641e9000461_73404_c9f333fa2af0b1a553759469bced3d65.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;629&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
+&lt;p&gt;提出了一种，为权重参数添加正则项的水印嵌入方法，其水印提取是通过矩阵映射的方式实现的。具有一定的鲁棒性。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【论文】Look More Than Once: An Accurate Detector for Text of Arbitrary Shapes</title>
+      <link>https://yangleisx.github.io/post/paper-lomo/</link>
+      <pubDate>Fri, 15 Oct 2021 16:19:26 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/paper-lomo/</guid>
+      <description>&lt;p&gt;论文题目：Look More Than Once: An Accurate Detector for Text of Arbitrary Shapes&lt;/p&gt;
+&lt;p&gt;作者：Chengquan Zhang， Borong Liang， Zuming Huang， Mengyi En，Junyu Han，Errui Ding， Xinghao Ding&lt;/p&gt;
+&lt;p&gt;会议/时间：CVPR2019&lt;/p&gt;
+&lt;p&gt;链接: &lt;a href=&#34;https://ieeexplore.ieee.org/document/8953775&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;ieeexplore&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;论文目标&#34;&gt;论文目标&lt;/h2&gt;
+&lt;p&gt;现有模型受到感受野的限制，很难实现对于长文本和弯曲文本的准确识别。论文中设计实现了一个LOMO网络，首先通过DR获得粗检测结果，再使用IRM迭代优化结果，最后使用SEM得到任意多边形的文本检测结果。&lt;/p&gt;
+&lt;h2 id=&#34;相关工作&#34;&gt;相关工作&lt;/h2&gt;
+&lt;p&gt;目前的文本检测有三种思路：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;基于Component，检测到文本部分然后通过后处理合并。例如CTPN、SegLink、WordSup等。&lt;/li&gt;
+&lt;li&gt;基于Detection，类似通用的目标检测。例如TextBoxes、RRD、RRPN、EAST等。&lt;/li&gt;
+&lt;li&gt;基于Segmentation，类似语义分割。例如TextSnake、PSENet等。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;本文方法&#34;&gt;本文方法&lt;/h2&gt;
+&lt;p&gt;整体的模型结构如下。基本的特征提取部分使用ResNet50和FPN实现。最终得到1/4大小的128通道的特征图。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;lomo_structure&#34; srcset=&#34;
+               /post/paper-lomo/lomo_structure_hue5e8f1c01a26b4b030fc1d74546bd49e_76805_90fa04cb99324adf5342fc0c2d8bb44f.webp 400w,
+               /post/paper-lomo/lomo_structure_hue5e8f1c01a26b4b030fc1d74546bd49e_76805_8154e8a1b9b69e022ffc9331f28fdd46.webp 760w,
+               /post/paper-lomo/lomo_structure_hue5e8f1c01a26b4b030fc1d74546bd49e_76805_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-lomo/lomo_structure_hue5e8f1c01a26b4b030fc1d74546bd49e_76805_90fa04cb99324adf5342fc0c2d8bb44f.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;222&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;提取到的图像特征首先经过Direct Regressor得到粗检测结果。这里DR的设计与EAST基本相同，包括test/non-text分类结果和四个边界点的偏移值。在训练分类结果时使用了一种改进的Dice-Loss。其中的权重$w$被设置为与文本框的短边长度称反比。
+$$L_{cls} = 1 - \frac{2 * sum(y * \hat{y} * w)}{sum(y*w) + sum(\hat{y} * w)}$$&lt;/p&gt;
+&lt;p&gt;IRM的结构如下。首先根据DR的结果，从FPN的特征中使用ROI Transform提取特征，并使用卷积和Sigmoid激活得到四个通道的注意力图（分别为四个边角）。通过Reduce-Sum和卷积得到四个边角的偏移量。对DR的结果进行修正。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;lomo_irm&#34; srcset=&#34;
+               /post/paper-lomo/lomo_irm_hua6a8cc7fafa855021711f1ab194f25b8_224730_030a8c2816d9869d78572a4437806822.webp 400w,
+               /post/paper-lomo/lomo_irm_hua6a8cc7fafa855021711f1ab194f25b8_224730_1de9dc4e39bd20eab806ddac74fa802e.webp 760w,
+               /post/paper-lomo/lomo_irm_hua6a8cc7fafa855021711f1ab194f25b8_224730_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-lomo/lomo_irm_hua6a8cc7fafa855021711f1ab194f25b8_224730_030a8c2816d9869d78572a4437806822.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;408&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;IRM部分的损失函数为使用Smoothed-L1来监督。
+$$L_{irm} = \frac{1}{K*8}\sum\limits_{k=1}^{K}\sum\limits_{j=1}^{8}smooth_{L1}(c_k^j - \hat{c}_k^j)$$&lt;/p&gt;
+&lt;p&gt;SEM的结构如下。根据IRM修正之后的结果，进一步得到多边形框的结果。除去上述检测框中的背景部分。首先同样是使用ROI Transform提取特征，然后经过两次上采样之后，再生成预测结果，包括文本区域、文本中心线（收缩后的文本区域）、边界偏置。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;lomo_sem&#34; srcset=&#34;
+               /post/paper-lomo/lomo_sem_hu197b4a28fc238235005fe279f206a35c_463791_dcab21e3b7cb6bbd41effc2d60e9e701.webp 400w,
+               /post/paper-lomo/lomo_sem_hu197b4a28fc238235005fe279f206a35c_463791_c500b747ebe86e80595781b39993d294.webp 760w,
+               /post/paper-lomo/lomo_sem_hu197b4a28fc238235005fe279f206a35c_463791_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-lomo/lomo_sem_hu197b4a28fc238235005fe279f206a35c_463791_dcab21e3b7cb6bbd41effc2d60e9e701.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;334&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;要想得到文本检测结果，需要首先在文本中心线上采样N个点，然后根据边界偏置得到文本行的上下边界上的控制点，相连接得到多边形框。&lt;/p&gt;
+&lt;p&gt;在训练时，首先使用生成数据对DR部分进行训练，然后才使用真实数据同时训练三个分支。为了防止训练时DR产生的错误结果影响另外两分支的训练，将DR结果中的50%随机替换为GT。在预测的时候DR的结果经过NMS之后再经过多次IRM，最后通过SEM得到结果。&lt;/p&gt;
+&lt;h2 id=&#34;结果分析&#34;&gt;结果分析&lt;/h2&gt;
+&lt;p&gt;ablation study显示，IRM迭代次数增加可以提升模型性能，但是相应的处理时间增加，因此权衡之后设置为2。在IRM中，添加四个角点的注意力图也可以提升模型性能。&lt;/p&gt;
+&lt;p&gt;ablation study显示，添加SEM可以显著提升模型性能（7.17%）。对于SEM结果的处理中，采样点数量增加效果提升并逐渐收敛，因此选择为7。&lt;/p&gt;
+&lt;p&gt;在长文本数据集ICDAR2017-RCTW上的效果如下。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;lomo_exp&#34; srcset=&#34;
+               /post/paper-lomo/lomo_exp_hue6cf532ef9bb217ee46ab7eb14485d58_87274_c25b22cd1421810eef90d6091023cd11.webp 400w,
+               /post/paper-lomo/lomo_exp_hue6cf532ef9bb217ee46ab7eb14485d58_87274_013795f36ed5a8900db90377dbb84780.webp 760w,
+               /post/paper-lomo/lomo_exp_hue6cf532ef9bb217ee46ab7eb14485d58_87274_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-lomo/lomo_exp_hue6cf532ef9bb217ee46ab7eb14485d58_87274_c25b22cd1421810eef90d6091023cd11.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;369&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;在弯曲文本数据集ICDAR2015上的效果如下。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;lomo_exp_ic15&#34; srcset=&#34;
+               /post/paper-lomo/lomo_exp_ic15_hu6ba3ca2b944b614b37850df321849ae3_197529_368999009f1fcda3df853bd004c83b20.webp 400w,
+               /post/paper-lomo/lomo_exp_ic15_hu6ba3ca2b944b614b37850df321849ae3_197529_550e6de229affa5bc7a23a582e8b28b9.webp 760w,
+               /post/paper-lomo/lomo_exp_ic15_hu6ba3ca2b944b614b37850df321849ae3_197529_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-lomo/lomo_exp_ic15_hu6ba3ca2b944b614b37850df321849ae3_197529_368999009f1fcda3df853bd004c83b20.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;735&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;在多语言数据集ICDAR2017-MLT上的效果如下。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;lomo_exp_ic17&#34; srcset=&#34;
+               /post/paper-lomo/lomo_exp_ic17_hu48cfa2842547b2094ad750e232ad9020_114588_31408eaa332c57853f96034bb042dbfa.webp 400w,
+               /post/paper-lomo/lomo_exp_ic17_hu48cfa2842547b2094ad750e232ad9020_114588_12907b4145ded085e0c5feb464cdef92.webp 760w,
+               /post/paper-lomo/lomo_exp_ic17_hu48cfa2842547b2094ad750e232ad9020_114588_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-lomo/lomo_exp_ic17_hu48cfa2842547b2094ad750e232ad9020_114588_31408eaa332c57853f96034bb042dbfa.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;550&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
+&lt;p&gt;设计了IRM在粗检测结果上精调。
+设计了SEM实现文本框形状的优化，从四边形变换为任意形状。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【论文】MOST: A Multi-Oriented Scene Text Detector with Localization Refinement</title>
+      <link>https://yangleisx.github.io/post/paper-most/</link>
+      <pubDate>Fri, 09 Jul 2021 09:35:24 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/paper-most/</guid>
+      <description>&lt;p&gt;论文题目：MOST: A Multi-Oriented Scene Text Detector with Localization Refinement&lt;/p&gt;
+&lt;p&gt;作者：Minghang He, Minghui Liao, Zhibo Yang, Humen Zhong, Jun Tang, Wenqing Cheng, Cong Yao, Yongpan Wang, Xiang Bai&lt;/p&gt;
+&lt;p&gt;会议/时间：CVPR 2021&lt;/p&gt;
+&lt;p&gt;链接: &lt;a href=&#34;https://arxiv.org/abs/2104.01070&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;arXiv&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;论文目标&#34;&gt;论文目标&lt;/h2&gt;
+&lt;p&gt;传统的文本检测算法对于长文本和小文本的检测效果比较差。为了解决长文本和小文本的检测问题，引入了新的NMS、IoU Loss和特征对齐模块。&lt;/p&gt;
+&lt;p&gt;例如在EAST中，由于使用分类输出作为NMS的权重，而且模型感受野比较小，很难获得足够的信息检测到长文本。&lt;/p&gt;
+&lt;h2 id=&#34;相关工作&#34;&gt;相关工作&lt;/h2&gt;
+&lt;p&gt;现有的文本检测算法主要包括两种思路，自下而上和自上而下。其中前者主要是检测到文本中的部分元素，然后合并得到完整的检测结果，包括SegLink、TextSnake、CRAFT、PSENet等，由于需要复杂的后处理算法处理模型的输出结果，整体的处理效率受限制，而且后处理算法的效果也会影响到整体的结果。后者直接使用模型输出文本边框的检测结果，包括EAST、TextBoxes等。自上而下的又可以分为一阶段的和两阶段的，前者直接输出模型结果，后者包括Mask TextSpotter系列，使用类似Mask R-CNN的思路，首先使用RPN输出Proposal。&lt;/p&gt;
+&lt;p&gt;在LOMO模型中，使用了迭代优化模型，使用RoI Transform迭代优化模型结果，从而解决长文本的检测问题。&lt;/p&gt;
+&lt;h2 id=&#34;本文方法&#34;&gt;本文方法&lt;/h2&gt;
+&lt;p&gt;模型整体结构如下，特征提取模块使用了基于ResNet50的FPN网络，上下两个分支来自EAST中的分类和位置预测图。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;most-pipeline.png&#34; srcset=&#34;
+               /post/paper-most/most-pipeline_hub31138c7ee6e9798cb996bcbff1b8f7d_346123_90d84ada2f6cfb838eedfe8a52152213.webp 400w,
+               /post/paper-most/most-pipeline_hub31138c7ee6e9798cb996bcbff1b8f7d_346123_cf9492e490e7456149c388e67ec49618.webp 760w,
+               /post/paper-most/most-pipeline_hub31138c7ee6e9798cb996bcbff1b8f7d_346123_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-most/most-pipeline_hub31138c7ee6e9798cb996bcbff1b8f7d_346123_90d84ada2f6cfb838eedfe8a52152213.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;301&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;来自EAST的两个分支的监督与EAST相同。分类分支使用向内收缩后的文本框表示，位置预测图包括四个通道，表示当前位置距离文本框上下左右的距离。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;most-gt.png&#34; srcset=&#34;
+               /post/paper-most/most-gt_hu7103210d8ba9e0b562c6310c4fffebfc_451183_8653220c4fee0ef897227ab56f9ddf65.webp 400w,
+               /post/paper-most/most-gt_hu7103210d8ba9e0b562c6310c4fffebfc_451183_b2f8e574cb9fb0d08a8db18c8a90d11b.webp 760w,
+               /post/paper-most/most-gt_hu7103210d8ba9e0b562c6310c4fffebfc_451183_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-most/most-gt_hu7103210d8ba9e0b562c6310c4fffebfc_451183_8653220c4fee0ef897227ab56f9ddf65.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;240&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;TFAM的结构如下。首先生成粗检测结果，然后将粗检测结果和特征传入变形卷积层中。其中变形卷积选择采样点有两种方式，分别是Feature-Based Sampling和Localization-Based Sampling。其中，前者是使用额外的卷积来计算采样点的偏移量，后者是直接使用当前点预测的粗检测框的位置作为偏移后的采样点。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;most-tfam.png&#34; srcset=&#34;
+               /post/paper-most/most-tfam_hu6803c23a0ad86228c678a3104e3dbd5b_432206_9ed97911bd2b65e0d3fd48fd5842fcc2.webp 400w,
+               /post/paper-most/most-tfam_hu6803c23a0ad86228c678a3104e3dbd5b_432206_1a6bfc22dff6cae982f62af9d8290c2b.webp 760w,
+               /post/paper-most/most-tfam_hu6803c23a0ad86228c678a3104e3dbd5b_432206_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-most/most-tfam_hu6803c23a0ad86228c678a3104e3dbd5b_432206_9ed97911bd2b65e0d3fd48fd5842fcc2.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;512&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;本文中提出的Position-awareness NMS与EAST中的locality-awareness NMS不同。在EAST中进行的NMS是，是利用加权平均的方式，使用Text/Non-Text分类的结果作为权值进行加权和然后进行正常的NMS。&lt;/p&gt;
+&lt;p&gt;本文中提出的PA-NMS基于一个假设，距离边界越近的点，得到的距离边界的距离越准确，因此在聚合的时候使用的权重为当前点距离边界的位置。当使用边框p和q聚合得到m时，计算过程如下。其中TBLR分别为EAST输出的Geo-Map的四个通道，即Position-Awareness Map。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;most-panms.png&#34; srcset=&#34;
+               /post/paper-most/most-panms_hua80365d90b236e6f2e7f6ba060013aca_83329_0e302c004c8515de1a9b0172c204ab27.webp 400w,
+               /post/paper-most/most-panms_hua80365d90b236e6f2e7f6ba060013aca_83329_a8cd634d2d0323fdcbdd20baf445786c.webp 760w,
+               /post/paper-most/most-panms_hua80365d90b236e6f2e7f6ba060013aca_83329_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-most/most-panms_hua80365d90b236e6f2e7f6ba060013aca_83329_0e302c004c8515de1a9b0172c204ab27.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;277&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;其中Position-Awareness Map（相当于EAST中的Geo-Map归一化到0-1）的生成方式如下。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;most-pamap.png&#34; srcset=&#34;
+               /post/paper-most/most-pamap_hua804e58035a47ad1df6d5d88dfa673dd_52251_039a270f42ddd0c3ed534b8bf53f1904.webp 400w,
+               /post/paper-most/most-pamap_hua804e58035a47ad1df6d5d88dfa673dd_52251_f1386455a4a7e6d0ec986a8c805c3c1c.webp 760w,
+               /post/paper-most/most-pamap_hua804e58035a47ad1df6d5d88dfa673dd_52251_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-most/most-pamap_hua804e58035a47ad1df6d5d88dfa673dd_52251_039a270f42ddd0c3ed534b8bf53f1904.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;252&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;在损失函数的选择上，原本EAST中使用IoU-Loss。但是文中提到如下观点。因此引入了Instance-wise IoU Loss。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;the large text region contains far more positive samples than the small text region, which makes the regression loss bias towards large and long text instances.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;其中$N_t$为Text Instance的数量，$S_j$为每个Text Instance中Positive Sample的数量。（这里我没有很清楚具体Text Instance和Positive Sample的定义，为理解为对于每一个Text/Non-Text分类为真的点都要计算IoU，对于面积比较大的文本计算IoU的次数比较多，导致模型偏重大文本和长文本。）
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;most-insiou.png&#34; srcset=&#34;
+               /post/paper-most/most-insiou_huc1f2e63174bd72e887a50fc6f8bf9a73_28498_116a830ef35c364f0388ca9fc05ef442.webp 400w,
+               /post/paper-most/most-insiou_huc1f2e63174bd72e887a50fc6f8bf9a73_28498_c1bdb124d511971e01531898f032fbee.webp 760w,
+               /post/paper-most/most-insiou_huc1f2e63174bd72e887a50fc6f8bf9a73_28498_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-most/most-insiou_huc1f2e63174bd72e887a50fc6f8bf9a73_28498_116a830ef35c364f0388ca9fc05ef442.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;176&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;最终的损失函数定义如下，完整的损失包括分类损失、检测损失、位置损失。分类损失使用BCE-Loss计算，位置损失使用Smoothed L1-Loss计算。在检测损失中包括了检测结果的IoU-Loss和边界框角度的Cosine-Loss。
+
+
+
+$$\begin{align}
+L &amp;= L_s + \lambda_{gc} L_{gc} + \lambda_{gr} L_{gr}+ \lambda_{p} L_{p} \\
+L_s &amp;= \operatorname{BCE-Loss}() \\
+L_g &amp;= L_{iou} + \lambda_{i} L_{ins-iou} + \lambda_{\theta} L_{\theta} \\
+L_{\theta} &amp;= \frac{1}{|\Omega|}\sum\limits_{i \in \Omega}1-\cos (\hat{\theta_i} - \theta_i^*) \\
+L_p &amp;= \frac{1}{4|\Omega|}\sum\limits_{i \in \Omega}\sum\limits_{\Psi \in \{L,R,T,B\}}\operatorname{SmoothedL1}(\hat{\Psi_i}-\Psi_i^*)
+\end{align}$$
+&lt;/p&gt;
+&lt;h2 id=&#34;结果分析&#34;&gt;结果分析&lt;/h2&gt;
+&lt;p&gt;在数据集SynthText上预训练，在数据集MLT17、MTWI、IC15、MSRA-TD500(with HUST-TR400)上训练和测试。&lt;/p&gt;
+&lt;p&gt;在Ablation Study中，证明Localization-Based Sampling相比Feature-Based Sampling效果更好，而同时结合这两种的效果最好。同时也证明了本文中提出的TFAM、PA-NMS、Instance-wise IoU Loss都能提升模型的性能。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;ablation&#34; srcset=&#34;
+               /post/paper-most/most-ablation_hue0c9503d6af440e8a3f646eaf775485f_152871_5af1d345682da5bb47713e36183257c6.webp 400w,
+               /post/paper-most/most-ablation_hue0c9503d6af440e8a3f646eaf775485f_152871_df100e4cfc453b26b2436f2f70e01c17.webp 760w,
+               /post/paper-most/most-ablation_hue0c9503d6af440e8a3f646eaf775485f_152871_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-most/most-ablation_hue0c9503d6af440e8a3f646eaf775485f_152871_5af1d345682da5bb47713e36183257c6.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;213&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;在与SOTA模型的比较中，MOST也都能获得不错的性能提升。&lt;/p&gt;
+&lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
+&lt;p&gt;为了解决长文本的检测问题，引入了TFAM扩展感受野修正粗检测结果。
+为了解决不同大小的文本的检测问题，引入了Instance-wise IoU Loss，防止损失函数过度关注大文本和长文本目标。
+在NMS阶段引入了Position-Aware NMS，可以更好的合并检测框。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>【论文】Shape Robust Text Detection with Progressive Scale Expansion Network</title>
-      <link>https://yangleisx.github.io/post/psenet/</link>
-      <pubDate>Sat, 20 Jan 2024 20:20:17 +0800</pubDate>
-      <guid>https://yangleisx.github.io/post/psenet/</guid>
+      <link>https://yangleisx.github.io/post/paper-psenet/</link>
+      <pubDate>Thu, 19 Nov 2020 10:55:55 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/paper-psenet/</guid>
       <description>&lt;p&gt;论文题目：Shape Robust Text Detection with Progressive Scale Expansion Network&lt;/p&gt;
 &lt;p&gt;作者：Wenhai Wang, Enze Xie, Xiang Li, Wenbo Hou, Tong Lu, Gang Yu, Shuai Shao&lt;/p&gt;
 &lt;p&gt;会议/时间：CVPR2019&lt;/p&gt;
@@ -50,10 +1312,10 @@
 &lt;figure  &gt;
   &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
     &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;algorithm&#34; srcset=&#34;
-               /post/psenet/algorithm_hud4cda9c211fdf528e67360bca4084d03_138031_d0c1d0e711bbff73edf17c946f5196ad.webp 400w,
-               /post/psenet/algorithm_hud4cda9c211fdf528e67360bca4084d03_138031_6a4e39df643c92d65b747a3533f377a0.webp 760w,
-               /post/psenet/algorithm_hud4cda9c211fdf528e67360bca4084d03_138031_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
-               src=&#34;https://yangleisx.github.io/post/psenet/algorithm_hud4cda9c211fdf528e67360bca4084d03_138031_d0c1d0e711bbff73edf17c946f5196ad.webp&#34;
+               /post/paper-psenet/algorithm_hud4cda9c211fdf528e67360bca4084d03_138031_d0c1d0e711bbff73edf17c946f5196ad.webp 400w,
+               /post/paper-psenet/algorithm_hud4cda9c211fdf528e67360bca4084d03_138031_6a4e39df643c92d65b747a3533f377a0.webp 760w,
+               /post/paper-psenet/algorithm_hud4cda9c211fdf528e67360bca4084d03_138031_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-psenet/algorithm_hud4cda9c211fdf528e67360bca4084d03_138031_d0c1d0e711bbff73edf17c946f5196ad.webp&#34;
                width=&#34;760&#34;
                height=&#34;564&#34;
                loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
@@ -95,6 +1357,220 @@ W_{x,y} &amp;= \left\{
 &lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
 &lt;p&gt;使用了基于FPN的结构，将不同尺度的特征图上采样并连接在一起。&lt;/p&gt;
 &lt;p&gt;获得不同尺度下的分割图，再从小到大渐进式的合并，不仅可以检测到任意形状的文本，也可以避免将距离比较近的文本识别为同一对象。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【论文】Non-local Neural Networks</title>
+      <link>https://yangleisx.github.io/post/paper-non-local/</link>
+      <pubDate>Sun, 11 Oct 2020 14:14:05 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/paper-non-local/</guid>
+      <description>&lt;p&gt;论文题目：Non-local Neural Networks&lt;/p&gt;
+&lt;p&gt;作者：Xiaolong Wang, Ross Girshick, Abhinav Gupta, Kaiming He&lt;/p&gt;
+&lt;p&gt;会议/时间：CVPR2018&lt;/p&gt;
+&lt;p&gt;链接：&lt;a href=&#34;https://arxiv.org/abs/1711.07971&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://arxiv.org/abs/1711.07971&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;论文目标&#34;&gt;论文目标&lt;/h2&gt;
+&lt;p&gt;当前的CNN或者RNN结构中的卷积等操作都是针对数据中的一个小区域（local neighborhood）处理和提取特征，并没有考虑到数据中的长期/远距离依赖关系。因此设计一个non-local操作，可以考虑到输入数据中的每一个位置上的特征和依赖关系，学习到全局信息。&lt;/p&gt;
+&lt;h2 id=&#34;相关工作&#34;&gt;相关工作&lt;/h2&gt;
+&lt;p&gt;在CNN中通过多次卷积扩大感受野，在RNN中通过设计迭代模型学习到序列中的远距离特征/信息，但是在实际的每一次处理过程中都只考虑到局部的信息。通过重复处理局部信息获得全局信息不仅计算效率低，而且引入了优化的困难。&lt;/p&gt;
+&lt;p&gt;参考了传统的CV领域使用的non-local mean operation方法。其他相关的内容包括Graphical models、Feedforward modeling for sequences、self-attention、interaction networks、video classification architectures等。实际上self-attention可以看作是non-local的一种情况。&lt;/p&gt;
+&lt;h2 id=&#34;本文思路解决方案&#34;&gt;本文思路/解决方案&lt;/h2&gt;
+&lt;p&gt;通过考虑特征图中每一个位置的加权和来得到特定位置的响应。&lt;/p&gt;
+&lt;p&gt;一方面可以直接学习到数据中远距离的信息，另一方面使用较浅层的网络也能实现比较好的结果，而且作者设计的non-local模块不改变数据的大小，可以方便的插在现有的网络中。&lt;/p&gt;
+&lt;p&gt;简单来说，non-local的思路如下，其中$x_i$为输出位置，$x_j$为数据中的每一个点，使用$f(x_i,x_j)$计算两者之间的关系并作为权重计算输入数据特征$g(x)$的加权和。
+$$
+y_i = \frac{1}{C(x)}\sum\limits_{\forall j}f(x_i, x_j)g(x_j)
+$$
+在实际使用过程中，函数$f(\cdot)$和$g(\cdot)$有多种选择。后者常选用$1\times1\times1$的卷积实现。&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Function Type&lt;/th&gt;
+&lt;th&gt;Pairwise Function&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Gaussian&lt;/td&gt;
+&lt;td&gt;$f(x_i,x_j) = e^{x_i^T x_j}$&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Embedded Gaussian&lt;/td&gt;
+&lt;td&gt;$f(x_i, x_j) =e^{\theta(x_i)^T\phi(x_j)}$&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Dot product&lt;/td&gt;
+&lt;td&gt;$f(x_i,x_j) = \theta(x_i)^T\phi(x_j)$&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Concatenation&lt;/td&gt;
+&lt;td&gt;$f(x_i, x_j) = ReLU(w_f^T[\theta(x_i),\phi(x_j)])$&lt;br /&gt;其中$[\cdot, \cdot]$表示连接得向量并经$w_f$变成标量&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;通过将non-local block定义为残差结构，使得模块输出的形状不发生变化，可以将non-local block插入到已有的预训练模型中，而不改变其性能（$W_z$初始化为0）。通过在较高的特征层加入该block，同时引入降采样，可以减小引入的计算量。
+$$
+z_i = W_z y_i + x_i
+$$&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;non-local-block.png&#34; srcset=&#34;
+               /post/paper-non-local/non-local-block_hub61eb3888fc09e20847c7442e0a9d14a_73071_a93e2641d4f6e406cc22ae567edbc5a0.webp 400w,
+               /post/paper-non-local/non-local-block_hub61eb3888fc09e20847c7442e0a9d14a_73071_5351826cc5d1010ab1a072b78fd03b72.webp 760w,
+               /post/paper-non-local/non-local-block_hub61eb3888fc09e20847c7442e0a9d14a_73071_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-non-local/non-local-block_hub61eb3888fc09e20847c7442e0a9d14a_73071_a93e2641d4f6e406cc22ae567edbc5a0.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;584&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;结果&#34;&gt;结果&lt;/h2&gt;
+&lt;p&gt;经过测试，添加了non-local block的模型具有更高的预测准确率，在non-local block中选择不同的函数计算数据之间的距离（即$f(x_i,x_j)$）对于最后的模型效果影响不大。而且在模型中添加了时空维度上的nonn-local block后效果相比单纯的时间或空间维度的效果更好。&lt;/p&gt;
+&lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
+&lt;p&gt;提出了一种non-local的结构学习数据中距离比较远的特征的影响。并且实现了一种non-local block可以插入到现有的网络结构中并提升其性能。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【论文】Attention is All You Need</title>
+      <link>https://yangleisx.github.io/post/paper-transformer/</link>
+      <pubDate>Tue, 04 Feb 2020 16:40:41 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/paper-transformer/</guid>
+      <description>&lt;p&gt;论文题目: Attention is All You Need&lt;/p&gt;
+&lt;p&gt;开源项目地址:&lt;a href=&#34;https://github.com/tensorflow/tensor2tensor&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;github&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;主要内容&#34;&gt;主要内容&lt;/h2&gt;
+&lt;p&gt;文章实现了一种仅使用attention机制，完全去除卷积网络和循环网络的结构，称为Transformer网络。&lt;/p&gt;
+&lt;p&gt;在实现比较高的准确性的基础上，具有较低的计算成本。&lt;/p&gt;
+&lt;h2 id=&#34;背景&#34;&gt;背景&lt;/h2&gt;
+&lt;p&gt;目前常用的序列处理模型通常使用一个编码器和一个解码器，在两者的连接中使用attention机制，而且编码器和解码器的实现使用复杂的CNN和RNN。&lt;/p&gt;
+&lt;p&gt;由于RNN结构引入的时序逻辑不利于并行计算，引入比较高的计算成本。因此Transformer结构中除去了RNN而仅使用attention结构来学习序列前后的相关性。&lt;/p&gt;
+&lt;p&gt;在transformer中仅使用self-attention机制来学习序列中不同元素之间的关系。&lt;/p&gt;
+&lt;h2 id=&#34;实现&#34;&gt;实现&lt;/h2&gt;
+&lt;p&gt;使用self-attention和full connect实现。&lt;/p&gt;
+&lt;p&gt;编码器的实现中，使用若干个块，每个块包括一个multi-head attention层和一个全联接的feed foward层，其中每一层都引入了残差连接和正规化，构成$LayerNorm(x + Sublayer(x))$的结构。&lt;/p&gt;
+&lt;p&gt;解码器的实现中，同样使用若干个块，每个块为编码器的基本块之前加上一个masked multi-head attention结构。同时将上一时刻的输出作为下一个时刻的输入，使得输出仅由之前的输入决定。&lt;/p&gt;
+&lt;p&gt;Scaled Dot-Product Attention的结构为将Q(uery)、K(ey)、V(alue)映射得到输出。输入为$d_k$维的Key向量和$d_v$维的Value向量，计算方法为矩阵相乘的结果缩放后再Softmax得到Value元素对应的权重，即$Attention(Q,K,V) = Softmax(\frac{QK^T}{\sqrt{d_k}})V$。使用矩阵乘法的实现计算更快。&lt;/p&gt;
+&lt;p&gt;Multi-head Attnetion为多个Attention层组合得到。通过将V、K、Q线性投影到h个attention网络，将其结果通过concat组合之后再线性投影得到结果，即$MultiHead(Q,K,V) = Concat(head_1,hed_2&amp;hellip;)W^O$，其中$head_i = Attention(QW^Q_i, KW^K_i, VW^V_i)$。&lt;/p&gt;
+&lt;p&gt;注意解码器的Q来自解码器上一输出经过Masked Multi-Head Attention的结果，K、V来自编码器的输出。而编码器的Q、K、V来自上一层的输出。&lt;/p&gt;
+&lt;p&gt;在Masked Multi-Head Attention中，SoftMax的输出被屏蔽（设置为$-\infty$）。&lt;/p&gt;
+&lt;p&gt;在Attention之后的Feed Forward网络中，使用两次ReLU得到$FFN(x) = max(0, xW_1+b_1)W_2+b_2$。&lt;/p&gt;
+&lt;p&gt;对于输入，还需要进行embedding和positional encoding操作。使用learned embeddings将输入转化为向量。后者引入顺序和位置信息，使用$PE_{(pos,2i)} = sin(pos/10000^{2i/d_{model}})$和$PE_{(pos,2i+1)} = cos(pos/10000^{2i/d_{model}})$，其中pos为位置，i为维数。&lt;/p&gt;
+&lt;p&gt;对于输出，使用线性转换（learned linear transformation）和softmax将输出转变为概率。这里的线性转换和输入的embeddings使用相同的权重（embedding中乘$\sqrt{d_{model}}$,即向量规模的平方根）。&lt;/p&gt;
+&lt;h2 id=&#34;评价&#34;&gt;评价&lt;/h2&gt;
+&lt;p&gt;使用attention相比直接使用卷积或循环，计算复杂度比较低，同时更有利于并行计算。&lt;/p&gt;
+&lt;p&gt;同时attention结构更有助于学习长句子，能学习到距离较远的信息。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【论文】Deep Residual Learning for Image Recognition</title>
+      <link>https://yangleisx.github.io/post/paper-resnet/</link>
+      <pubDate>Mon, 03 Feb 2020 17:46:14 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/paper-resnet/</guid>
+      <description>&lt;p&gt;Deep Residual Learning for Image Recognition&lt;/p&gt;
+&lt;h2 id=&#34;主要内容&#34;&gt;主要内容&lt;/h2&gt;
+&lt;p&gt;构建了一种残差网络结构，有利于深度神经网络的训练，同时证明了该残差网络结构更容易优化并且在深度增加时仍能实现较高的准确率。同时训练了一个152层的网络用语图像识别。&lt;/p&gt;
+&lt;h2 id=&#34;背景&#34;&gt;背景&lt;/h2&gt;
+&lt;p&gt;传统的用于图像识别的DCNN通过增加深度可以提高识别性能。但是会出现梯度爆炸/消失的现象（vanishing/exploding gradient）。&lt;/p&gt;
+&lt;p&gt;通过引入正则化等方法可以使深度网络实现收敛（SGD）。尽管可以收敛，但深度增加时会出现性能下降（degradation）。&lt;/p&gt;
+&lt;p&gt;因此文中实现了一种残差网络deep residual learning，用来解决degradation问题。&lt;/p&gt;
+&lt;p&gt;主要方式为：要学习得到H(x)，构造F(x)=H(x)-x并学习，最终得到F(x)+x即为所学习的目标。这里的+x可以使用短接（shortcut connection：跳过若干层的连接）来实现。这样的操作相当于恒等映射，没有引入新的参数或计算复杂度。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;残差网络模块&#34; srcset=&#34;
+               /post/paper-resnet/resnet-block_huf1a93f8b83f0e5e2a0925eab0a837dff_35398_5a1ec9eebc7fac70b8d38d2a190c7f40.webp 400w,
+               /post/paper-resnet/resnet-block_huf1a93f8b83f0e5e2a0925eab0a837dff_35398_c4597870b69958d71e12f64c296c880d.webp 760w,
+               /post/paper-resnet/resnet-block_huf1a93f8b83f0e5e2a0925eab0a837dff_35398_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-resnet/resnet-block_huf1a93f8b83f0e5e2a0925eab0a837dff_35398_5a1ec9eebc7fac70b8d38d2a190c7f40.webp&#34;
+               width=&#34;692&#34;
+               height=&#34;322&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;实现&#34;&gt;实现&lt;/h2&gt;
+&lt;p&gt;通过使用短接可以使得非线性的网络更好的拟合恒等映射，即令网络参数为0。&lt;/p&gt;
+&lt;p&gt;因此构造的网络形如 $y = F(x,{W_i})+x$ 。使用两层网络和ReLU构造网络块得到 $F = W_2\sigma(W_1x)$，其中 $\sigma$表示ReLU，最终的输出为 $\sigma{y}$。可以添加一个矩阵 $W_s$ 用于将F的输出和x的规模对齐。&lt;/p&gt;
+&lt;p&gt;这里F的结构可以使用两层或三层网络，但是不能只有一层（实际上构成一个线性单元）。同时每一层的结构可以是全联接层也可以是卷积层。&lt;/p&gt;
+&lt;p&gt;类比VGG-19网络，构造一个34层的深度卷积神经网络，以及其对应的深度残差网络。其中后河通过在前者的网络结构中每隔两层添加一个短路连接得到。&lt;/p&gt;
+&lt;h2 id=&#34;评价&#34;&gt;评价&lt;/h2&gt;
+&lt;p&gt;相对于普通的深度网络，深度残差网络更容易训练。&lt;/p&gt;
+&lt;p&gt;相对于相同深度的网络，深度残差网络可以得到更高的准确度。&lt;/p&gt;
+&lt;p&gt;当网络深度增加时，使用深度残差网络可以缓减错误率上升的情况。&lt;/p&gt;
+&lt;p&gt;短路连接使用不同的方式（直接映射/规模不同时使用矩阵/全部使用矩阵）可以带来轻微的性能提升，但直接映射的复杂度比较低。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【论文】Sequence to Sequence Learning with Neural Networks</title>
+      <link>https://yangleisx.github.io/post/paper-seq2seq/</link>
+      <pubDate>Sun, 02 Feb 2020 22:26:13 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/paper-seq2seq/</guid>
+      <description>&lt;p&gt;论文笔记:Sequence to Sequence Learning with Neural Networks&lt;/p&gt;
+&lt;h2 id=&#34;主要内容&#34;&gt;主要内容&lt;/h2&gt;
+&lt;p&gt;使用一个深度LSTM网络将输入序列映射到固定长度的向量，再使用另一个深度LSTM网络将该向量映射（decode）到目标序列。&lt;/p&gt;
+&lt;h2 id=&#34;背景&#34;&gt;背景&lt;/h2&gt;
+&lt;p&gt;DNN在语音识别和视觉识别领域有非常好的效果，但是仅能用于输入和输出可以化为（encode）相同的固定规模（known and fixed）的向量。很多实际问题中输入和输出需要用未知长度的向量表示。&lt;/p&gt;
+&lt;p&gt;LSTM可以在具有长期时间相关性（long range temporal dependencies）的数据中具有比较好的学习效果，因此用于在输入序列和相应的输出序列之间进行学习。&lt;/p&gt;
+&lt;p&gt;同时通过在训练中反转输入序列引入短期依赖便于训练和优化。&lt;/p&gt;
+&lt;h2 id=&#34;实现方式&#34;&gt;实现方式&lt;/h2&gt;
+&lt;h3 id=&#34;原理&#34;&gt;原理&lt;/h3&gt;
+&lt;p&gt;使用单个RNN由给定输入序列$(x_1,x_2,&amp;hellip;,x_t)$计算输出序列$(y_1,y_2,&amp;hellip;,y_t)$的方法如下：&lt;/p&gt;
+&lt;p&gt;$h_t = sigm(W^{hx}x_t + W^{hh}h_{t-1})$、$y_t = W^{yh}h_t$。但是并不能用于不同长度的输入和输出序列。&lt;/p&gt;
+&lt;p&gt;因此使用两个LSTM取代两个RNN来实现长期时间相关性的学习。&lt;/p&gt;
+&lt;p&gt;在LSTM中使用条件概率的计算方法如下：&lt;/p&gt;
+&lt;p&gt;$p(y_1,&amp;hellip;,y_{T&amp;rsquo;}|x_1,&amp;hellip;,x_T) = \prod_{t=1}^{T&amp;rsquo;}p(y_t|v,y_1,&amp;hellip;,y_{t-1})$，其中v是输入序列的一种表示。&lt;/p&gt;
+&lt;p&gt;具体实现中，==使用两个深度LSTM网络，每个网络具有4层，用于训练的输入序列反转。==&lt;/p&gt;
+&lt;p&gt;每个LSTM通过最大化对数几率进行训练，目标函数为$\frac{1}{|S|}\sum_{(T,S)\in \mathbb{S}} logp(T|S)$，其中$\mathbb{S}$为训练集。&lt;/p&gt;
+&lt;p&gt;预测时依据$\hat{T} = arg max_{\mathbf{T}} p(T|S)$，使用自左向右的Beam Search算法&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;得到翻译结果。&lt;/p&gt;
+&lt;p&gt;输入序列反转后，训练的性能提高（原文使用“最小时滞 minimal time lag”加以解释：输入序列和输出序列的开头几个单词的距离减小）。可以认为输出序列的前半部分正确率较高而后半部分表现比较差。&lt;/p&gt;
+&lt;h3 id=&#34;实现&#34;&gt;实现&lt;/h3&gt;
+&lt;p&gt;使用WMT&#39;14 英语-法语数据库进行训练。&lt;/p&gt;
+&lt;p&gt;每个LSTM网络有4层，每层1000个单元，每个数据使用1000维张量表示。&lt;/p&gt;
+&lt;p&gt;输入词汇量160000，输出词汇量80000。输出时使用8000输入的softmax。共有384M参数。&lt;/p&gt;
+&lt;p&gt;为了防止梯度爆炸，每一个batch训练结束后对梯度正规化。&lt;/p&gt;
+&lt;h2 id=&#34;评价&#34;&gt;评价&lt;/h2&gt;
+&lt;h3 id=&#34;结果&#34;&gt;结果&lt;/h3&gt;
+&lt;p&gt;训练结果使用BLEU打分，在WMT‘14数据库上得到37.0分&lt;/p&gt;
+&lt;h3 id=&#34;结果评价&#34;&gt;结果评价&lt;/h3&gt;
+&lt;p&gt;使用深度LSTM网络实现的sequence到sequence模型在机器翻译问题上取得了不错的效果。&lt;/p&gt;
+&lt;p&gt;其在较长的句子上性能比较好。并且可以处理主动语态和被动语态。&lt;/p&gt;
+&lt;h2 id=&#34;参考&#34;&gt;参考&lt;/h2&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.jianshu.com/p/c7aab93b944d&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Beam Search&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</description>
     </item>
     
   </channel>

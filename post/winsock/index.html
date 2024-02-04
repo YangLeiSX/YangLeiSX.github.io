@@ -1,0 +1,1664 @@
+<!DOCTYPE html>
+<!-- This site was created with Hugo Blox. https://hugoblox.com -->
+<!-- Last Published: February 4, 2024 --><html lang="en-us" >
+
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  
+  
+    <meta name="generator" content="Hugo Blox Builder 5.9.6" />
+  
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+
+  
+  
+  
+    
+      
+      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&family=Roboto:wght@400;700&display=swap">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&family=Roboto:wght@400;700&display=swap" media="print" onload="this.media='all'">
+    
+  
+
+  
+  
+
+  
+  
+    
+    <script src="/js/mathjax-config.js"></script>
+  
+
+  
+
+  <link rel="stylesheet" href="/css/vendor-bundle.min.047268c6dd09ad74ba54a0ba71837064.css" media="print" onload="this.media='all'">
+
+  
+  
+  
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1.9.4/css/academicons.min.css" integrity="sha512-IW0nhlW5MgNydsXJO40En2EoCkTTjZhI3yuODrZIc8cQ4h1XcF53PsqDHa09NqnkXuIe0Oiyyj171BqZFwISBw==" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+
+    
+    
+    
+    
+      
+      
+    
+    
+    
+
+    
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.min.css" integrity="" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+
+    
+
+    
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+  
+
+  
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/wowchemy.32e2e32cf1a4c1ea152e519f8b1fda79.css" />
+
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+    
+    
+    <link rel="stylesheet" href="/css/libs/chroma/github-light.min.css" title="hl-light" media="print" onload="this.media='all'" >
+    <link rel="stylesheet" href="/css/libs/chroma/dracula.min.css" title="hl-dark" media="print" onload="this.media='all'" disabled>
+  
+
+  
+  
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-N3HXE9037R"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+      dataLayer.push(arguments);
+  }
+
+  function trackOutboundLink(url, target) {
+    gtag('event', 'click', {
+         'event_category': 'outbound',
+         'event_label': url,
+         'transport_type': 'beacon',
+         'event_callback': function () {
+           if (target !== '_blank') {
+             document.location = url;
+           }
+         }
+    });
+    console.debug("Outbound link clicked: " + url);
+  }
+
+  function onClickCallback(event) {
+    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
+      return;
+    }
+    trackOutboundLink(event.target, event.target.getAttribute('target'));  
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'G-N3HXE9037R', {});
+  gtag('set', {'cookie_flags': 'SameSite=None;Secure'});
+
+  
+  document.addEventListener('click', onClickCallback, false);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+
+
+
+
+
+
+  <meta name="author" content="Lei Yang" />
+
+
+
+
+
+  
+
+<meta name="description" content="Winsock就是windows下的socket编程的简称，函数用法与BSD的socket（即unix中的socket）编程基本相同。
+所有的代码实现位于我的Github。
+重要：所有的函数使用、讲解和实例请参考Winsock文档 via Microsoft。" />
+
+
+
+<link rel="alternate" hreflang="en-us" href="https://yangleisx.github.io/post/winsock/" />
+<link rel="canonical" href="https://yangleisx.github.io/post/winsock/" />
+
+
+
+  <link rel="manifest" href="/manifest.webmanifest" />
+
+
+
+<link rel="icon" type="image/png" href="/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_32x32_fill_lanczos_center_3.png" />
+<link rel="apple-touch-icon" type="image/png" href="/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_180x180_fill_lanczos_center_3.png" />
+
+<meta name="theme-color" content="#1565c0" />
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+<meta property="twitter:card" content="summary" />
+
+  <meta property="twitter:site" content="@GetResearchDev" />
+  <meta property="twitter:creator" content="@GetResearchDev" />
+<meta property="twitter:image" content="https://yangleisx.github.io/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_512x512_fill_lanczos_center_3.png" />
+
+
+
+  
+
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="YangLeiSX" />
+<meta property="og:url" content="https://yangleisx.github.io/post/winsock/" />
+<meta property="og:title" content="Winsock编程记录 | YangLeiSX" />
+<meta property="og:description" content="Winsock就是windows下的socket编程的简称，函数用法与BSD的socket（即unix中的socket）编程基本相同。
+所有的代码实现位于我的Github。
+重要：所有的函数使用、讲解和实例请参考Winsock文档 via Microsoft。" /><meta property="og:image" content="https://yangleisx.github.io/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_512x512_fill_lanczos_center_3.png" /><meta property="og:locale" content="en-us" />
+
+  
+    <meta
+      property="article:published_time"
+      content="2020-05-13T11:56:32&#43;08:00"
+    />
+  
+  
+    <meta property="article:modified_time" content="2020-05-13T11:56:32&#43;08:00">
+  
+
+
+
+
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://yangleisx.github.io/post/winsock/"
+  },
+  "headline": "Winsock编程记录",
+  
+  "datePublished": "2020-05-13T11:56:32+08:00",
+  "dateModified": "2020-05-13T11:56:32+08:00",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Lei Yang"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "YangLeiSX",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://yangleisx.github.io/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_192x192_fill_lanczos_center_3.png"
+    }
+  },
+  "description": "\u003cp\u003eWinsock就是windows下的socket编程的简称，函数用法与BSD的socket（即unix中的socket）编程基本相同。\u003c/p\u003e\n\u003cp\u003e所有的代码实现位于\u003ca href=\"https://github.com/YangLeiSX/DataComSJTU\" target=\"_blank\" rel=\"noopener\"\u003e我的Github\u003c/a\u003e。\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003e重要\u003c/strong\u003e：所有的函数使用、讲解和实例请参考\u003ca href=\"https://docs.microsoft.com/en-us/windows/win32/winsock/using-winsock\" target=\"_blank\" rel=\"noopener\"\u003eWinsock文档 via Microsoft\u003c/a\u003e。\u003c/p\u003e"
+}
+</script>
+
+  
+
+  
+
+
+
+
+  
+  
+  
+
+  
+  
+
+  
+
+
+  
+  <title>Winsock编程记录 | YangLeiSX</title>
+
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="page-wrapper   " data-wc-page-id="b0ecb995fd75118c4b7d09b3d483e896" >
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="/js/wowchemy-init.min.3a6bdbdff5d8a89d6e651adb3deec035.js"></script>
+
+  
+
+
+<aside class="search-modal" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#" aria-label="Close"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search" class="form-control"
+        aria-label="Search...">
+        
+      </div>
+
+      
+      
+
+      
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+
+  <div class="page-header header--fixed">
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+    <div class="container-xl">
+
+      
+      <div class="d-none d-lg-inline-flex">
+        <a class="navbar-brand" href="/">YangLeiSX</a>
+      </div>
+      
+
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse"
+              data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
+      <span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+      
+      <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+        <a class="navbar-brand" href="/">YangLeiSX</a>
+      </div>
+      
+
+      
+      
+      <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+        
+        <ul class="navbar-nav d-md-inline-flex">
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+              
+              
+              
+                
+              
+              
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/#about"><span>Home</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+              
+              
+              
+                
+              
+              
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/#citation"><span>Publications</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link  active" href="/post/"><span>Posts</span></a>
+          </li>
+
+          
+          
+
+        
+
+          
+        </ul>
+      </div>
+
+      <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+
+        
+        
+          
+        
+
+        
+        
+        
+        <li class="nav-item">
+          <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+        </li>
+        
+
+        
+        
+        
+        <li class="nav-item dropdown theme-dropdown">
+          <a href="#" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-label="Display preferences">
+            <i class="fas fa-moon" aria-hidden="true"></i>
+          </a>
+          <div class="dropdown-menu">
+            <a href="#" class="dropdown-item js-set-theme-light">
+              <span>Light</span>
+            </a>
+            <a href="#" class="dropdown-item js-set-theme-dark">
+              <span>Dark</span>
+            </a>
+            <a href="#" class="dropdown-item js-set-theme-auto">
+              <span>Automatic</span>
+            </a>
+          </div>
+        </li>
+        
+
+        
+        
+
+      </ul>
+
+    </div>
+  </nav>
+</header>
+
+
+  </div>
+
+  <div class="page-body">
+    
+    
+    
+
+    <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1>Winsock编程记录</h1>
+
+  
+
+  
+    
+
+
+<div class="article-metadata">
+
+  
+  
+  
+  
+  <div>
+    
+
+  <span class="author-highlighted">
+      Lei Yang</span>
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    May 13, 2020
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    4 min read
+  </span>
+  
+
+  
+  
+  
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="/category/%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0/">代码学习</a></span>
+  
+
+</div>
+
+    
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <p>Winsock就是windows下的socket编程的简称，函数用法与BSD的socket（即unix中的socket）编程基本相同。</p>
+<p>所有的代码实现位于<a href="https://github.com/YangLeiSX/DataComSJTU" target="_blank" rel="noopener">我的Github</a>。</p>
+<p><strong>重要</strong>：所有的函数使用、讲解和实例请参考<a href="https://docs.microsoft.com/en-us/windows/win32/winsock/using-winsock" target="_blank" rel="noopener">Winsock文档 via Microsoft</a>。</p>
+<h2 id="环境">环境</h2>
+<p>使用VS开发，需要使用的头文件和库文件如下</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// 头文件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#include</span> <span class="cpf">&lt;winsock2.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;ws2tcpip.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 静态库
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#pragma comment (lib, &#34;Ws2_32.lib&#34;)
+</span></span></span><span class="line"><span class="cl"><span class="cp">#pragma comment (lib, &#34;Mswsock.lib&#34;)
+</span></span></span><span class="line"><span class="cl"><span class="cp">#pragma comment (lib, &#34;AdvApi32.lib&#34;)
+</span></span></span></code></pre></div><h2 id="基本数据结构">基本数据结构</h2>
+<p>使用比较多的数据结构包括sockaddr，addrinfo等，定义如下。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">sockaddr</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ushort</span>  <span class="n">sa_family</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span>    <span class="n">sa_data</span><span class="p">[</span><span class="mi">14</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">sockaddr_in</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">short</span>   <span class="n">sin_family</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">u_short</span> <span class="n">sin_port</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span>  <span class="nc">in_addr</span> <span class="n">sin_addr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span>    <span class="n">sin_zero</span><span class="p">[</span><span class="mi">8</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">typedef</span> <span class="k">struct</span> <span class="nc">addrinfo</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span>             <span class="n">ai_flags</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span>             <span class="n">ai_family</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span>             <span class="n">ai_socktype</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span>             <span class="n">ai_protocol</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">size_t</span>          <span class="n">ai_addrlen</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span>            <span class="o">*</span><span class="n">ai_canonname</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="nc">sockaddr</span> <span class="o">*</span><span class="n">ai_addr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="nc">addrinfo</span> <span class="o">*</span><span class="n">ai_next</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="n">ADDRINFOA</span><span class="p">,</span> <span class="o">*</span><span class="n">PADDRINFOA</span><span class="p">;</span>
+</span></span></code></pre></div><p>这里的sockaddr_in为IP协议的地址结构体，sockaddr为所有网络层协议的地址结构体，可以保存所有网络层协议的地址数据。当使用IP协议栈时使用sockaddr_in结构体，winsock的函数大多使用sockaddr作为函数参数，从而实现更好的兼容性。（winsock还实现了sockaddr_storage，地址空间更大，兼容性更好）。</p>
+<h2 id="基本函数模块">基本函数模块</h2>
+<p>由于Winsock有完备的错误代码提示，因此养成在每一步操作之后都要检查错误代码的习惯。这里添加一个全局的函数返回值（错误代码）变量用于检测操作是否完成。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">iResult</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span></code></pre></div><h3 id="winsock初始化wsastartup">Winsock初始化：WSAStartup()</h3>
+<p>Winsock在socket各种函数的基础上实现了一套WSA函数（WinSockApplication），需要在程序前部初始化。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">WORD</span> <span class="n">wVersion</span> <span class="o">=</span> <span class="n">MAKEWORD</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">WSADATA</span> <span class="n">wsaDATA</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// initialize winsock
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">iResult</span> <span class="o">=</span> <span class="n">WSAStartup</span><span class="p">(</span><span class="n">wVersion</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">wsaDATA</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="mi">0</span> <span class="o">!=</span> <span class="n">iResult</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;WSAStartup failed: %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">iResult</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h3 id="winsock清理-wsacleanup">Winsock清理： WSACleanup()</h3>
+<p>Winsock在程序推出之前需要使用WSACleanup()函数完成收尾工作，通常位于main函数的return之前。</p>
+<h3 id="获得本地主机名gethostname">获得本地主机名：gethostname()</h3>
+<p>可以获得本地的主机名</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">char</span> <span class="n">hostname</span><span class="p">[</span><span class="n">NI_MAXHOST</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">hostlen</span> <span class="o">=</span> <span class="n">NI_MAXHOST</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 获得本地主机名
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">gethostname</span><span class="p">(</span><span class="n">hostname</span><span class="p">,</span> <span class="n">hostlen</span><span class="p">);</span>
+</span></span></code></pre></div><h3 id="获得地址信息getaddrinfo">获得地址信息：getaddrinfo()</h3>
+<p>给定主机名和端口号，可以解析得到目标主机的网络地址（例如IP地址），类似ARP协议的作用。需要使用hints传入参数。</p>
+<p>其中第一个参数为NULL时为获得本地主机信息。</p>
+<p>当目标主机存在多个网卡/IP地址时，得到的result为一个链表，使用<code>result-&gt;ai_next</code>连接。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">char</span> <span class="n">hostname</span><span class="p">[</span><span class="n">NI_MAXHOST</span><span class="p">]</span> <span class="o">=</span> <span class="err">“</span><span class="n">localhost</span><span class="err">”</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">char</span> <span class="n">servname</span><span class="p">[</span><span class="n">NI_MAXSERV</span><span class="p">]</span> <span class="o">=</span> <span class="err">“</span><span class="mi">8080</span><span class="err">”</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">addrinfo</span> <span class="o">*</span><span class="n">result</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">addrinfo</span> <span class="n">hints</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 初始化
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">ZeroMemory</span><span class="p">(</span><span class="o">&amp;</span><span class="n">hints</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">hints</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="n">hints</span><span class="p">.</span><span class="n">ai_family</span> <span class="o">=</span> <span class="n">AF_UNSPEC</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">hints</span><span class="p">.</span><span class="n">ai_socktype</span> <span class="o">=</span> <span class="n">SOCK_STREAM</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">hints</span><span class="p">.</span><span class="n">ai_protocol</span> <span class="o">=</span> <span class="n">IPPROTO_TCP</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 解析地址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">iResult</span> <span class="o">=</span> <span class="n">getaddrinfo</span><span class="p">(</span><span class="n">hostname</span><span class="p">,</span> <span class="n">servname</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">hints</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">result</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="mi">0</span> <span class="o">!=</span> <span class="n">iResult</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;getaddrinfo failed: %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">iResult</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">WSACleanup</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h3 id="获得主机名信息-getnameinfo">获得主机名信息: getnameinfo()</h3>
+<p>给定目标主机的网络地址，可以解析得到主机名和端口号，类似RARP协议的作用。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">char</span> <span class="n">hostname</span><span class="p">[</span><span class="n">NI_MAXHOST</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="kt">char</span> <span class="n">servname</span><span class="p">[</span><span class="n">NI_MAXSERV</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">sockaddr_in</span> <span class="n">sa</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">addrlen</span> <span class="o">=</span> <span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="nc">sockaddr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">u_short</span> <span class="n">port</span> <span class="o">=</span> <span class="mi">8080</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">localhost</span> <span class="o">=</span> <span class="s">&#34;127.0.0.1&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 初始化
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">inet_pton</span><span class="p">(</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">localhost</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">sa</span><span class="p">.</span><span class="n">sin_addr</span><span class="p">.</span><span class="n">s_addr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">sa</span><span class="p">.</span><span class="n">sin_family</span> <span class="o">=</span> <span class="n">AF_INET</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">sa</span><span class="p">.</span><span class="n">sin_port</span> <span class="o">=</span> <span class="n">htons</span><span class="p">(</span><span class="n">port</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 获得主机名信息
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">iResult</span> <span class="o">=</span> <span class="n">getnameinfo</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="k">struct</span> <span class="nc">sockaddr</span><span class="o">*</span><span class="p">)</span> <span class="o">&amp;</span><span class="n">sa</span><span class="p">,</span> <span class="n">addrlen</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">hostname</span><span class="p">,</span> <span class="n">NI_MAXHOST</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">servname</span><span class="p">,</span> <span class="n">NI_MAXSERV</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="mi">0</span> <span class="o">!=</span> <span class="n">iResult</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;getnameinfo failed: %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">WSAGetLastError</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">    <span class="n">WSACleanup</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h3 id="清空地址信息-freeaddrinfo">清空地址信息: freeaddrinfo()</h3>
+<p>使用getaddrinfo得到的地址消息不再使用时，建议显式清空。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">addrinfo</span> <span class="o">*</span><span class="n">result</span><span class="p">;</span> <span class="c1">// 非空的地址信息指针
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">freeaddrinfo</span><span class="p">(</span><span class="n">result</span><span class="p">);</span>
+</span></span></code></pre></div><h3 id="地址信息可视化">地址信息可视化</h3>
+<p>想要以可读方式显示地址信息，涉及到大端/小端的转换、二进制和点分十进制的转换等处理。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">addrinfo</span> <span class="o">*</span><span class="n">result</span><span class="p">;</span> <span class="c1">// 非空的地址信息指针
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">struct</span> <span class="nc">sockaddr_in</span> <span class="n">server_addr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">char</span> <span class="n">ipstringbuffer</span><span class="p">[</span><span class="mi">46</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="kt">short</span> <span class="n">port</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 转换地址格式
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">memcpy</span><span class="p">(</span><span class="o">&amp;</span><span class="n">server_addr</span><span class="p">,</span> <span class="n">result</span><span class="o">-&gt;</span><span class="n">ai_addr</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">server_addr</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="n">inet_ntop</span><span class="p">(</span><span class="n">AF_INET</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">server_addr</span><span class="p">.</span><span class="n">sin_addr</span><span class="p">,</span> <span class="n">ipstringbuffer</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">ipstringbuffer</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="n">port</span> <span class="o">=</span> <span class="n">ntohs</span><span class="p">(</span><span class="n">server_addr</span><span class="p">.</span><span class="n">sin_port</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 显示地址信息
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">printf</span><span class="p">(</span><span class="s">&#34;Server Address: %s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">ipstringbuffer</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">printf</span><span class="p">(</span><span class="s">&#34;Server Port Number: %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">port</span><span class="p">);</span>
+</span></span></code></pre></div><h3 id="创建套接字-socket">创建套接字: socket()</h3>
+<p>socket编程中核心的部分为套接字socket，创建socket的进程才可以实现不同主机上的进程间通信。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">SOCKET</span> <span class="n">s</span> <span class="o">=</span> <span class="n">INVALID_SOCKET</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 创建套接字
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="p">(</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">SOCK_STREAM</span><span class="p">,</span> <span class="n">IPPROTO_TCP</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">ConnectSocket</span> <span class="o">==</span> <span class="n">INVALID_SOCKET</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;socket failed : %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">WSAGetLastError</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">    <span class="n">WSACleanup</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h3 id="关闭套接字-closesocket">关闭套接字: closesocket()</h3>
+<p>套接字使用完毕后，建议手动关闭套接字。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">SOCKET</span> <span class="n">s</span><span class="p">;</span>  <span class="c1">// 合法套接字
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 关闭套接字
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">closesocket</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+</span></span></code></pre></div><h3 id="绑定套接字-bind">绑定套接字: bind()</h3>
+<p>在服务器端创建的套接字需要绑定，即建立socket和地址之间的联系。相当于内部地址（进程描述符、套接字描述符）和外部地址（网络地址、端口号）之间建立连接。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">SOCKET</span> <span class="n">s</span><span class="p">;</span>  <span class="c1">// 合法的套接字
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">struct</span> <span class="nc">addrinfo</span> <span class="n">local</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 绑定套接字
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">iResult</span> <span class="o">=</span> <span class="n">bind</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">local</span><span class="o">-&gt;</span><span class="n">ai_addr</span><span class="p">,</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">local</span><span class="o">-&gt;</span><span class="n">ai_addrlen</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">iResult</span> <span class="o">==</span> <span class="n">SOCKET_ERROR</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;bind failed: %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">WSAGetLastError</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">    <span class="n">freeaddrinfo</span><span class="p">(</span><span class="n">local</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">closesocket</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">WSACleanup</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h3 id="监听端口-listen">监听端口: listen()</h3>
+<p>在服务器端绑定后的套接字可以监听端口，用于连接型的数据传输。类似TCP连接中等待SYN报文。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">SOCKET</span> <span class="n">s</span><span class="p">;</span>  <span class="c1">// 合法的套接字
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 监听端口（套接字）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">iResult</span> <span class="o">=</span> <span class="n">listen</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">SOMAXCONN</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">iResult</span> <span class="o">==</span> <span class="n">SOCKET_ERROR</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;listen failed: %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">WSAGetLastError</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">    <span class="n">closesocket</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">WSACleanup</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h3 id="接受连接请求-accpet">接受连接请求: accpet()</h3>
+<p>当服务器端接收到连接请求时（请求队列不为空），接受连接请求并创建连接。类似TCP连接中发送SYN ACK报文。此时创建了用于传输的套接字，与监听套接字分离。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">SOCKET</span> <span class="n">ListenSocket</span><span class="p">;</span>  <span class="c1">// 合法的套接字
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">SOCKET</span> <span class="n">ComSocket</span> <span class="o">=</span> <span class="n">INVALID_SOCKET</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">sockaddr_in</span>  <span class="n">client_addr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">addr_len</span> <span class="o">=</span> <span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="nc">sockaddr_in</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 接受连接请求
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">ComSocket</span> <span class="o">=</span> <span class="n">accept</span><span class="p">(</span><span class="n">ListenSocket</span><span class="p">,</span> <span class="p">(</span><span class="k">struct</span> <span class="nc">sockaddr</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">client_addr</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">addr_len</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">ComSocket</span> <span class="o">==</span> <span class="n">INVALID_SOCKET</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;accept failed: %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">WSAGetLastError</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">    <span class="n">closesocket</span><span class="p">(</span><span class="n">ListenSocket</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">WSACleanup</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h3 id="请求连接-connect">请求连接: connect()</h3>
+<p>客户端需要向服务器发送链接请求时，使用connect函数。类似TCP连接中发送SYN报文。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">SOCKET</span> <span class="n">s</span><span class="p">;</span>  <span class="c1">// 合法套接字
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">struct</span> <span class="nc">addrinfo</span> <span class="n">remote</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 发送连接请求
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">iResult</span> <span class="o">=</span> <span class="n">connect</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">remote</span><span class="o">-&gt;</span><span class="n">ai_addr</span><span class="p">,</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">remote</span><span class="o">-&gt;</span><span class="n">ai_addrlen</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">iResult</span> <span class="o">==</span> <span class="n">SOCKET_ERROR</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;connect failed: %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">WSAGetLastError</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">    <span class="n">closesocket</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s</span> <span class="o">=</span> <span class="n">INVALID_SOCKET</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h3 id="关闭连接-shutdown">关闭连接: shutdown()</h3>
+<p>通信结束时，不可以直接关闭socket，应该首先关闭连接（关闭发送方向的连接，表示不再发送消息）。类似TCP连接中的FIN报文。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">SOCKET</span> <span class="n">s</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 关闭发送方向请求
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">iResult</span> <span class="o">=</span> <span class="n">shutdown</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">SD_SEND</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">iResult</span> <span class="o">==</span> <span class="n">SOCKET_ERROR</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;shutdown failed: %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">WSAGetLastError</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">    <span class="n">closesocket</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">WSACleanup</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h3 id="接受数据-recv">接受数据: recv()</h3>
+<p>用于建立连接之后的数据传输。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#define RECV_BUFLEN 512
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">char</span> <span class="n">recvbuf</span><span class="p">[</span><span class="n">RECV_BUFLEN</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">recvbuflen</span> <span class="o">=</span> <span class="n">RECV_BUFLEN</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">SOCKET</span> <span class="n">s</span><span class="p">;</span> <span class="c1">// 建立连接的套接字
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">memset</span><span class="p">(</span><span class="n">recvbuf</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">recvbuflen</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 接受数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">iResult</span> <span class="o">=</span> <span class="n">recv</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">recvbuf</span><span class="p">,</span> <span class="n">recvbuflen</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">iResult</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Bytes received: %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">iResult</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">iResult</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Connection closed</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;recv failed: %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">WSAGetLastError</span><span class="p">());</span>
+</span></span></code></pre></div><h3 id="发送数据-send">发送数据: send()</h3>
+<p>用于建立连接之后的数据传输</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#define SEND_BUFLEN 512
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">char</span> <span class="n">sendbuf</span><span class="p">[</span><span class="n">SEND_BUFLEN</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="n">snprintf</span><span class="p">(</span><span class="n">sendbuf</span><span class="p">,</span> <span class="n">SEND_BUFLEN</span><span class="p">,</span> <span class="s">&#34;hello&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 发送数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">iResult</span> <span class="o">=</span> <span class="n">send</span><span class="p">(</span><span class="n">ConnectSocket</span><span class="p">,</span> <span class="n">sendbuf</span><span class="p">,</span> <span class="kt">int</span><span class="p">(</span><span class="n">strlen</span><span class="p">(</span><span class="n">sendbuf</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">iResult</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Bytes Sent: %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">iResult</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;send failed: %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">WSAGetLastError</span><span class="p">());</span>
+</span></span></code></pre></div><h3 id="接受数据-recvfrom">接受数据: recvfrom()</h3>
+<p>用于无连接的数据传输，由于是无连接的，需要在函数中传递地址指针保存数据发送方的网络地址信息。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#define DEFAULT_BUFLEN 512
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">SOCKET</span> <span class="n">udp_s</span><span class="p">;</span> <span class="c1">// 合法的socket
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">char</span> <span class="n">msgbuf</span><span class="p">[</span><span class="n">DEFAULT_BUFLEN</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">sockaddr_in</span> <span class="n">other_addr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">addrlen</span> <span class="o">=</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">other_addr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kt">char</span> <span class="n">ipstringbuffer</span><span class="p">[</span><span class="mi">46</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="kt">short</span> <span class="n">port</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 接受数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">iResult</span> <span class="o">=</span> <span class="n">recvfrom</span><span class="p">(</span><span class="n">udp_s</span><span class="p">,</span> <span class="n">msgbuf</span><span class="p">,</span> <span class="n">DEFAULT_BUFLEN</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="k">struct</span> <span class="nc">sockaddr</span><span class="o">*</span><span class="p">)</span> <span class="o">&amp;</span><span class="n">other_addr</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">addrlen</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">iResult</span> <span class="o">==</span> <span class="n">SOCKET_ERROR</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;recvfrom() fail: %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">WSAGetLastError</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">    <span class="n">exit</span><span class="p">(</span><span class="n">EXIT_FAILURE</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">inet_ntop</span><span class="p">(</span><span class="n">AF_INET</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">si_other</span><span class="p">.</span><span class="n">sin_addr</span><span class="p">,</span> <span class="n">ipstringbuffer</span><span class="p">,</span> <span class="mi">46</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">port</span> <span class="o">=</span> <span class="n">ntohs</span><span class="p">(</span><span class="n">si_other</span><span class="p">.</span><span class="n">sin_port</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">printf</span><span class="p">(</span><span class="s">&#34;Receive %d bytes from %s:%d.</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">iResult</span><span class="p">,</span> <span class="n">ipstringbuffer</span><span class="p">,</span> <span class="n">port</span><span class="p">);</span>
+</span></span></code></pre></div><h3 id="发送数据-sendto">发送数据: sendto()</h3>
+<p>用于无连接的数据传输。其中的sockaddr数据是合法的地址数据。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#define DEFAULT_BUFLEN 512
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">SOCKET</span> <span class="n">udp_s</span><span class="p">;</span> <span class="c1">// 合法的socket
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">char</span> <span class="n">msgbuf</span><span class="p">[</span><span class="n">DEFAULT_BUFLEN</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">sockaddr_in</span> <span class="n">other_addr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">addrlen</span> <span class="o">=</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">other_addr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">snprintf</span><span class="p">(</span><span class="n">msgbuf</span><span class="p">,</span> <span class="n">DEFAULT_BUFLEN</span><span class="p">,</span> <span class="s">&#34;hello&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 发送数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">iResult</span> <span class="o">=</span> <span class="n">sendto</span><span class="p">(</span><span class="n">udp_s</span><span class="p">,</span> <span class="n">msgbuf</span><span class="p">,</span> <span class="kt">int</span><span class="p">(</span><span class="n">strlen</span><span class="p">(</span><span class="n">msgbuf</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="k">struct</span> <span class="nc">sockaddr</span><span class="o">*</span><span class="p">)</span> <span class="o">&amp;</span><span class="n">other_addr</span><span class="p">,</span> <span class="n">addrlen</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">iResult</span> <span class="o">==</span> <span class="n">SOCKET_ERROR</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;sendto() fail with error code: %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">WSAGetLastError</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">    <span class="n">exit</span><span class="p">(</span><span class="n">EXIT_FAILURE</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h3 id="大小端相关处理">大/小端相关处理</h3>
+<p>winsock中数据结构sockaddr和addrinfo结构体中都是网络序保存。</p>
+<p>大小端转换常用的函数包括ntohs、htons、ntohl、htonl。</p>
+<p>函数名中的 h 表示 HOST 主机 序，n 表示 NETWORK 网络序，s 表示 short(16bit)，l 表示 long(32bit)。</p>
+<p>常用的函数inet_ntop 和 inet_pton 可以实现 IP 地址的</p>
+<p>点分十进制和二进制格式之间的转换。通过第一个参数</p>
+<p>AF_INET 或 AF_INET6 可以兼容 ipv4 和 ipv6。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">sockaddr_in</span> <span class="n">server_addr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">char</span> <span class="n">ipstringbuffer</span><span class="p">[</span><span class="mi">46</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="kt">short</span> <span class="n">port</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// IP地址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">inet_ntop</span><span class="p">(</span><span class="n">AF_INET</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">server_addr</span><span class="p">.</span><span class="n">sin_addr</span><span class="p">,</span> <span class="n">ipstringbuffer</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">ipstringbuffer</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 端口号
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">port</span> <span class="o">=</span> <span class="n">ntohs</span><span class="p">(</span><span class="n">server_addr</span><span class="p">.</span><span class="n">sin_port</span><span class="p">);</span>
+</span></span></code></pre></div><h2 id="常见socket实体的实现">常见socket实体的实现</h2>
+<p>具体的函数模块的使用请参考上述代码。</p>
+<h3 id="tcp-cs结构">TCP C/S结构</h3>
+<p>客户端：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">client</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="n">WSAStartup</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">getaddrinfo</span><span class="p">(</span><span class="n">remote</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">addrinfo</span> <span class="n">in</span> <span class="nl">linkList</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">socket</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">connect</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="n">send</span><span class="p">()</span> <span class="n">or</span> <span class="n">recv</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">shutdown</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">do</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">recvlen</span> <span class="o">=</span> <span class="n">recv</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span><span class="k">while</span><span class="p">(</span><span class="n">recvlen</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">closesocket</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">WSACleanup</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>服务器：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">server</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="n">WSAStartup</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">getaddrinfo</span><span class="p">(</span><span class="n">local</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">listenSocket</span> <span class="o">=</span> <span class="n">socket</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">bind</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="n">listen</span><span class="p">(</span><span class="n">listenSocket</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">tranSocket</span> <span class="o">=</span> <span class="n">accept</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">createThread</span><span class="p">(</span><span class="n">tranSocket</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">closesocket</span><span class="p">(</span><span class="n">listenSocket</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">WSACleanup</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">serverThread</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="n">send</span><span class="p">()</span> <span class="n">or</span> <span class="n">recv</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">shutdown</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">do</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">recvlen</span> <span class="o">=</span> <span class="n">recv</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span><span class="k">while</span><span class="p">(</span><span class="n">recvlen</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">closesocket</span><span class="p">(</span><span class="n">tranSocket</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h3 id="udp-通信">UDP 通信</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">udpEntity</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="n">WSAStartup</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">getaddrinfo</span><span class="p">(</span><span class="n">remote</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">getaddrinfo</span><span class="p">(</span><span class="n">local</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">socket</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">bind</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">createThread</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="n">sendto</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">terminateThread</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">closesocket</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">WSACleanup</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">udpRecvThread</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="n">recvfrom</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">endthread</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h3 id="ping命令icmp协议">ping命令（ICMP协议）</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">ping</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="n">WSAStartup</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">getaddrinfo</span><span class="p">(</span><span class="n">remote</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">getaddrinfo</span><span class="p">(</span><span class="n">local</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">socket</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">bind</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="n">buildICMP</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">sendto</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">recvfrom</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">WSACleanup</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
+    </div>
+
+    
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tag/winsock/">Winsock</a>
+  
+  <a class="badge badge-light" href="/tag/socket/">Socket</a>
+  
+</div>
+
+
+
+<div class="share-box">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fyangleisx.github.io%2Fpost%2Fwinsock%2F&amp;text=Winsock%E7%BC%96%E7%A8%8B%E8%AE%B0%E5%BD%95" target="_blank" rel="noopener" class="share-btn-twitter" aria-label="twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fyangleisx.github.io%2Fpost%2Fwinsock%2F&amp;t=Winsock%E7%BC%96%E7%A8%8B%E8%AE%B0%E5%BD%95" target="_blank" rel="noopener" class="share-btn-facebook" aria-label="facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+        
+      
+      <li>
+        <a href="mailto:?subject=Winsock%E7%BC%96%E7%A8%8B%E8%AE%B0%E5%BD%95&amp;body=https%3A%2F%2Fyangleisx.github.io%2Fpost%2Fwinsock%2F" target="_blank" rel="noopener" class="share-btn-email" aria-label="envelope">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=https%3A%2F%2Fyangleisx.github.io%2Fpost%2Fwinsock%2F&amp;title=Winsock%E7%BC%96%E7%A8%8B%E8%AE%B0%E5%BD%95" target="_blank" rel="noopener" class="share-btn-linkedin" aria-label="linkedin-in">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="whatsapp://send?text=Winsock%E7%BC%96%E7%A8%8B%E8%AE%B0%E5%BD%95%20https%3A%2F%2Fyangleisx.github.io%2Fpost%2Fwinsock%2F" target="_blank" rel="noopener" class="share-btn-whatsapp" aria-label="whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=https%3A%2F%2Fyangleisx.github.io%2Fpost%2Fwinsock%2F&amp;title=Winsock%E7%BC%96%E7%A8%8B%E8%AE%B0%E5%BD%95" target="_blank" rel="noopener" class="share-btn-weibo" aria-label="weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+
+
+
+  
+  
+  
+    
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+      
+      <a href="https://yangleisx.github.io/"><img class="avatar mr-3 avatar-circle" src="/authors/admin/avatar_hufa4b711d7d766ab1064b8274b75ac233_742651_270x270_fill_lanczos_center_1.gif" alt="Lei Yang"></a>
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="https://yangleisx.github.io/">Lei Yang</a></h5>
+      <h6 class="card-subtitle">PhD candidate</h6>
+      <p class="card-text">My research interests include visual speech recognition and semantics segmentation.</p>
+      <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="/#contact" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://scholar.google.com/citations?user=YsaBzN4AAAAJ" target="_blank" rel="noopener">
+        <i class="ai ai-google-scholar"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/yangleisx" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+</ul>
+
+    </div>
+  </div>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+</article>
+  </div>
+
+  <div class="page-footer">
+    
+    
+    <div class="container">
+      <footer class="site-footer">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+
+  
+  
+    
+  
+  
+    
+  
+
+  
+
+  
+  <p class="powered-by copyright-license-text">
+    © 2024 Me. This work is licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0" rel="noopener noreferrer" target="_blank">CC BY NC ND 4.0</a>
+  </p>
+  
+
+  <p class="powered-by footer-license-icons">
+    <a href="https://creativecommons.org/licenses/by-nc-nd/4.0" rel="noopener noreferrer" target="_blank" aria-label="Creative Commons">
+      <i class="fab fa-creative-commons fa-2x" aria-hidden="true"></i>
+      <i class="fab fa-creative-commons-by fa-2x" aria-hidden="true"></i>
+      
+        <i class="fab fa-creative-commons-nc fa-2x" aria-hidden="true"></i>
+      
+      
+        <i class="fab fa-creative-commons-nd fa-2x" aria-hidden="true"></i>
+      
+    </a>
+  </p>
+
+
+
+
+
+  <p class="powered-by">
+    
+    
+    
+      
+      
+      
+      
+      
+      
+      Published with <a href="https://hugoblox.com/?utm_campaign=poweredby" target="_blank" rel="noopener">Hugo Blox Builder</a> — the free, <a href="https://github.com/HugoBlox/hugo-blox-builder" target="_blank" rel="noopener">open source</a> website builder that empowers creators.
+    
+  </p>
+</footer>
+
+    </div>
+    
+  </div>
+
+  
+
+
+<script src="/js/vendor-bundle.min.938a3a7554cd9f6602290411f64d2617.js"></script>
+
+
+
+
+  
+
+  
+  
+
+  
+
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.min.js" integrity="" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+  
+  <script id="search-hit-fuse-template" type="text/x-template">
+    <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+    </div>
+  </script>
+  
+    <script src="https://cdn.jsdelivr.net/gh/krisk/Fuse@v3.2.1/dist/fuse.min.js" integrity="sha512-o38bmzBGX+hD3JHWUFCDA09btWaqrNmoJ3RXLlrysA7PP01Kgs4UlE4MhelE1v5dJR3+cxlR4qQlotsW7jKsnw==" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/gh/julmot/mark.js@8.11.1/dist/jquery.mark.min.js" integrity="sha512-mhbv5DqBMgrWL+32MmsDOt/OAvqr/cHimk6B8y/bx/xS88MVkYGPiVv2ixKVrkywF2qHplNRUvFsAHUdxZ3Krg==" crossorigin="anonymous"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script id="page-data" type="application/json">{"use_headroom":true}</script>
+
+
+  <script src="/js/wowchemy-headroom.db4755770454eb63685f8de785c0a172.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+<script src="/en/js/wowchemy.min.62586ca65ca61821fe707eb9fa6268b7.js"></script>
+
+
+
+  <script src="/js/wowchemy-map.a26e9d2f7238ba5b868384f1c5bc6477.js" type="module"></script>
+
+
+
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+        <pre><code></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <script src="/js/wowchemy-publication.9137013a66774049159934c29c3f0205.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

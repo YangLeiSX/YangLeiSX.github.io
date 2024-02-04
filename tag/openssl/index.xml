@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>OpenSSL | YangLeiSX</title>
+    <link>https://yangleisx.github.io/tag/openssl/</link>
+      <atom:link href="https://yangleisx.github.io/tag/openssl/index.xml" rel="self" type="application/rss+xml" />
+    <description>OpenSSL</description>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Tue, 21 Apr 2020 09:26:44 +0800</lastBuildDate>
+    <image>
+      <url>https://yangleisx.github.io/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_512x512_fill_lanczos_center_3.png</url>
+      <title>OpenSSL</title>
+      <link>https://yangleisx.github.io/tag/openssl/</link>
+    </image>
+    
+    <item>
+      <title>Qt开发OpenSSL程序踩坑</title>
+      <link>https://yangleisx.github.io/post/log-qt-ssl/</link>
+      <pubDate>Tue, 21 Apr 2020 09:26:44 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/log-qt-ssl/</guid>
+      <description>&lt;h2 id=&#34;背景&#34;&gt;背景&lt;/h2&gt;
+&lt;p&gt;分别由两个人开发的代码需要被整合进入一个完整的项目并运行。&lt;/p&gt;
+&lt;p&gt;其中第一位同学使用Visual Studio开发基于C++和openSSL的加解密的程序，使用vcpkg安装和编译openSSL:x86-windows并且集成到Visual Studio中。另一位同学使用Qt Creator开发基于C++和Qt的GUI程序。&lt;/p&gt;
+&lt;h2 id=&#34;ide选择&#34;&gt;IDE选择&lt;/h2&gt;
+&lt;p&gt;由于需要将两份代码合成一个完整的项目运行，我首先选择IDE为Visual Studio，但是由于并没有在VS中写过Qt程序，添加的QT VS TOOL插件总是无法正常编译。因此放弃使用Visual Studio作为项目IDE。选择Qt Creator作为开发环境。&lt;/p&gt;
+&lt;h2 id=&#34;编译&#34;&gt;编译&lt;/h2&gt;
+&lt;p&gt;遇到的第一个问题是将openSSL集成到Qt Creator，从网上找到的资料都是从OpenSSL官网下载，并在Qt项目文件中添加库和头文件路径。如下代码所示&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-txt&#34; data-lang=&#34;txt&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;LIBS += \
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    -Lpath/lib -lssl \
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    -Lpath/lib -lcrypto
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;INCLUDEPATH += path/include
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;我遇到的问题是，添加头文件正常，但是在编译的时候会出现&lt;code&gt;undefined reference to xxx&lt;/code&gt;的报错，仔细一看是openssl库中的函数，在代码中&lt;code&gt;follow symbols&lt;/code&gt;可以跳转到头文件中对应的定义，因此猜测是头文件正常但库文件没有正常加载。&lt;/p&gt;
+&lt;p&gt;这里涉及到的我尝试过的库文件包括&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-txt&#34; data-lang=&#34;txt&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;libssl.lib
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;libcrypto.lib
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;libssl.a
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;libcrypto.a
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;libssl.dll.a
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;libcrypto.dll.a
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;libssl-1_1.dll
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;libcrypto-1_1.dll
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;libeay32.dll
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ssleay32.dll
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;...
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;于是开始各种下载和添加库文件。包括但不限于&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;使用vcpkg编译x64-windows版本的openssl库并添加（考虑到32位和64位可能产生的冲突）&lt;/li&gt;
+&lt;li&gt;官网下载openssl安装包（由于下载速度太慢，我选择了64位light版本的安装包，但是light版本安装包没有lib文件，完整版本的安装包就不曾下载成功过）&lt;/li&gt;
+&lt;li&gt;将lib和include文件copy到项目目录下，再使用上述方法添加路径。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;在这个时候，我查到一篇文章说qt本身是包括openssl的但是在编译的时候默认不安装，因此qt的环境下实际上是包括openssl对应的库文件和头文件的。经过一番查找我找到这个路径&lt;code&gt;C:\Qt\Qt5.12.0\Tools\mingw730_64\opt&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;这个路径的lib目录下包括了libssl.a、libcrypto.a、libssl.dll.a、libcrypto.dll.a，bin目录下包括libeay32.dll、ssleay32.dll，include目录下包括openssl头文件目录。因此我修改.pro文件如下。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-txt&#34; data-lang=&#34;txt&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# 这里的$$quote我也没搞清啥意思，大概是双引号
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;LIBS += \
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    -LC:\Qt\Qt5.12.0\Tools\mingw730_64\opt\lib -lssl \
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    -LC:\Qt\Qt5.12.0\Tools\mingw730_64\opt\lib -lcrypto
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;INCLUDEPATH += \
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    $$quote(C:\Qt\Qt5.12.0\Tools\mingw730_64\opt\include)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;经过多次编译，并注释掉一些无用的函数，终于实现了&lt;code&gt;0 warnigns, 0 errors&lt;/code&gt;，呜呼。&lt;/p&gt;
+&lt;h2 id=&#34;运行&#34;&gt;运行&lt;/h2&gt;
+&lt;p&gt;接下来遇到的问题是，程序无法运行。在Qt Creator中直接运行，程序闪退并显示&lt;code&gt;程序异常结束&lt;/code&gt;。在Qt Creator中开启Debugger，同样也是闪退，添加的断点直接被无视了。&lt;/p&gt;
+&lt;p&gt;刚开始考虑到可能是被杀毒软件杀掉了，因此经过一番操作关闭了Windows Defender，但是仍然无法运行，陷入停滞。&lt;/p&gt;
+&lt;p&gt;这个时候查到一篇文章，详细介绍了Qt Creator中的闪退的原因并给出了一个检查的方法，就是找到编译生成的exe文件，直接双击运行。程序自然无法运行并提示缺少许多dll文件，其中包括qt的依赖库例如QtCore.dll等等，因此使用windeployqt.exe(位于&lt;code&gt;C:\Qt\Qt5.12.0\5.12.0\mingw73_64\bin&lt;/code&gt;)将Qt所有的依赖dll复制到exe对应的路径下，这个时候再次点击exe文件，显示&lt;code&gt;缺少libeay32.dll&lt;/code&gt;于是将上述的libeay32.dll和ssleay32.dll（位于&lt;code&gt;C:\Qt\Qt5.12.0\Tools\mingw730_64\opt\bin&lt;/code&gt;）复制到这个路径下。&lt;/p&gt;
+&lt;p&gt;双击exe，正常运行！！！经过测试，一切正常。每次使用qt编译后，将得到的exe文件拷贝到一个新的路径下，调用windeployqt和复制dll就可以正常运行。&lt;/p&gt;
+&lt;h2 id=&#34;总结反思&#34;&gt;总结反思&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;我使用Qt官网下载的安装包安装Qt时，IDE选择了QtCreator，编译环境我选择了MinGW和MSVC，因此在我的安装目录下（&lt;code&gt;C:\Qt\Qt5.12.0\5.12.0&lt;/code&gt;）包括了如下四个编译环境，每一个环境中都包含了windeployqt等一系列exe文件，和完整的Qt编译环境（bin + lib + include）。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;mingw73_64&lt;/p&gt;
+&lt;p&gt;msvc2015_64&lt;/p&gt;
+&lt;p&gt;msvc2017&lt;/p&gt;
+&lt;p&gt;msvc2017_64&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;但是非常疑惑的一点是，在编译时我检查Qt Cretor的编译输出窗口，发现我编译使用的是Tools目录下的mingw730_64。进一步检查发现Tools目录下（&lt;code&gt;C:\Qt\Qt5.12.0\Tools&lt;/code&gt;）包括如下目录。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;mingw730_64&lt;/p&gt;
+&lt;p&gt;QtCreator&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;前者不是一个完整的Qt编译环境，不包括qt的各种dll，而是包括了ar、ld、gcc、make、objdump等一系列工具，更像是一个编译环境。其opt目录下包括了openssl的编译环境（前文使用到的）。&lt;/p&gt;
+&lt;p&gt;那么这两个不同的mingw环境究竟有什么区别呢？后者可不可以换成我之前自己手动安装的MinGW环境呢？&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;使用vcpkg编译得到的环境和使用官方安装包以及从GitHub直接下载手动编译的环境有什么区别。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;对于库文件来说存不存在32位和64位的差异，如果不存在的话，那么vcpkg编译时为什么提供了x86-windows和x64-windows的不同的triplets（还包括了arm、linux等其他选择）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;函数静态库和动态库在使用时一定要同时存在么，即编译时指定lib文件，执行时exe文件路径中要包含对应的dll文件。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;vcpkg编译得到的libssl.lib和mingw730_64的opt路径下的libssl.a文件有什么差异，能不能简单通过改变后缀名来实现适配。同理还有.dll文件和.so文件之间的关系。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;最后的最后，还是感觉任重而道远。上述问题大多都是操作系统和C语言编译的基础知识，还是要努力打好基础。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>OpenSSL使用记录</title>
+      <link>https://yangleisx.github.io/post/bash-openssl/</link>
+      <pubDate>Tue, 14 Apr 2020 16:29:18 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/bash-openssl/</guid>
+      <description>&lt;p&gt;openssl的功能主要包括对称加解密、计算哈希（信息摘要）和发布证书。&lt;/p&gt;
+&lt;h3 id=&#34;加解密&#34;&gt;加解密&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;openssl enc -e -aes-128-cbc -in main.c -out main.enc
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;openssl enc -d -aes-128-cbc -in main.enc -out main_out.c
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;计算摘要&#34;&gt;计算摘要&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ openssl dgst -sha1 main.c
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;SHA1&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;main.c&lt;span class=&#34;o&#34;&gt;)=&lt;/span&gt; cc9bf223848c972e66968fb3846fc7f85721796e
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;\n&amp;#34;&lt;/span&gt; &amp;gt;&amp;gt; main.c
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ openssl dgst -sha1 main.c
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;SHA1&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;main.c&lt;span class=&#34;o&#34;&gt;)=&lt;/span&gt; 52019cdc4aea16ee68f4d881465f6b8f03cf1836
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;自建ca并签发撤销证书&#34;&gt;自建CA并签发&amp;amp;撤销证书&lt;/h3&gt;
+&lt;h4 id=&#34;更改文件目录设置&#34;&gt;更改文件目录设置&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# CA目录&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;dir&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/home/yanglei/Workspace/ssl
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 证书目录&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;certs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$dir&lt;/span&gt;/certs
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 证书备份目录&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;new_certs_dir&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$dir&lt;/span&gt;/newcerts
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# CA证书&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;certificate&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$dir&lt;/span&gt;/cacert.pem
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# CA数据库&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;database&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$dir&lt;/span&gt;/CA/index.txt
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# CA序列号&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;serial&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$dir&lt;/span&gt;/CA/serial
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 吊销证书目录&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;crl_dir&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$dir&lt;/span&gt;/crl
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 吊销证书编号&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;crlnumber&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$dir&lt;/span&gt;/crlnumber
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;crl&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$dir&lt;/span&gt;/crl.pem
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# CA私钥目录&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;privatekey&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$dir&lt;/span&gt;/private/cakey.pem
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;创建文件夹certs、newcerts、CA、private、crl&lt;/p&gt;
+&lt;p&gt;创建文件crlnumber（注意写入echo 01 &amp;gt; crlnumber）&lt;/p&gt;
+&lt;p&gt;创建文件CA/index.txt、CA/serial（注意写入echo 01 &amp;gt; serial）&lt;/p&gt;
+&lt;p&gt;创建随机数private/.rand&lt;/p&gt;
+&lt;h4 id=&#34;证书字段&#34;&gt;证书字段&lt;/h4&gt;
+&lt;p&gt;Country Name（C）国家&lt;/p&gt;
+&lt;p&gt;State or Province Name（S）省&lt;/p&gt;
+&lt;p&gt;Locatily Name（L）市&lt;/p&gt;
+&lt;p&gt;Organization Name（O）组织名&lt;/p&gt;
+&lt;p&gt;Organization Unit Name（OU）补充&lt;/p&gt;
+&lt;p&gt;Common Name（CN）通常为域名/网址&lt;/p&gt;
+&lt;p&gt;Email Address&lt;/p&gt;
+&lt;h4 id=&#34;生成自签名证书&#34;&gt;生成自签名证书&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# /home/yanglei/Workspace/ssl&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ openssl genrsa -out private/cakey.pem &lt;span class=&#34;m&#34;&gt;1024&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ openssl req -new -x509 -key private/cakey.pem -out cacert.pem -days &lt;span class=&#34;m&#34;&gt;3650&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 或者先生成请求再签名&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ openssl req -new -key xxx.pem -out xxx.csr
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ openssl x509 -req -in xxx.csr -signkey cakey.pem -out xxx.crt
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;签发证书&#34;&gt;签发证书&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# /home/yanglei/Workspace/testssl&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ openssl genrsa -out user1.pem &lt;span class=&#34;m&#34;&gt;1024&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ openssl rsa -in user1.pem -out user1.pub -pubout
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ openssl req -new -key user1.pem -out user1.csr -days &lt;span class=&#34;m&#34;&gt;365&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# /home/yanglei/Workspace/ssl&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ openssl ca -in ../testssl/user1.csr -out certs/user1.crt -days &lt;span class=&#34;m&#34;&gt;365&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ openssl x509 -in certs/user1.crt -noout -text
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;撤销证书&#34;&gt;撤销证书&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 吊销证书&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ openssl ca -revoke newcerts/01.pem
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 发布吊销列表&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ openssl ca -gencrl -out crl/ca.crl
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 查看吊销列表&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ openssl crl -in crl/ca.crl -noout -text
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

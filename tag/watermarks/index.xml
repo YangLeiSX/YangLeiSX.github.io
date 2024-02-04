@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Watermarks | YangLeiSX</title>
+    <link>https://yangleisx.github.io/tag/watermarks/</link>
+      <atom:link href="https://yangleisx.github.io/tag/watermarks/index.xml" rel="self" type="application/rss+xml" />
+    <description>Watermarks</description>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Tue, 19 Oct 2021 12:36:21 +0800</lastBuildDate>
+    <image>
+      <url>https://yangleisx.github.io/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_512x512_fill_lanczos_center_3.png</url>
+      <title>Watermarks</title>
+      <link>https://yangleisx.github.io/tag/watermarks/</link>
+    </image>
+    
+    <item>
+      <title>【论文】Embedding Watermarks into Deep Neural Networks</title>
+      <link>https://yangleisx.github.io/post/paper-uchida/</link>
+      <pubDate>Tue, 19 Oct 2021 12:36:21 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/paper-uchida/</guid>
+      <description>&lt;p&gt;论文题目： Embedding Watermarks into Deep Neural Networks&lt;/p&gt;
+&lt;p&gt;作者： Yusuke Uchida, Yuki Nagai,  Shigeyuki Sakazawa&lt;/p&gt;
+&lt;p&gt;会议/时间：ICMR 2017&lt;/p&gt;
+&lt;p&gt;链接: &lt;a href=&#34;https://arxiv.org/pdf/1701.04082.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;arXiv&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;论文目标&#34;&gt;论文目标&lt;/h2&gt;
+&lt;p&gt;目前预训练深度神经网络的应用越来越广，需要一种数字水印技术来保护预训练深度神经网络的知识产权，避免被滥用。论文首先定义了水印技术的场景，并提出了一种水印嵌入技术，可以在模型训练、精调或者蒸馏过程中嵌入到目标模型中且不影响模型性能。并且面对攻击者的精调和剪枝等行为时仍能保留在模型中。&lt;/p&gt;
+&lt;h2 id=&#34;问题定义&#34;&gt;问题定义&lt;/h2&gt;
+&lt;h3 id=&#34;模型水印要求&#34;&gt;模型水印要求&lt;/h3&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;要求&lt;/th&gt;
+&lt;th&gt;解释&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Fidelity&lt;/td&gt;
+&lt;td&gt;添加水印之后模型的性能没有明显下降&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Robustness&lt;/td&gt;
+&lt;td&gt;模型经过修改后水印仍存在&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Capacity&lt;/td&gt;
+&lt;td&gt;水印技术应该能够嵌入大量信息&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Security&lt;/td&gt;
+&lt;td&gt;水印应该难以被他人读写和修改&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Efficiency&lt;/td&gt;
+&lt;td&gt;嵌入和提取水印的过程应该足够快&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;模型水印嵌入方法&#34;&gt;模型水印嵌入方法&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;在训练过程中嵌入（Train From Scratch）&lt;/li&gt;
+&lt;li&gt;在精调过程中嵌入（Fine-Tuning）&lt;/li&gt;
+&lt;li&gt;在蒸馏过程中嵌入（Model Distillation）&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;攻击方法&#34;&gt;攻击方法&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;精调（Fine Tuning）&lt;/li&gt;
+&lt;li&gt;模型压缩（Model Compression）&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;本文方法&#34;&gt;本文方法&lt;/h2&gt;
+&lt;p&gt;主要考虑卷积神经网络中卷积层的参数。对于一个$Kernel-Size=S$，输入通道数为$D$，输出通道数（卷积核数量）为$L$的卷积层，不考虑偏置，其参数为$W \in \mathbb{R}^{S\times S\times D\times L}$。计算多个卷积核的均值
+$ {\bar W}_{i,j,k}=\frac{1}{L}\sum_l W_{i,j,k,l} $，并展平得到$w \in \mathbb{R}^M(M = S\times S\times D)$作为嵌入的目标。将$T$-bit的信息$b\in {0,1}^T$嵌入其中。&lt;/p&gt;
+&lt;p&gt;在提取时，使用$b_j = s(\sum_i X_{ji}\omega_i)$计算嵌入的信息。其中$\omega$表示卷积核均值，$X \in \mathbb{R}^{T \times M}$表示嵌入密钥，$s(\cdot)$为阶跃函数。&lt;/p&gt;
+&lt;p&gt;在训练时，为了将信息嵌入模型中，在原本的损失函数上添加了一个权重参数正则项$E(\omega)=E_0(\omega)+\lambda E_R(\omega)$。&lt;/p&gt;
+&lt;p&gt;考虑到上述的模型提取方式类似二分类方法，因此添加的权重参数正则项使用BCE损失，使用训练过程中的参数提取结果作为监督。&lt;/p&gt;
+
+
+
+$$\begin{aligned}
+E_R(\omega)=&amp; -\sum\limits_{j=1}^{T}(b_j \log(y_j)+(1-b_j)\log(1-y_j)) \\
+y_j =&amp; \sigma(\sum_i X_{ji}\omega_i)\\
+\sigma(x) =&amp; \frac{1}{1+\exp(-x)}
+\end{aligned}$$
+
+&lt;p&gt;关于密钥$X$的设计，考虑到水印的性能，有三种设计形式：$X^{direct}$的每一行为独热码，直接将信息映射到参数中。$X^{diff}$的每一行包含一个1和一个-1，其他的为0，将信息映射到参数的差值中。$X^{random}$的数字采样于标准正态分布。&lt;/p&gt;
+&lt;h2 id=&#34;结果分析&#34;&gt;结果分析&lt;/h2&gt;
+&lt;h3 id=&#34;ablation-study&#34;&gt;Ablation Study&lt;/h3&gt;
+&lt;p&gt;关于密钥$W$的设计，实验证明使用$X^{direct}$和$X^{diff}$嵌入都会造成较大的性能下降。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;uchilda-ablation1.png&#34; srcset=&#34;
+               /post/paper-uchida/uchilda-ablation1_hu020f76b2fac645ca040c9c2b8808f584_142443_1bd43ab42c65fc7fdb45609cc364b9c1.webp 400w,
+               /post/paper-uchida/uchilda-ablation1_hu020f76b2fac645ca040c9c2b8808f584_142443_ccbcb82027d7180cd0974a8bdfd23099.webp 760w,
+               /post/paper-uchida/uchilda-ablation1_hu020f76b2fac645ca040c9c2b8808f584_142443_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-uchida/uchilda-ablation1_hu020f76b2fac645ca040c9c2b8808f584_142443_1bd43ab42c65fc7fdb45609cc364b9c1.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;543&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;uchilda-ablation2.png&#34; srcset=&#34;
+               /post/paper-uchida/uchilda-ablation2_huaef4544ec3ceb6f08c6e3feb7087e296_46728_1e07467dd2f6378ce66c6b35ed63ff23.webp 400w,
+               /post/paper-uchida/uchilda-ablation2_huaef4544ec3ceb6f08c6e3feb7087e296_46728_1ab0144af431bf0f6e6e89f66de398d8.webp 760w,
+               /post/paper-uchida/uchilda-ablation2_huaef4544ec3ceb6f08c6e3feb7087e296_46728_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-uchida/uchilda-ablation2_huaef4544ec3ceb6f08c6e3feb7087e296_46728_1e07467dd2f6378ce66c6b35ed63ff23.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;275&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;而且可以看到$X^{random}$不仅不造成性能下降，而且对原始的参数分布影响不大。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;uchilda-abliation3.png&#34; srcset=&#34;
+               /post/paper-uchida/uchilda-abliation3_hu8a490fff758d59cf3b93fae55dab670d_249995_a6ed559bf7cbc000374f8c1d8b49bcee.webp 400w,
+               /post/paper-uchida/uchilda-abliation3_hu8a490fff758d59cf3b93fae55dab670d_249995_e82fa27997d65097fbd4801db80fb355.webp 760w,
+               /post/paper-uchida/uchilda-abliation3_hu8a490fff758d59cf3b93fae55dab670d_249995_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-uchida/uchilda-abliation3_hu8a490fff758d59cf3b93fae55dab670d_249995_a6ed559bf7cbc000374f8c1d8b49bcee.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;437&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;经过实验发现，当嵌入的信息量超过卷积层参数数量的时候，嵌入损失和性能下降会变得明显。而且采用直接嵌入的方式会难以在性能下降和嵌入损失之间达到均衡。&lt;/p&gt;
+&lt;h3 id=&#34;robustness&#34;&gt;Robustness&lt;/h3&gt;
+&lt;p&gt;实验证实这一方法可以应对Fine-Tuning和迁移学习。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;uchilda-robust1.png&#34; srcset=&#34;
+               /post/paper-uchida/uchilda-robust1_huccaa388cb5e18fe485032a5cd4aac933_80855_1e815e01e225c4374d4915f17889c389.webp 400w,
+               /post/paper-uchida/uchilda-robust1_huccaa388cb5e18fe485032a5cd4aac933_80855_ec7316e2cd02db623a28f1750a8e7ecd.webp 760w,
+               /post/paper-uchida/uchilda-robust1_huccaa388cb5e18fe485032a5cd4aac933_80855_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-uchida/uchilda-robust1_huccaa388cb5e18fe485032a5cd4aac933_80855_1e815e01e225c4374d4915f17889c389.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;177&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;面对剪枝操作时，特别是按照权重升序的剪枝方法时仍然能保留水印。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;uchilda-pruning1.png&#34; srcset=&#34;
+               /post/paper-uchida/uchilda-pruning1_hue91a7d15437d84b47e8ef38ad2aed188_91203_27b08dd1792170c989c0f5c347a2b6a4.webp 400w,
+               /post/paper-uchida/uchilda-pruning1_hue91a7d15437d84b47e8ef38ad2aed188_91203_c46dae44bca9c8d43f6139b063b93ec3.webp 760w,
+               /post/paper-uchida/uchilda-pruning1_hue91a7d15437d84b47e8ef38ad2aed188_91203_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-uchida/uchilda-pruning1_hue91a7d15437d84b47e8ef38ad2aed188_91203_27b08dd1792170c989c0f5c347a2b6a4.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;601&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;uchilda-pruning2.png&#34; srcset=&#34;
+               /post/paper-uchida/uchilda-pruning2_hu3941a9e9d4bde31df4b05641e9000461_73404_c9f333fa2af0b1a553759469bced3d65.webp 400w,
+               /post/paper-uchida/uchilda-pruning2_hu3941a9e9d4bde31df4b05641e9000461_73404_370e6c1705370d35e683fb378e996f50.webp 760w,
+               /post/paper-uchida/uchilda-pruning2_hu3941a9e9d4bde31df4b05641e9000461_73404_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-uchida/uchilda-pruning2_hu3941a9e9d4bde31df4b05641e9000461_73404_c9f333fa2af0b1a553759469bced3d65.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;629&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
+&lt;p&gt;提出了一种，为权重参数添加正则项的水印嵌入方法，其水印提取是通过矩阵映射的方式实现的。具有一定的鲁棒性。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

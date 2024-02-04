@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>WinAPI | YangLeiSX</title>
+    <link>https://yangleisx.github.io/tag/winapi/</link>
+      <atom:link href="https://yangleisx.github.io/tag/winapi/index.xml" rel="self" type="application/rss+xml" />
+    <description>WinAPI</description>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Thu, 11 Jun 2020 11:47:34 +0800</lastBuildDate>
+    <image>
+      <url>https://yangleisx.github.io/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_512x512_fill_lanczos_center_3.png</url>
+      <title>WinAPI</title>
+      <link>https://yangleisx.github.io/tag/winapi/</link>
+    </image>
+    
+    <item>
+      <title>WinAPI的数据类型(字符串)</title>
+      <link>https://yangleisx.github.io/post/win-api-type/</link>
+      <pubDate>Thu, 11 Jun 2020 11:47:34 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/win-api-type/</guid>
+      <description>&lt;p&gt;刚开始使用Windows提供的各种API函数时，对于函数参数的类型感到非常的迷惑，实际上Windows中对于各种C++数据类型做了封装和处理，得到了一组Windows的变量类型，其中的部分字符和字符串的定义如下。&lt;/p&gt;
+&lt;p&gt;其他的类型定义可以在具体使用时搜索查看头文件（例如&lt;code&gt;#include &amp;lt;Windows.h&amp;gt;&lt;/code&gt;）或者MSDN。&lt;/p&gt;
+&lt;h2 id=&#34;字符和字符串类型&#34;&gt;字符和字符串类型&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;变量类型&lt;/th&gt;
+&lt;th&gt;解释&lt;/th&gt;
+&lt;th&gt;定义&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;CHAR&lt;/td&gt;
+&lt;td&gt;ANSI型字符&lt;/td&gt;
+&lt;td&gt;char&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;WCHAT&lt;/td&gt;
+&lt;td&gt;Unicode型字符&lt;/td&gt;
+&lt;td&gt;wchar_t&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;TCHAR&lt;/td&gt;
+&lt;td&gt;自适应字符（ANSI or Unicode）&lt;/td&gt;
+&lt;td&gt;可变&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;LPSTR/PSTR&lt;/td&gt;
+&lt;td&gt;ANSI型字符串&lt;/td&gt;
+&lt;td&gt;char*&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;LPWSTR/PWSTR&lt;/td&gt;
+&lt;td&gt;Unicode型字符串&lt;/td&gt;
+&lt;td&gt;wchar_t*&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;LPTSTR/PTSTR&lt;/td&gt;
+&lt;td&gt;自适应字符串（ANSI or Unicode）&lt;/td&gt;
+&lt;td&gt;可变&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;LPCSTR/PCSTR&lt;/td&gt;
+&lt;td&gt;常量ANSI型字符串&lt;/td&gt;
+&lt;td&gt;const char*&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;LPCWSTR/PCWSTR&lt;/td&gt;
+&lt;td&gt;常量Unicode型字符串&lt;/td&gt;
+&lt;td&gt;const wchar_t*&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;LPCTSTR/PCTSTR&lt;/td&gt;
+&lt;td&gt;常量自适应字符串&lt;/td&gt;
+&lt;td&gt;可变&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;其中的前缀LP/P，可以理解为表示指针Pointer（字符串变量为字符数组的首地址指针）。&lt;/p&gt;
+&lt;h2 id=&#34;字符串函数&#34;&gt;字符串函数&lt;/h2&gt;
+&lt;p&gt;绝大多数操作字符串的函数都提供了A和W两种，例如RegOpenExA()和RegOpenExW()，同时提供了自适应的版本RegOpenEx()，A为后缀的函数参数通常为ANSI型，W为后缀的函数参数通常为Unicode型，无后缀的函数使用自适应定义。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-C++&#34; data-lang=&#34;C++&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#ifdef UNICODE
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#define TCHAR Wchar_t
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#else
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#define TCHAR char
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#endif
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#ifdef UNICODE
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#define RegOpenEx RegOpenExW
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#else
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#define RegOpenEx RegOpenExA
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#endif
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;a href=&#34;https://docs.microsoft.com/en-us/windows/win32/learnwin32/working-with-strings&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;参考MSDN&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

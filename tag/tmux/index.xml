@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>tmux | YangLeiSX</title>
+    <link>https://yangleisx.github.io/tag/tmux/</link>
+      <atom:link href="https://yangleisx.github.io/tag/tmux/index.xml" rel="self" type="application/rss+xml" />
+    <description>tmux</description>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Mon, 03 Feb 2020 16:04:56 +0800</lastBuildDate>
+    <image>
+      <url>https://yangleisx.github.io/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_512x512_fill_lanczos_center_3.png</url>
+      <title>tmux</title>
+      <link>https://yangleisx.github.io/tag/tmux/</link>
+    </image>
+    
+    <item>
+      <title>TMUX 使用方式简单记录</title>
+      <link>https://yangleisx.github.io/post/tmux/</link>
+      <pubDate>Mon, 03 Feb 2020 16:04:56 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/tmux/</guid>
+      <description>&lt;p&gt;TMUX 使用&lt;/p&gt;
+&lt;p&gt;参考网上一些博客的教程&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;。同时参考了一些自主定制tmux功能的教程&lt;sup id=&#34;fnref:2&#34;&gt;&lt;a href=&#34;#fn:2&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;。&lt;/p&gt;
+&lt;p&gt;仅用于使用参考。&lt;/p&gt;
+&lt;h2 id=&#34;关键概念&#34;&gt;关键概念&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;会话 session：用户和终端的交互。允许创建多个会话，关闭时内部进程不会终止，允许再次进入，直至被终止。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;窗口 window：每个会话可以创建多个窗口，可以相互切换。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;窗格 pane：每个窗口可以创建多个窗格，用于同时处理多个命令行界面。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;前缀：所有操作的快捷键要求以ctrl+b启动。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;安装和启动&#34;&gt;安装和启动&lt;/h2&gt;
+&lt;p&gt;使用对应平台的包管理工具直接安装&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 启动第一个会话&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ tmux
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 查看快捷键&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ tmux list-keys
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 查看命令&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ tmux list-commands
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 查看会话信息&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ tmux info
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;会话管理&#34;&gt;会话管理&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;功能&lt;/th&gt;
+&lt;th&gt;命令&lt;/th&gt;
+&lt;th&gt;快捷键&lt;/th&gt;
+&lt;th&gt;注意&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;创建会话&lt;/td&gt;
+&lt;td&gt;tmux new -s &amp;lt;name&amp;gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;默认会话名为基于0的数字&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;分离会话&lt;/td&gt;
+&lt;td&gt;tmux detach&lt;/td&gt;
+&lt;td&gt;ctrl+b d&lt;/td&gt;
+&lt;td&gt;会话和进程在后台运行&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;查看会话&lt;/td&gt;
+&lt;td&gt;tmux ls&lt;/td&gt;
+&lt;td&gt;ctrl+b s&lt;/td&gt;
+&lt;td&gt;查看被分离的会话&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;接入会话&lt;/td&gt;
+&lt;td&gt;tmux attach -t &amp;lt;name&amp;gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;杀死会话&lt;/td&gt;
+&lt;td&gt;tmux kill-session -t &amp;lt;name&amp;gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;建议在会话内部使用exit&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;切换会话&lt;/td&gt;
+&lt;td&gt;tmux switch -t &amp;lt;name&amp;gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;重命名会话&lt;/td&gt;
+&lt;td&gt;tmux rename-session -t &amp;lt;name&amp;gt; &amp;lt;new name&amp;gt;&lt;/td&gt;
+&lt;td&gt;ctrl+b $&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;窗格操作&#34;&gt;窗格操作&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;功能&lt;/th&gt;
+&lt;th&gt;命令&lt;/th&gt;
+&lt;th&gt;快捷键&lt;/th&gt;
+&lt;th&gt;注意&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;上下划分&lt;/td&gt;
+&lt;td&gt;tmux split_window&lt;/td&gt;
+&lt;td&gt;ctrl+b &amp;quot;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;左右划分&lt;/td&gt;
+&lt;td&gt;tmux split_window -h&lt;/td&gt;
+&lt;td&gt;ctrl+b %&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;移动光标&lt;/td&gt;
+&lt;td&gt;tmux select-pane -[UDLR]&lt;/td&gt;
+&lt;td&gt;ctrl+b 方向键&lt;/td&gt;
+&lt;td&gt;参数表示上下左右移动&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;交换窗格位置&lt;/td&gt;
+&lt;td&gt;tmux swap-pane -[UDLR]&lt;/td&gt;
+&lt;td&gt;ctrl+b [{ } ctrl+o alt+o]&lt;/td&gt;
+&lt;td&gt;参数表示上下左右移动交换&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;切换窗格&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;ctrl+b [o;]&lt;/td&gt;
+&lt;td&gt;参数表示按编号上下移动&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;关闭窗格&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;ctrl+b x&lt;/td&gt;
+&lt;td&gt;也可以在窗格内使用exit&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;窗格拆分为窗口&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;ctrl+b ！&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;调整窗格大小&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;ctrl+b ctrl+方向键&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;查看窗格序号&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;ctrl+b q&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;窗口操作&#34;&gt;窗口操作&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;功能&lt;/th&gt;
+&lt;th&gt;命令&lt;/th&gt;
+&lt;th&gt;快捷键&lt;/th&gt;
+&lt;th&gt;注意&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;创建窗口&lt;/td&gt;
+&lt;td&gt;tmux new-window -n &amp;lt;name&amp;gt;&lt;/td&gt;
+&lt;td&gt;ctrl+b c&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;切换窗口&lt;/td&gt;
+&lt;td&gt;tmux select-window -t &amp;lt;name&amp;gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;重命名窗口&lt;/td&gt;
+&lt;td&gt;tmux rename-window &amp;lt;name&amp;gt;&lt;/td&gt;
+&lt;td&gt;ctrl+b ,&lt;/td&gt;
+&lt;td&gt;为当前窗口重命名&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;切换窗口&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;ctrl+b [pn]&lt;/td&gt;
+&lt;td&gt;表示按编号上下切换&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;切换窗口&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;ctrl+b &amp;lt;number&amp;gt;&lt;/td&gt;
+&lt;td&gt;切换到指定窗口&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;选择窗口&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;ctrl+b w&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;http://www.ruanyifeng.com/blog/2019/10/tmux.html#comment-text&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;阮一峰的日志&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:2&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/williamyuyuyu/article/details/79283374#1%e6%9b%b4%e6%94%b9%e5%89%8d%e7%bc%80&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Tmux教程——打造完美的Linux终端&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

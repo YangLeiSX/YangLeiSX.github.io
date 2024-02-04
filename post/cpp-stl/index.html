@@ -1,0 +1,1453 @@
+<!DOCTYPE html>
+<!-- This site was created with Hugo Blox. https://hugoblox.com -->
+<!-- Last Published: February 4, 2024 --><html lang="en-us" >
+
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  
+  
+    <meta name="generator" content="Hugo Blox Builder 5.9.6" />
+  
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+
+  
+  
+  
+    
+      
+      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&family=Roboto:wght@400;700&display=swap">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&family=Roboto:wght@400;700&display=swap" media="print" onload="this.media='all'">
+    
+  
+
+  
+  
+
+  
+  
+    
+    <script src="/js/mathjax-config.js"></script>
+  
+
+  
+
+  <link rel="stylesheet" href="/css/vendor-bundle.min.047268c6dd09ad74ba54a0ba71837064.css" media="print" onload="this.media='all'">
+
+  
+  
+  
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1.9.4/css/academicons.min.css" integrity="sha512-IW0nhlW5MgNydsXJO40En2EoCkTTjZhI3yuODrZIc8cQ4h1XcF53PsqDHa09NqnkXuIe0Oiyyj171BqZFwISBw==" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+
+    
+    
+    
+    
+      
+      
+    
+    
+    
+
+    
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.min.css" integrity="" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+
+    
+
+    
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+  
+
+  
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/wowchemy.32e2e32cf1a4c1ea152e519f8b1fda79.css" />
+
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+    
+    
+    <link rel="stylesheet" href="/css/libs/chroma/github-light.min.css" title="hl-light" media="print" onload="this.media='all'" >
+    <link rel="stylesheet" href="/css/libs/chroma/dracula.min.css" title="hl-dark" media="print" onload="this.media='all'" disabled>
+  
+
+  
+  
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-N3HXE9037R"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+      dataLayer.push(arguments);
+  }
+
+  function trackOutboundLink(url, target) {
+    gtag('event', 'click', {
+         'event_category': 'outbound',
+         'event_label': url,
+         'transport_type': 'beacon',
+         'event_callback': function () {
+           if (target !== '_blank') {
+             document.location = url;
+           }
+         }
+    });
+    console.debug("Outbound link clicked: " + url);
+  }
+
+  function onClickCallback(event) {
+    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
+      return;
+    }
+    trackOutboundLink(event.target, event.target.getAttribute('target'));  
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'G-N3HXE9037R', {});
+  gtag('set', {'cookie_flags': 'SameSite=None;Secure'});
+
+  
+  document.addEventListener('click', onClickCallback, false);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+
+
+
+
+
+
+  <meta name="author" content="Lei Yang" />
+
+
+
+
+
+  
+
+<meta name="description" content="C&#43;&#43;已经实现了常见的各种数据结构
+每种数据结构的实现被称为容器，定义迭代器作为容器中对象的指针
+迭代器被定义为公有内嵌类，类名为iterator或const_iterator
+借助容器储存数据的容器称为容器适配器(栈和队列)
+查找表容器通常称为关联容器
+建议：直接查看头文件中的函数声明，使用关键字检索" />
+
+
+
+<link rel="alternate" hreflang="en-us" href="https://yangleisx.github.io/post/cpp-stl/" />
+<link rel="canonical" href="https://yangleisx.github.io/post/cpp-stl/" />
+
+
+
+  <link rel="manifest" href="/manifest.webmanifest" />
+
+
+
+<link rel="icon" type="image/png" href="/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_32x32_fill_lanczos_center_3.png" />
+<link rel="apple-touch-icon" type="image/png" href="/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_180x180_fill_lanczos_center_3.png" />
+
+<meta name="theme-color" content="#1565c0" />
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+<meta property="twitter:card" content="summary" />
+
+  <meta property="twitter:site" content="@GetResearchDev" />
+  <meta property="twitter:creator" content="@GetResearchDev" />
+<meta property="twitter:image" content="https://yangleisx.github.io/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_512x512_fill_lanczos_center_3.png" />
+
+
+
+  
+
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="YangLeiSX" />
+<meta property="og:url" content="https://yangleisx.github.io/post/cpp-stl/" />
+<meta property="og:title" content="C&#43;&#43;中的STL数据结构 | YangLeiSX" />
+<meta property="og:description" content="C&#43;&#43;已经实现了常见的各种数据结构
+每种数据结构的实现被称为容器，定义迭代器作为容器中对象的指针
+迭代器被定义为公有内嵌类，类名为iterator或const_iterator
+借助容器储存数据的容器称为容器适配器(栈和队列)
+查找表容器通常称为关联容器
+建议：直接查看头文件中的函数声明，使用关键字检索" /><meta property="og:image" content="https://yangleisx.github.io/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_512x512_fill_lanczos_center_3.png" /><meta property="og:locale" content="en-us" />
+
+  
+    <meta
+      property="article:published_time"
+      content="2019-10-04T14:52:25&#43;08:00"
+    />
+  
+  
+    <meta property="article:modified_time" content="2019-10-04T14:52:25&#43;08:00">
+  
+
+
+
+
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://yangleisx.github.io/post/cpp-stl/"
+  },
+  "headline": "C++中的STL数据结构",
+  
+  "datePublished": "2019-10-04T14:52:25+08:00",
+  "dateModified": "2019-10-04T14:52:25+08:00",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Lei Yang"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "YangLeiSX",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://yangleisx.github.io/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_192x192_fill_lanczos_center_3.png"
+    }
+  },
+  "description": "\u003cp\u003eC++已经实现了常见的各种数据结构\u003c/p\u003e\n\u003cp\u003e每种数据结构的实现被称为容器，定义迭代器作为容器中对象的指针\u003c/p\u003e\n\u003cp\u003e迭代器被定义为公有内嵌类，类名为iterator或const_iterator\u003c/p\u003e\n\u003cp\u003e借助容器储存数据的容器称为容器适配器(栈和队列)\u003c/p\u003e\n\u003cp\u003e查找表容器通常称为关联容器\u003c/p\u003e\n\u003cp\u003e\u003cem\u003e\u003cstrong\u003e建议：直接查看头文件中的函数声明，使用关键字检索\u003c/strong\u003e\u003c/em\u003e\u003c/p\u003e"
+}
+</script>
+
+  
+
+  
+
+
+
+
+  
+  
+  
+
+  
+  
+
+  
+
+
+  
+  <title>C&#43;&#43;中的STL数据结构 | YangLeiSX</title>
+
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="page-wrapper   " data-wc-page-id="14a3cb7e853012cd9da95f2ad24318da" >
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="/js/wowchemy-init.min.3a6bdbdff5d8a89d6e651adb3deec035.js"></script>
+
+  
+
+
+<aside class="search-modal" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#" aria-label="Close"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search" class="form-control"
+        aria-label="Search...">
+        
+      </div>
+
+      
+      
+
+      
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+
+  <div class="page-header header--fixed">
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+    <div class="container-xl">
+
+      
+      <div class="d-none d-lg-inline-flex">
+        <a class="navbar-brand" href="/">YangLeiSX</a>
+      </div>
+      
+
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse"
+              data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
+      <span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+      
+      <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+        <a class="navbar-brand" href="/">YangLeiSX</a>
+      </div>
+      
+
+      
+      
+      <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+        
+        <ul class="navbar-nav d-md-inline-flex">
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+              
+              
+              
+                
+              
+              
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/#about"><span>Home</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+              
+              
+              
+                
+              
+              
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/#citation"><span>Publications</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link  active" href="/post/"><span>Posts</span></a>
+          </li>
+
+          
+          
+
+        
+
+          
+        </ul>
+      </div>
+
+      <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+
+        
+        
+          
+        
+
+        
+        
+        
+        <li class="nav-item">
+          <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+        </li>
+        
+
+        
+        
+        
+        <li class="nav-item dropdown theme-dropdown">
+          <a href="#" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-label="Display preferences">
+            <i class="fas fa-moon" aria-hidden="true"></i>
+          </a>
+          <div class="dropdown-menu">
+            <a href="#" class="dropdown-item js-set-theme-light">
+              <span>Light</span>
+            </a>
+            <a href="#" class="dropdown-item js-set-theme-dark">
+              <span>Dark</span>
+            </a>
+            <a href="#" class="dropdown-item js-set-theme-auto">
+              <span>Automatic</span>
+            </a>
+          </div>
+        </li>
+        
+
+        
+        
+
+      </ul>
+
+    </div>
+  </nav>
+</header>
+
+
+  </div>
+
+  <div class="page-body">
+    
+    
+    
+
+    <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1>C&#43;&#43;中的STL数据结构</h1>
+
+  
+
+  
+    
+
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Oct 4, 2019
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    2 min read
+  </span>
+  
+
+  
+  
+  
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="/category/%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0/">代码学习</a></span>
+  
+
+</div>
+
+    
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <p>C++已经实现了常见的各种数据结构</p>
+<p>每种数据结构的实现被称为容器，定义迭代器作为容器中对象的指针</p>
+<p>迭代器被定义为公有内嵌类，类名为iterator或const_iterator</p>
+<p>借助容器储存数据的容器称为容器适配器(栈和队列)</p>
+<p>查找表容器通常称为关联容器</p>
+<p><em><strong>建议：直接查看头文件中的函数声明，使用关键字检索</strong></em></p>
+<h2 id="线性表容器">线性表容器</h2>
+<p>vector：用动态数组实现的线性表#include&lt;vector&gt;</p>
+<p>list：用双链表实现的线性表#include&lt;list&gt;</p>
+<p>deque：经过优化的线性表，兼具两者特点，用于实现栈和队列</p>
+<h3 id="线性表变量声明">线性表变量声明</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">vc</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">iterator</span> <span class="n">itr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">list</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">ls</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">list</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">iterator</span> <span class="n">its</span><span class="p">;</span>
+</span></span></code></pre></div><h3 id="两者的共有操作">两者的共有操作</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">size</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>    <span class="c1">//元素个数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">clear</span><span class="p">();</span>        <span class="c1">//清空元素
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">bool</span> <span class="nf">empty</span><span class="p">();</span>        <span class="c1">//判断是否为空
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">push_back</span><span class="p">(</span><span class="k">const</span> <span class="n">object</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">);</span>    <span class="c1">//添加到表尾
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">pop_back</span><span class="p">();</span>                    <span class="c1">//删除表尾元素
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">const</span> <span class="n">object</span> <span class="o">&amp;</span> <span class="n">front</span> <span class="p">()</span> <span class="k">const</span><span class="p">;</span>      <span class="c1">//第一个元素
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">const</span> <span class="n">object</span> <span class="o">&amp;</span> <span class="n">back</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>        <span class="c1">//最后一个元素
+</span></span></span></code></pre></div><h3 id="特有操作">特有操作</h3>
+<p>list可以在表头操作</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">push_front</span><span class="p">(</span><span class="k">const</span> <span class="n">object</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">);</span>   <span class="c1">//表头添加元素
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">pop_front</span><span class="p">();</span>                   <span class="c1">//表头删除元素
+</span></span></span></code></pre></div><p>vector可以实现类似数据的特征</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">object</span> <span class="o">&amp;</span><span class="n">opeator</span><span class="p">[](</span><span class="kt">int</span> <span class="n">idx</span><span class="p">);</span>      <span class="c1">//下标运算符重载，无检查
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">object</span> <span class="o">&amp;</span><span class="n">at</span><span class="p">(</span><span class="kt">int</span> <span class="n">idx</span><span class="p">);</span>             <span class="c1">//返回指定位置元素，有下标检查
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">capacity</span><span class="p">();</span>                  <span class="c1">//数组容量
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">reseave</span><span class="p">(</span><span class="kt">int</span> <span class="n">newCapacity</span><span class="p">);</span>   <span class="c1">//指定数组容量
+</span></span></span></code></pre></div><h3 id="迭代器相关操作">迭代器相关操作</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">iterator</span> <span class="nf">begin</span><span class="p">();</span>        <span class="c1">//表头位置
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">const_iterator</span> <span class="nf">begin</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="n">iterator</span> <span class="nf">end</span><span class="p">();</span>          <span class="c1">//表尾位置
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">const_iterator</span> <span class="nf">end</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="n">iterator</span> <span class="nf">insert</span><span class="p">(</span><span class="n">iterator</span> <span class="n">pos</span><span class="p">,</span><span class="k">const</span> <span class="n">object</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">);</span>  <span class="c1">//插入元素
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">iterator</span> <span class="nf">erase</span><span class="p">(</span><span class="n">iterator</span> <span class="n">pos</span><span class="p">);</span>                   <span class="c1">//删除元素
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">iterator</span> <span class="nf">erase</span><span class="p">(</span><span class="n">iterator</span> <span class="n">start</span><span class="p">,</span><span class="n">iterator</span> <span class="n">end</span><span class="p">);</span>    <span class="c1">//删除区间[start,end-1)
+</span></span></span></code></pre></div><h3 id="迭代器操作">迭代器操作</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">itr</span> <span class="o">++</span><span class="p">;</span>     <span class="c1">//下一位置
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">*</span> <span class="n">itr</span><span class="p">;</span>      <span class="c1">//取出元素
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">//STL中定义了distance函数，可以确定两个iterator之间的距离
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">std</span><span class="o">::</span><span class="n">distance</span><span class="p">(</span><span class="n">exp</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="n">itr</span><span class="p">);</span><span class="c1">//可以得到itr指向的元素的下标
+</span></span></span></code></pre></div><h3 id="其他操作">其他操作</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">max_size</span><span class="p">();</span>            <span class="c1">//vector的最大范围
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">resize</span><span class="p">(</span><span class="n">size</span><span class="p">);</span>         <span class="c1">//显式指定数组空间
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">resize</span><span class="p">(</span><span class="n">size</span><span class="p">,</span><span class="n">fill</span><span class="p">);</span>    <span class="c1">//显示指定扩大数组空间，并填充
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">iterator</span> <span class="nf">rbegin</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>   <span class="c1">//反转后的表头（实际的表尾）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">iterator</span> <span class="nf">rend</span><span class="p">()</span>  <span class="k">const</span><span class="p">;</span>    <span class="c1">//反转后的表尾
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">swap</span><span class="p">(</span><span class="n">vector</span> <span class="o">&amp;</span><span class="n">obj</span><span class="p">);</span>    <span class="c1">//与另一个vector交换数据
+</span></span></span></code></pre></div><p>vector减少空间的方法被称为“收缩到合适（shrink to fit）”</p>
+<p>使capacity收缩到size（capacity默认为2的指数）</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">vc</span><span class="p">).</span><span class="n">swap</span><span class="p">(</span><span class="n">vc</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//使用vector的拷贝构造函数，复制已有的数据，释放多余的空间
+</span></span></span></code></pre></div><h2 id="栈容器">栈容器</h2>
+<p>stack栈容器，#include&lt;stack&gt;</p>
+<h3 id="栈变量声明">栈变量声明</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">stack</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">stack1</span><span class="p">;</span><span class="c1">//借助vector储存数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">stack</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="n">list</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">stack2</span><span class="p">;</span><span class="c1">//借助list储存数据
+</span></span></span></code></pre></div><h3 id="栈基本操作">栈基本操作</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">bool</span> <span class="nf">empty</span><span class="p">();</span>              <span class="c1">//检查栈是否为空
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">reference</span> <span class="nf">top</span><span class="p">();</span>           <span class="c1">//返回栈顶元素
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">pop</span><span class="p">();</span>                <span class="c1">//出栈
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">push</span><span class="p">(</span><span class="n">type</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">);</span>        <span class="c1">//压栈
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">push</span><span class="p">(</span><span class="k">const</span> <span class="n">type</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">);</span>  <span class="c1">//压栈
+</span></span></span></code></pre></div><h2 id="队列容器">队列容器</h2>
+<p>queue队列容器，#include&lt;queue&gt;</p>
+<h3 id="队列变量声明">队列变量声明</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">queue</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">queue1</span><span class="p">;</span>             <span class="c1">//使用deque实现的队列（默认）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">queue</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="n">deque</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">queue2</span><span class="p">;</span>  <span class="c1">//使用deque实现的队列（默认）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">queue</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="n">list</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">queue3</span><span class="p">;</span>  <span class="c1">//使用list实现的队列
+</span></span></span></code></pre></div><h3 id="队列基本操作">队列基本操作</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">push</span><span class="p">(</span><span class="n">type</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">);</span>        <span class="c1">//入队
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">push</span><span class="p">(</span><span class="k">const</span> <span class="n">type</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">);</span>  <span class="c1">//入队
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">pop</span><span class="p">();</span>                <span class="c1">//出队
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">reference</span> <span class="nf">front</span><span class="p">();</span>         <span class="c1">//返回队头（下一出队元素）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">reference</span> <span class="nf">back</span><span class="p">();</span>          <span class="c1">//返回队尾（上一入队元素）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">bool</span> <span class="nf">empty</span><span class="p">()</span> <span class="k">const</span> <span class="p">;</span>       <span class="c1">//是否为空
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">size_type</span> <span class="nf">size</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>    <span class="c1">//队列规模
+</span></span></span></code></pre></div><h2 id="优先级队列容器">优先级队列容器</h2>
+<p>priority_queue优先级队列容器，#include&lt;queue&gt;</p>
+<p>（内部使用二叉树实现）</p>
+<h3 id="变量声明">变量声明</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">priority_queue</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">,</span><span class="n">less</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">pq1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//默认使用vector实现，内部降序排列，最大值出队
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">priority_queue</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">,</span><span class="n">greater</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">pq2</span><span class="p">;</span><span class="c1">//vector实现，升序排列，最小值出队
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">priority_queue</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="n">deque</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">,</span><span class="n">less</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">pq3</span><span class="p">;</span><span class="c1">//使用deque实现
+</span></span></span></code></pre></div><p>第三个参数为仿函数，即使用一个类，实际上完成一个函数的作用</p>
+<h3 id="基本操作">基本操作</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">push</span><span class="p">(</span><span class="k">const</span> <span class="n">type</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">);</span>    <span class="c1">//入队
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">const</span> <span class="n">type</span> <span class="o">&amp;</span> <span class="n">top</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>    <span class="c1">//返回队首值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">pop</span><span class="p">();</span>                  <span class="c1">//出队
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">bool</span> <span class="nf">empty</span><span class="p">();</span>                <span class="c1">//检查是否为空
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">clear</span><span class="p">();</span>                <span class="c1">//清空队列
+</span></span></span></code></pre></div><h2 id="查找表容器">查找表容器</h2>
+<p>set“集合”：数据只有一个字段键的查找表#include&lt;set&gt;</p>
+<p>map“映射”：数据为键值对的查找表#include&lt;map&gt;</p>
+<p>pair类型：键值对类型，map的元素#include&lt;utility&gt;</p>
+<p>注：set和map中不允许key出现重复，需要出现重复的key时可以使用multiset和multimap</p>
+<h3 id="查找表变量声明">查找表变量声明</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">set</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">s</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">m</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">pair</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">p</span><span class="p">;</span>
+</span></span></code></pre></div><h3 id="查找表基本操作">查找表基本操作</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">pair</span> <span class="nf">makr_pair</span><span class="p">(</span><span class="n">class1</span> <span class="n">obj1</span><span class="p">,</span><span class="n">class2</span> <span class="n">obj2</span><span class="p">);</span>  <span class="c1">//生成pair变量，元素类型自动推断
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">p</span><span class="p">.</span><span class="n">first</span><span class="p">;</span>  <span class="n">p</span><span class="p">.</span><span class="n">second</span><span class="p">;</span>                         <span class="c1">//pair变量的内容
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">bool</span> <span class="nf">empty</span><span class="p">();</span>       <span class="c1">//判断是否为空
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">size_type</span> <span class="nf">size</span><span class="p">();</span>   <span class="c1">//容器规模
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">clear</span><span class="p">();</span>       <span class="c1">//清空容器
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">size_type</span> <span class="nf">count</span><span class="p">(</span><span class="k">const</span> <span class="n">key_type</span><span class="o">&amp;</span> <span class="n">key</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>  <span class="c1">//计数键出现的次数（判断键是否存在）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">iterator</span> <span class="nf">erase</span><span class="p">(</span><span class="n">iterator</span> <span class="n">position</span><span class="p">);</span>           <span class="c1">//删除某位置元素
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">iterator</span> <span class="nf">erase</span><span class="p">(</span><span class="n">iterator</span> <span class="n">begin</span><span class="p">,</span><span class="n">iterator</span> <span class="n">end</span><span class="p">);</span> <span class="c1">//删除一段元素
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">size_type</span> <span class="nf">erase</span><span class="p">(</span><span class="k">const</span> <span class="n">key_type</span><span class="o">&amp;</span> <span class="n">key</span><span class="p">);</span>        <span class="c1">//删除键为某值的元素
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">iterator</span> <span class="nf">find</span><span class="p">(</span><span class="k">const</span> <span class="n">key_type</span><span class="o">&amp;</span> <span class="n">key</span><span class="p">);</span>          <span class="c1">//查询键的位置（找不到时返回end）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">iterator</span> <span class="nf">insert</span><span class="p">(</span><span class="n">value_type</span><span class="o">&amp;</span> <span class="n">value</span><span class="p">);</span>          <span class="c1">//插入（map中value_type为pair）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="n">mapped_type</span> <span class="nf">at</span><span class="p">(</span><span class="k">const</span> <span class="n">key_type</span><span class="o">&amp;</span> <span class="n">key</span><span class="p">);</span>         <span class="c1">//查找key对应的值
+</span></span></span><span class="line"><span class="cl"><span class="c1">//map中可以直接使用下标运算，效果和at相同。但是如果目标不存在时会被创建并初始化
+</span></span></span></code></pre></div><h3 id="查找表迭代器相关操作">查找表迭代器相关操作</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">iterator</span> <span class="nf">begin</span><span class="p">();</span>    <span class="c1">//返回头部
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">iterator</span> <span class="nf">end</span><span class="p">();</span>      <span class="c1">//返回尾部
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="n">iterator</span> <span class="nf">lower_bound</span><span class="p">(</span><span class="n">key_value</span><span class="o">&amp;</span> <span class="n">key</span><span class="p">);</span>  <span class="c1">//返回值不小于key的第一个迭代器
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">iterator</span> <span class="nf">upper_bound</span><span class="p">(</span><span class="n">key_value</span><span class="o">&amp;</span> <span class="n">key</span><span class="p">);</span>  <span class="c1">//返回大于key的第一个迭代器
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">pair</span><span class="o">&lt;</span><span class="n">iterator</span><span class="p">,</span><span class="n">iterator</span><span class="o">&gt;</span> <span class="n">equal_range</span><span class="p">(</span><span class="n">key_value</span><span class="o">&amp;</span> <span class="n">key</span><span class="p">);</span>  <span class="c1">//返回等于key的范围
+</span></span></span><span class="line"><span class="cl"><span class="c1">//找不到的时候返回end
+</span></span></span></code></pre></div><p>特点：</p>
+<ol>
+<li>
+<p>map中的key是不可以修改的，但是每个key对应的value可以通过迭代器修改。</p>
+<p>set中只有key，因此不可以通过迭代器修改key的值</p>
+</li>
+<li>
+<p>map中的元素默认按key升序排列</p>
+</li>
+</ol>
+    </div>
+
+    
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tag/c/c-/">C/C&#43;&#43;</a>
+  
+</div>
+
+
+
+<div class="share-box">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fyangleisx.github.io%2Fpost%2Fcpp-stl%2F&amp;text=C%2B%2B%E4%B8%AD%E7%9A%84STL%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84" target="_blank" rel="noopener" class="share-btn-twitter" aria-label="twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fyangleisx.github.io%2Fpost%2Fcpp-stl%2F&amp;t=C%2B%2B%E4%B8%AD%E7%9A%84STL%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84" target="_blank" rel="noopener" class="share-btn-facebook" aria-label="facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+        
+      
+      <li>
+        <a href="mailto:?subject=C%2B%2B%E4%B8%AD%E7%9A%84STL%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84&amp;body=https%3A%2F%2Fyangleisx.github.io%2Fpost%2Fcpp-stl%2F" target="_blank" rel="noopener" class="share-btn-email" aria-label="envelope">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=https%3A%2F%2Fyangleisx.github.io%2Fpost%2Fcpp-stl%2F&amp;title=C%2B%2B%E4%B8%AD%E7%9A%84STL%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84" target="_blank" rel="noopener" class="share-btn-linkedin" aria-label="linkedin-in">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="whatsapp://send?text=C%2B%2B%E4%B8%AD%E7%9A%84STL%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%20https%3A%2F%2Fyangleisx.github.io%2Fpost%2Fcpp-stl%2F" target="_blank" rel="noopener" class="share-btn-whatsapp" aria-label="whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=https%3A%2F%2Fyangleisx.github.io%2Fpost%2Fcpp-stl%2F&amp;title=C%2B%2B%E4%B8%AD%E7%9A%84STL%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84" target="_blank" rel="noopener" class="share-btn-weibo" aria-label="weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  
+    
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+      
+      <a href="https://yangleisx.github.io/"><img class="avatar mr-3 avatar-circle" src="/authors/admin/avatar_hufa4b711d7d766ab1064b8274b75ac233_742651_270x270_fill_lanczos_center_1.gif" alt="Lei Yang"></a>
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="https://yangleisx.github.io/">Lei Yang</a></h5>
+      <h6 class="card-subtitle">PhD candidate</h6>
+      <p class="card-text">My research interests include visual speech recognition and semantics segmentation.</p>
+      <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="/#contact" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://scholar.google.com/citations?user=YsaBzN4AAAAJ" target="_blank" rel="noopener">
+        <i class="ai ai-google-scholar"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/yangleisx" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+</ul>
+
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+</article>
+  </div>
+
+  <div class="page-footer">
+    
+    
+    <div class="container">
+      <footer class="site-footer">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+
+  
+  
+    
+  
+  
+    
+  
+
+  
+
+  
+  <p class="powered-by copyright-license-text">
+    © 2024 Me. This work is licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0" rel="noopener noreferrer" target="_blank">CC BY NC ND 4.0</a>
+  </p>
+  
+
+  <p class="powered-by footer-license-icons">
+    <a href="https://creativecommons.org/licenses/by-nc-nd/4.0" rel="noopener noreferrer" target="_blank" aria-label="Creative Commons">
+      <i class="fab fa-creative-commons fa-2x" aria-hidden="true"></i>
+      <i class="fab fa-creative-commons-by fa-2x" aria-hidden="true"></i>
+      
+        <i class="fab fa-creative-commons-nc fa-2x" aria-hidden="true"></i>
+      
+      
+        <i class="fab fa-creative-commons-nd fa-2x" aria-hidden="true"></i>
+      
+    </a>
+  </p>
+
+
+
+
+
+  <p class="powered-by">
+    
+    
+    
+      
+      
+      
+      
+      
+      
+      Published with <a href="https://hugoblox.com/?utm_campaign=poweredby" target="_blank" rel="noopener">Hugo Blox Builder</a> — the free, <a href="https://github.com/HugoBlox/hugo-blox-builder" target="_blank" rel="noopener">open source</a> website builder that empowers creators.
+    
+  </p>
+</footer>
+
+    </div>
+    
+  </div>
+
+  
+
+
+<script src="/js/vendor-bundle.min.938a3a7554cd9f6602290411f64d2617.js"></script>
+
+
+
+
+  
+
+  
+  
+
+  
+
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.min.js" integrity="" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+  
+  <script id="search-hit-fuse-template" type="text/x-template">
+    <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+    </div>
+  </script>
+  
+    <script src="https://cdn.jsdelivr.net/gh/krisk/Fuse@v3.2.1/dist/fuse.min.js" integrity="sha512-o38bmzBGX+hD3JHWUFCDA09btWaqrNmoJ3RXLlrysA7PP01Kgs4UlE4MhelE1v5dJR3+cxlR4qQlotsW7jKsnw==" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/gh/julmot/mark.js@8.11.1/dist/jquery.mark.min.js" integrity="sha512-mhbv5DqBMgrWL+32MmsDOt/OAvqr/cHimk6B8y/bx/xS88MVkYGPiVv2ixKVrkywF2qHplNRUvFsAHUdxZ3Krg==" crossorigin="anonymous"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script id="page-data" type="application/json">{"use_headroom":true}</script>
+
+
+  <script src="/js/wowchemy-headroom.db4755770454eb63685f8de785c0a172.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+<script src="/en/js/wowchemy.min.62586ca65ca61821fe707eb9fa6268b7.js"></script>
+
+
+
+  <script src="/js/wowchemy-map.a26e9d2f7238ba5b868384f1c5bc6477.js" type="module"></script>
+
+
+
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+        <pre><code></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <script src="/js/wowchemy-publication.9137013a66774049159934c29c3f0205.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

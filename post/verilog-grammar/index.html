@@ -1,0 +1,1586 @@
+<!DOCTYPE html>
+<!-- This site was created with Hugo Blox. https://hugoblox.com -->
+<!-- Last Published: February 4, 2024 --><html lang="en-us" >
+
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  
+  
+    <meta name="generator" content="Hugo Blox Builder 5.9.6" />
+  
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+
+  
+  
+  
+    
+      
+      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&family=Roboto:wght@400;700&display=swap">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&family=Roboto:wght@400;700&display=swap" media="print" onload="this.media='all'">
+    
+  
+
+  
+  
+
+  
+  
+    
+    <script src="/js/mathjax-config.js"></script>
+  
+
+  
+
+  <link rel="stylesheet" href="/css/vendor-bundle.min.047268c6dd09ad74ba54a0ba71837064.css" media="print" onload="this.media='all'">
+
+  
+  
+  
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1.9.4/css/academicons.min.css" integrity="sha512-IW0nhlW5MgNydsXJO40En2EoCkTTjZhI3yuODrZIc8cQ4h1XcF53PsqDHa09NqnkXuIe0Oiyyj171BqZFwISBw==" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+
+    
+    
+    
+    
+      
+      
+    
+    
+    
+
+    
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.min.css" integrity="" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+
+    
+
+    
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+  
+
+  
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/wowchemy.32e2e32cf1a4c1ea152e519f8b1fda79.css" />
+
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+    
+    
+    <link rel="stylesheet" href="/css/libs/chroma/github-light.min.css" title="hl-light" media="print" onload="this.media='all'" >
+    <link rel="stylesheet" href="/css/libs/chroma/dracula.min.css" title="hl-dark" media="print" onload="this.media='all'" disabled>
+  
+
+  
+  
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-N3HXE9037R"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+      dataLayer.push(arguments);
+  }
+
+  function trackOutboundLink(url, target) {
+    gtag('event', 'click', {
+         'event_category': 'outbound',
+         'event_label': url,
+         'transport_type': 'beacon',
+         'event_callback': function () {
+           if (target !== '_blank') {
+             document.location = url;
+           }
+         }
+    });
+    console.debug("Outbound link clicked: " + url);
+  }
+
+  function onClickCallback(event) {
+    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
+      return;
+    }
+    trackOutboundLink(event.target, event.target.getAttribute('target'));  
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'G-N3HXE9037R', {});
+  gtag('set', {'cookie_flags': 'SameSite=None;Secure'});
+
+  
+  document.addEventListener('click', onClickCallback, false);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+
+
+
+
+
+
+  <meta name="author" content="Lei Yang" />
+
+
+
+
+
+  
+
+<meta name="description" content="简单记录一下verilog的语法，用于日后复习或者参考。" />
+
+
+
+<link rel="alternate" hreflang="en-us" href="https://yangleisx.github.io/post/verilog-grammar/" />
+<link rel="canonical" href="https://yangleisx.github.io/post/verilog-grammar/" />
+
+
+
+  <link rel="manifest" href="/manifest.webmanifest" />
+
+
+
+<link rel="icon" type="image/png" href="/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_32x32_fill_lanczos_center_3.png" />
+<link rel="apple-touch-icon" type="image/png" href="/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_180x180_fill_lanczos_center_3.png" />
+
+<meta name="theme-color" content="#1565c0" />
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+<meta property="twitter:card" content="summary" />
+
+  <meta property="twitter:site" content="@GetResearchDev" />
+  <meta property="twitter:creator" content="@GetResearchDev" />
+<meta property="twitter:image" content="https://yangleisx.github.io/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_512x512_fill_lanczos_center_3.png" />
+
+
+
+  
+
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="YangLeiSX" />
+<meta property="og:url" content="https://yangleisx.github.io/post/verilog-grammar/" />
+<meta property="og:title" content="Verilog HDL语法参考 | YangLeiSX" />
+<meta property="og:description" content="简单记录一下verilog的语法，用于日后复习或者参考。" /><meta property="og:image" content="https://yangleisx.github.io/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_512x512_fill_lanczos_center_3.png" /><meta property="og:locale" content="en-us" />
+
+  
+    <meta
+      property="article:published_time"
+      content="2019-10-22T22:29:31&#43;08:00"
+    />
+  
+  
+    <meta property="article:modified_time" content="2019-10-22T22:29:31&#43;08:00">
+  
+
+
+
+
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://yangleisx.github.io/post/verilog-grammar/"
+  },
+  "headline": "Verilog HDL语法参考",
+  
+  "datePublished": "2019-10-22T22:29:31+08:00",
+  "dateModified": "2019-10-22T22:29:31+08:00",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Lei Yang"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "YangLeiSX",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://yangleisx.github.io/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_192x192_fill_lanczos_center_3.png"
+    }
+  },
+  "description": "\u003cp\u003e简单记录一下verilog的语法，用于日后复习或者参考。\u003c/p\u003e"
+}
+</script>
+
+  
+
+  
+
+
+
+
+  
+  
+  
+
+  
+  
+
+  
+
+
+  
+  <title>Verilog HDL语法参考 | YangLeiSX</title>
+
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="page-wrapper   " data-wc-page-id="a1006419e3015b69778e6d806a386a91" >
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="/js/wowchemy-init.min.3a6bdbdff5d8a89d6e651adb3deec035.js"></script>
+
+  
+
+
+<aside class="search-modal" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#" aria-label="Close"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search" class="form-control"
+        aria-label="Search...">
+        
+      </div>
+
+      
+      
+
+      
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+
+  <div class="page-header header--fixed">
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+    <div class="container-xl">
+
+      
+      <div class="d-none d-lg-inline-flex">
+        <a class="navbar-brand" href="/">YangLeiSX</a>
+      </div>
+      
+
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse"
+              data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
+      <span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+      
+      <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+        <a class="navbar-brand" href="/">YangLeiSX</a>
+      </div>
+      
+
+      
+      
+      <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+        
+        <ul class="navbar-nav d-md-inline-flex">
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+              
+              
+              
+                
+              
+              
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/#about"><span>Home</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+              
+              
+              
+                
+              
+              
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/#citation"><span>Publications</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link  active" href="/post/"><span>Posts</span></a>
+          </li>
+
+          
+          
+
+        
+
+          
+        </ul>
+      </div>
+
+      <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+
+        
+        
+          
+        
+
+        
+        
+        
+        <li class="nav-item">
+          <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+        </li>
+        
+
+        
+        
+        
+        <li class="nav-item dropdown theme-dropdown">
+          <a href="#" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-label="Display preferences">
+            <i class="fas fa-moon" aria-hidden="true"></i>
+          </a>
+          <div class="dropdown-menu">
+            <a href="#" class="dropdown-item js-set-theme-light">
+              <span>Light</span>
+            </a>
+            <a href="#" class="dropdown-item js-set-theme-dark">
+              <span>Dark</span>
+            </a>
+            <a href="#" class="dropdown-item js-set-theme-auto">
+              <span>Automatic</span>
+            </a>
+          </div>
+        </li>
+        
+
+        
+        
+
+      </ul>
+
+    </div>
+  </nav>
+</header>
+
+
+  </div>
+
+  <div class="page-body">
+    
+    
+    
+
+    <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1>Verilog HDL语法参考</h1>
+
+  
+
+  
+    
+
+
+<div class="article-metadata">
+
+  
+  
+  
+  
+  <div>
+    
+
+  <span class="author-highlighted">
+      Lei Yang</span>
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Oct 22, 2019
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    2 min read
+  </span>
+  
+
+  
+  
+  
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="/category/%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0/">代码学习</a></span>
+  
+
+</div>
+
+    
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <p>简单记录一下verilog的语法，用于日后复习或者参考。</p>
+<h2 id="模块框架">模块框架</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-verilog" data-lang="verilog"><span class="line"><span class="cl"><span class="k">module</span> <span class="err">模块名</span> <span class="p">(</span><span class="err">端口列表</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 端口声明
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">input</span> <span class="n">input_port</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">output</span> <span class="n">output_port</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 参数声明
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">parameter</span> <span class="n">param</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 数据流语句
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">assign</span> <span class="n">a</span> <span class="o">=</span> <span class="n">b</span> <span class="o">&amp;</span> <span class="n">c</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 模块实例和门原语
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">subModule</span> <span class="n">Mod1</span><span class="p">(</span><span class="n">port1</span><span class="p">,</span> <span class="n">port2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">subModule</span> <span class="n">Mod2</span><span class="p">(.</span><span class="n">port1</span><span class="p">(</span><span class="n">PORT1</span><span class="p">),.</span><span class="n">port2</span><span class="p">(</span><span class="n">PORT2</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">  <span class="k">nand</span> <span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">in1</span><span class="p">,</span> <span class="n">in2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 过程语句块
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">always</span> <span class="p">@(</span><span class="o">*</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="err">过程语句</span>
+</span></span><span class="line"><span class="cl">  <span class="k">initial</span>
+</span></span><span class="line"><span class="cl">    <span class="err">过程语句</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">endmodule</span>
+</span></span></code></pre></div><h2 id="基本概念">基本概念</h2>
+<p>数字声明：&lt;size&gt;&rsquo;&lt;base format&gt;&lt;number&gt;</p>
+<p>可以在&rsquo;之后加s表示有符号数</p>
+<p>建议使用_分割为四个二进制数一组</p>
+<p>使用[begin:end]选择向量的部分位</p>
+<p>使用{a,b,c[3:0]}表示变量拼接</p>
+<p>位宽大的数向位宽小的数赋值：获得低位并截断</p>
+<p>位宽小的数向位宽大的数赋值：高位补0。例如reg[4:0]a;a = 2&rsquo;bx;得到00xx。</p>
+<p>位扩展时根据最高位扩展x和z。例如4&rsquo;bx0和4&rsquo;bz1得到xxx0和zzz1。</p>
+<p>常用系统函数：</p>
+<p>$ time    返回仿真时间</p>
+<p>$ display 显示输出</p>
+<p>$ monitor 监控值的变化，通常第一个参数为$ time，格式类似printf</p>
+<p>$finish   结束仿真</p>
+<h2 id="结构域描述">结构域描述</h2>
+<h3 id="子模块连接">子模块连接</h3>
+<p>端口连接规则：</p>
+<ol>
+<li>输入：外界net或reg，内部net</li>
+<li>输出：外界net，内部net或reg</li>
+<li>双向：外界net，内部net</li>
+<li>允许按端口列表顺序相连或者按名字相连</li>
+</ol>
+<p>模块也可以定义成实例数组</p>
+<p>通常设计测试台包括四个部分：定义外部与端口相连的变量（通常输入用reg输出用wire），定义模块并相连，initial初始化并控制驱动信号，显示monitor信息等。</p>
+<h3 id="门级建模">门级建模</h3>
+<p>门原语属于模块一级，相当于并发语句。</p>
+<p>只能驱动wire型的变量。</p>
+<h4 id="andor门">and/or门</h4>
+<p>包括and,nand,or,nor.xor,xnor六种</p>
+<p>一个输出端和多个输入端，第一个参数为输出端</p>
+<p>真值表中有x/z时，输出通常为x</p>
+<h4 id="bufnot门">buf/not门</h4>
+<p>包括buf,not两种</p>
+<p>一个输入端和多个输出端，最后一个参数为输入端</p>
+<h4 id="三态门">三态门</h4>
+<p>包括bufif1,bufif0,notif1,notif0四种</p>
+<p>控制信号是最后一个参数，输入信号是倒数第二个参数</p>
+<p>***要求：***当控制信号关断时，输出信号必须为z。</p>
+<p>控制信号为x/z时，或者输入信号为x/z时，输出通常为x。</p>
+<h4 id="延迟指定">延迟指定</h4>
+<p>门原语后使用#(上升 下降 关断)制定</p>
+<p>使用#(最小:典型:最大 最小:典型:最大 最小:典型:最大)指定延迟</p>
+<p>上升延迟指变为1，下降延迟指变为0，关断延迟指变为z</p>
+<h2 id="行为域描述">行为域描述</h2>
+<h3 id="数据流级">数据流级</h3>
+<h4 id="连续赋值">连续赋值</h4>
+<p>连续赋值语句assign，左值一定为net类型</p>
+<p>总是激活，时刻监控，描述组合逻辑</p>
+<h5 id="普通延迟">普通延迟</h5>
+<p>在assign之后使用#指定延迟</p>
+<p><em><strong>惯性延迟</strong></em>右端信号保持的持续时间必须大于延时宽度才能使左值改变</p>
+<h5 id="线网延迟">线网延迟</h5>
+<p>声明wire变量时使用#指定线网延迟</p>
+<p>实际延迟为线网延迟和赋值语句延迟之和</p>
+<p>信号保持的时间要大于两者的最大值</p>
+<h4 id="操作符">操作符</h4>
+<p>向量参与逻辑运算时，首先进行缩减或操作得到逻辑值，使用逻辑值运算</p>
+<p>逻辑等价(== !=)对于含有x/z的操作数结果为x。</p>
+<p>case等价(=== !==)对于含有x/z的操作数严格的逐位比较。</p>
+<p>三目条件运算符（cond）？expr1:expr2；若cond为1或0，则分别执行expr1和expr2。若cond为x，则诸位比较expr1和expr2，相同的位得到该位的值，不同的位得到x。</p>
+<h3 id="行为级">行为级</h3>
+<p><em><strong>过程语句块中绝对不能出现连续赋值语句</strong></em></p>
+<h4 id="过程语句">过程语句</h4>
+<p>主要有两种过程语句initial和always</p>
+<p>相互不能嵌套，都是模块级的语句</p>
+<p>要求：initial用于仿真，always用于设计</p>
+<p>不要在不同的语句块中对同一变量进行操作（过程语句的并发性）</p>
+<ul>
+<li>initial
+<ul>
+<li>从时刻0开始执行，只执行一次</li>
+<li>所有的initial语句块并发执行</li>
+<li>可以使用initial foreveer实现always的功能</li>
+</ul>
+</li>
+<li>always
+<ul>
+<li>从时刻0开始执行，无限循环</li>
+<li>可以定义局部变量，但是不能定义的同时赋初值</li>
+<li>可以用always @(*)实现assign的功能</li>
+</ul>
+</li>
+</ul>
+<h4 id="语句块">语句块</h4>
+<p>不建议两种块混合使用</p>
+<p>可以在begin/fork后用：为块命名</p>
+<p>可以使用disable禁止块的运行</p>
+<ul>
+<li>顺序块
+<ul>
+<li>begin-end</li>
+<li>顺序执行，延迟是相对于上一语句结束时</li>
+</ul>
+</li>
+<li>并行块
+<ul>
+<li>fork-join</li>
+<li>并发执行，延迟是相对于整个块</li>
+</ul>
+</li>
+</ul>
+<h4 id="时序控制">时序控制</h4>
+<h5 id="基于延迟">基于延迟</h5>
+<ul>
+<li>常规延迟：
+<ul>
+<li>#delay a = b;</li>
+<li>遇到该语句时，等待delay时间后执行</li>
+</ul>
+</li>
+<li>内嵌延迟
+<ul>
+<li>a = #delay b+c</li>
+<li>遇到该语句时计算右边，等待delay时间后赋值</li>
+</ul>
+</li>
+<li>零延迟：
+<ul>
+<li>#0</li>
+<li>表示在当前时间步结束时执行</li>
+</ul>
+</li>
+</ul>
+<h5 id="基于事件">基于事件</h5>
+<ul>
+<li>常规事件控制（边沿触发）
+<ul>
+<li>@(posedge clock)、@(negedge clock)、@(clock)</li>
+<li>表示正向跳变、反向跳变、值改变</li>
+<li>数组中任意一个值变化</li>
+</ul>
+</li>
+<li>OR事件控制
+<ul>
+<li>@(cond1 or cond2 or cond3)三个条件满足其一</li>
+<li>@(*)语句块中任意元素值改变</li>
+</ul>
+</li>
+<li>命名事件
+<ul>
+<li>定义一个事件event aEvent;</li>
+<li>满足条件触发事件-&gt; aEvent;</li>
+<li>事件触发执行always @(aEvent)</li>
+</ul>
+</li>
+</ul>
+<h5 id="电平敏感电平触发">电平敏感（电平触发）</h5>
+<p>等待条件为真时 wait(cond)</p>
+<p>cond为数组时，使用逻辑值判断</p>
+<h4 id="过程控制">过程控制</h4>
+<p>只能用在过程语句块中，不能用于模块一级</p>
+<ul>
+<li>if&hellip;else&hellip;
+<ul>
+<li>多条语句使用begin-end组成一块</li>
+</ul>
+</li>
+<li>case&hellip;cond1:&hellip;default&hellip;endcase
+<ul>
+<li>建议必须添加default</li>
+<li>逐位比较</li>
+</ul>
+</li>
+<li>casex&hellip;cond1:..default&hellip;endcase
+<ul>
+<li>候选式使用x和z表示无关值</li>
+</ul>
+</li>
+<li>casez&hellip;cond1:..default&hellip;endcase
+<ul>
+<li>候选式使用z表示无关值</li>
+</ul>
+</li>
+<li>while(condition)</li>
+<li>for(count = 0; count &lt; 128;count = count+1)</li>
+<li>repeat(times)
+<ul>
+<li>以上三种都要在外部声明reg型的循环变了</li>
+</ul>
+</li>
+<li>forever
+<ul>
+<li>遇到$finish停止</li>
+<li>可以被disable关闭</li>
+</ul>
+</li>
+</ul>
+<h4 id="赋值语句">赋值语句</h4>
+<p>仅能实现对寄存器的操作</p>
+<p>要求：时序逻辑电路使用非阻塞赋值，组合逻辑电路使用阻塞赋值</p>
+<p>严禁：在always块中混合使用阻塞和非阻塞</p>
+<p>顺序块中的非阻塞赋值和并行块中的阻塞赋值的效果类似，推荐前者。</p>
+<ul>
+<li>阻塞赋值
+<ul>
+<li>串行块中，按序执行，有延迟时停止</li>
+<li>并行块中，并发执行</li>
+</ul>
+</li>
+<li>非阻塞赋值
+<ul>
+<li>串行块中，并发执行，不影响后面的语句</li>
+<li>内嵌赋值语句被延迟到在目标时间步结束时执行赋值</li>
+<li>并行块中，并发执行</li>
+</ul>
+</li>
+</ul>
+<h3 id="任务和函数">任务和函数</h3>
+<p>定义在模块内部</p>
+<p>内部不能出现always或initial，只有行为语句</p>
+<ul>
+<li>函数（相当于同名的reg变量 要声明位宽）
+<ul>
+<li>可以调用函数，不可以调用任务，出现在assign、always、initial中</li>
+<li>遇到即执行，一定不包含延迟和时序控制</li>
+<li>返回一个值，不能有output</li>
+</ul>
+</li>
+<li>任务
+<ul>
+<li>可以调用函数和任务，出现在initial、always中</li>
+<li>可以延迟或时序控制</li>
+<li>不返回值，有多个output</li>
+<li>行为级语句，处理reg型变量</li>
+</ul>
+</li>
+</ul>
+<h2 id="生成块">生成块</h2>
+<ul>
+<li>在模块一级，使用if，case，while等过程控制来控制门原语、模块调用、数据流赋值等语句生成</li>
+<li>使用临时变量genvar控制</li>
+<li>使用generate和endgenerate表示开始和结束</li>
+<li>循环生成时内部的begin-end块需要命名，以便使用层次命名访问</li>
+</ul>
+<h2 id="udp用户定义原语">UDP用户定义原语</h2>
+<ul>
+<li>格式</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-verilog" data-lang="verilog"><span class="line"><span class="cl"><span class="k">primitive</span> <span class="n">upd_and</span><span class="p">(</span><span class="k">output</span> <span class="n">y</span><span class="p">,</span> <span class="k">input</span> <span class="n">a</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">table</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//  a b : y
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="mh">0</span> <span class="mh">0</span> <span class="o">:</span> <span class="mh">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="mh">0</span> <span class="mh">1</span> <span class="o">:</span> <span class="mh">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="mh">1</span> <span class="mh">0</span> <span class="o">:</span> <span class="mh">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="mh">1</span> <span class="mh">1</span> <span class="o">:</span> <span class="mh">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">endtable</span>
+</span></span><span class="line"><span class="cl"><span class="k">endprimitive</span>
+</span></span></code></pre></div><ul>
+<li>可以使用？表示无关匹配</li>
+</ul>
+    </div>
+
+    
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tag/verilog-hdl/">Verilog HDL</a>
+  
+</div>
+
+
+
+<div class="share-box">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fyangleisx.github.io%2Fpost%2Fverilog-grammar%2F&amp;text=Verilog&#43;HDL%E8%AF%AD%E6%B3%95%E5%8F%82%E8%80%83" target="_blank" rel="noopener" class="share-btn-twitter" aria-label="twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fyangleisx.github.io%2Fpost%2Fverilog-grammar%2F&amp;t=Verilog&#43;HDL%E8%AF%AD%E6%B3%95%E5%8F%82%E8%80%83" target="_blank" rel="noopener" class="share-btn-facebook" aria-label="facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+        
+      
+      <li>
+        <a href="mailto:?subject=Verilog%20HDL%E8%AF%AD%E6%B3%95%E5%8F%82%E8%80%83&amp;body=https%3A%2F%2Fyangleisx.github.io%2Fpost%2Fverilog-grammar%2F" target="_blank" rel="noopener" class="share-btn-email" aria-label="envelope">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=https%3A%2F%2Fyangleisx.github.io%2Fpost%2Fverilog-grammar%2F&amp;title=Verilog&#43;HDL%E8%AF%AD%E6%B3%95%E5%8F%82%E8%80%83" target="_blank" rel="noopener" class="share-btn-linkedin" aria-label="linkedin-in">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="whatsapp://send?text=Verilog&#43;HDL%E8%AF%AD%E6%B3%95%E5%8F%82%E8%80%83%20https%3A%2F%2Fyangleisx.github.io%2Fpost%2Fverilog-grammar%2F" target="_blank" rel="noopener" class="share-btn-whatsapp" aria-label="whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=https%3A%2F%2Fyangleisx.github.io%2Fpost%2Fverilog-grammar%2F&amp;title=Verilog&#43;HDL%E8%AF%AD%E6%B3%95%E5%8F%82%E8%80%83" target="_blank" rel="noopener" class="share-btn-weibo" aria-label="weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+
+
+
+  
+  
+  
+    
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+      
+      <a href="https://yangleisx.github.io/"><img class="avatar mr-3 avatar-circle" src="/authors/admin/avatar_hufa4b711d7d766ab1064b8274b75ac233_742651_270x270_fill_lanczos_center_1.gif" alt="Lei Yang"></a>
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="https://yangleisx.github.io/">Lei Yang</a></h5>
+      <h6 class="card-subtitle">PhD candidate</h6>
+      <p class="card-text">My research interests include visual speech recognition and semantics segmentation.</p>
+      <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="/#contact" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://scholar.google.com/citations?user=YsaBzN4AAAAJ" target="_blank" rel="noopener">
+        <i class="ai ai-google-scholar"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/yangleisx" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+</ul>
+
+    </div>
+  </div>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+</article>
+  </div>
+
+  <div class="page-footer">
+    
+    
+    <div class="container">
+      <footer class="site-footer">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+
+  
+  
+    
+  
+  
+    
+  
+
+  
+
+  
+  <p class="powered-by copyright-license-text">
+    © 2024 Me. This work is licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0" rel="noopener noreferrer" target="_blank">CC BY NC ND 4.0</a>
+  </p>
+  
+
+  <p class="powered-by footer-license-icons">
+    <a href="https://creativecommons.org/licenses/by-nc-nd/4.0" rel="noopener noreferrer" target="_blank" aria-label="Creative Commons">
+      <i class="fab fa-creative-commons fa-2x" aria-hidden="true"></i>
+      <i class="fab fa-creative-commons-by fa-2x" aria-hidden="true"></i>
+      
+        <i class="fab fa-creative-commons-nc fa-2x" aria-hidden="true"></i>
+      
+      
+        <i class="fab fa-creative-commons-nd fa-2x" aria-hidden="true"></i>
+      
+    </a>
+  </p>
+
+
+
+
+
+  <p class="powered-by">
+    
+    
+    
+      
+      
+      
+      
+      
+      
+      Published with <a href="https://hugoblox.com/?utm_campaign=poweredby" target="_blank" rel="noopener">Hugo Blox Builder</a> — the free, <a href="https://github.com/HugoBlox/hugo-blox-builder" target="_blank" rel="noopener">open source</a> website builder that empowers creators.
+    
+  </p>
+</footer>
+
+    </div>
+    
+  </div>
+
+  
+
+
+<script src="/js/vendor-bundle.min.938a3a7554cd9f6602290411f64d2617.js"></script>
+
+
+
+
+  
+
+  
+  
+
+  
+
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.min.js" integrity="" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+  
+  <script id="search-hit-fuse-template" type="text/x-template">
+    <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+    </div>
+  </script>
+  
+    <script src="https://cdn.jsdelivr.net/gh/krisk/Fuse@v3.2.1/dist/fuse.min.js" integrity="sha512-o38bmzBGX+hD3JHWUFCDA09btWaqrNmoJ3RXLlrysA7PP01Kgs4UlE4MhelE1v5dJR3+cxlR4qQlotsW7jKsnw==" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/gh/julmot/mark.js@8.11.1/dist/jquery.mark.min.js" integrity="sha512-mhbv5DqBMgrWL+32MmsDOt/OAvqr/cHimk6B8y/bx/xS88MVkYGPiVv2ixKVrkywF2qHplNRUvFsAHUdxZ3Krg==" crossorigin="anonymous"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script id="page-data" type="application/json">{"use_headroom":true}</script>
+
+
+  <script src="/js/wowchemy-headroom.db4755770454eb63685f8de785c0a172.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+<script src="/en/js/wowchemy.min.62586ca65ca61821fe707eb9fa6268b7.js"></script>
+
+
+
+  <script src="/js/wowchemy-map.a26e9d2f7238ba5b868384f1c5bc6477.js" type="module"></script>
+
+
+
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+        <pre><code></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <script src="/js/wowchemy-publication.9137013a66774049159934c29c3f0205.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

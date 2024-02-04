@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Semantics Segmentation | YangLeiSX</title>
+    <link>https://yangleisx.github.io/tag/semantics-segmentation/</link>
+      <atom:link href="https://yangleisx.github.io/tag/semantics-segmentation/index.xml" rel="self" type="application/rss+xml" />
+    <description>Semantics Segmentation</description>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Wed, 06 Jul 2022 10:32:35 +0800</lastBuildDate>
+    <image>
+      <url>https://yangleisx.github.io/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_512x512_fill_lanczos_center_3.png</url>
+      <title>Semantics Segmentation</title>
+      <link>https://yangleisx.github.io/tag/semantics-segmentation/</link>
+    </image>
+    
+    <item>
+      <title>2021分割新进展</title>
+      <link>https://yangleisx.github.io/post/survey-segment-2021/</link>
+      <pubDate>Wed, 06 Jul 2022 10:32:35 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/survey-segment-2021/</guid>
+      <description>&lt;p&gt;扫了一些分割方面论文，截止日期2021-12-29&lt;/p&gt;
+&lt;h2 id=&#34;针对结构的修改&#34;&gt;针对结构的修改&lt;/h2&gt;
+&lt;p&gt;专注于设计新的模块和现有网络结构的扩展。&lt;/p&gt;
+&lt;h3 id=&#34;cnn&#34;&gt;CNN&lt;/h3&gt;
+&lt;p&gt;Lanyun Zhu在CVPR2021提出的“Learning Statistical Texture for Semantic Segmentation”。基本骨架是普通的CNN提取网络加上[[DeepLab 系列]]中的ASPP。同时引入了两个新的模块TEM和PTFEM，从CNN最底层的特征图中学习&lt;strong&gt;纹理特征&lt;/strong&gt;，TEM进行纹理增强，PTFEM利用计数算子QCO学习金字塔纹理特征。最后上采样得到分类，得到&lt;strong&gt;STLNet&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;Xing Shen在CVPR2021提出的“DCT-Mask: Discrete Cosine Transform Mask Representation for Instance Segmentation”。使用了&lt;strong&gt;基于DCT变换的Mask表示&lt;/strong&gt;，相比基于像素的表示降低了复杂度和计算量。&lt;/p&gt;
+&lt;h3 id=&#34;fcnunet&#34;&gt;FCN/UNet&lt;/h3&gt;
+&lt;p&gt;Chen Guan学长在ITFS2020年发的“Lip image segmentation based on a fuzzy convolutional neural network”。主要是还是在&lt;strong&gt;FCN的基础上&lt;/strong&gt;，在特征融合的部分添加了一个&lt;strong&gt;Fuzzy Block&lt;/strong&gt;进行特征的融合。&lt;/p&gt;
+&lt;p&gt;Ruigang Niu在ITGRS上发的“Improving Semantic Segmentation in Aerial Imagery via Graph Reasoning and Disentangled Learning”在特征backbone的基础上，不同大小的特征图使用&lt;strong&gt;图推断+上采样&lt;/strong&gt;，进行concate，用双流的结构分别进行&lt;strong&gt;前景先验估计和边缘对齐&lt;/strong&gt;，然后合并进行分割预测。&lt;/p&gt;
+&lt;p&gt;Xia Li在CVPR2020上发的“Spatial Pyramid Based Graph Reasoning for Semantic Segmentation”也是利用了U-Net和&lt;strong&gt;图卷积&lt;/strong&gt;的方式
+{% asset_img pyramid-gr.png pyramid-gr.png %}&lt;/p&gt;
+&lt;p&gt;{% asset_img pyramid-gr-module.png pyramid-gr-module.png %}&lt;/p&gt;
+&lt;p&gt;Yunpeng Chen在CVPR2019上发的“Graph-Based Global Reasoning Networks”设计了一个图推断模块，将&lt;strong&gt;特征映射到图空间&lt;/strong&gt;，使用GCN进行推断然后再映射回到原本的坐标空间中，可以插在FCN模型之后的位置，提升模型性能。&lt;/p&gt;
+&lt;p&gt;Zilong Zhong在CVPR2020上发的“Squeeze-and-Attention Networks for Semantic Segmentation”对SE-Net中的SE模块进行改进，使得在分割任务中的效果更好。&lt;/p&gt;
+&lt;p&gt;Yanwei Li在CVPR2020上发的“Learning Dynamic Routing for Semantic Segmentation”使用了动态路径选择的方法，&lt;/p&gt;
+&lt;h3 id=&#34;transformer&#34;&gt;Transformer&lt;/h3&gt;
+&lt;p&gt;Sixiao Zheng在CVPR2021发的“Rethinking Semantic Segmentation from a Sequence-to-Sequence Perspective with Transformers”提出了&lt;strong&gt;SETR&lt;/strong&gt;，将transformer应用到了图像分割中。首先进行划分patch和linear projection，然后通过24个transformer，最后通过reshape和卷积上采样得到像素级分类结果。&lt;/p&gt;
+&lt;h2 id=&#34;针对目标场景&#34;&gt;针对目标场景&lt;/h2&gt;
+&lt;h3 id=&#34;3d点云数据&#34;&gt;3D点云数据&lt;/h3&gt;
+&lt;p&gt;Na Zhao在CVPR2021发的“Few-shot 3D Point Cloud Semantic Segmentation”提出一种Few-Shot的学习方法，结合Attention Learner和Metric Learner得到特征，然后使用图构造进行预测。&lt;/p&gt;
+&lt;h3 id=&#34;多光谱数据&#34;&gt;多光谱数据&lt;/h3&gt;
+&lt;p&gt;RGB-T数据，包含可见光和热成像数据，属于多模态学习。&lt;/p&gt;
+&lt;p&gt;Qiang Zhang在CVPR2021发的“ABMDRNet: Adaptive-weighted Bi-directional Modality Difference Reduction Network for RGB-T Semantic Segmentation”使用双流的方式，首先使用MDRF（Modality Difference Reduction and Fusion）进行Image2Image的转换，减少两个模态数据的差异，然后使用CWF，MSC，MCC三个模块进行合并再解码得到分类结果。MSC（Spatial Context）中使用了ASPP和Non-Local的结构。MCC利用了Channel Context。&lt;/p&gt;
+&lt;h3 id=&#34;人体语义解析&#34;&gt;人体语义解析&lt;/h3&gt;
+&lt;p&gt;Tianfei Zhou在CVPR2021发的：“Differentiable Multi-Granularity Human Representation Learning for Instance-Aware Human Semantic Parsing”进行多粒度的人体结构解析。使用自下而上的方式，实现Instance级别的结果。&lt;/p&gt;
+&lt;h3 id=&#34;视频解析&#34;&gt;视频解析&lt;/h3&gt;
+&lt;p&gt;由于我们的目标是视频数据，传统的做法是使用降采样然后对每一帧进行单独的处理，但是直觉上来看，时序上下文信息应该对于分割有一定的帮助，例如相邻帧的变化比较小的时候，上一帧中嘴唇的位置，在下一帧也大概率是嘴唇。&lt;/p&gt;
+&lt;p&gt;Ping Hu在CVPR2020发的“Temporally Distributed Networks for Fast Video Semantic Segmentation”提出了一种视频语义分割的快速网络，对每一帧使用轻量级网络提取特征然后在时序上聚合得到完整的特征进行语义分割。&lt;/p&gt;
+&lt;p&gt;{% asset_img tdnet.png tdnet.png %}&lt;/p&gt;
+&lt;p&gt;{% asset_img tdnet2.png tdnet2.png %}&lt;/p&gt;
+&lt;p&gt;Si Liu在CVPR2017发的“Surveillance Video Parsing with Single Frame Supervision”也使用了多帧的光流等信息进行分割性能的增强。&lt;/p&gt;
+&lt;p&gt;{% asset_img SVPNet SVPNet %}&lt;/p&gt;
+&lt;p&gt;Haochen Wang在CVPR2021发的“SwiftNet: Real-time Video Object Segmentation”使用多帧信息解决VOS（Video Object Segmentation）问题。但是实际上VOS问题的定义是，对于一个视频流，在最开始的一帧分割得到目标，然后自动在后面的t帧中将相同目标检测并分割出来。&lt;/p&gt;
+&lt;p&gt;{% asset_img Swiftnet.png Swiftnet.png %}&lt;/p&gt;
+&lt;h2 id=&#34;针对训练方法&#34;&gt;针对训练方法&lt;/h2&gt;
+&lt;h3 id=&#34;持续学习&#34;&gt;持续学习&lt;/h3&gt;
+&lt;p&gt;模型训练好之后，增加了新的分类类别，称为持续学习。分割领域中称为CSS（Continual Semantics Segmentation）。&lt;/p&gt;
+&lt;p&gt;Arthur等人在CVPR2021发的“PLOP: Learning without Forgetting for Continual Semantic Segmentation”设计了一种新的&lt;strong&gt;蒸馏机制POD&lt;/strong&gt;，保留了空间信息，在CSS过程中能够不忘记旧数据中的特征。&lt;/p&gt;
+&lt;h3 id=&#34;元学习无监督域适应&#34;&gt;元学习/无监督域适应&lt;/h3&gt;
+&lt;p&gt;无监督域适应（Unsupervised Domain Adaption）&lt;/p&gt;
+&lt;p&gt;Xiaoqing Guo在CVPR2021发的“MetaCorrection: Domain-aware Meta Loss Correction for Unsupervised Domain Adaptation in Semantic Segmentation”设计了一种元学习框架。&lt;/p&gt;
+&lt;h3 id=&#34;few-shot&#34;&gt;Few-Shot&lt;/h3&gt;
+&lt;h3 id=&#34;弱监督半监督&#34;&gt;弱监督半监督&lt;/h3&gt;
+&lt;p&gt;Xun Xu等在CVPR2020上提出的“Weakly Supervised Semantic Point Cloud Segmentation: Towards 10x Fewer Labels”可以只使用几个像素的大致标注信息进行训练。&lt;/p&gt;
+&lt;h3 id=&#34;损失函数优化&#34;&gt;损失函数优化&lt;/h3&gt;
+&lt;p&gt;Xiaofeng Liu在CVPR2020上提出的“Severity-Aware Semantic Segmentation with Reinforced Wasserstein Training”为分割过程中的不同类型的误分类指定不同的代价。这个代价矩阵是通过强化学习的方式和Wasserstein距离的定义来导出的。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>OCRNet</title>
+      <link>https://yangleisx.github.io/post/paper-ocrnet/</link>
+      <pubDate>Wed, 06 Jul 2022 09:58:39 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/paper-ocrnet/</guid>
+      <description>&lt;p&gt;ECCV2020提出的一种上下文信息融合方式。&lt;/p&gt;
+&lt;p&gt;主要是使用与当前位置类别相同的区域的特征来增强当前位置的表示。与DeepLab中的ASPP相比效果更好。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;ocrnet-arch.png&#34; srcset=&#34;
+               /post/paper-ocrnet/ocrnet-arch_hu38f8ed6c4f94879de274983f1c4ae21c_201417_0b636cd856fb673e290de05c4e82599f.webp 400w,
+               /post/paper-ocrnet/ocrnet-arch_hu38f8ed6c4f94879de274983f1c4ae21c_201417_62a067ee033fa2698085fc51978aea41.webp 760w,
+               /post/paper-ocrnet/ocrnet-arch_hu38f8ed6c4f94879de274983f1c4ae21c_201417_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-ocrnet/ocrnet-arch_hu38f8ed6c4f94879de274983f1c4ae21c_201417_0b636cd856fb673e290de05c4e82599f.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;323&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;在论文中指出这样的方法和使用Transformer 模块的结构相似，都使用了Self-Attention 自注意力。&lt;/p&gt;
+&lt;p&gt;图中Soft Object Regions是利用分割Loss监督的K通道粗分割结果，Pixel Representation是Backbone得到的C通道特征，使用矩阵相乘直接得到$B\times C \times K$的关系矩阵，使用特征作为Q，关系矩阵作为K和V，通过$softmax(\frac{Q^TK}{\sqrt{d_k}})V$计算得到增强后的特征，与原本的特征相连接用于分割。&lt;/p&gt;
+&lt;p&gt;这篇论文和HRNet是同一个团队做的，因此HRNet+OCR已经称为一种非常强分割Backbone。代码放到了&lt;a href=&#34;https://github.com/HRNet/HRNet-Semantic-Segmentation&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;github&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;在文章中，作者提出了一种改进Segmentation Transformer，同时被NVIDIA的团队改进，提出了《HIERARCHICAL MULTI-SCALE ATTENTION FOR SEMANTIC SEGMENTATION》。&lt;/p&gt;
+&lt;p&gt;当SegFix出现之后，也经常使用HRNet+OCR+SegFix作为比赛中常用的分割Backbone。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
