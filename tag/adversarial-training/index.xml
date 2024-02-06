@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Adversarial Training | YangLeiSX</title>
+    <link>https://yangleisx.github.io/tag/adversarial-training/</link>
+      <atom:link href="https://yangleisx.github.io/tag/adversarial-training/index.xml" rel="self" type="application/rss+xml" />
+    <description>Adversarial Training</description>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Sun, 05 Dec 2021 15:26:53 +0800</lastBuildDate>
+    <image>
+      <url>https://yangleisx.github.io/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_512x512_fill_lanczos_center_3.png</url>
+      <title>Adversarial Training</title>
+      <link>https://yangleisx.github.io/tag/adversarial-training/</link>
+    </image>
+    
+    <item>
+      <title>【论文】Towards Deep Learning Models Resistant to Adversarial Attacks</title>
+      <link>https://yangleisx.github.io/post/paper-adver-attack/</link>
+      <pubDate>Sun, 05 Dec 2021 15:26:53 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/paper-adver-attack/</guid>
+      <description>&lt;p&gt;论文题目：【论文】Towards Deep Learning Models Resistant to Adversarial Attacks&lt;/p&gt;
+&lt;p&gt;作者：Aleksander Madry，Aleksandar Makelov，Ludwig Schmidt，Dimitris Tsipras，Adrian Vladu&lt;/p&gt;
+&lt;p&gt;会议/时间：ICLR2018&lt;/p&gt;
+&lt;p&gt;链接: &lt;a href=&#34;https://arXiv.org/pdf/1706.06083.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;arXiv&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;论文目标&#34;&gt;论文目标&lt;/h2&gt;
+&lt;p&gt;很多模型对 Adversarial Examples 对抗样本 比较敏感，特别是计算机视觉任务中，输入图片添加微小扰动就可能使模型输出错误的结果。文章中通过对抗训练的方式得到一个对对抗样本不敏感的模型，从而使得模型具有较高的鲁棒性。&lt;/p&gt;
+&lt;h2 id=&#34;相关工作&#34;&gt;相关工作&lt;/h2&gt;
+&lt;p&gt;现有的对抗样本算法，主要专注解决两个问题，一个是如何用更小的扰动对结果造成更大的影响，另一个是如何训练一个鲁棒性较强的模型，或者是对抗样本较难获得的模型。&lt;/p&gt;
+&lt;p&gt;对抗样本的生成方面，主要是 FGSM 快速梯度下降法 算法及其各种变种，以及 PGD 算法。&lt;/p&gt;
+&lt;p&gt;在防御端，主要是采用 Adversarial Training 对抗训练 的思路，利用FGSM生成的对抗样本参与训练。&lt;/p&gt;
+&lt;h2 id=&#34;本文方法&#34;&gt;本文方法&lt;/h2&gt;
+&lt;p&gt;考虑到对抗样本攻击通常在输入数据上添加一个扰动，因此针对对抗样本提高模型鲁棒性的方式可以表示为一个 Min-Max优化问题 ，或者称为 对抗优化 问题，表示如下。其中$L(\theta, x, y)$为经验损失。&lt;/p&gt;
+&lt;p&gt;$$
+\min_{\theta} \rho(\theta), where\quad \rho(\theta) = \mathbb{E}_{(x,y)\sim \mathcal{D}}\left[\max_{\delta \in S} L(\theta,x+\delta,y) \right]
+$$&lt;/p&gt;
+&lt;p&gt;解决这样的对抗优化问题需要解决非凸的优化问题，包括内部的最大化问题和外部的最小化问题。&lt;/p&gt;
+&lt;p&gt;文中通过实验发现，在选定数据的 $l_{\infty}-Ball$内部（参考 无穷范数 ）存在非常多的局部最优点，并且具有很小的损失值。在实验中通过使用 PGD 算法 生成对抗数据并测试可以得到，PGD可以作为一种通用的攻击方式，在选定数据附近得到一个局部最优。因此能对抗PGD的算法也能比较好的对抗一阶攻击（First-Order Adversarial，只利用一阶梯度值生成对抗样本的攻击）。因此使用PGD生成的对抗样本作为内部最大化问题的解。&lt;/p&gt;
+&lt;p&gt;对于外部的最小化问题，可以直接使用SGD优化器进行优化，即计算 $\nabla_{\theta}\ \rho(\theta)$。假设Danskin&amp;rsquo;s定理在当前问题上成立，可推出可以使用SGD优化器优化外部最小化问题求解，实验结果也证明这一点。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;adversarial-training-capacity.png&#34; srcset=&#34;
+               /post/paper-adver-attack/adversarial-training-capacity_hua331c90d6e8d4c52090921fa3f0357fe_281144_094bb953067b6ffb35d33ae102323146.webp 400w,
+               /post/paper-adver-attack/adversarial-training-capacity_hua331c90d6e8d4c52090921fa3f0357fe_281144_4b8a893f322346e70f8e3d0631b9ee5d.webp 760w,
+               /post/paper-adver-attack/adversarial-training-capacity_hua331c90d6e8d4c52090921fa3f0357fe_281144_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-adver-attack/adversarial-training-capacity_hua331c90d6e8d4c52090921fa3f0357fe_281144_094bb953067b6ffb35d33ae102323146.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;366&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;上图说明，对于使用对抗训练的模型，由于模型对于数据的微小扰动不敏感，模型就需要学习到更加复杂的决策边界，这也需要模型具有更大的 模型容量|容量 。因此需要换用容量更大更复杂的模型。&lt;/p&gt;
+&lt;h2 id=&#34;结果分析&#34;&gt;结果分析&lt;/h2&gt;
+&lt;p&gt;使用不同的对抗样本进行对抗训练并测试的结果如下，一方面增加模型容量能提升对抗攻击下的模型性能，使得最终学到的损失函数鞍点更小，另一方面使用PGD 算法作为对抗目标的效果比使用FGSM 快速梯度下降法更好。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;adversarial-training-exp.png&#34; srcset=&#34;
+               /post/paper-adver-attack/adversarial-training-exp_hu60869119e0e0780cd7f691f57bdd0375_246143_373e56c95b7692f3aec7a7aab3fd0b61.webp 400w,
+               /post/paper-adver-attack/adversarial-training-exp_hu60869119e0e0780cd7f691f57bdd0375_246143_af7ef3b82450cde535a1cf74acc196b2.webp 760w,
+               /post/paper-adver-attack/adversarial-training-exp_hu60869119e0e0780cd7f691f57bdd0375_246143_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-adver-attack/adversarial-training-exp_hu60869119e0e0780cd7f691f57bdd0375_246143_373e56c95b7692f3aec7a7aab3fd0b61.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;333&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
+&lt;p&gt;通过对抗样本参与训练可以增强模型的鲁棒性。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

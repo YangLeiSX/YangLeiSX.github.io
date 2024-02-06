@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>杂谈 | YangLeiSX</title>
+    <link>https://yangleisx.github.io/category/%E6%9D%82%E8%B0%88/</link>
+      <atom:link href="https://yangleisx.github.io/category/%E6%9D%82%E8%B0%88/index.xml" rel="self" type="application/rss+xml" />
+    <description>杂谈</description>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Thu, 07 Jan 2021 19:20:58 +0800</lastBuildDate>
+    <image>
+      <url>https://yangleisx.github.io/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_512x512_fill_lanczos_center_3.png</url>
+      <title>杂谈</title>
+      <link>https://yangleisx.github.io/category/%E6%9D%82%E8%B0%88/</link>
+    </image>
+    
+    <item>
+      <title>2020年度总结</title>
+      <link>https://yangleisx.github.io/post/2020-review/</link>
+      <pubDate>Thu, 07 Jan 2021 19:20:58 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/2020-review/</guid>
+      <description>&lt;p&gt;蛮早的时候就打算写点东西总结一下我的2020年。但是一直都没顾得上，一直拖到现在。&lt;/p&gt;
+&lt;p&gt;回顾一下这博客的历史，我大概是在2018年初开始使用Hexo为框架写一点东西并且放在Github Pages，但是18年中的时候，由于电脑的SSD烧坏，所有的代码和笔记都没有了（如果没有这事我也不会开始学着定期备份我的资料），也就一直都没再次开通。一方面是觉得整个过程有点繁琐，另一方面也是觉得自己其实没有太多的东西可以发出来。但是后来慢慢地又开始觉得写点东西做记录对于自己还是蛮好的，于是再次萌生了搭个博客分享给大家的念头，最终在2019年九月的时候付诸实际再次把博客搭起来。&lt;/p&gt;
+&lt;p&gt;记得那时这博客还部署在宿舍的一台小服务器上，说小并不过分，因为实际上只是一块arm核的开发板。似乎是OrangePi系列的最小的型号，大概5cm见方，RAM只有256M。当然了这样的小开发板并不能支持7*24h的工作，在十一月份就不堪重负烧掉了。于是我再次将博客部署在Github Pages上，并且把他加入了Google搜索。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;server&#34; srcset=&#34;
+               /post/2020-review/server_hu2f2693462e81e13446f5e9746fd6c302_954252_1287dc3129d1d3bbc8c0ef25a3738515.webp 400w,
+               /post/2020-review/server_hu2f2693462e81e13446f5e9746fd6c302_954252_7d7923bc56e12596d5b0929e231bcab1.webp 760w,
+               /post/2020-review/server_hu2f2693462e81e13446f5e9746fd6c302_954252_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/2020-review/server_hu2f2693462e81e13446f5e9746fd6c302_954252_1287dc3129d1d3bbc8c0ef25a3738515.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;569&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;从2019年九月底的时候再一次开通博客到现在，总共写了78篇各种各样内容的东西（想用“文章”这个词，又觉得太大了，不如用“笔记”更好一点）。其中19年的三个月25篇，20年全年只有53篇。&lt;/p&gt;
+&lt;p&gt;大概回顾一下之前写的东西，19年发的笔记基本都是对之前学过的东西做的总结，比如之前参加美赛时候学LaTeX的一些记录，Linux的学习记录等，也有一些是平时上课的复习笔记。那个时候更多的把这个博客作为笔记的管理工具，既然平时喜欢总结一些笔记，不如整理一下发出来，以后自己看的时候也方便，可以直接打开浏览器来看。&lt;/p&gt;
+&lt;p&gt;20年前期写的东西有一些是论文笔记，还有一些是深度学习相关的，主要是因为要参加2020年的信安竞赛，为了准备自己的项目，补充了一些机器学习相关的知识（可以看到有在做一些西瓜书和花书的读书笔记，并且烂尾了）。&lt;/p&gt;
+&lt;p&gt;20年大多数的文章都是平时上课和考试复习过程中总结的课程相关的内容，因为平时有总结笔记的习惯，觉得删掉也是浪费，不如总结一下发上来。后来发现其实还是非常有用的，比如说每次Google给我发月度报告的时候我都会发现，我浏览量最高的笔记不是别的，而是在Clion上搭建STM32的开发环境的记录（其实还是比较愧疚的，那笔记我写的太简单了，应该多配一点图什么的）。其中还有一些是读代码过程中学到的一些库的使用方式，我也都总结了一下发了上来。&lt;/p&gt;
+&lt;p&gt;20年还有很多笔记是读论文的记录，我觉得这一部分将会变成未来很长一段时间的主流。由于我毕设的题目是与Text Detection相关的内容，在接下来的至少半年时间内，我主要的精力应该都是放在与OCR有关的内容上。例如阅读这个领域相关的论文，写一些论文的阅读笔记。因为主要使用PyTorch完成毕设，应该还会有一些笔记是关于PyTorch和OpenCV的使用技巧的，例如一些代码段的记录。比如说最近就在看SynthText数据集的生成代码，感觉可以从中学到很多实用的Python编程技巧，如果可能的话，我也会把自己的理解写一写发上来。&lt;/p&gt;
+&lt;p&gt;回顾2020年发的各种笔记，这一年中发生的各种事情也仿佛就在我面前，从寒假期间速成PyTorch，准备信安竞赛的项目。到学期中为了顺利完成大作业疯狂学习QT，调试STM32，速成NodeJS。再到暑假的时候为了准备面试而自学网安概论的相关知识。最后再到20年后半年没有什么特别的压力，随便看看随便写写。这个博客记录了我一整年的成长过程，我也希望能够这么一直记录下去。&lt;/p&gt;
+&lt;p&gt;2021年内，我希望我能有不少于50篇左右的笔记能在这里和大家分享，我希望这些笔记包括：西瓜书和花书的后续一些章节、python中的一些函数库的用法（Counter、pickle、shutil、Colorize、tqdm等）、近几年的其他Text Detection相关论文、CRAFT模型复现、SynthText中文引擎（最后这两个应该会在我的Github上更新）。如果flag不会倒的话，应该不久之后就能看到其中的一些笔记。&lt;/p&gt;
+&lt;p&gt;2020年结束了，2021年开始了。希望我能在新的一年里不停的进步，也希望看到这段话的hxd们新的一年里心想事成。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

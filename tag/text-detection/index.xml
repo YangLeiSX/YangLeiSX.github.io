@@ -220,6 +220,927 @@ $$L_{irm} = \frac{1}{K*8}\sum\limits_{k=1}^{K}\sum\limits_{j=1}^{8}smooth_{L1}(c
     </item>
     
     <item>
+      <title>【论文】ABCNet: Real-time Scene Text Spotting with Adaptive Bezier-Curve Network</title>
+      <link>https://yangleisx.github.io/post/paper-abcnet/</link>
+      <pubDate>Thu, 19 Aug 2021 16:26:18 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/paper-abcnet/</guid>
+      <description>&lt;p&gt;论文题目：【论文】ABCNet： Real-time Scene Text Spotting with Adaptive Bezier-Curve Network&lt;/p&gt;
+&lt;p&gt;作者：Yuliang Liu, Hao Chen, Chunhua Shen, Tong He, Lianwen Jin, Liangwei Wang&lt;/p&gt;
+&lt;p&gt;会议/时间：CVPR2020&lt;/p&gt;
+&lt;p&gt;链接: &lt;a href=&#34;https://arxiv.org/pdf/2002.10200v2.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;arXiv&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;论文目标&#34;&gt;论文目标&lt;/h2&gt;
+&lt;p&gt;目前的文本检测和识别任务，包括基于字符或者基于分割的方式，通常需要负责的后处理流程提取得到文本边界框或者是负责的模型结构和处理流程。文章通过提出自适应的贝塞尔曲线网络，实现了端到端的检测和识别任务，同时避免引入计算开支，在保证较高的准确率的时候具有较高的效率。使用贝塞尔曲线作为边界框也可以减少任意形状文本的表示成本。&lt;/p&gt;
+&lt;h2 id=&#34;相关工作&#34;&gt;相关工作&lt;/h2&gt;
+&lt;p&gt;端到端的文本识别任务通常包括文本检测和文本识别两个阶段。在通用的端到端文本识别任务中，可以使用RoI Pooling等方式将检测阶段提取到的特征应用在识别任务中。类似的思路还包括RoI Masking、RoI Transform、Text Align Sampling、RoI Slide等方式。在面向任意形状文本的端到端识别任务中，关键在于在检测阶段使用什么方式来表示任意形状的文本，例如使用多边形边框或者使用基于单字符的方式。&lt;/p&gt;
+&lt;h2 id=&#34;本文方法&#34;&gt;本文方法&lt;/h2&gt;
+&lt;p&gt;模型整体结构如下，主要包括贝塞尔曲线表示的文本检测，贝塞尔对齐和轻量级的文本识别网络。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;abc-framework.png&#34; srcset=&#34;
+               /post/paper-abcnet/abc-framework_hu13fcdaf3d6c375b986558f1742fdd23c_1135898_4dc9c4365cc5f761eed146ea8d235b55.webp 400w,
+               /post/paper-abcnet/abc-framework_hu13fcdaf3d6c375b986558f1742fdd23c_1135898_50c04ebc8384578ae851260e8a25d942.webp 760w,
+               /post/paper-abcnet/abc-framework_hu13fcdaf3d6c375b986558f1742fdd23c_1135898_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-abcnet/abc-framework_hu13fcdaf3d6c375b986558f1742fdd23c_1135898_4dc9c4365cc5f761eed146ea8d235b55.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;258&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;在模型中，将文本边框使用贝塞尔曲线表示。其中文本行的长边使用三阶贝塞尔曲线表示，短边则直接相连。因此每个文本行对象使用8个控制点表示。模型的预测输出阶段输出16个通道的数据，表示这8个控制点到外接正矩形左上角的偏移量（其实是计算 $\Delta x = b_{ix}-x_{min}, \Delta y = b_{iy}-y_{min}$）。这样可以将控制点位于图像边界之外的情况也考虑进来。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;abc-curve.png&#34; srcset=&#34;
+               /post/paper-abcnet/abc-curve_hu6de74e0599c6f15c9e37504ac664e03c_556476_f7b179bb25a0c57241f199ca6cfbafd4.webp 400w,
+               /post/paper-abcnet/abc-curve_hu6de74e0599c6f15c9e37504ac664e03c_556476_ab9fa1d54bbac73ae93a11804d8acfbc.webp 760w,
+               /post/paper-abcnet/abc-curve_hu6de74e0599c6f15c9e37504ac664e03c_556476_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-abcnet/abc-curve_hu6de74e0599c6f15c9e37504ac664e03c_556476_f7b179bb25a0c57241f199ca6cfbafd4.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;263&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;由于使用贝塞尔曲线表示任意形状的文本位置，在训练时需要将数据集中使用矩形/多边形的标注转换为贝塞尔曲线的形式。这里使用最小二乘的方式优化求解如下方程，可以得到多边形标注对应的贝塞尔曲线控制点坐标。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;abc-bezier.png&#34; srcset=&#34;
+               /post/paper-abcnet/abc-bezier_hu636676d3db2b19535a3d87cd9127eda8_54443_c9137640f0d05155e293f27df8e4a58e.webp 400w,
+               /post/paper-abcnet/abc-bezier_hu636676d3db2b19535a3d87cd9127eda8_54443_4f6d8677921c03dba0028e53be35d9fb.webp 760w,
+               /post/paper-abcnet/abc-bezier_hu636676d3db2b19535a3d87cd9127eda8_54443_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-abcnet/abc-bezier_hu636676d3db2b19535a3d87cd9127eda8_54443_c9137640f0d05155e293f27df8e4a58e.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;201&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;在提取特征用于识别模型时，文中提出了BezierAlign方式，取代RoI Pooling等其他的方式，可以提取到更加稳定的特征。具体的方式为在平行于贝塞尔曲线的位置进行等距离采样，采用双线性差值的方式得到输出的特征值。公式如下。其中，输出特征值为 $h_{out} \times w_{out}$。对于输出特征图上的点 $g_i$，坐标为 $(g_{iw}, g_{ih})$，根据 $t$计算上下贝塞尔曲线上的采样点 $tp$和 $bp$，从而得到在原图中的采样点 $op$，再使用双线性差值的方式提取特征。
+
+
+
+$$\begin{aligned}
+t &amp;= \frac{g_{iw}}{w_{out}} \\
+op &amp;= bp \cdot \frac{g_{ih}}{h_{out}} + tp\cdot (1 - \frac{g_{ih}}{h_{out}})
+\end{aligned}$$
+
+对齐结果如下。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;abc-align.png&#34; srcset=&#34;
+               /post/paper-abcnet/abc-align_hu51b62bfd7b53bfac21732b5f157f673d_947342_321953791497cfc7d8508ba6ecb4aaf9.webp 400w,
+               /post/paper-abcnet/abc-align_hu51b62bfd7b53bfac21732b5f157f673d_947342_ba899f44160fde32e1f73e84b13bfbf9.webp 760w,
+               /post/paper-abcnet/abc-align_hu51b62bfd7b53bfac21732b5f157f673d_947342_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-abcnet/abc-align_hu51b62bfd7b53bfac21732b5f157f673d_947342_321953791497cfc7d8508ba6ecb4aaf9.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;397&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;在训练的时候，使用Ground Truth中的边界框从检测阶段中提取特征用于识别模块的训练，避免检测阶段尚未收敛时产生的影响。&lt;/p&gt;
+&lt;h2 id=&#34;结果分析&#34;&gt;结果分析&lt;/h2&gt;
+&lt;p&gt;在Total-Text数据集上进行Ablation Study。可以证明文中提出的BezierAlign相比其他的特征提取和对齐方式能提高性能，同时BezierAlign受到采样数量的影响，考虑到性能和速度的折衷，经过实验之后选择了（7，32）。&lt;/p&gt;
+&lt;p&gt;在Total-Text和CTW1500上的测试表示模型性能达到了SOTA。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;abc-sota1.png&#34; srcset=&#34;
+               /post/paper-abcnet/abc-sota1_hu20818bef5b5e4fcc8784dc9f678bbd54_263383_943ee9c7a16930b417b4586bf8eca43d.webp 400w,
+               /post/paper-abcnet/abc-sota1_hu20818bef5b5e4fcc8784dc9f678bbd54_263383_c453214c3ed4ce214be34c44b847c1cb.webp 760w,
+               /post/paper-abcnet/abc-sota1_hu20818bef5b5e4fcc8784dc9f678bbd54_263383_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-abcnet/abc-sota1_hu20818bef5b5e4fcc8784dc9f678bbd54_263383_943ee9c7a16930b417b4586bf8eca43d.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;275&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;abc-sota2.png&#34; srcset=&#34;
+               /post/paper-abcnet/abc-sota2_hu028a8156b3c75188e982fc12b0fba2d6_100681_a86f0b36079159962b39c764c27ed9f7.webp 400w,
+               /post/paper-abcnet/abc-sota2_hu028a8156b3c75188e982fc12b0fba2d6_100681_3da6875338cfa0872395a6a6c1c02754.webp 760w,
+               /post/paper-abcnet/abc-sota2_hu028a8156b3c75188e982fc12b0fba2d6_100681_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-abcnet/abc-sota2_hu028a8156b3c75188e982fc12b0fba2d6_100681_a86f0b36079159962b39c764c27ed9f7.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;291&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
+&lt;p&gt;提出了使用Bezier表示任意形状文本边界的方式，结合BezierAlign可以实现性能的提升。同时不引入多余的计算量，具有较高的效率。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【论文】Adaptive Boundary Proposal Network for Arbitrary Shape Text Detection</title>
+      <link>https://yangleisx.github.io/post/paper-bpn/</link>
+      <pubDate>Wed, 18 Aug 2021 10:05:23 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/paper-bpn/</guid>
+      <description>&lt;p&gt;论文题目：Adaptive Boundary Proposal Network for Arbitrary Shape Text Detection&lt;/p&gt;
+&lt;p&gt;作者：Shi-Xue Zhang, Xiaobin Zhu, Chun Yang, Hongfa Wang, Xu-Cheng Yin&lt;/p&gt;
+&lt;p&gt;会议/时间：ICCV2021&lt;/p&gt;
+&lt;p&gt;链接: &lt;a href=&#34;http://arxiv.org/abs/2107.12664&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;arXiv&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;论文目标&#34;&gt;论文目标&lt;/h2&gt;
+&lt;p&gt;目前的任意形状文本检测工作尽管取得了不错的结果，但是仍然存在两个问题，一个是基于分割的文本检测方案需要复杂的后处理流程，从分割图中提取文本边框坐标，而且很难区分间距比较小的文本目标，。另一个问题是，基于分割的方法很容易受到图像中的噪声等影响，特别是由于文本没有比较完整的轮廓，基于轮廓的检测方式效果比较差。&lt;/p&gt;
+&lt;p&gt;在文中提出了一个端到端的文本检测模型，包括BPN(Boundary Proposal Network)和一个迭代的变形模型，可以不经过任何后处理就直接生成任意形状文本的边界位置。&lt;/p&gt;
+&lt;h2 id=&#34;相关工作&#34;&gt;相关工作&lt;/h2&gt;
+&lt;p&gt;基于回归的方法通常计算生成的anchor或者当前像素到图文边界框的距离，很难识别任意形状的文本或者是宽高比较大的文本。基于联通成分的方法通常找到文本中的单独成分然后连接起来，需要复杂的后处理流程。基于分割的方法通常通过文本边界来进行像素级预测，但是难以区分比较近的多个对象。基于轮廓点的方法学习寻找文本对象的轮廓点，相比分割的方法具有更高的效率和准确度。&lt;/p&gt;
+&lt;h2 id=&#34;本文方法&#34;&gt;本文方法&lt;/h2&gt;
+&lt;p&gt;模型主要结构如图，包含三个部分，最前方的特征提取（Shared Convolution）、边界建议网络（Boundary Proposal Network，BPN）和自适应边界修正模型（Adaptive Deformation Model）。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;bpm-framwork.png&#34; srcset=&#34;
+               /post/paper-bpn/bpm-framwork_hu024d5da65794d10a935b8d9aed4dc0af_597612_ec3c20169353fa2cfb0fafb0bcf25aea.webp 400w,
+               /post/paper-bpn/bpm-framwork_hu024d5da65794d10a935b8d9aed4dc0af_597612_271575792534b44b1f18a0c47c7e4a8c.webp 760w,
+               /post/paper-bpn/bpm-framwork_hu024d5da65794d10a935b8d9aed4dc0af_597612_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-bpn/bpm-framwork_hu024d5da65794d10a935b8d9aed4dc0af_597612_ec3c20169353fa2cfb0fafb0bcf25aea.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;271&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;特征提取模块如图，是基于ResNet-50的类似FPN/U-Net的结构。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;bpm-extract.png&#34; srcset=&#34;
+               /post/paper-bpn/bpm-extract_hu7ab58675c64ef03ef3ed367439d390a8_147485_85c7b3e71ac65c21249fb8a867016c11.webp 400w,
+               /post/paper-bpn/bpm-extract_hu7ab58675c64ef03ef3ed367439d390a8_147485_0189e9b45fc98475698c2d5277531626.webp 760w,
+               /post/paper-bpn/bpm-extract_hu7ab58675c64ef03ef3ed367439d390a8_147485_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-bpn/bpm-extract_hu7ab58675c64ef03ef3ed367439d390a8_147485_85c7b3e71ac65c21249fb8a867016c11.webp&#34;
+               width=&#34;680&#34;
+               height=&#34;652&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;在BPN中，输出为四个通道：text/non-text classification、distance field和direction field。其中距离图和方向图表示当前点距离边界框上最近的点的距离和方向。通过距离和方向可以从当前点的坐标导出边界框的坐标。相关的监督数据如下图所示。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;bpm-datagen.png&#34; srcset=&#34;
+               /post/paper-bpn/bpm-datagen_hu98c8eda15567f7848de14f86b231474d_512199_259c1d883c43e9ce665042474de98e50.webp 400w,
+               /post/paper-bpn/bpm-datagen_hu98c8eda15567f7848de14f86b231474d_512199_80c12eb0ebb2e0383ccd0691be4fc7da.webp 760w,
+               /post/paper-bpn/bpm-datagen_hu98c8eda15567f7848de14f86b231474d_512199_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-bpn/bpm-datagen_hu98c8eda15567f7848de14f86b231474d_512199_259c1d883c43e9ce665042474de98e50.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;660&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;BPN输出的四个通道数据与特征提取模块输出的特征相拼接。从中选择N个点，每个点特征长度为C，得到了NxC的矩阵输入修正模型。&lt;/p&gt;
+&lt;p&gt;在自适应修正模型中，分为编码器和解码器两部分。编码器通过三个并行的模块：RNN（使用Bi-LSTM），GCN（将每个点与相近的四个点相连接），CNN（1x1的卷积）之后再连接起来进入解码器。解码器使用全连接层输出正确结果距离当前结果的偏置值用于更新。&lt;/p&gt;
+&lt;p&gt;在训练修正模型时采用迭代的方式。整体的损失函数如下。
+
+
+
+$$\begin{aligned}
+L =&amp; L_{BP} + \lambda\frac{L_{BD}}{1 + e^{(i-eps) / eps}} \\
+L_{BP} =&amp; L_{cls} + \alpha \times L_D + L_V \\
+L_V =&amp; \sum w(p)||V_p - \hat{V}_p||_2 + \frac{1}{T}\sum(1 - cos(V_p \hat{V}_p)) \\
+w(p) =&amp; \frac{1}{\sqrt{GT_p}} \\
+L_{BD} =&amp; \frac{1}{T}\sum L_{(p,p&#39;)} \\
+L_{(p,p&#39;)} =&amp; \min\limits_{j \in [0,1,2,...N-1]}\sum\limits_{i=0}^{N-1} smooth_{L1} (p_i, p&#39;_{(i+j)\% N}) \\
+\end{aligned}$$
+&lt;/p&gt;
+&lt;h2 id=&#34;结果分析&#34;&gt;结果分析&lt;/h2&gt;
+&lt;p&gt;实验在Total-Text、CTW-1500、MSRA-TD500、SynthText、ICDAR2017-MLT数据集上训练。&lt;/p&gt;
+&lt;p&gt;经过Ablation Study可以证明提出的Adaptive Deformation Model可以提高模型的性能。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;bpm-ablation.png&#34; srcset=&#34;
+               /post/paper-bpn/bpm-ablation_hu519d8687a55a664363c5ff216d1b53ce_197512_5e62beb57334a9bf6cd82d3b626100d8.webp 400w,
+               /post/paper-bpn/bpm-ablation_hu519d8687a55a664363c5ff216d1b53ce_197512_255bc3bdab81a072b8b6da0a128e3732.webp 760w,
+               /post/paper-bpn/bpm-ablation_hu519d8687a55a664363c5ff216d1b53ce_197512_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-bpn/bpm-ablation_hu519d8687a55a664363c5ff216d1b53ce_197512_5e62beb57334a9bf6cd82d3b626100d8.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;169&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;经过实验，每个目标的控制点（轮廓点）数量为20、迭代修正次数为3时效果较好，综合距离图、方向图的效果比只使用分类图要好，FPN分辨率选择1/2或者1/4均能达到比较好的效果。&lt;/p&gt;
+&lt;p&gt;在常见数据集上实验证明达到了SOTA。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;bpm-sota1.png&#34; srcset=&#34;
+               /post/paper-bpn/bpm-sota1_hu0d30f42887772276413914ea654c37f2_312383_cb6e61dbaf476acf8a46b23e57c76651.webp 400w,
+               /post/paper-bpn/bpm-sota1_hu0d30f42887772276413914ea654c37f2_312383_d1ccdc18e95a07f7cfc929dfe1d40a0d.webp 760w,
+               /post/paper-bpn/bpm-sota1_hu0d30f42887772276413914ea654c37f2_312383_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-bpn/bpm-sota1_hu0d30f42887772276413914ea654c37f2_312383_cb6e61dbaf476acf8a46b23e57c76651.webp&#34;
+               width=&#34;689&#34;
+               height=&#34;760&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;bpm-sota2.png&#34; srcset=&#34;
+               /post/paper-bpn/bpm-sota2_hu416ce7169ecd6c5e19eda3a5af8d8288_245684_426240cfb96d10aca8cc80f8cf06c8ac.webp 400w,
+               /post/paper-bpn/bpm-sota2_hu416ce7169ecd6c5e19eda3a5af8d8288_245684_2355bfcdf49d717229ceef84bf9a0572.webp 760w,
+               /post/paper-bpn/bpm-sota2_hu416ce7169ecd6c5e19eda3a5af8d8288_245684_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-bpn/bpm-sota2_hu416ce7169ecd6c5e19eda3a5af8d8288_245684_426240cfb96d10aca8cc80f8cf06c8ac.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;721&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;bpm-sota3.png&#34; srcset=&#34;
+               /post/paper-bpn/bpm-sota3_hu1816c979a4d2fa4170b88ce41fba6d80_185800_50610521230f5852b10d491d0f0372e9.webp 400w,
+               /post/paper-bpn/bpm-sota3_hu1816c979a4d2fa4170b88ce41fba6d80_185800_e1db90bb768635f4b1779ba424d18409.webp 760w,
+               /post/paper-bpn/bpm-sota3_hu1816c979a4d2fa4170b88ce41fba6d80_185800_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-bpn/bpm-sota3_hu1816c979a4d2fa4170b88ce41fba6d80_185800_50610521230f5852b10d491d0f0372e9.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;677&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;使用图网络和RNN作为修正模型对粗检测结果进行修正。&lt;/li&gt;
+&lt;li&gt;提出BPN，根据模型提取的特征输出边界框的粗检测结果。&lt;/li&gt;
+&lt;/ol&gt;</description>
+    </item>
+    
+    <item>
+      <title>【论文】ContourNet: Taking a Further Step toward Accurate Arbitrary-shaped Scene Text Detection</title>
+      <link>https://yangleisx.github.io/post/paper-contournet/</link>
+      <pubDate>Sat, 08 May 2021 11:58:37 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/paper-contournet/</guid>
+      <description>&lt;p&gt;论文题目：ContourNet: Taking a Further Step toward Accurate Arbitrary-shaped Scene Text Detection&lt;/p&gt;
+&lt;p&gt;作者：Yuxin Wang, Hongtao Xie, Zhengjun Zha, Mengting Xing, Zilong Fu, Yongdong Zhang&lt;/p&gt;
+&lt;p&gt;会议/时间：CVPR2020&lt;/p&gt;
+&lt;p&gt;链接: &lt;a href=&#34;https://arxiv.org/pdf/2004.04940.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;arXiv&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;论文目标&#34;&gt;论文目标&lt;/h2&gt;
+&lt;p&gt;目前的图像文本检测算法常常会将一些纹理信息识别为文本，得到假正例，而且图像文本常常具有多种尺度大小和形状，难以识别。
+在论文中提出了一种模型，通过引入自适应区域建议网络和正交的纹理敏感模块来解决上述问题。前者是一种区域大小无关的RPN网络，使用IoU监督，后者可以从正交的两个方向上检测纹理信息，有效避免假正例。模型检测结果为目标的若干个轮廓点，可以通过进一步后处理得到多边形边界框。&lt;/p&gt;
+&lt;h2 id=&#34;相关工作&#34;&gt;相关工作&lt;/h2&gt;
+&lt;p&gt;近年来图像文本检测算法对于假正例的问题有多种解决思路：SPCNET中使用了语义特征来修正边界框，或者也可以使用置信度等修正边界框。&lt;/p&gt;
+&lt;p&gt;对于图像尺度多变的问题，MSR使用了多尺度网络结构、DSRN提出了双向多尺度关系网络等。&lt;/p&gt;
+&lt;p&gt;在传统文本检测中常用的算法包括连通域分析和滑窗处理。在深度模型中常用的思路包括基于边界框回归的思路和基于语义的思路。前者包括EAST、DDR、LOMO等首先需要使用Anchor-Based或者Anchor-Free的思路生成边界框。后者需要对分割图进行后处理。&lt;/p&gt;
+&lt;h2 id=&#34;本文方法&#34;&gt;本文方法&lt;/h2&gt;
+&lt;p&gt;模型包括两个部分，前半部分Adaptive-RPN生成文本所在区域，然后使用LOTM进行两个方向的处理得到文本轮廓点。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;contournet-model.png&#34; srcset=&#34;
+               /post/paper-contournet/contournet-model_huf34869e6413c14dae070f21368b19187_469432_568e3e41d62db16e7b86d7cc8ab2a9da.webp 400w,
+               /post/paper-contournet/contournet-model_huf34869e6413c14dae070f21368b19187_469432_ebb278e967f467850bc1c3e4d2419d76.webp 760w,
+               /post/paper-contournet/contournet-model_huf34869e6413c14dae070f21368b19187_469432_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-contournet/contournet-model_huf34869e6413c14dae070f21368b19187_469432_568e3e41d62db16e7b86d7cc8ab2a9da.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;365&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;在Adaptive-RPN中，传统方法是使用生成四个值 ${\Delta x, \Delta y, \Delta w, \Delta h}$去优化得到矩形区域，使用$l_1\ Loss$监督。但是这样的方式对于区域的大小比较敏感。&lt;/p&gt;
+&lt;p&gt;本文中一方面使用$N$个点来表示$RoI$，其中一个点表示区域中心，剩下$N-1$个点表示区域的边框，根据这$N$个点的最边界点得到$RoI$。另一方面使用$IoU\ Loss$来监督这个$N$个点的回归，对尺度不敏感。计算最边界点的方式如下：
+
+
+
+$$\begin{aligned}
+Proposal = &amp; \{x_{tl}, y_{tl}, x_{rb}, y_{rb}\} \\
+= &amp; \{\min\{x_r\}_{r=1}^n, \min\{y_r\}_{r=1}^n, \\
+\ &amp; \ \max\{x_r\}_{r=1}^n, \max\{y_r\}_{r=1}^n\}
+\end{aligned}$$
+&lt;/p&gt;
+&lt;p&gt;在获得文本边界点的时候，使用了相互正交的两个方向上的特征分别得到轮廓点热力图。文中假设对于一个文字在两个方向上都具有明显的特征，但是其他无意义的纹理通常只在一个方向上具有比较明显的特征，因此可以通过两个方向上的分别处理区分开。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;contournet-lotm.png&#34; srcset=&#34;
+               /post/paper-contournet/contournet-lotm_hu1f8367564ae0da1e7b76bd4a25fab0af_129610_982f4e4dc55b17a563257aedd4f8819a.webp 400w,
+               /post/paper-contournet/contournet-lotm_hu1f8367564ae0da1e7b76bd4a25fab0af_129610_b8828b1b111024586611394e644982c3.webp 760w,
+               /post/paper-contournet/contournet-lotm_hu1f8367564ae0da1e7b76bd4a25fab0af_129610_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-contournet/contournet-lotm_hu1f8367564ae0da1e7b76bd4a25fab0af_129610_982f4e4dc55b17a563257aedd4f8819a.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;411&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;接着在后处理算法中将两个轮廓点热力图合并起来得到文本轮廓点。其算法如下，首先分别进行NMS处理减少多余的点，然后将两个方向上都都具有较高置信度的点作为输出得到轮廓点。最终通过Alpha-Shape Algorithm得到多边形边界框。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;contournet-algo.png &#34; srcset=&#34;
+               /post/paper-contournet/contournet-algo_huc05daf44840c88ea26ce7c8b2f5bfe41_166220_937f68c3422437f851074aea82d983dc.webp 400w,
+               /post/paper-contournet/contournet-algo_huc05daf44840c88ea26ce7c8b2f5bfe41_166220_d55bb833e9e761d6594d0ba924502714.webp 760w,
+               /post/paper-contournet/contournet-algo_huc05daf44840c88ea26ce7c8b2f5bfe41_166220_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-contournet/contournet-algo_huc05daf44840c88ea26ce7c8b2f5bfe41_166220_937f68c3422437f851074aea82d983dc.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;590&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;需要注意在生成监督的时候，对于两个方向上的轮廓点都使用相同的监督，即通过原始多边形边界框生成的宽度不低于2个像素的边框（这里是我的理解，原文如下）。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;we use &lt;code&gt;distance_transform_edt&lt;/code&gt; in &lt;em&gt;Scipy&lt;/em&gt; to obtain the two-points wide edge.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;结果分析&#34;&gt;结果分析&lt;/h2&gt;
+&lt;p&gt;对于Adap-RPN中表示RoI的点的数量的实验。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;contournet-exp-rpn.png&#34; srcset=&#34;
+               /post/paper-contournet/contournet-exp-rpn_hu2f3d3389ed3fc8465a3eded79117fd1d_89131_c099c95da86b809c0346e962797fcd15.webp 400w,
+               /post/paper-contournet/contournet-exp-rpn_hu2f3d3389ed3fc8465a3eded79117fd1d_89131_175bd17a2a8146907992faebfc5b4d61.webp 760w,
+               /post/paper-contournet/contournet-exp-rpn_hu2f3d3389ed3fc8465a3eded79117fd1d_89131_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-contournet/contournet-exp-rpn_hu2f3d3389ed3fc8465a3eded79117fd1d_89131_c099c95da86b809c0346e962797fcd15.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;292&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;对于Adap_RPN的有效性的实验。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;contournet-exp-rpn2.png&#34; srcset=&#34;
+               /post/paper-contournet/contournet-exp-rpn2_hufe01bff1d556de78dca664fbcaa82af3_148154_5621283773d11c4a6f50740b04f3124c.webp 400w,
+               /post/paper-contournet/contournet-exp-rpn2_hufe01bff1d556de78dca664fbcaa82af3_148154_ee2a20c7d4dc59ca924e44b07627fdbf.webp 760w,
+               /post/paper-contournet/contournet-exp-rpn2_hufe01bff1d556de78dca664fbcaa82af3_148154_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-contournet/contournet-exp-rpn2_hufe01bff1d556de78dca664fbcaa82af3_148154_5621283773d11c4a6f50740b04f3124c.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;469&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;对于LOTM中$1*N$和$N*1$卷积长度的实验。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;contournet-exp-lotm.png&#34; srcset=&#34;
+               /post/paper-contournet/contournet-exp-lotm_hu5e80dd2567d46141f37f6e443e26b431_77680_e6f5656fbf21a123cff20e5755a7282e.webp 400w,
+               /post/paper-contournet/contournet-exp-lotm_hu5e80dd2567d46141f37f6e443e26b431_77680_2ab972dff72a756353c96350681c50f6.webp 760w,
+               /post/paper-contournet/contournet-exp-lotm_hu5e80dd2567d46141f37f6e443e26b431_77680_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-contournet/contournet-exp-lotm_hu5e80dd2567d46141f37f6e443e26b431_77680_e6f5656fbf21a123cff20e5755a7282e.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;276&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;对于LOTM的两方向特征融合效果的实验。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;contournet-exp-lotm2.png&#34; srcset=&#34;
+               /post/paper-contournet/contournet-exp-lotm2_hud85ddd2639cada510ac8118e7c39bd05_123574_ebca31ea7d0357a1136ebd0644e67599.webp 400w,
+               /post/paper-contournet/contournet-exp-lotm2_hud85ddd2639cada510ac8118e7c39bd05_123574_9079e76a397907498af58f5f45263508.webp 760w,
+               /post/paper-contournet/contournet-exp-lotm2_hud85ddd2639cada510ac8118e7c39bd05_123574_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-contournet/contournet-exp-lotm2_hud85ddd2639cada510ac8118e7c39bd05_123574_ebca31ea7d0357a1136ebd0644e67599.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;385&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
+&lt;p&gt;在三个任务上（弯曲文本：Total-Text，长弯曲文本：CTW1500，多方向文本：ICDAR2015）均相对SOTA有一定的提升。可以看到本文方法有效减少了假正例的出现。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【论文】Real-time Scene Text Detection with Differentiable Binarization</title>
+      <link>https://yangleisx.github.io/post/paper-db-mod/</link>
+      <pubDate>Fri, 05 Mar 2021 14:39:17 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/paper-db-mod/</guid>
+      <description>&lt;p&gt;论文题目：Real-time Scene Text Detection with Differentiable Binarization&lt;/p&gt;
+&lt;p&gt;作者：Minghui Liao, Zhaoyi Wan, Cong Yao, Kai Chen, Xiang Bai&lt;/p&gt;
+&lt;p&gt;会议/时间：AAAI2020&lt;/p&gt;
+&lt;p&gt;链接：&lt;a href=&#34;https://arxiv.org/pdf/1911.08947.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://arxiv.org/pdf/1911.08947.pdf&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;论文目标&#34;&gt;论文目标&lt;/h2&gt;
+&lt;p&gt;基于目标分割的文本检测系统通常能取得比较好的结果，尤其是在检测形状比较多变的文本目标的时候，但是基于分割的系统通常需要设计后处理算法，对模型输出的概率图加以处理得到文本区域的位置。为此本文设计了Differentiable Binarization模块，使得模型同时输出分割图和阈值，使用模型输出的阈值对分割图进行二值化可以得到比较好的结果。&lt;/p&gt;
+&lt;h2 id=&#34;相关工作&#34;&gt;相关工作&lt;/h2&gt;
+&lt;p&gt;近年来图像文本检测的算法主要分为两类，即基于回归的和基于分割的。前者包括TextBoxes、SSD、EAST、SegLink等，后者包括Mask TextSpotter、PSENet等。同时有一些快速文本检测算法，旨在在不损失精确度的情况下提高预测的速度。例如在SSD的基础上发展了TextBoxes++和RRD等，在PVANet基础上发展EAST等。&lt;/p&gt;
+&lt;h2 id=&#34;本文思路解决方案&#34;&gt;本文思路/解决方案&lt;/h2&gt;
+&lt;p&gt;整体使用特征金字塔结构，不同尺度的特征图融合得到特征F，在此基础上得到预测图和阈值图，利用阈值图T对预测图P二值化，得到二值化的图像B，最终得到检测结果。在训练过程中预测图和二值化图使用相同的目标监督，在预测的时候可以通过预测图或者二值化图中的任意一个得到目标检测结果。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;model.png&#34; srcset=&#34;
+               /post/paper-db-mod/model_hu8b91cfa8a958a3ea05e65647422b5d1f_225050_ad1041e642619a7fa78042fff7304f10.webp 400w,
+               /post/paper-db-mod/model_hu8b91cfa8a958a3ea05e65647422b5d1f_225050_7e7e08eb3023e5c6d400daa1d682dd4b.webp 760w,
+               /post/paper-db-mod/model_hu8b91cfa8a958a3ea05e65647422b5d1f_225050_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-db-mod/model_hu8b91cfa8a958a3ea05e65647422b5d1f_225050_ad1041e642619a7fa78042fff7304f10.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;244&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;为了便于梯度传播，这里使用了可微的二值化函数代替标准的二值化。
+
+
+
+$$\begin{align}
+\hat{B}_{i,j} = \frac{1}{1+e^{-k(P_{i,j}-T_{i,j})}}
+\end{align}$$
+
+同时在文章中使用的ResNet-18和ResNet-50中采用了可变形卷积取代原本的卷积操作，经实验有一定的性能提升。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;gt.png&#34; srcset=&#34;
+               /post/paper-db-mod/gt_hu57c744a76dc6991a3a74ef49fddf2109_183791_aaa07ba932c4d5e94a77273d824652c2.webp 400w,
+               /post/paper-db-mod/gt_hu57c744a76dc6991a3a74ef49fddf2109_183791_26f05d2db6f8c366547ab23074976da8.webp 760w,
+               /post/paper-db-mod/gt_hu57c744a76dc6991a3a74ef49fddf2109_183791_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-db-mod/gt_hu57c744a76dc6991a3a74ef49fddf2109_183791_aaa07ba932c4d5e94a77273d824652c2.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;371&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;在生成标签时，使用Vatti算法，将多边形框收缩得到预测图的标签。同时将多边形框收缩和膨胀，其中的区域作为阈值图的区域，阈值图的取值由距离原多边形框的距离确定。&lt;/p&gt;
+&lt;p&gt;在计算loss的时候，使用 Binary Cross-Entropy(BCE)作为预测图和二值化图的损失函数，使用L1距离作为阈值图的损失函数。其中$R_d$是膨胀后的边界框内部的像素，$S_l$是用于计算的数据集合。
+
+
+
+$$\begin{align}
+L &amp;= L_s+\alpha L_b+\beta L_t \\
+L_s = L_b &amp;= \sum\limits_{i \in S_l}y_i\log x_i + (1-y_i)\log(1-x_i) \\
+L_t &amp;= \sum\limits_{i\in R_d}|y_i^* - x_i^*|
+\end{align}$$
+&lt;/p&gt;
+&lt;h2 id=&#34;结果&#34;&gt;结果&lt;/h2&gt;
+&lt;p&gt;使用了可变形卷积和DB模块之后，模型在CTW1500和MSRA-TD500上的性能均有所提升。为阈值图添加监督之后性能也有所提升。在卷曲文本、多语言文本、多朝向文本上的效果均相比之前的模型有所提升。&lt;/p&gt;
+&lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
+&lt;p&gt;引入了DB模块，通过二值化阈值的预测提升检测的结果，同时使用了比较精简的模型，具有较快的处理速度。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【论文】EAST: An Efficient and Accurate Scene Text Detector</title>
+      <link>https://yangleisx.github.io/post/paper-east/</link>
+      <pubDate>Sun, 06 Dec 2020 11:01:22 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/paper-east/</guid>
+      <description>&lt;p&gt;论文题目：EAST: An Efficient and Accurate Scene Text Detector&lt;/p&gt;
+&lt;p&gt;作者：Xinyu Zhou, Cong Yao, He Wen, Yuzhi Wang, Shuchang Zhou, Weiran He, and Jiajun Liang&lt;/p&gt;
+&lt;p&gt;会议/时间：CVPR2017&lt;/p&gt;
+&lt;p&gt;链接：&lt;a href=&#34;https://arxiv.org/abs/1704.03155v2&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://arxiv.org/abs/1704.03155v2&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;论文目标&#34;&gt;论文目标&lt;/h2&gt;
+&lt;p&gt;传统的文字检测模型尽管可以取得不错的效果，但是往往由多个阶段和结构组成，这样复杂的结构往往会影响到整体的性能，因此本文的作者设计了一种简单快速的pipeline，可以从给定图像中直接检测到文本的位置。通过使用一个简单的神经网络而不是多个模块组合的方式加快了处理的速度，简化了模型的复杂度。&lt;/p&gt;
+&lt;h2 id=&#34;相关工作&#34;&gt;相关工作&lt;/h2&gt;
+&lt;p&gt;常规的处理方法依赖于人工设计的特征，例如SWT和MSER等模型通过边缘检测等方式。但是这些依赖人工设计特征的算法在处理一些有挑战性的场景时效果比较差，例如低分辨率或者出现失真的情况下。&lt;/p&gt;
+&lt;p&gt;相比之下，基于深度神经网络的文本检测算法由于能取得更好的效果，逐渐成为主流，包括使用CNN对文本检测的结果进行筛选或者使用FCN生成热力图/分割图对原始图像处理得到检测结果。但是多数基于深度神经网络的模型由多个阶段组成，结构比较复杂性能也比较差。&lt;/p&gt;
+&lt;h2 id=&#34;本文思路解决方案&#34;&gt;本文思路/解决方案&lt;/h2&gt;
+&lt;p&gt;本文设计了一个基于FCN的神经网络，且完整的模型只有两个阶段，省去了冗余的中间处理阶段，即神经网络得到预测的文本框，再通过非极大值抑制得到最终的预测结果。&lt;/p&gt;
+&lt;p&gt;基于FCN的网络结构设计如下，通过神经网络直接得到了三类型的输出：Score Map、Rotated Box、Quadrangle。其中的score map为置信度，置信度超过给定阈值的预测框通过NMS得到最终的输出。通过使用U-Net可以融合不同尺度的特征，有助于检测不同大小的文本目标。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;model.png&#34; srcset=&#34;
+               /post/paper-east/model_hu7702e6f292f461fa99c7525a189fba9c_171712_4db68f420c1e788ffa18bcab762f9629.webp 400w,
+               /post/paper-east/model_hu7702e6f292f461fa99c7525a189fba9c_171712_b71d3e980e5eb1c817dd05e8f9b7a166.webp 760w,
+               /post/paper-east/model_hu7702e6f292f461fa99c7525a189fba9c_171712_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-east/model_hu7702e6f292f461fa99c7525a189fba9c_171712_4db68f420c1e788ffa18bcab762f9629.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;711&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;在生成GT时，将原本的四边形缩小到0.7倍并二值化可以得到Score Map，对于没有RBOX标注的数据，首先根据QUAD创建一个最小矩形，再计算每个点到四个边界的距离得到RBOX标注。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;gt.png&#34; srcset=&#34;
+               /post/paper-east/gt_hu1f193018c86b9eb08826848ab65faa45_342844_34e35a81e147deee62c57d84a63c1f07.webp 400w,
+               /post/paper-east/gt_hu1f193018c86b9eb08826848ab65faa45_342844_ee9fdb7b1e1f88f6543120f35e2e41d3.webp 760w,
+               /post/paper-east/gt_hu1f193018c86b9eb08826848ab65faa45_342844_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-east/gt_hu1f193018c86b9eb08826848ab65faa45_342844_34e35a81e147deee62c57d84a63c1f07.webp&#34;
+               width=&#34;663&#34;
+               height=&#34;760&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;对于损失函数的计算，采用了Score Map损失和Geometry损失的加权平均值。由于在自然场景下的图像中，检测目标与背景占据的面积不均衡，在计算Loss的时候会受到影响，为了不引入额外的处理流程，计算Score Map损失时使用了class-balanced cross-entropy，可以比较好的解决正反例不均衡的情况。&lt;/p&gt;
+
+
+
+$$\begin{aligned}
+L_s =&amp;\; \operatorname{balances-xent}(\mathbf{\hat{Y}}, \mathbf{Y^*}) \\
+=&amp; -\beta\mathbf{Y^*}\log\mathbf{\hat{Y}}-(1-\beta)(1-\mathbf{Y^*})\log(1-\mathbf{\hat{Y}}) \\
+\beta =&amp;\; 1 - \frac{\sum_{y^*\in\mathbf{Y^*}}y^*}{|\mathbf{Y^*}|}
+\end{aligned}$$
+
+&lt;p&gt;对于Geometry输出的损失函数，在RBOX的情形中，对于AABB部分使用IOU损失，对于倾斜角的部分使用余弦函数计算损失。
+
+
+
+$$\begin{aligned}
+L_{AABB} =&amp;\; -\log\operatorname{IoU}(\mathbf{\hat{R}},\mathbf{R^*}) \\
+=&amp;\;-\log\frac{|\mathbf{\hat{R}}\cap\mathbf{R^*}|}{|\mathbf{\hat{R}}\cup\mathbf{R^*}|} \\
+L_\theta(\hat{\theta},\theta^*) =&amp;\;1 - \operatorname{cos}(\hat{\theta} - \theta^*) \\
+L_g =&amp;\;L_{AABB} + \lambda_\theta L_\theta
+\end{aligned}$$
+
+在QUAD的情形中，使用增加了正则项的smoothed-L1损失计算。
+
+
+
+$$\begin{aligned}
+L_g =&amp;\; L_{QUAD}(\mathbf{\hat{Q}},\mathbf{Q^*}) \\
+=&amp;\;\min\limits_{\mathbf{\tilde{Q}} \in P_{\mathbf{Q^*}}}\sum\limits_{c_i \in C_{\mathbf{Q}} \\\tilde{c}_i\in C_{\mathbf{\tilde{Q}}}} \frac{\operatorname{smoothed_{L1}}(c_i - \tilde{c}_i)}{8 \times N_{\mathbf{Q^*}}} \\
+N_{\mathbf{Q^*}} =&amp;\;\min\limits_{i=1}^{4}D(p_i, p_{(i \operatorname{mod} 4)+1})
+\end{aligned}$$
+&lt;/p&gt;
+&lt;p&gt;对于模型输出的结果，使用阈值筛选之后，再使用作者设计的一种基于合并候选框的NMS算法处理得到结果。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;nmns.png&#34; srcset=&#34;
+               /post/paper-east/nmns_hu7a76d492d93e392f745dc73a46a3485f_127059_187dc3dc0db2c0ead92e487d7a46dbec.webp 400w,
+               /post/paper-east/nmns_hu7a76d492d93e392f745dc73a46a3485f_127059_c83a7786e4151ad26f5453903adc6441.webp 760w,
+               /post/paper-east/nmns_hu7a76d492d93e392f745dc73a46a3485f_127059_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-east/nmns_hu7a76d492d93e392f745dc73a46a3485f_127059_187dc3dc0db2c0ead92e487d7a46dbec.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;664&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;结果&#34;&gt;结果&lt;/h2&gt;
+&lt;p&gt;在ICDAR2015、COCO-Text和MSRA-TD500三个数据集上进行测试。同时对于模型的骨架也使用了PVANET、PVANET2x和VGG16三种不同的结构进行测试（网络框架都在InageNet上预训练）。经测试模型在上述数据集上能取得超过SOTA的F值。在处理速度上也能达到比较高的FPS。&lt;/p&gt;
+&lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
+&lt;p&gt;本文提出的EAST模型，通过减少冗余的处理阶段，得到了简单快速的处理效果，通过FCN网络直接生成预测的结果（geometry map），结合NMS处理多余的候选框，可以得到比较好的效果。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>【论文】Shape Robust Text Detection with Progressive Scale Expansion Network</title>
       <link>https://yangleisx.github.io/post/paper-psenet/</link>
       <pubDate>Thu, 19 Nov 2020 10:55:55 +0800</pubDate>
@@ -302,6 +1223,158 @@ W_{x,y} &amp;= \left\{
 &lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
 &lt;p&gt;使用了基于FPN的结构，将不同尺度的特征图上采样并连接在一起。&lt;/p&gt;
 &lt;p&gt;获得不同尺度下的分割图，再从小到大渐进式的合并，不仅可以检测到任意形状的文本，也可以避免将距离比较近的文本识别为同一对象。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【论文】Character Region Awareness for Text Detection</title>
+      <link>https://yangleisx.github.io/post/paper-craft/</link>
+      <pubDate>Wed, 21 Oct 2020 15:10:45 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/paper-craft/</guid>
+      <description>&lt;p&gt;论文题目：Character Region Awareness for Text Detection&lt;/p&gt;
+&lt;p&gt;作者：Youngmin Baek, Bado Lee, Dongyoon Han, Sangdoo Yun, and Hwalsuk Lee&lt;/p&gt;
+&lt;p&gt;会议/时间：CVPR2019&lt;/p&gt;
+&lt;p&gt;链接：&lt;a href=&#34;https://arxiv.org/pdf/1904.01941.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://arxiv.org/pdf/1904.01941.pdf&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;论文目标&#34;&gt;论文目标&lt;/h2&gt;
+&lt;p&gt;今年来使用深度神经网络实现的文本检测得到许多关注，但是过去的文本检测工作大多使用边界框框选每一个词，存在一定的缺陷，例如在单词非常长或者扭曲畸形的情况下效果不好，本文提出了一种基于检测单个字符的文本检测模型，通过检测连续的字符实现自下而上的单词检测。由于成本非常高，现有的文本检测数据库并没有提供字符级的标注，文中使用弱监督学习方法，可以在单词级标注的数据集上训练字符级模型。&lt;/p&gt;
+&lt;h2 id=&#34;相关工作&#34;&gt;相关工作&lt;/h2&gt;
+&lt;p&gt;很多的文本检测模型（即regression-based text detectors），使用了目标检测模型中常用的边框回归思路。尽管取得了比较好的效果，但是不能应对实际场景下的各种形状的文字。一些文本检测模型（segmentation-based text detectors），在像素级分割和检测文本区域。还有一些端到端的文本检测工具将文本检测和识别任务结合在一起，可以避免一些背景中的图形的影响，提高检测效果。大多数的文本检测是以单词为识别单位，但是在标注和划分时很难确定，造成效果较差。&lt;/p&gt;
+&lt;h2 id=&#34;本文思路解决方案&#34;&gt;本文思路/解决方案&lt;/h2&gt;
+&lt;p&gt;本文构建卷积神经网络，从图像中学习得到字符（region score）和字符之间的连接关系（affinity score），从而从数据中检测单词和句子。&lt;/p&gt;
+&lt;p&gt;模型使用添加了BatchNormal的VGG-16作为基本结构，通过添加解码器和短路连接构建了类似U-Net的模型结构，最终输出2通道的特征图。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;model.png&#34; srcset=&#34;
+               /post/paper-craft/model_hu1fb335c6275fa73c3302582f84ad14aa_169023_bf6beda1230d9fca60342c84beb180a8.webp 400w,
+               /post/paper-craft/model_hu1fb335c6275fa73c3302582f84ad14aa_169023_f59ca2c5a7d8734e5c20732f4921ff95.webp 760w,
+               /post/paper-craft/model_hu1fb335c6275fa73c3302582f84ad14aa_169023_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-craft/model_hu1fb335c6275fa73c3302582f84ad14aa_169023_bf6beda1230d9fca60342c84beb180a8.webp&#34;
+               width=&#34;745&#34;
+               height=&#34;760&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;模型输出的特征图分别表示字符和字符之间的连接关系。region score表示当前像素为一个字符中心点的概率，affnity score表示当前像素为两个字符中间点的概率。本文使用了高斯热力图来表示字符的位置，相比使用几何形状框选，更容易表示各种形状的字符。&lt;/p&gt;
+&lt;p&gt;数据标注的生成方式 如下，分别对每一个字符使用四边形框选，在每个框中选择上下两个三角的中心点生成新的四边形，将二维高斯热图变换填充进去得到。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;feature.png&#34; srcset=&#34;
+               /post/paper-craft/feature_hu15c26d634247a3f161d99974d70781e1_447230_a761ea2b0fa2f3074412be13bd684d5f.webp 400w,
+               /post/paper-craft/feature_hu15c26d634247a3f161d99974d70781e1_447230_977a16b7efaaa9b70dcfcdeffaa03c9f.webp 760w,
+               /post/paper-craft/feature_hu15c26d634247a3f161d99974d70781e1_447230_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-craft/feature_hu15c26d634247a3f161d99974d70781e1_447230_a761ea2b0fa2f3074412be13bd684d5f.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;246&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;在训练过程中，由于实际的数据集只有单词级或者句子级的标注，首先使用合成的样本训练得到一个临时的模型，然后将实际数据集中的单词或者句子裁剪出来通过模型得到单词边界框，与原数据预测的结果相比计算置信度。一种可行的方法是使用字符框的个数与单词长度相比较得到置信度，作为计算目标函数时的像素权重。即
+
+
+
+$$L = \sum\limits_{p} S_c(p)\cdot(||S_r(p) - S_r^*(p)||^2_2+||S_a(p) - S_a^*(p)||^2_2)$$
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;training.png&#34; srcset=&#34;
+               /post/paper-craft/training_huadad208ab8e79fcd0709c63ec18385c2_546833_9942b4b369218a32148bfb4cb853c996.webp 400w,
+               /post/paper-craft/training_huadad208ab8e79fcd0709c63ec18385c2_546833_994ce79cd40bd3601e3851e8a7514a04.webp 760w,
+               /post/paper-craft/training_huadad208ab8e79fcd0709c63ec18385c2_546833_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-craft/training_huadad208ab8e79fcd0709c63ec18385c2_546833_9942b4b369218a32148bfb4cb853c996.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;297&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;最后在预测时需要进行相应的后处理，例如使用矩形框将检测到的文本从原数据裁剪出来包括如下操作：分别设置阈值将特征图转为二值，使用连通区域标记技术从二值图中框选单词，最后选择一个矩形框将上述连通区域框选出来&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;。或者使用多边形折线框框选：每个字符使用相同长度的竖线表示，竖线的中点连线得到单词中线，上述竖线转至与中线垂直，以端点为多边形的顶点绘制中线的平行线。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;postope.png&#34; srcset=&#34;
+               /post/paper-craft/postope_hub9afa4812e8038ab856d53fcf75acc1b_226114_600e6bbdc74a9f46093b09cc947b74f3.webp 400w,
+               /post/paper-craft/postope_hub9afa4812e8038ab856d53fcf75acc1b_226114_3314b2bbe73a1c098795fa27889323d0.webp 760w,
+               /post/paper-craft/postope_hub9afa4812e8038ab856d53fcf75acc1b_226114_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-craft/postope_hub9afa4812e8038ab856d53fcf75acc1b_226114_600e6bbdc74a9f46093b09cc947b74f3.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;587&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;结果&#34;&gt;结果&lt;/h2&gt;
+&lt;p&gt;在选择的六个数据集上，经过训练和测试，都实现了超过SOTA的效果。可以证明使用字符级的检测效果比较好。&lt;/p&gt;
+&lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
+&lt;p&gt;提出了一种基于检测单字符从而实现文本检测的方法，针对数据标注比较少的情况引入了弱监督的训练方式，取得了比较好的结果。&lt;/p&gt;
+&lt;p&gt;模型通过检测字符而不是单词，在感受野比较小的情况下具有较好的鲁棒性，但是只能针对字符相分离的语言，不能处理孟加拉语、阿拉伯语等语言。模型中只有文本检测没有文本识别，与端到端的模型相比性能受限，但是在多个数据集上都取得了非常好的结果，证明泛化能力比较强。&lt;/p&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
+&lt;p&gt;可以使用opencv中提供的connectedComponents函数和minAreaRect函数等实现。&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</description>
     </item>
     
   </channel>

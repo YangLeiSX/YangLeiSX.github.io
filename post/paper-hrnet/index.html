@@ -1,0 +1,1495 @@
+<!DOCTYPE html>
+<!-- This site was created with Hugo Blox. https://hugoblox.com -->
+<!-- Last Published: February 6, 2024 --><html lang="en-us" >
+
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  
+  
+    <meta name="generator" content="Hugo Blox Builder 5.9.6" />
+  
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+
+  
+  
+  
+    
+      
+      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&family=Roboto:wght@400;700&display=swap">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&family=Roboto:wght@400;700&display=swap" media="print" onload="this.media='all'">
+    
+  
+
+  
+  
+
+  
+  
+    
+    <script src="/js/mathjax-config.js"></script>
+  
+
+  
+
+  <link rel="stylesheet" href="/css/vendor-bundle.min.047268c6dd09ad74ba54a0ba71837064.css" media="print" onload="this.media='all'">
+
+  
+  
+  
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1.9.4/css/academicons.min.css" integrity="sha512-IW0nhlW5MgNydsXJO40En2EoCkTTjZhI3yuODrZIc8cQ4h1XcF53PsqDHa09NqnkXuIe0Oiyyj171BqZFwISBw==" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+
+    
+    
+    
+    
+      
+      
+    
+    
+    
+
+    
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.min.css" integrity="" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+
+    
+
+    
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+  
+
+  
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/wowchemy.32e2e32cf1a4c1ea152e519f8b1fda79.css" />
+
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+    
+    
+    <link rel="stylesheet" href="/css/libs/chroma/github-light.min.css" title="hl-light" media="print" onload="this.media='all'" >
+    <link rel="stylesheet" href="/css/libs/chroma/dracula.min.css" title="hl-dark" media="print" onload="this.media='all'" disabled>
+  
+
+  
+  
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-N3HXE9037R"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+      dataLayer.push(arguments);
+  }
+
+  function trackOutboundLink(url, target) {
+    gtag('event', 'click', {
+         'event_category': 'outbound',
+         'event_label': url,
+         'transport_type': 'beacon',
+         'event_callback': function () {
+           if (target !== '_blank') {
+             document.location = url;
+           }
+         }
+    });
+    console.debug("Outbound link clicked: " + url);
+  }
+
+  function onClickCallback(event) {
+    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
+      return;
+    }
+    trackOutboundLink(event.target, event.target.getAttribute('target'));  
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'G-N3HXE9037R', {});
+  gtag('set', {'cookie_flags': 'SameSite=None;Secure'});
+
+  
+  document.addEventListener('click', onClickCallback, false);
+</script>
+
+
+
+
+
+
+
+<script>
+  (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", 'kxg0jok544');
+</script>
+
+
+
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?472e2f00a3cd94ec373babc3fbe8654f";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+
+
+
+
+
+
+  <meta name="author" content="Lei Yang" />
+
+
+
+
+
+  
+
+<meta name="description" content="HRNet是CVPR2019提出的一种非常强的Backbone，论文参考arXiv，代码已经开源github（用于分割的代码还没有全部开源）。" />
+
+
+
+<link rel="alternate" hreflang="en-us" href="https://yangleisx.github.io/post/paper-hrnet/" />
+<link rel="canonical" href="https://yangleisx.github.io/post/paper-hrnet/" />
+
+
+
+  <link rel="manifest" href="/manifest.webmanifest" />
+
+
+
+<link rel="icon" type="image/png" href="/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_32x32_fill_lanczos_center_3.png" />
+<link rel="apple-touch-icon" type="image/png" href="/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_180x180_fill_lanczos_center_3.png" />
+
+<meta name="theme-color" content="#1565c0" />
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+<meta property="twitter:card" content="summary" />
+
+  <meta property="twitter:site" content="@GetResearchDev" />
+  <meta property="twitter:creator" content="@GetResearchDev" />
+<meta property="twitter:image" content="https://yangleisx.github.io/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_512x512_fill_lanczos_center_3.png" />
+
+
+
+  
+
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="YangLeiSX" />
+<meta property="og:url" content="https://yangleisx.github.io/post/paper-hrnet/" />
+<meta property="og:title" content="HRNet | YangLeiSX" />
+<meta property="og:description" content="HRNet是CVPR2019提出的一种非常强的Backbone，论文参考arXiv，代码已经开源github（用于分割的代码还没有全部开源）。" /><meta property="og:image" content="https://yangleisx.github.io/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_512x512_fill_lanczos_center_3.png" /><meta property="og:locale" content="en-us" />
+
+  
+    <meta
+      property="article:published_time"
+      content="2022-07-06T10:40:13&#43;08:00"
+    />
+  
+  
+    <meta property="article:modified_time" content="2022-07-06T10:40:13&#43;08:00">
+  
+
+
+
+
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://yangleisx.github.io/post/paper-hrnet/"
+  },
+  "headline": "HRNet",
+  
+  "datePublished": "2022-07-06T10:40:13+08:00",
+  "dateModified": "2022-07-06T10:40:13+08:00",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Lei Yang"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "YangLeiSX",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://yangleisx.github.io/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_192x192_fill_lanczos_center_3.png"
+    }
+  },
+  "description": "\u003cp\u003eHRNet是CVPR2019提出的一种非常强的Backbone，论文参考\u003ca href=\"https://arxiv.org/pdf/1908.07919.pdf\" target=\"_blank\" rel=\"noopener\"\u003earXiv\u003c/a\u003e，代码已经开源\u003ca href=\"https://github.com/HRNet\" target=\"_blank\" rel=\"noopener\"\u003egithub\u003c/a\u003e（用于分割的代码还没有全部开源）。\u003c/p\u003e"
+}
+</script>
+
+  
+
+  
+
+
+
+
+  
+  
+  
+
+  
+  
+
+  
+
+
+  
+  <title>HRNet | YangLeiSX</title>
+
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="page-wrapper   " data-wc-page-id="5cf129240ac9274c4d6affbb1d2c46a8" >
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="/js/wowchemy-init.min.3a6bdbdff5d8a89d6e651adb3deec035.js"></script>
+
+  
+
+
+<aside class="search-modal" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#" aria-label="Close"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search" class="form-control"
+        aria-label="Search...">
+        
+      </div>
+
+      
+      
+
+      
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+
+  <div class="page-header header--fixed">
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+    <div class="container-xl">
+
+      
+      <div class="d-none d-lg-inline-flex">
+        <a class="navbar-brand" href="/">YangLeiSX</a>
+      </div>
+      
+
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse"
+              data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
+      <span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+      
+      <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+        <a class="navbar-brand" href="/">YangLeiSX</a>
+      </div>
+      
+
+      
+      
+      <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+        
+        <ul class="navbar-nav d-md-inline-flex">
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+              
+              
+              
+                
+              
+              
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/#about"><span>Home</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+              
+              
+              
+                
+              
+              
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/#citation"><span>Publications</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link  active" href="/post/"><span>Posts</span></a>
+          </li>
+
+          
+          
+
+        
+
+          
+        </ul>
+      </div>
+
+      <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+
+        
+        
+          
+        
+
+        
+        
+        
+        <li class="nav-item">
+          <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+        </li>
+        
+
+        
+        
+        
+        <li class="nav-item dropdown theme-dropdown">
+          <a href="#" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-label="Display preferences">
+            <i class="fas fa-moon" aria-hidden="true"></i>
+          </a>
+          <div class="dropdown-menu">
+            <a href="#" class="dropdown-item js-set-theme-light">
+              <span>Light</span>
+            </a>
+            <a href="#" class="dropdown-item js-set-theme-dark">
+              <span>Dark</span>
+            </a>
+            <a href="#" class="dropdown-item js-set-theme-auto">
+              <span>Automatic</span>
+            </a>
+          </div>
+        </li>
+        
+
+        
+        
+
+      </ul>
+
+    </div>
+  </nav>
+</header>
+
+
+  </div>
+
+  <div class="page-body">
+    
+    
+    
+
+    <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1>HRNet</h1>
+
+  
+
+  
+    
+
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Jul 6, 2022
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    1 min read
+  </span>
+  
+
+  
+  
+  
+  
+
+  
+  
+
+</div>
+
+    
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <p>HRNet是CVPR2019提出的一种非常强的Backbone，论文参考<a href="https://arxiv.org/pdf/1908.07919.pdf" target="_blank" rel="noopener">arXiv</a>，代码已经开源<a href="https://github.com/HRNet" target="_blank" rel="noopener">github</a>（用于分割的代码还没有全部开源）。</p>
+<p>在分割任务中通常需要得到与原始图像类似的高分辨率的图像输出。常用的办法包括U-Net U型网络和FCN 全卷积网络，FPN 特征金字塔网络等。这些模型中基本都涉及到分辨率由大变小再重建。如图所示。</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="segmantation-backbone" srcset="
+               /post/paper-hrnet/segmantation-backbone_hu3b677d7abc349a34f19bf4dc027f7c37_86763_1b0fc68a682c0388b4a3f4c76487b57e.webp 400w,
+               /post/paper-hrnet/segmantation-backbone_hu3b677d7abc349a34f19bf4dc027f7c37_86763_4229129f088342de8ae2ed7756f465bb.webp 760w,
+               /post/paper-hrnet/segmantation-backbone_hu3b677d7abc349a34f19bf4dc027f7c37_86763_1200x1200_fit_q75_h2_lanczos.webp 1200w"
+               src="/post/paper-hrnet/segmantation-backbone_hu3b677d7abc349a34f19bf4dc027f7c37_86763_1b0fc68a682c0388b4a3f4c76487b57e.webp"
+               width="760"
+               height="439"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>HRNet中将不同分辨率的路径进行并联，在通道维度上保持了多种不同大小的分辨率。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="hrnet-arch.png" srcset="
+               /post/paper-hrnet/hrnet-arch_huc256a64e0abc3af7f9cc462631665db0_113342_b59969ff6b708e2fb8f3345810ac43e1.webp 400w,
+               /post/paper-hrnet/hrnet-arch_huc256a64e0abc3af7f9cc462631665db0_113342_3b6143a8c1d60b856dbbe3ce152f753d.webp 760w,
+               /post/paper-hrnet/hrnet-arch_huc256a64e0abc3af7f9cc462631665db0_113342_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/post/paper-hrnet/hrnet-arch_huc256a64e0abc3af7f9cc462631665db0_113342_b59969ff6b708e2fb8f3345810ac43e1.webp"
+               width="760"
+               height="127"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>在不同分辨率的特征图之间添加了信息的交互，分别使用stride3x3的卷积、上采样+1x1卷积实现。最后将三个部分的特征加到一起。</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="hrnet-fusion.png " srcset="
+               /post/paper-hrnet/hrnet-fusion_hu45ed7d7aa643757cb57d614ea3c01576_45584_c1ad90adc054e47f6553879cad6a1984.webp 400w,
+               /post/paper-hrnet/hrnet-fusion_hu45ed7d7aa643757cb57d614ea3c01576_45584_aaead6a4bababe355cad22e7fc1fc582.webp 760w,
+               /post/paper-hrnet/hrnet-fusion_hu45ed7d7aa643757cb57d614ea3c01576_45584_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/post/paper-hrnet/hrnet-fusion_hu45ed7d7aa643757cb57d614ea3c01576_45584_c1ad90adc054e47f6553879cad6a1984.webp"
+               width="760"
+               height="258"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>当充分提取到模型的特征之后，将不同维度的特征融合起来用于最后的任务。
+其中V2版本将小的特征图上采样，适用于语义分割和面部关键点检测，V2p版本使用的特征金字塔适用于目标检测任务。</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="hrnet-stream.png" srcset="
+               /post/paper-hrnet/hrnet-stream_hu158c93219943872b9988640ebf291985_137386_ebd74f8c3847181e39958a0e9f9c54ca.webp 400w,
+               /post/paper-hrnet/hrnet-stream_hu158c93219943872b9988640ebf291985_137386_95cbbf6dd2707e494f90c454acb349bf.webp 760w,
+               /post/paper-hrnet/hrnet-stream_hu158c93219943872b9988640ebf291985_137386_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/post/paper-hrnet/hrnet-stream_hu158c93219943872b9988640ebf291985_137386_ebd74f8c3847181e39958a0e9f9c54ca.webp"
+               width="760"
+               height="225"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>特别地，使用分类任务预训练的时候，采用了如下的方式进行特征的融合。</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="hrnet-classification.png " srcset="
+               /post/paper-hrnet/hrnet-classification_hu2f278b6213ef23f50c70d28581384e4b_39542_ede03ce495845760794428c1276638b2.webp 400w,
+               /post/paper-hrnet/hrnet-classification_hu2f278b6213ef23f50c70d28581384e4b_39542_173f54585863eda35c0d5725b2b92f31.webp 760w,
+               /post/paper-hrnet/hrnet-classification_hu2f278b6213ef23f50c70d28581384e4b_39542_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/post/paper-hrnet/hrnet-classification_hu2f278b6213ef23f50c70d28581384e4b_39542_ede03ce495845760794428c1276638b2.webp"
+               width="760"
+               height="355"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>HRNet可以应用在人体语义解析、语义分割、Object Detection 目标检测、图像分类等多种任务中，是一种比较强的Backbone。</p>
+<p>但是吧据说这东西训练速度和计算量都不小。</p>
+<h2 id="se-hrnet">SE-HRNet</h2>
+<p>后面<a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=9324633" target="_blank" rel="noopener">有人</a>在HRNet的基础上提出了SE-HRNet，实际上只是将每一阶段的卷积引入了SE-Net模块。</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="sehrnet-arch" srcset="
+               /post/paper-hrnet/sehrnet-arch_hu46958f5cc4d8389725f1a254c8028490_307808_1e50a0c2aa5d9e4f358ad5a3b8dc034e.webp 400w,
+               /post/paper-hrnet/sehrnet-arch_hu46958f5cc4d8389725f1a254c8028490_307808_d579328ac048dbb303e70242405367d2.webp 760w,
+               /post/paper-hrnet/sehrnet-arch_hu46958f5cc4d8389725f1a254c8028490_307808_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/post/paper-hrnet/sehrnet-arch_hu46958f5cc4d8389725f1a254c8028490_307808_1e50a0c2aa5d9e4f358ad5a3b8dc034e.webp"
+               width="760"
+               height="303"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+    </div>
+
+    
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tag/semantics-segmentation/">Semantics Segmentation</a>
+  
+</div>
+
+
+
+<div class="share-box">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fyangleisx.github.io%2Fpost%2Fpaper-hrnet%2F&amp;text=HRNet" target="_blank" rel="noopener" class="share-btn-twitter" aria-label="twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fyangleisx.github.io%2Fpost%2Fpaper-hrnet%2F&amp;t=HRNet" target="_blank" rel="noopener" class="share-btn-facebook" aria-label="facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+        
+      
+      <li>
+        <a href="mailto:?subject=HRNet&amp;body=https%3A%2F%2Fyangleisx.github.io%2Fpost%2Fpaper-hrnet%2F" target="_blank" rel="noopener" class="share-btn-email" aria-label="envelope">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=https%3A%2F%2Fyangleisx.github.io%2Fpost%2Fpaper-hrnet%2F&amp;title=HRNet" target="_blank" rel="noopener" class="share-btn-linkedin" aria-label="linkedin-in">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="whatsapp://send?text=HRNet%20https%3A%2F%2Fyangleisx.github.io%2Fpost%2Fpaper-hrnet%2F" target="_blank" rel="noopener" class="share-btn-whatsapp" aria-label="whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=https%3A%2F%2Fyangleisx.github.io%2Fpost%2Fpaper-hrnet%2F&amp;title=HRNet" target="_blank" rel="noopener" class="share-btn-weibo" aria-label="weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  
+    
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+      
+      <a href="https://yangleisx.github.io/"><img class="avatar mr-3 avatar-circle" src="/authors/admin/avatar_hufa4b711d7d766ab1064b8274b75ac233_742651_270x270_fill_lanczos_center_1.gif" alt="Lei Yang"></a>
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="https://yangleisx.github.io/">Lei Yang</a></h5>
+      <h6 class="card-subtitle">PhD candidate</h6>
+      <p class="card-text">My research interests include visual speech recognition and semantics segmentation.</p>
+      <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="/#contact" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://scholar.google.com/citations?user=YsaBzN4AAAAJ" target="_blank" rel="noopener">
+        <i class="ai ai-google-scholar"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/yangleisx" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+</ul>
+
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+</article>
+  </div>
+
+  <div class="page-footer">
+    
+    
+    <div class="container">
+      <footer class="site-footer">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+
+  
+  
+    
+  
+  
+    
+  
+
+  
+
+  
+  <p class="powered-by copyright-license-text">
+    © 2024 Me. This work is licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0" rel="noopener noreferrer" target="_blank">CC BY NC ND 4.0</a>
+  </p>
+  
+
+  <p class="powered-by footer-license-icons">
+    <a href="https://creativecommons.org/licenses/by-nc-nd/4.0" rel="noopener noreferrer" target="_blank" aria-label="Creative Commons">
+      <i class="fab fa-creative-commons fa-2x" aria-hidden="true"></i>
+      <i class="fab fa-creative-commons-by fa-2x" aria-hidden="true"></i>
+      
+        <i class="fab fa-creative-commons-nc fa-2x" aria-hidden="true"></i>
+      
+      
+        <i class="fab fa-creative-commons-nd fa-2x" aria-hidden="true"></i>
+      
+    </a>
+  </p>
+
+
+
+
+
+  <p class="powered-by">
+    
+    
+    
+      
+      
+      
+      
+      
+      
+      Published with <a href="https://hugoblox.com/?utm_campaign=poweredby" target="_blank" rel="noopener">Hugo Blox Builder</a> — the free, <a href="https://github.com/HugoBlox/hugo-blox-builder" target="_blank" rel="noopener">open source</a> website builder that empowers creators.
+    
+  </p>
+</footer>
+
+    </div>
+    
+  </div>
+
+  
+
+
+<script src="/js/vendor-bundle.min.938a3a7554cd9f6602290411f64d2617.js"></script>
+
+
+
+
+  
+
+  
+  
+
+  
+
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.min.js" integrity="" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+  
+  <script id="search-hit-fuse-template" type="text/x-template">
+    <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+    </div>
+  </script>
+  
+    <script src="https://cdn.jsdelivr.net/gh/krisk/Fuse@v3.2.1/dist/fuse.min.js" integrity="sha512-o38bmzBGX+hD3JHWUFCDA09btWaqrNmoJ3RXLlrysA7PP01Kgs4UlE4MhelE1v5dJR3+cxlR4qQlotsW7jKsnw==" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/gh/julmot/mark.js@8.11.1/dist/jquery.mark.min.js" integrity="sha512-mhbv5DqBMgrWL+32MmsDOt/OAvqr/cHimk6B8y/bx/xS88MVkYGPiVv2ixKVrkywF2qHplNRUvFsAHUdxZ3Krg==" crossorigin="anonymous"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script id="page-data" type="application/json">{"use_headroom":true}</script>
+
+
+  <script src="/js/wowchemy-headroom.db4755770454eb63685f8de785c0a172.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+<script src="/en/js/wowchemy.min.62586ca65ca61821fe707eb9fa6268b7.js"></script>
+
+
+
+  <script src="/js/wowchemy-map.a26e9d2f7238ba5b868384f1c5bc6477.js" type="module"></script>
+
+
+
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+        <pre><code></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <script src="/js/wowchemy-publication.9137013a66774049159934c29c3f0205.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

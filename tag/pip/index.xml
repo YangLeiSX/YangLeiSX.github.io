@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>pip | YangLeiSX</title>
+    <link>https://yangleisx.github.io/tag/pip/</link>
+      <atom:link href="https://yangleisx.github.io/tag/pip/index.xml" rel="self" type="application/rss+xml" />
+    <description>pip</description>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Thu, 13 Feb 2020 21:26:32 +0800</lastBuildDate>
+    <image>
+      <url>https://yangleisx.github.io/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_512x512_fill_lanczos_center_3.png</url>
+      <title>pip</title>
+      <link>https://yangleisx.github.io/tag/pip/</link>
+    </image>
+    
+    <item>
+      <title>pip相关的一些操作</title>
+      <link>https://yangleisx.github.io/post/python-pip/</link>
+      <pubDate>Thu, 13 Feb 2020 21:26:32 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/python-pip/</guid>
+      <description>&lt;p&gt;闲来无事简单整理了一下电脑上的pip环境。&lt;/p&gt;
+&lt;p&gt;由于最近需要学习PyTorch、Tensorflow和Keras的相关知识。需要使用到这几种框架的Python环境。为了更好的管理电脑上的系统环境，对Mac上的pip环境进行了整理。&lt;/p&gt;
+&lt;p&gt;在Windows主机上我主要使用anaconda管理虚拟环境。而在macOS上使用virtualenv管理虚拟环境。主要原因在于之前一直是在mac上使用virtualenv，后来发现anaconda配置环境更加简洁，但是又懒得在mac上换了，于是造成了现在这样的一个情况。&lt;/p&gt;
+&lt;h2 id=&#34;清空pip包&#34;&gt;清空pip包&lt;/h2&gt;
+&lt;p&gt;由于将所有的python环境都使用virtualenv在一个专门的目录中进行管理，因此mac上初始python的各种环境就没有必要再留着了，但是删除的时候不太确定到底那些可以删掉。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 查看pip已经安装的各种包&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;pip list
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 使用pip删除对应的包&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;pip uninstall module_name
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;查阅相关资料找到了知乎上&lt;a href=&#34;https://www.zhihu.com/question/42673932&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;more wang的回答&lt;/a&gt;找到了可以清空pip所有包的方法。可以使当前环境中的pip包全部删除，只剩下pip、setuptools、wheel。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 删除pip的所有的包，其实就是列出所有的包然后逐个uninstall&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;pip freeze &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep -v &lt;span class=&#34;s2&#34;&gt;&amp;#34;^-e&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; xargs pip uninstall -y
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;pip换源&#34;&gt;pip换源&lt;/h2&gt;
+&lt;p&gt;老生常谈的话题了，网上能找到很多教程，比如&lt;a href=&#34;https://yq.aliyun.com/articles/652884?spm=a2c4e.11155472.0.0.57662878hemZW1&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;这个&lt;/a&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;pip删除缓存&#34;&gt;pip删除缓存&lt;/h2&gt;
+&lt;p&gt;默认情况下使用pip安装包的时候，会将包缓存在本地的某个目录中，再次安装时会检查缓存，如果缓存存在的话使用缓存安装包，可以节约时间和流量。&lt;/p&gt;
+&lt;p&gt;可以在安装的时候指定不使用缓存。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;pip install --no-cache-dir nodule_name
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;搜索发现CSDN上的&lt;a href=&#34;https://blog.csdn.net/kangkanglou/article/details/78955298&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;一个博客&lt;/a&gt;，删除缓存时可以直接删除对应的文件夹。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Linux and Unix&lt;/p&gt;
+&lt;p&gt;~/.cache/pip&lt;/p&gt;
+&lt;p&gt;OS X&lt;/p&gt;
+&lt;p&gt;~/Library/Caches/pip&lt;/p&gt;
+&lt;p&gt;Windows&lt;/p&gt;
+&lt;p&gt;%LocalAppData%\pip\Cache&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Audio Source Separation | YangLeiSX</title>
+    <link>https://yangleisx.github.io/tag/audio-source-separation/</link>
+      <atom:link href="https://yangleisx.github.io/tag/audio-source-separation/index.xml" rel="self" type="application/rss+xml" />
+    <description>Audio Source Separation</description>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Sat, 17 Apr 2021 17:28:42 +0800</lastBuildDate>
+    <image>
+      <url>https://yangleisx.github.io/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_512x512_fill_lanczos_center_3.png</url>
+      <title>Audio Source Separation</title>
+      <link>https://yangleisx.github.io/tag/audio-source-separation/</link>
+    </image>
+    
+    <item>
+      <title>【论文】Densely connected multidilated convolutional networks for dense prediction tasks</title>
+      <link>https://yangleisx.github.io/post/paper-d3net/</link>
+      <pubDate>Sat, 17 Apr 2021 17:28:42 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/paper-d3net/</guid>
+      <description>&lt;p&gt;论文题目：Densely connected multidilated convolutional networks for dense prediction tasks&lt;/p&gt;
+&lt;p&gt;作者：Naoya Takahashi, Yuki Mitsufuji&lt;/p&gt;
+&lt;p&gt;会议/时间：CVPR2021&lt;/p&gt;
+&lt;p&gt;链接: &lt;a href=&#34;https://arxiv.org/abs/2011.11844&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;arXiv:2011.1184v1&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;论文目标&#34;&gt;论文目标&lt;/h2&gt;
+&lt;p&gt;在密集预测任务中，模型通常需要处理和学习非常大范围的上下文信息，为了满足这一需求，常用的方法包括增加模型的深度（例如Resnet和DenseNet）、增加模型的宽度（例如Inception）。一种效果比较好的方式是增加短路链接使得低层特征能够传递到比较高的卷积层中，因此在ResNet的基础上有了DenseNet。更深的网络具有的优点是高层的卷积模块具有更大的感受野，从而可以学习到更大范围的上下文信息。但是更深的网络通常比较难以训练。为了增大感受野而不增加深度，常用的方法包括空洞卷积，使用注意力机制，使用特征金字塔网络等。&lt;/p&gt;
+&lt;p&gt;为了进一步提升在密集预测任务上的效果，作者将空洞卷积引入了DenseNet中，并且设计了D2-Block模块和D3Net网络，消除简单使用空洞卷积可能会引入的混淆问题，并在图像分割和语音讲话人分离两个任务上测试，取得了不错的效果。&lt;/p&gt;
+&lt;h2 id=&#34;相关工作&#34;&gt;相关工作&lt;/h2&gt;
+&lt;p&gt;在DenseNet中，使用了稠密的短路链接，每一层卷积层的输入都是之前的所有卷积层的输出，充分利用了不同尺度的特征图的信息，从而学习到输入数据在不同尺度上的信息。同时也增加了丰富的梯度流，使得模型能学到更丰富的信息。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;densenet-block.png&#34; srcset=&#34;
+               /post/paper-d3net/densenet-block_hu7dcd82c9194017b16ba2c3edbb5da1ac_310954_f6ff3f3b2f9c80fcc2b71e164d48697c.webp 400w,
+               /post/paper-d3net/densenet-block_hu7dcd82c9194017b16ba2c3edbb5da1ac_310954_07dae10bbcf78dd0a2b9920ac9a58f0e.webp 760w,
+               /post/paper-d3net/densenet-block_hu7dcd82c9194017b16ba2c3edbb5da1ac_310954_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-d3net/densenet-block_hu7dcd82c9194017b16ba2c3edbb5da1ac_310954_f6ff3f3b2f9c80fcc2b71e164d48697c.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;556&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;在空洞卷积或者说膨胀卷积中，在计算卷积操作的时候为卷积核之间填充了0，从而能显著的增加感受野。考虑到使用相同的膨胀因子导致的网格效应，可以采用HDC的思路，选择若干层为一组，组内使用逐渐增大的膨胀因子，使用多组连接得到完整的网络。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;dilated-conv.png&#34; srcset=&#34;
+               /post/paper-d3net/dilated-conv_hu0171633157af6b6146c68933c0aa844a_69059_743c6cffa52beb89b05da5f82069c4e0.webp 400w,
+               /post/paper-d3net/dilated-conv_hu0171633157af6b6146c68933c0aa844a_69059_e3205e362674dea843f6970aba94f543.webp 760w,
+               /post/paper-d3net/dilated-conv_hu0171633157af6b6146c68933c0aa844a_69059_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-d3net/dilated-conv_hu0171633157af6b6146c68933c0aa844a_69059_743c6cffa52beb89b05da5f82069c4e0.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;296&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;本文方法&#34;&gt;本文方法&lt;/h2&gt;
+&lt;p&gt;设计了一个将空洞卷积引入稠密卷积模块的方法，从而设计了D2-Block和D3Net。&lt;/p&gt;
+&lt;p&gt;在设计D2-Block的时候，直接将空洞卷积引入了DenseNet的Dense-Block中，此时由于增加了稠密连接，最后一层使用膨胀因子为4的空洞卷积时，其感受野之间出现了盲区，可能会丢失一些局部的信息。&lt;/p&gt;
+&lt;p&gt;因此文章中提出了混合膨胀因子的空洞卷积，也就是较高层的卷积层在计算空洞卷积的时候，对于不同层输入的特征图使用不同的膨胀因子，从而避免了上述的盲区，捕捉到更多的信息。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;d3net-block-viz.png&#34; srcset=&#34;
+               /post/paper-d3net/d3net-block-viz_hue17dbdc1f4ce90adb05df81a2ca8fa3b_42452_d8cfc385957bc5a254755fb536f7e7a5.webp 400w,
+               /post/paper-d3net/d3net-block-viz_hue17dbdc1f4ce90adb05df81a2ca8fa3b_42452_f7ca699cee3e9e0361230d2018208eff.webp 760w,
+               /post/paper-d3net/d3net-block-viz_hue17dbdc1f4ce90adb05df81a2ca8fa3b_42452_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-d3net/d3net-block-viz_hue17dbdc1f4ce90adb05df81a2ca8fa3b_42452_d8cfc385957bc5a254755fb536f7e7a5.webp&#34;
+               width=&#34;722&#34;
+               height=&#34;392&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;文章中将上述的D2-Block通过稠密连接相组合得到D3-Block。同时使用HDC的思路来设置参数，每一组内的膨胀系数都是互素而且逐渐增加的，同时多次重复来实现锯齿形的膨胀因子。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;d3net-d3block.png&#34; srcset=&#34;
+               /post/paper-d3net/d3net-d3block_hu009dbfbaa3a6392bc06a4615dd67e67d_51999_a8ec835bb31cd96d6d99d18fa1b5a5dd.webp 400w,
+               /post/paper-d3net/d3net-d3block_hu009dbfbaa3a6392bc06a4615dd67e67d_51999_c483673d3cdf8c688087b600119ee349.webp 760w,
+               /post/paper-d3net/d3net-d3block_hu009dbfbaa3a6392bc06a4615dd67e67d_51999_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-d3net/d3net-d3block_hu009dbfbaa3a6392bc06a4615dd67e67d_51999_a8ec835bb31cd96d6d99d18fa1b5a5dd.webp&#34;
+               width=&#34;754&#34;
+               height=&#34;322&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;同时参考DenseNet的设计，在每一个D2-Block的前后都设计了Bottleneck和Compress模块，从而避免模型中的通道数量无限制的增加。&lt;/p&gt;
+&lt;h2 id=&#34;实验结果分析&#34;&gt;实验结果分析&lt;/h2&gt;
+&lt;p&gt;文章中进行了两组密集预测任务的实验，分别是语义分割和音频源分离。&lt;/p&gt;
+&lt;p&gt;在第一个任务中使用CityScapes数据集。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;d3net-result.png&#34; srcset=&#34;
+               /post/paper-d3net/d3net-result_hu90aed87a2dd68fca1652ba4d5042ebc0_111989_0987c37e661ef1616f7f2420e90de5cb.webp 400w,
+               /post/paper-d3net/d3net-result_hu90aed87a2dd68fca1652ba4d5042ebc0_111989_7417f53fc77082c05ed0d01547749344.webp 760w,
+               /post/paper-d3net/d3net-result_hu90aed87a2dd68fca1652ba4d5042ebc0_111989_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-d3net/d3net-result_hu90aed87a2dd68fca1652ba4d5042ebc0_111989_0987c37e661ef1616f7f2420e90de5cb.webp&#34;
+               width=&#34;704&#34;
+               height=&#34;504&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;第二个任务使用MUSDB18数据集。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;d3net-result2.png &#34; srcset=&#34;
+               /post/paper-d3net/d3net-result2_hu78f3dcbd15dad4502553212ef603d9d4_87018_ed439a4931b9150abf0140e6180689f4.webp 400w,
+               /post/paper-d3net/d3net-result2_hu78f3dcbd15dad4502553212ef603d9d4_87018_f0f8ef26c25c97a83252ebfb826afadd.webp 760w,
+               /post/paper-d3net/d3net-result2_hu78f3dcbd15dad4502553212ef603d9d4_87018_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-d3net/d3net-result2_hu78f3dcbd15dad4502553212ef603d9d4_87018_ed439a4931b9150abf0140e6180689f4.webp&#34;
+               width=&#34;726&#34;
+               height=&#34;362&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
+&lt;p&gt;将空洞卷积引入了DenseNet中。提出了混合膨胀因子的空洞卷积。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

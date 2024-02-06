@@ -5,7 +5,7 @@
     <link>https://yangleisx.github.io/tag/graph-reasoning/</link>
       <atom:link href="https://yangleisx.github.io/tag/graph-reasoning/index.xml" rel="self" type="application/rss+xml" />
     <description>Graph Reasoning</description>
-    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Sun, 04 Feb 2024 15:47:49 +0800</lastBuildDate>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Wed, 06 Jul 2022 10:45:27 +0800</lastBuildDate>
     <image>
       <url>https://yangleisx.github.io/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_512x512_fill_lanczos_center_3.png</url>
       <title>Graph Reasoning</title>
@@ -13,9 +13,227 @@
     </image>
     
     <item>
+      <title>【论文】Class-wise Dynamic Graph Convolution for Semantic Segmentation</title>
+      <link>https://yangleisx.github.io/post/paper-cdgc/</link>
+      <pubDate>Wed, 06 Jul 2022 10:45:27 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/paper-cdgc/</guid>
+      <description>&lt;p&gt;论文题目：Class-wise Dynamic Graph Convolution for Semantic Segmentation&lt;/p&gt;
+&lt;p&gt;作者：Hanzhe Hu, Deyi Ji, Weihao Gan, Shuai Bai, Wei Wu, and Junjie Yan&lt;/p&gt;
+&lt;p&gt;会议/时间：ECCV2020&lt;/p&gt;
+&lt;p&gt;链接: &lt;a href=&#34;https://link.springer.com/chapter/10.1007/978-3-030-58520-4_1?noAccess=true&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Springer&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;论文目标&#34;&gt;论文目标&lt;/h2&gt;
+&lt;p&gt;使用GCN的方式来增强图像分割模型的感受野，提取丰富的上下文信息。使用由粗到细的方式，在GR中只引入同类型像素的特征进行增强。&lt;/p&gt;
+&lt;p&gt;使用膨胀卷积等方式增大感受野不适用于像素级预测的密集任务，会出现信息丢失。因此可以使用GCN或者基于Attention 注意力机制的方法。但是使用注意力的算法往往使用全部像素特征聚合进行分类，很难得到具有判别力的像素特征。因此采用了只关注同类别像素特征和关注难正例、难反例的方式加强特征提取。同时也进一步减小全连接图带来的计算成本。&lt;/p&gt;
+&lt;h2 id=&#34;相关工作&#34;&gt;相关工作&lt;/h2&gt;
+&lt;p&gt;语义分割相关的工作包括UNet、SegNet、RefineNet、PSPNet、Deeplab等。都是采用了增加层数、膨胀卷积的方式增加感受野。&lt;/p&gt;
+&lt;p&gt;在聚合上下文信息方面的工作包括DeepLab 系列、DANet、PSPNet、Non-Local Block等，包括使用Multi-Grid或者Attention 注意力机制的方式增强感受野。&lt;/p&gt;
+&lt;p&gt;在Graph Reasoning 图推理相关的工作包括DeepLab引入的CRF 条件随机场、GloRe等。基本都是建立全连接图进行处理和分析。综合考虑了所有像素的特征。&lt;/p&gt;
+&lt;h2 id=&#34;本文方法&#34;&gt;本文方法&lt;/h2&gt;
+&lt;p&gt;整体结构如下，首先进行粗检测结果，得到$M$个类别的Mask图，接着将原本的图像特征重复$M$次分别用对应的Mask进行掩码处理，得到类别有关的特征。接着进行图卷积。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;CDGC-arch.png&#34; srcset=&#34;
+               /post/paper-cdgc/CDGC-arch_hu005c453fbbd4ab03cec5faa1546b9681_153140_e60758a8b07c427bb4ec4ab161078aa9.webp 400w,
+               /post/paper-cdgc/CDGC-arch_hu005c453fbbd4ab03cec5faa1546b9681_153140_3d48d0b38d268d70163fec80825fe6b8.webp 760w,
+               /post/paper-cdgc/CDGC-arch_hu005c453fbbd4ab03cec5faa1546b9681_153140_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-cdgc/CDGC-arch_hu005c453fbbd4ab03cec5faa1546b9681_153140_e60758a8b07c427bb4ec4ab161078aa9.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;355&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;图卷积的关键是建立邻接矩阵，这里关键的两点设计为相似度邻接矩阵和难例筛选。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;CDGC-CDGC.png&#34; srcset=&#34;
+               /post/paper-cdgc/CDGC-CDGC_hu1b8e78203dcd82461934794b31912a46_86459_ea87bcb7ec25f3eb250f6a6d04d344e0.webp 400w,
+               /post/paper-cdgc/CDGC-CDGC_hu1b8e78203dcd82461934794b31912a46_86459_911dd36e9995276b4e8bd8bde1456c7b.webp 760w,
+               /post/paper-cdgc/CDGC-CDGC_hu1b8e78203dcd82461934794b31912a46_86459_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-cdgc/CDGC-CDGC_hu1b8e78203dcd82461934794b31912a46_86459_ea87bcb7ec25f3eb250f6a6d04d344e0.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;281&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;在构建图的时候，一种方法（Basic-GCN）使用相似度和Softmax操作得到行归一化之后的邻接矩阵。
+
+
+
+$$\begin{aligned}
+F(x_i, x_j) &amp;= \phi(x_i)^T \phi&#39;(x_j) \\
+A_{ij} &amp;= \frac{exp(F(x_i, x_j))}{\sum_j exp(F(x_i, x_j))}
+\end{aligned}$$
+&lt;/p&gt;
+&lt;p&gt;另一种方法（Dynamic Sampling GCN）是使用难例筛选，令 $C$ 为预测得到的Mask，$G$ 为Ground Truth。可以得到 $Easy Positive = C \cap G$，$HardNegative = C - C\cap G$，$Hard Positive = G - C \cap G$。&lt;/p&gt;
+&lt;p&gt;于是采样点为
+
+
+
+$$\begin{aligned}
+Sampled &amp;= C-C\cap G + G - C\cap G + ratio \cdot C\cap G\\
+&amp;= C\cup G - (1-ratio)\cdot C \cap G
+\end{aligned}$$
+
+这里在训练的时候使用Ground Truth进行难例筛选，在推断的时候使用全部预测mask进行推断。&lt;/p&gt;
+&lt;p&gt;在GCN的部分使用M组参数分别进行卷积。最后通过1x1的卷积得到与原本特征形式相同的特征。&lt;/p&gt;
+&lt;p&gt;训练的损失函数包括粗检测结果和最终检测结果的监督。同时在Backbone中间也加入了辅助损失加快收敛。&lt;/p&gt;
+&lt;h2 id=&#34;结果分析&#34;&gt;结果分析&lt;/h2&gt;
+&lt;p&gt;ablation study做的比较多。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;CDGC-ablation1.png&#34; srcset=&#34;
+               /post/paper-cdgc/CDGC-ablation1_hud4420f06e394ccad63dbe50950eab379_103598_3b650bbeeea10a16cb60061671dd0a5d.webp 400w,
+               /post/paper-cdgc/CDGC-ablation1_hud4420f06e394ccad63dbe50950eab379_103598_d77c0d941efe84aed90e3201314b7b3c.webp 760w,
+               /post/paper-cdgc/CDGC-ablation1_hud4420f06e394ccad63dbe50950eab379_103598_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-cdgc/CDGC-ablation1_hud4420f06e394ccad63dbe50950eab379_103598_3b650bbeeea10a16cb60061671dd0a5d.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;232&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;CDGC-ablation2.png&#34; srcset=&#34;
+               /post/paper-cdgc/CDGC-ablation2_hu2e825f9924a40310977bb2ac253e526d_124341_5ba079682f5b229052107e0e0448a64e.webp 400w,
+               /post/paper-cdgc/CDGC-ablation2_hu2e825f9924a40310977bb2ac253e526d_124341_7c04d70b1f9c789f5934d3785a125e0c.webp 760w,
+               /post/paper-cdgc/CDGC-ablation2_hu2e825f9924a40310977bb2ac253e526d_124341_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-cdgc/CDGC-ablation2_hu2e825f9924a40310977bb2ac253e526d_124341_5ba079682f5b229052107e0e0448a64e.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;240&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;CDGC-ablation3.png&#34; srcset=&#34;
+               /post/paper-cdgc/CDGC-ablation3_huf28f1cc6bc7e734ac9e271af98d2adb1_52662_b97b600a551bf56a4c77b7475adf69d8.webp 400w,
+               /post/paper-cdgc/CDGC-ablation3_huf28f1cc6bc7e734ac9e271af98d2adb1_52662_fa54d802281e4ec201d2c279bddcb95d.webp 760w,
+               /post/paper-cdgc/CDGC-ablation3_huf28f1cc6bc7e734ac9e271af98d2adb1_52662_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-cdgc/CDGC-ablation3_huf28f1cc6bc7e734ac9e271af98d2adb1_52662_b97b600a551bf56a4c77b7475adf69d8.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;199&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;最后比了一下SOTA。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;CDGC-sota.png&#34; srcset=&#34;
+               /post/paper-cdgc/CDGC-sota_hu44a91e207708b09c17c1c9d65e937690_250473_1ccb4551d1e77fc54d9b10417cd6e8ad.webp 400w,
+               /post/paper-cdgc/CDGC-sota_hu44a91e207708b09c17c1c9d65e937690_250473_bb1139909d4e31436fd352bfb70f8bf9.webp 760w,
+               /post/paper-cdgc/CDGC-sota_hu44a91e207708b09c17c1c9d65e937690_250473_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-cdgc/CDGC-sota_hu44a91e207708b09c17c1c9d65e937690_250473_1ccb4551d1e77fc54d9b10417cd6e8ad.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;635&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
+&lt;p&gt;在图卷积的部分就设计了难例筛选，而不是像OHEM那样在最后的分割图上做mining。&lt;/p&gt;
+&lt;p&gt;从coarse-to-fine的思路出发。&lt;/p&gt;
+&lt;p&gt;个人觉得有点类似OCRNet。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>【论文】Improving Semantic Segmentation in Aerial Imagery via Graph Reasoning and Disentangled Learning</title>
       <link>https://yangleisx.github.io/post/paper-pgr/</link>
-      <pubDate>Sun, 04 Feb 2024 15:47:49 +0800</pubDate>
+      <pubDate>Wed, 06 Jul 2022 10:17:43 +0800</pubDate>
       <guid>https://yangleisx.github.io/post/paper-pgr/</guid>
       <description>&lt;p&gt;论文题目： Improving Semantic Segmentation in Aerial Imagery via Graph Reasoning and Disentangled Learning&lt;/p&gt;
 &lt;p&gt;作者：Ruigang Niu, Xian Sun, Yu Tian, Wenhui Diao, Yingchao Feng, Kun Fu&lt;/p&gt;

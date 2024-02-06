@@ -5,7 +5,7 @@
     <link>https://yangleisx.github.io/tag/semantic-segmentation/</link>
       <atom:link href="https://yangleisx.github.io/tag/semantic-segmentation/index.xml" rel="self" type="application/rss+xml" />
     <description>Semantic Segmentation</description>
-    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Sun, 04 Feb 2024 15:47:49 +0800</lastBuildDate>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Wed, 06 Jul 2022 10:45:27 +0800</lastBuildDate>
     <image>
       <url>https://yangleisx.github.io/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_512x512_fill_lanczos_center_3.png</url>
       <title>Semantic Segmentation</title>
@@ -13,9 +13,227 @@
     </image>
     
     <item>
+      <title>【论文】Class-wise Dynamic Graph Convolution for Semantic Segmentation</title>
+      <link>https://yangleisx.github.io/post/paper-cdgc/</link>
+      <pubDate>Wed, 06 Jul 2022 10:45:27 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/paper-cdgc/</guid>
+      <description>&lt;p&gt;论文题目：Class-wise Dynamic Graph Convolution for Semantic Segmentation&lt;/p&gt;
+&lt;p&gt;作者：Hanzhe Hu, Deyi Ji, Weihao Gan, Shuai Bai, Wei Wu, and Junjie Yan&lt;/p&gt;
+&lt;p&gt;会议/时间：ECCV2020&lt;/p&gt;
+&lt;p&gt;链接: &lt;a href=&#34;https://link.springer.com/chapter/10.1007/978-3-030-58520-4_1?noAccess=true&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Springer&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;论文目标&#34;&gt;论文目标&lt;/h2&gt;
+&lt;p&gt;使用GCN的方式来增强图像分割模型的感受野，提取丰富的上下文信息。使用由粗到细的方式，在GR中只引入同类型像素的特征进行增强。&lt;/p&gt;
+&lt;p&gt;使用膨胀卷积等方式增大感受野不适用于像素级预测的密集任务，会出现信息丢失。因此可以使用GCN或者基于Attention 注意力机制的方法。但是使用注意力的算法往往使用全部像素特征聚合进行分类，很难得到具有判别力的像素特征。因此采用了只关注同类别像素特征和关注难正例、难反例的方式加强特征提取。同时也进一步减小全连接图带来的计算成本。&lt;/p&gt;
+&lt;h2 id=&#34;相关工作&#34;&gt;相关工作&lt;/h2&gt;
+&lt;p&gt;语义分割相关的工作包括UNet、SegNet、RefineNet、PSPNet、Deeplab等。都是采用了增加层数、膨胀卷积的方式增加感受野。&lt;/p&gt;
+&lt;p&gt;在聚合上下文信息方面的工作包括DeepLab 系列、DANet、PSPNet、Non-Local Block等，包括使用Multi-Grid或者Attention 注意力机制的方式增强感受野。&lt;/p&gt;
+&lt;p&gt;在Graph Reasoning 图推理相关的工作包括DeepLab引入的CRF 条件随机场、GloRe等。基本都是建立全连接图进行处理和分析。综合考虑了所有像素的特征。&lt;/p&gt;
+&lt;h2 id=&#34;本文方法&#34;&gt;本文方法&lt;/h2&gt;
+&lt;p&gt;整体结构如下，首先进行粗检测结果，得到$M$个类别的Mask图，接着将原本的图像特征重复$M$次分别用对应的Mask进行掩码处理，得到类别有关的特征。接着进行图卷积。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;CDGC-arch.png&#34; srcset=&#34;
+               /post/paper-cdgc/CDGC-arch_hu005c453fbbd4ab03cec5faa1546b9681_153140_e60758a8b07c427bb4ec4ab161078aa9.webp 400w,
+               /post/paper-cdgc/CDGC-arch_hu005c453fbbd4ab03cec5faa1546b9681_153140_3d48d0b38d268d70163fec80825fe6b8.webp 760w,
+               /post/paper-cdgc/CDGC-arch_hu005c453fbbd4ab03cec5faa1546b9681_153140_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-cdgc/CDGC-arch_hu005c453fbbd4ab03cec5faa1546b9681_153140_e60758a8b07c427bb4ec4ab161078aa9.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;355&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;图卷积的关键是建立邻接矩阵，这里关键的两点设计为相似度邻接矩阵和难例筛选。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;CDGC-CDGC.png&#34; srcset=&#34;
+               /post/paper-cdgc/CDGC-CDGC_hu1b8e78203dcd82461934794b31912a46_86459_ea87bcb7ec25f3eb250f6a6d04d344e0.webp 400w,
+               /post/paper-cdgc/CDGC-CDGC_hu1b8e78203dcd82461934794b31912a46_86459_911dd36e9995276b4e8bd8bde1456c7b.webp 760w,
+               /post/paper-cdgc/CDGC-CDGC_hu1b8e78203dcd82461934794b31912a46_86459_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-cdgc/CDGC-CDGC_hu1b8e78203dcd82461934794b31912a46_86459_ea87bcb7ec25f3eb250f6a6d04d344e0.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;281&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;在构建图的时候，一种方法（Basic-GCN）使用相似度和Softmax操作得到行归一化之后的邻接矩阵。
+
+
+
+$$\begin{aligned}
+F(x_i, x_j) &amp;= \phi(x_i)^T \phi&#39;(x_j) \\
+A_{ij} &amp;= \frac{exp(F(x_i, x_j))}{\sum_j exp(F(x_i, x_j))}
+\end{aligned}$$
+&lt;/p&gt;
+&lt;p&gt;另一种方法（Dynamic Sampling GCN）是使用难例筛选，令 $C$ 为预测得到的Mask，$G$ 为Ground Truth。可以得到 $Easy Positive = C \cap G$，$HardNegative = C - C\cap G$，$Hard Positive = G - C \cap G$。&lt;/p&gt;
+&lt;p&gt;于是采样点为
+
+
+
+$$\begin{aligned}
+Sampled &amp;= C-C\cap G + G - C\cap G + ratio \cdot C\cap G\\
+&amp;= C\cup G - (1-ratio)\cdot C \cap G
+\end{aligned}$$
+
+这里在训练的时候使用Ground Truth进行难例筛选，在推断的时候使用全部预测mask进行推断。&lt;/p&gt;
+&lt;p&gt;在GCN的部分使用M组参数分别进行卷积。最后通过1x1的卷积得到与原本特征形式相同的特征。&lt;/p&gt;
+&lt;p&gt;训练的损失函数包括粗检测结果和最终检测结果的监督。同时在Backbone中间也加入了辅助损失加快收敛。&lt;/p&gt;
+&lt;h2 id=&#34;结果分析&#34;&gt;结果分析&lt;/h2&gt;
+&lt;p&gt;ablation study做的比较多。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;CDGC-ablation1.png&#34; srcset=&#34;
+               /post/paper-cdgc/CDGC-ablation1_hud4420f06e394ccad63dbe50950eab379_103598_3b650bbeeea10a16cb60061671dd0a5d.webp 400w,
+               /post/paper-cdgc/CDGC-ablation1_hud4420f06e394ccad63dbe50950eab379_103598_d77c0d941efe84aed90e3201314b7b3c.webp 760w,
+               /post/paper-cdgc/CDGC-ablation1_hud4420f06e394ccad63dbe50950eab379_103598_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-cdgc/CDGC-ablation1_hud4420f06e394ccad63dbe50950eab379_103598_3b650bbeeea10a16cb60061671dd0a5d.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;232&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;CDGC-ablation2.png&#34; srcset=&#34;
+               /post/paper-cdgc/CDGC-ablation2_hu2e825f9924a40310977bb2ac253e526d_124341_5ba079682f5b229052107e0e0448a64e.webp 400w,
+               /post/paper-cdgc/CDGC-ablation2_hu2e825f9924a40310977bb2ac253e526d_124341_7c04d70b1f9c789f5934d3785a125e0c.webp 760w,
+               /post/paper-cdgc/CDGC-ablation2_hu2e825f9924a40310977bb2ac253e526d_124341_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-cdgc/CDGC-ablation2_hu2e825f9924a40310977bb2ac253e526d_124341_5ba079682f5b229052107e0e0448a64e.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;240&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;CDGC-ablation3.png&#34; srcset=&#34;
+               /post/paper-cdgc/CDGC-ablation3_huf28f1cc6bc7e734ac9e271af98d2adb1_52662_b97b600a551bf56a4c77b7475adf69d8.webp 400w,
+               /post/paper-cdgc/CDGC-ablation3_huf28f1cc6bc7e734ac9e271af98d2adb1_52662_fa54d802281e4ec201d2c279bddcb95d.webp 760w,
+               /post/paper-cdgc/CDGC-ablation3_huf28f1cc6bc7e734ac9e271af98d2adb1_52662_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-cdgc/CDGC-ablation3_huf28f1cc6bc7e734ac9e271af98d2adb1_52662_b97b600a551bf56a4c77b7475adf69d8.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;199&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;最后比了一下SOTA。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;CDGC-sota.png&#34; srcset=&#34;
+               /post/paper-cdgc/CDGC-sota_hu44a91e207708b09c17c1c9d65e937690_250473_1ccb4551d1e77fc54d9b10417cd6e8ad.webp 400w,
+               /post/paper-cdgc/CDGC-sota_hu44a91e207708b09c17c1c9d65e937690_250473_bb1139909d4e31436fd352bfb70f8bf9.webp 760w,
+               /post/paper-cdgc/CDGC-sota_hu44a91e207708b09c17c1c9d65e937690_250473_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-cdgc/CDGC-sota_hu44a91e207708b09c17c1c9d65e937690_250473_1ccb4551d1e77fc54d9b10417cd6e8ad.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;635&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
+&lt;p&gt;在图卷积的部分就设计了难例筛选，而不是像OHEM那样在最后的分割图上做mining。&lt;/p&gt;
+&lt;p&gt;从coarse-to-fine的思路出发。&lt;/p&gt;
+&lt;p&gt;个人觉得有点类似OCRNet。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>【论文】Improving Semantic Segmentation in Aerial Imagery via Graph Reasoning and Disentangled Learning</title>
       <link>https://yangleisx.github.io/post/paper-pgr/</link>
-      <pubDate>Sun, 04 Feb 2024 15:47:49 +0800</pubDate>
+      <pubDate>Wed, 06 Jul 2022 10:17:43 +0800</pubDate>
       <guid>https://yangleisx.github.io/post/paper-pgr/</guid>
       <description>&lt;p&gt;论文题目： Improving Semantic Segmentation in Aerial Imagery via Graph Reasoning and Disentangled Learning&lt;/p&gt;
 &lt;p&gt;作者：Ruigang Niu, Xian Sun, Yu Tian, Wenhui Diao, Yingchao Feng, Kun Fu&lt;/p&gt;
@@ -385,6 +603,203 @@ X^{(s)} &amp;= \Pi_{down}(X^{(s+1)})
                loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
   &lt;/div&gt;&lt;/figure&gt;
 &lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【论文】Densely connected multidilated convolutional networks for dense prediction tasks</title>
+      <link>https://yangleisx.github.io/post/paper-d3net/</link>
+      <pubDate>Sat, 17 Apr 2021 17:28:42 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/paper-d3net/</guid>
+      <description>&lt;p&gt;论文题目：Densely connected multidilated convolutional networks for dense prediction tasks&lt;/p&gt;
+&lt;p&gt;作者：Naoya Takahashi, Yuki Mitsufuji&lt;/p&gt;
+&lt;p&gt;会议/时间：CVPR2021&lt;/p&gt;
+&lt;p&gt;链接: &lt;a href=&#34;https://arxiv.org/abs/2011.11844&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;arXiv:2011.1184v1&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;论文目标&#34;&gt;论文目标&lt;/h2&gt;
+&lt;p&gt;在密集预测任务中，模型通常需要处理和学习非常大范围的上下文信息，为了满足这一需求，常用的方法包括增加模型的深度（例如Resnet和DenseNet）、增加模型的宽度（例如Inception）。一种效果比较好的方式是增加短路链接使得低层特征能够传递到比较高的卷积层中，因此在ResNet的基础上有了DenseNet。更深的网络具有的优点是高层的卷积模块具有更大的感受野，从而可以学习到更大范围的上下文信息。但是更深的网络通常比较难以训练。为了增大感受野而不增加深度，常用的方法包括空洞卷积，使用注意力机制，使用特征金字塔网络等。&lt;/p&gt;
+&lt;p&gt;为了进一步提升在密集预测任务上的效果，作者将空洞卷积引入了DenseNet中，并且设计了D2-Block模块和D3Net网络，消除简单使用空洞卷积可能会引入的混淆问题，并在图像分割和语音讲话人分离两个任务上测试，取得了不错的效果。&lt;/p&gt;
+&lt;h2 id=&#34;相关工作&#34;&gt;相关工作&lt;/h2&gt;
+&lt;p&gt;在DenseNet中，使用了稠密的短路链接，每一层卷积层的输入都是之前的所有卷积层的输出，充分利用了不同尺度的特征图的信息，从而学习到输入数据在不同尺度上的信息。同时也增加了丰富的梯度流，使得模型能学到更丰富的信息。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;densenet-block.png&#34; srcset=&#34;
+               /post/paper-d3net/densenet-block_hu7dcd82c9194017b16ba2c3edbb5da1ac_310954_f6ff3f3b2f9c80fcc2b71e164d48697c.webp 400w,
+               /post/paper-d3net/densenet-block_hu7dcd82c9194017b16ba2c3edbb5da1ac_310954_07dae10bbcf78dd0a2b9920ac9a58f0e.webp 760w,
+               /post/paper-d3net/densenet-block_hu7dcd82c9194017b16ba2c3edbb5da1ac_310954_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-d3net/densenet-block_hu7dcd82c9194017b16ba2c3edbb5da1ac_310954_f6ff3f3b2f9c80fcc2b71e164d48697c.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;556&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;在空洞卷积或者说膨胀卷积中，在计算卷积操作的时候为卷积核之间填充了0，从而能显著的增加感受野。考虑到使用相同的膨胀因子导致的网格效应，可以采用HDC的思路，选择若干层为一组，组内使用逐渐增大的膨胀因子，使用多组连接得到完整的网络。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;dilated-conv.png&#34; srcset=&#34;
+               /post/paper-d3net/dilated-conv_hu0171633157af6b6146c68933c0aa844a_69059_743c6cffa52beb89b05da5f82069c4e0.webp 400w,
+               /post/paper-d3net/dilated-conv_hu0171633157af6b6146c68933c0aa844a_69059_e3205e362674dea843f6970aba94f543.webp 760w,
+               /post/paper-d3net/dilated-conv_hu0171633157af6b6146c68933c0aa844a_69059_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-d3net/dilated-conv_hu0171633157af6b6146c68933c0aa844a_69059_743c6cffa52beb89b05da5f82069c4e0.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;296&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;本文方法&#34;&gt;本文方法&lt;/h2&gt;
+&lt;p&gt;设计了一个将空洞卷积引入稠密卷积模块的方法，从而设计了D2-Block和D3Net。&lt;/p&gt;
+&lt;p&gt;在设计D2-Block的时候，直接将空洞卷积引入了DenseNet的Dense-Block中，此时由于增加了稠密连接，最后一层使用膨胀因子为4的空洞卷积时，其感受野之间出现了盲区，可能会丢失一些局部的信息。&lt;/p&gt;
+&lt;p&gt;因此文章中提出了混合膨胀因子的空洞卷积，也就是较高层的卷积层在计算空洞卷积的时候，对于不同层输入的特征图使用不同的膨胀因子，从而避免了上述的盲区，捕捉到更多的信息。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;d3net-block-viz.png&#34; srcset=&#34;
+               /post/paper-d3net/d3net-block-viz_hue17dbdc1f4ce90adb05df81a2ca8fa3b_42452_d8cfc385957bc5a254755fb536f7e7a5.webp 400w,
+               /post/paper-d3net/d3net-block-viz_hue17dbdc1f4ce90adb05df81a2ca8fa3b_42452_f7ca699cee3e9e0361230d2018208eff.webp 760w,
+               /post/paper-d3net/d3net-block-viz_hue17dbdc1f4ce90adb05df81a2ca8fa3b_42452_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-d3net/d3net-block-viz_hue17dbdc1f4ce90adb05df81a2ca8fa3b_42452_d8cfc385957bc5a254755fb536f7e7a5.webp&#34;
+               width=&#34;722&#34;
+               height=&#34;392&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;文章中将上述的D2-Block通过稠密连接相组合得到D3-Block。同时使用HDC的思路来设置参数，每一组内的膨胀系数都是互素而且逐渐增加的，同时多次重复来实现锯齿形的膨胀因子。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;d3net-d3block.png&#34; srcset=&#34;
+               /post/paper-d3net/d3net-d3block_hu009dbfbaa3a6392bc06a4615dd67e67d_51999_a8ec835bb31cd96d6d99d18fa1b5a5dd.webp 400w,
+               /post/paper-d3net/d3net-d3block_hu009dbfbaa3a6392bc06a4615dd67e67d_51999_c483673d3cdf8c688087b600119ee349.webp 760w,
+               /post/paper-d3net/d3net-d3block_hu009dbfbaa3a6392bc06a4615dd67e67d_51999_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-d3net/d3net-d3block_hu009dbfbaa3a6392bc06a4615dd67e67d_51999_a8ec835bb31cd96d6d99d18fa1b5a5dd.webp&#34;
+               width=&#34;754&#34;
+               height=&#34;322&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;同时参考DenseNet的设计，在每一个D2-Block的前后都设计了Bottleneck和Compress模块，从而避免模型中的通道数量无限制的增加。&lt;/p&gt;
+&lt;h2 id=&#34;实验结果分析&#34;&gt;实验结果分析&lt;/h2&gt;
+&lt;p&gt;文章中进行了两组密集预测任务的实验，分别是语义分割和音频源分离。&lt;/p&gt;
+&lt;p&gt;在第一个任务中使用CityScapes数据集。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;d3net-result.png&#34; srcset=&#34;
+               /post/paper-d3net/d3net-result_hu90aed87a2dd68fca1652ba4d5042ebc0_111989_0987c37e661ef1616f7f2420e90de5cb.webp 400w,
+               /post/paper-d3net/d3net-result_hu90aed87a2dd68fca1652ba4d5042ebc0_111989_7417f53fc77082c05ed0d01547749344.webp 760w,
+               /post/paper-d3net/d3net-result_hu90aed87a2dd68fca1652ba4d5042ebc0_111989_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-d3net/d3net-result_hu90aed87a2dd68fca1652ba4d5042ebc0_111989_0987c37e661ef1616f7f2420e90de5cb.webp&#34;
+               width=&#34;704&#34;
+               height=&#34;504&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;第二个任务使用MUSDB18数据集。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;d3net-result2.png &#34; srcset=&#34;
+               /post/paper-d3net/d3net-result2_hu78f3dcbd15dad4502553212ef603d9d4_87018_ed439a4931b9150abf0140e6180689f4.webp 400w,
+               /post/paper-d3net/d3net-result2_hu78f3dcbd15dad4502553212ef603d9d4_87018_f0f8ef26c25c97a83252ebfb826afadd.webp 760w,
+               /post/paper-d3net/d3net-result2_hu78f3dcbd15dad4502553212ef603d9d4_87018_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-d3net/d3net-result2_hu78f3dcbd15dad4502553212ef603d9d4_87018_ed439a4931b9150abf0140e6180689f4.webp&#34;
+               width=&#34;726&#34;
+               height=&#34;362&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
+&lt;p&gt;将空洞卷积引入了DenseNet中。提出了混合膨胀因子的空洞卷积。&lt;/p&gt;</description>
     </item>
     
   </channel>

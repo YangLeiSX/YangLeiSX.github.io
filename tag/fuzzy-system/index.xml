@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Fuzzy System | YangLeiSX</title>
+    <link>https://yangleisx.github.io/tag/fuzzy-system/</link>
+      <atom:link href="https://yangleisx.github.io/tag/fuzzy-system/index.xml" rel="self" type="application/rss+xml" />
+    <description>Fuzzy System</description>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Wed, 06 Jul 2022 09:50:55 +0800</lastBuildDate>
+    <image>
+      <url>https://yangleisx.github.io/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_512x512_fill_lanczos_center_3.png</url>
+      <title>Fuzzy System</title>
+      <link>https://yangleisx.github.io/tag/fuzzy-system/</link>
+    </image>
+    
+    <item>
+      <title>【论文】A Hierarchical Fused Fuzzy Deep Neural Network for Data Classification</title>
+      <link>https://yangleisx.github.io/post/paper-fdnn/</link>
+      <pubDate>Wed, 06 Jul 2022 09:50:55 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/paper-fdnn/</guid>
+      <description>&lt;p&gt;论文题目：A Hierarchical Fused Fuzzy Deep Neural Network for Data Classification&lt;/p&gt;
+&lt;p&gt;作者：Yue Deng, Zhiquan Ren, Youyong Kong, Feng Bao, and Qionghai Dai&lt;/p&gt;
+&lt;p&gt;会议/时间：IEEE TRANSACTIONS ON FUZZY SYSTEMS, 2017&lt;/p&gt;
+&lt;p&gt;链接: &lt;a href=&#34;https://ieeexplore.ieee.org/document/7482843&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;ieeexplore&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;论文目标&#34;&gt;论文目标&lt;/h2&gt;
+&lt;p&gt;在深度神经网络中引入模糊逻辑从而应对数据中的噪声和不确定度。&lt;/p&gt;
+&lt;p&gt;之前的工作大多是使用模糊逻辑处理模型的输入（Fuzzier）或者输出（Defuzzier），论文中将模糊逻辑和神经网络并行处理得到的特征融合在一起。&lt;/p&gt;
+&lt;h2 id=&#34;本文方法&#34;&gt;本文方法&lt;/h2&gt;
+&lt;p&gt;整体结构如图。模糊逻辑部分使用高斯隶属度，神经网络部分使用MLP，最后使用线性组合的方式得到融合后的模型，再通过全链接得到任务所需要的输出结果。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;FDNN-arch.png&#34; srcset=&#34;
+               /post/paper-fdnn/FDNN-arch_hua1d7a6de72dc49afc9a35271f97ceb10_1283191_21551d170db447f7b976b7b371c27684.webp 400w,
+               /post/paper-fdnn/FDNN-arch_hua1d7a6de72dc49afc9a35271f97ceb10_1283191_b84550e267eab29bdad053300b35020e.webp 760w,
+               /post/paper-fdnn/FDNN-arch_hua1d7a6de72dc49afc9a35271f97ceb10_1283191_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-fdnn/FDNN-arch_hua1d7a6de72dc49afc9a35271f97ceb10_1283191_21551d170db447f7b976b7b371c27684.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;577&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;在训练的时候，考虑到模型对初始化比较敏感，使用了$w \sim U[-\frac{1}{\sqrt{n^{l-1}}}, \frac{1}{\sqrt{n^{l-1}}}]$初始化神经网络部分的参数，使用[[K-means 算法]]得到的聚类结果作为fuzzy部分的初始化。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;We follow the method in [16] to initialize the fuzzy member-ship nodes according to k-means results on the input data, where k is suggested the same as the class number to be classified.
+[16]  N.KasabovandQ.Song,“Denfis:Dynamic evolving neural-fuzzy inference system and its application for time-series prediction,” IEEE Trans. Fuzzy Syst., vol. 10, no. 2, pp. 144–154, Apr. 2002.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;结果分析&#34;&gt;结果分析&lt;/h2&gt;
+&lt;p&gt;在三个任务上进行了实验：1）data classification tasks of image categorization, 2）brain magnetic reso- nance imaging (MRI) segmentation and 3）high-frequency financial tick prediction。取得了不错的效果。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

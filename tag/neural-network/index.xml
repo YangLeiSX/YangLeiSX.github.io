@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Neural Network | YangLeiSX</title>
+    <link>https://yangleisx.github.io/tag/neural-network/</link>
+      <atom:link href="https://yangleisx.github.io/tag/neural-network/index.xml" rel="self" type="application/rss+xml" />
+    <description>Neural Network</description>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Mon, 30 Mar 2020 21:34:37 +0800</lastBuildDate>
+    <image>
+      <url>https://yangleisx.github.io/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_512x512_fill_lanczos_center_3.png</url>
+      <title>Neural Network</title>
+      <link>https://yangleisx.github.io/tag/neural-network/</link>
+    </image>
+    
+    <item>
+      <title>【论文】ABS: Scanning Neural Networks for Back-doors by Artificial Brain Stimulation</title>
+      <link>https://yangleisx.github.io/post/paper-abs-nn/</link>
+      <pubDate>Mon, 30 Mar 2020 21:34:37 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/paper-abs-nn/</guid>
+      <description>&lt;p&gt;论文题目：ABS: Scanning Neural Networks for Back-doors by Artificial Brain Stimulation&lt;/p&gt;
+&lt;p&gt;会议：CCS2019&lt;/p&gt;
+&lt;p&gt;作者：Y. Liu .etc from Purdue University&lt;/p&gt;
+&lt;p&gt;链接：&lt;a href=&#34;https://doi.org/10.1145/3319535.3363216&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;原文链接&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;论文目标现存问题&#34;&gt;论文目标/现存问题&lt;/h2&gt;
+&lt;p&gt;预训练的人工智能模型可能存在一些通过训练或更改模型参数而插入的后门（AI木马）。这些模型在处理普通的输入时会得到正确的结果，但是在遇到特殊的输入数据时会出现错误的分类结果，这里的特殊输入数据通常含有称为trojan trigger的特殊模式/特征。&lt;/p&gt;
+&lt;p&gt;因此文章实现了一种技术，通过为神经元引入不同级别的激励来检测其输出的变化而逆向构建出trojan trigger，从而证明AI模型有没有收到AI木马攻击。&lt;/p&gt;
+&lt;h2 id=&#34;相关工作现状&#34;&gt;相关工作/现状&lt;/h2&gt;
+&lt;p&gt;由于训练模型在搜集数据和计算能力方面的要求，越来越多的预训练模型开始在网络上传播，这些模型往往经由大的服务商训练，但是也存在一些经过个人训练或者再训练(retrain)的模型。就像传统软件的木马或者后门一样，预训练的模型也可能被AI木马攻击或者插入后门。&lt;/p&gt;
+&lt;p&gt;Gu et al.等&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;在2017年的研究表明通过污染训练数据可以得到藏有后门的模型，即“Data Poisoning”。此时需要攻击者可以参与训练的过程，接触到数据集并对数据进行相关操作，包括添加碎片（patch）或者扰动（perturbation）。&lt;/p&gt;
+&lt;p&gt;Liu et al.等&lt;sup id=&#34;fnref:2&#34;&gt;&lt;a href=&#34;#fn:2&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;的研究证明劫持部分神经元并使用精心构造的数据训练也可以藏入后门，即“Neuron HiJacking”。此时攻击者得到预训练的模型，从中选择一部分关键神经元并构造可以使这些神经元产生错误输出的触发器并再次训练部分模型。&lt;/p&gt;
+&lt;p&gt;通常被藏入后门的模型在处理普通的输入数据时可以得到正常的结果（甚至更高的准确率），但是在处理添加了trojan trigger的数据时会得到错误的结果。&lt;/p&gt;
+&lt;p&gt;现存的一些检查AI木马的算法具有一些局限性，例如需要提供trojan trigger，造成模型性能的下降，需要大量输入数据样本，或者无法解决特征域的攻击行为。其中比较好的是Nerual Cleanse&lt;sup id=&#34;fnref:3&#34;&gt;&lt;a href=&#34;#fn:3&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;3&lt;/a&gt;&lt;/sup&gt;，但是仍然无法解决需要样本数量大、需要对trojan trigger的先验知识、无法处理尺寸较大的trojan trigger等缺点。&lt;/p&gt;
+&lt;p&gt;这里的trojan trigger可以是输入域（像素级别）或者是特征域。目前的trojan trigger包括两类，分别为基于碎片（patch based trigger）和基于扰动（perturbations based trigger）的触发器。前者为插入图片或者覆盖原图片的一小块图像，后者为在原始数据上添加特定的数据扰动。这两种都属于输入域的攻击。常见的特征域的攻击包括为图片添加滤镜等方式。&lt;/p&gt;
+&lt;h2 id=&#34;本文思路解决方案&#34;&gt;本文思路/解决方案&lt;/h2&gt;
+&lt;p&gt;AI木马的实质是通过改变个别神经元的权重，使得某些特别的数据或行为出现时会激活并导致错误的分类结果。&lt;/p&gt;
+&lt;p&gt;本文的算法主要从EBS（Electrical Brain Stimulation）技术中得到启发，该技术向神经元提供不同强度的电刺激并观察结果，从而研究特定神经元的功能。&lt;/p&gt;
+&lt;p&gt;本文实现的算法中，通过为神经元提供不同程度的激励，被攻击的神经元就会在个别标签下产生错误的结果，通过这些选定的神经元可以逆向得到trojan trigger，如果该特征/输入可以使得正常的数据得到错误的结果，可以认为该网络存在后门或已被攻击。&lt;/p&gt;
+&lt;p&gt;模型要点：1. 成功的AI木马攻击必定存在受损的神经元（错误地将trojan trigger看作是目标标签的特征之一）。2. 受损神经元在特征空间中的表示是目标标签的子空间。&lt;/p&gt;
+&lt;p&gt;因此在具体的实现中，给定输入数据得到每一层神经元的激活信息，当选定神经元的激活信息改变时，检查输出信息的变化情况，可以判断该神经元的状态（当其他神经元激活信息改变时输出稳定于错误的标签时即可判断）。同时通过逆向工程的思想推测trojan trigger并检查消除假阳性的神经元。对每一个标签的检查中仅需要一张正常的照片即可用于神经元状态的分析。&lt;/p&gt;
+&lt;p&gt;整体的流程包括三个部分：1. 激励测试并选择候选神经元。2. 对于候选神经元检测并推断trojan trigger。3. 使用trojan trigger对其他数据进行测试。&lt;/p&gt;
+&lt;h2 id=&#34;结果&#34;&gt;结果&lt;/h2&gt;
+&lt;p&gt;本文的主要结果为两个算法，分别用于选择候选神经元，逆向生成trojan trigger。经过测试，本文实现的技术可以检测到绝大多数的AI木马攻击，达到了90%甚至更高的正确率。同时所采用的逆向工程技术可以近似推断得到trojan trigger。&lt;/p&gt;
+&lt;p&gt;本文的技术具有同时应对输入域和特征域的攻击行为、需要较少的输入数据、对trigger尺寸不敏感、高效的的特点。&lt;/p&gt;
+&lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
+&lt;p&gt;本文实现的方法存在如下的改进方向：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;测试过程中可能误将目标标签的特征识别为trojan trigger。应当加以区分并避免这样的情况。&lt;/li&gt;
+&lt;li&gt;对于复杂的基于特征域的攻击难以有效地识别和分析。&lt;/li&gt;
+&lt;li&gt;对于标签特定的攻击方式难以有效识别和分析，只能识别将所有其他的数据转移为特定标签的攻击方式。&lt;/li&gt;
+&lt;li&gt;算法效率仍需提升。&lt;/li&gt;
+&lt;li&gt;仅针对单个神经元进行分析，不能处理多个神经元受更改的情况。&lt;/li&gt;
+&lt;li&gt;攻击模型的调整。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
+&lt;p&gt;TianyuGu,BrendanDolan-Gavitt,andSiddharthGarg.2017.Badnets:Identifying vulnerabilities in the machine learning model supply chain.&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:2&#34;&gt;
+&lt;p&gt;Yingqi Liu, Shiqing Ma, Yousra Aafer, Wen-Chuan Lee, Juan Zhai, Weihang Wang, and Xiangyu Zhang. 2018. Trojaning Attack on Neural Networks.&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:3&#34;&gt;
+&lt;p&gt;BolunWang,YuanshunYao,ShawnShan,HuiyingLi,BimalViswanath,Haitao Zheng, and Ben Y Zhao. 2019. Neural cleanse: Identifying and mitigating backdoor attacks in neural networks.&amp;#160;&lt;a href=&#34;#fnref:3&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

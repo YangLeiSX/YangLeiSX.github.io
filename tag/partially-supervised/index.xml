@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Partially Supervised | YangLeiSX</title>
+    <link>https://yangleisx.github.io/tag/partially-supervised/</link>
+      <atom:link href="https://yangleisx.github.io/tag/partially-supervised/index.xml" rel="self" type="application/rss+xml" />
+    <description>Partially Supervised</description>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Sun, 07 Nov 2021 21:00:31 +0800</lastBuildDate>
+    <image>
+      <url>https://yangleisx.github.io/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_512x512_fill_lanczos_center_3.png</url>
+      <title>Partially Supervised</title>
+      <link>https://yangleisx.github.io/tag/partially-supervised/</link>
+    </image>
+    
+    <item>
+      <title>【论文】Learning to Segment Every Thing</title>
+      <link>https://yangleisx.github.io/post/paper-seg-every/</link>
+      <pubDate>Sun, 07 Nov 2021 21:00:31 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/paper-seg-every/</guid>
+      <description>&lt;p&gt;论文题目：Learning to Segment Every Thing&lt;/p&gt;
+&lt;p&gt;作者：Ronghang Hu，Piotr Dollar， Kaiming He，Trevor Darrell， Ross Girshick&lt;/p&gt;
+&lt;p&gt;会议/时间：CVPR2018&lt;/p&gt;
+&lt;p&gt;链接: &lt;a href=&#34;https://arXiv.org/pdf/1711.10370.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;arXiv&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;论文目标&#34;&gt;论文目标&lt;/h2&gt;
+&lt;p&gt;现有的Instance Segmentation 实例分割任务受到了数据集的限制，只能解决很少的几类目标的检测。由于像素级的分割标注成本非常高，因此文章提出了一种部分监督的训练方式，使用给定边界框的目标检测数据集训练实例分割模型。因此将实例分割扩展到几千类不同的目标，即题目中的“Segment Everything”。&lt;/p&gt;
+&lt;p&gt;这里的部分监督表示，在训练过程中，一小部分训练数据给定了分割Mask作为强监督，其他的数据只给定了目标的Bounding Box作为弱监督。&lt;/p&gt;
+&lt;h2 id=&#34;相关工作&#34;&gt;相关工作&lt;/h2&gt;
+&lt;p&gt;Instance Segmentation 实例分割任务近年来受到关注，RCNN 系列#Mask R-CNN在实例分割任务中取得了很好的效果。缺点是需要大量的强监督，即“Fully Supervised Learning”。&lt;/p&gt;
+&lt;p&gt;目前有一些通过预测得到模型参数的方式，例如Model Regression Network等方式通过模型预测的方式得到分类模型权重从而实现Zero-Shot Learning，LSDA模型通过一个图像分类模型的权重预测得到一个目标检测模型的权重。本论文中就使用一个预测模型得到分割头部的权重。&lt;/p&gt;
+&lt;p&gt;目前也有一些弱监督学习实现Image Segmentation 图像分割的方法，例如使用边框标注、图像分类信息、目标大小等信息进行监督，但是大多只能解决Semantic Segmentation 语义分割任务。&lt;/p&gt;
+&lt;p&gt;视觉嵌入类似Word Embedding 词嵌入的方式，将图像映射到空间中，其中语义信息相类似或者图像相似度比较高的被映射到相近的位置。在本文中认为Mask R-CNN的目标检测头部的参数可以认为是一种视觉嵌入的形式，蕴含了目标类别和位置的信息。&lt;/p&gt;
+&lt;h2 id=&#34;本文方法&#34;&gt;本文方法&lt;/h2&gt;
+&lt;p&gt;模型建立在RCNN 系列#Mask R-CNN的基础上，考虑到Mask R-CNN在边界框回归的目标检测模型（即RCNN 系列#Faster R-CNN）上添加了一个分割头部，因此可以直接应用在本文中。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;segeverything-model.png&#34; srcset=&#34;
+               /post/paper-seg-every/segeverything-model_hu34ef8b38447309fdddc3cfb5f9849a4d_236779_869180cd97a9e7e07583befa30724fb8.webp 400w,
+               /post/paper-seg-every/segeverything-model_hu34ef8b38447309fdddc3cfb5f9849a4d_236779_97321f7ced8463c5c21b9b7036327f5f.webp 760w,
+               /post/paper-seg-every/segeverything-model_hu34ef8b38447309fdddc3cfb5f9849a4d_236779_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-seg-every/segeverything-model_hu34ef8b38447309fdddc3cfb5f9849a4d_236779_869180cd97a9e7e07583befa30724fb8.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;305&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;模型中设计了一个转移函数$\mathcal{T}(\cdot)$实现了从检测模型参数到分割模型参数的转移，即$\omega_{seg}^c = \mathcal{T}(\omega_{det}^c; \theta)$。其中$c$表示对于指定的类型。这里的函数$\mathcal{T}$可以使用一个简单的全连接网络实现。&lt;/p&gt;
+&lt;p&gt;在训练时，对于给定了Bounding Box和分割Mask的类别数据，同时使用Mask Loss和Box Loss监督。对于没有分割Mask监督的数据只使用Box Loss监督。&lt;/p&gt;
+&lt;p&gt;具体训练包含两种不同的策略，一种是分级处理的训练方式，先训练一个目标检测模型，再固定Backbone和检测模型的参数，训练转移函数进行分割。另一种是端到端的训练，考虑到通常情况使用端到端的训练可以是模型综合不同的监督信号学习的更好，建议使用端到端的联合训练的方式。&lt;/p&gt;
+&lt;p&gt;由于数据中一部分包含Mask监督，另一部分不包含，在训练的时候，对于检测参数$\omega_{det}$阻断梯度传播，即Mask Loss只参与了$\mathcal{T}(\cdot)$的参数更新。从而防止上述数据的不一致性影响到Backbone的训练。&lt;/p&gt;
+&lt;p&gt;在Mask R-CNN中，分割头部使用FCN取得了更好的效果，考虑到在DeepMask中，使用MLP进行分割的效果也很好，因此在上述转移函数$\mathcal{T}(\cdot)$的基础上添加一个新的类型无关（Class-Agnostic）的MLP分支。&lt;/p&gt;
+&lt;h2 id=&#34;结果分析&#34;&gt;结果分析&lt;/h2&gt;
+&lt;p&gt;在MS COCO数据集上进行了比较详细的Ablation Study。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;segeverything-ablation.png&#34; srcset=&#34;
+               /post/paper-seg-every/segeverything-ablation_hu3ae7b1eac63a5abfaebc507b95c6795c_316278_b2d6658470f6e1b928b620025202878d.webp 400w,
+               /post/paper-seg-every/segeverything-ablation_hu3ae7b1eac63a5abfaebc507b95c6795c_316278_e8c4e788599d8a3bc3abb4b9351f8846.webp 760w,
+               /post/paper-seg-every/segeverything-ablation_hu3ae7b1eac63a5abfaebc507b95c6795c_316278_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-seg-every/segeverything-ablation_hu3ae7b1eac63a5abfaebc507b95c6795c_316278_b2d6658470f6e1b928b620025202878d.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;370&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+
+在Visual Genome数据集上使用3000种不同类型的数据进行训练，由于没有Mask标注，只能给出直观的结果。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;segeverything-quality.png&#34; srcset=&#34;
+               /post/paper-seg-every/segeverything-quality_hu12811f4e4bca454720028377488a3d0a_2379987_58fa4c94bf1c12bc37067540b7ede91c.webp 400w,
+               /post/paper-seg-every/segeverything-quality_hu12811f4e4bca454720028377488a3d0a_2379987_57e7ef7ef13a16210a79feb24e5d0df4.webp 760w,
+               /post/paper-seg-every/segeverything-quality_hu12811f4e4bca454720028377488a3d0a_2379987_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-seg-every/segeverything-quality_hu12811f4e4bca454720028377488a3d0a_2379987_58fa4c94bf1c12bc37067540b7ede91c.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;273&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img src=&#34;segeverything-quality2.pn&#34; alt=&#34;segeverything-quality2.pn&#34; loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+
+相比之前的结果，模型可以检测到更加抽象的概念，而且可以检测到组成一个目标的各个部分。&lt;/p&gt;
+&lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
+&lt;p&gt;提出了一种部分监督的方式，可以根据部分给定分割图和部分只给定边界框的数据训练实例分割模型。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,2043 @@
+<!DOCTYPE html>
+<!-- This site was created with Hugo Blox. https://hugoblox.com -->
+<!-- Last Published: February 6, 2024 --><html lang="en-us" >
+
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  
+  
+    <meta name="generator" content="Hugo Blox Builder 5.9.6" />
+  
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+
+  
+  
+  
+    
+      
+      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&family=Roboto:wght@400;700&display=swap">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&family=Roboto:wght@400;700&display=swap" media="print" onload="this.media='all'">
+    
+  
+
+  
+  
+
+  
+  
+    
+    <script src="/js/mathjax-config.js"></script>
+  
+
+  
+
+  <link rel="stylesheet" href="/css/vendor-bundle.min.047268c6dd09ad74ba54a0ba71837064.css" media="print" onload="this.media='all'">
+
+  
+  
+  
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1.9.4/css/academicons.min.css" integrity="sha512-IW0nhlW5MgNydsXJO40En2EoCkTTjZhI3yuODrZIc8cQ4h1XcF53PsqDHa09NqnkXuIe0Oiyyj171BqZFwISBw==" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+
+    
+    
+    
+    
+      
+      
+    
+    
+    
+
+    
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.min.css" integrity="" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+
+    
+
+    
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+  
+
+  
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/wowchemy.32e2e32cf1a4c1ea152e519f8b1fda79.css" />
+
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+    
+    
+    <link rel="stylesheet" href="/css/libs/chroma/github-light.min.css" title="hl-light" media="print" onload="this.media='all'" >
+    <link rel="stylesheet" href="/css/libs/chroma/dracula.min.css" title="hl-dark" media="print" onload="this.media='all'" disabled>
+  
+
+  
+  
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-N3HXE9037R"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+      dataLayer.push(arguments);
+  }
+
+  function trackOutboundLink(url, target) {
+    gtag('event', 'click', {
+         'event_category': 'outbound',
+         'event_label': url,
+         'transport_type': 'beacon',
+         'event_callback': function () {
+           if (target !== '_blank') {
+             document.location = url;
+           }
+         }
+    });
+    console.debug("Outbound link clicked: " + url);
+  }
+
+  function onClickCallback(event) {
+    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
+      return;
+    }
+    trackOutboundLink(event.target, event.target.getAttribute('target'));  
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'G-N3HXE9037R', {});
+  gtag('set', {'cookie_flags': 'SameSite=None;Secure'});
+
+  
+  document.addEventListener('click', onClickCallback, false);
+</script>
+
+
+
+
+
+
+
+<script>
+  (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", 'kxg0jok544');
+</script>
+
+
+
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?472e2f00a3cd94ec373babc3fbe8654f";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+
+
+
+
+
+
+  <meta name="author" content="Lei Yang" />
+
+
+
+
+
+  
+
+<meta name="description" content="三小时女娲补天网安概论" />
+
+
+
+<link rel="alternate" hreflang="en-us" href="https://yangleisx.github.io/post/intro-cyber-sec/" />
+<link rel="canonical" href="https://yangleisx.github.io/post/intro-cyber-sec/" />
+
+
+
+  <link rel="manifest" href="/manifest.webmanifest" />
+
+
+
+<link rel="icon" type="image/png" href="/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_32x32_fill_lanczos_center_3.png" />
+<link rel="apple-touch-icon" type="image/png" href="/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_180x180_fill_lanczos_center_3.png" />
+
+<meta name="theme-color" content="#1565c0" />
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+<meta property="twitter:card" content="summary" />
+
+  <meta property="twitter:site" content="@GetResearchDev" />
+  <meta property="twitter:creator" content="@GetResearchDev" />
+<meta property="twitter:image" content="https://yangleisx.github.io/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_512x512_fill_lanczos_center_3.png" />
+
+
+
+  
+
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="YangLeiSX" />
+<meta property="og:url" content="https://yangleisx.github.io/post/intro-cyber-sec/" />
+<meta property="og:title" content="网络安全概论 | YangLeiSX" />
+<meta property="og:description" content="三小时女娲补天网安概论" /><meta property="og:image" content="https://yangleisx.github.io/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_512x512_fill_lanczos_center_3.png" /><meta property="og:locale" content="en-us" />
+
+  
+    <meta
+      property="article:published_time"
+      content="2020-07-17T11:01:41&#43;08:00"
+    />
+  
+  
+    <meta property="article:modified_time" content="2020-07-17T11:01:41&#43;08:00">
+  
+
+
+
+
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://yangleisx.github.io/post/intro-cyber-sec/"
+  },
+  "headline": "网络安全概论",
+  
+  "datePublished": "2020-07-17T11:01:41+08:00",
+  "dateModified": "2020-07-17T11:01:41+08:00",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Lei Yang"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "YangLeiSX",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://yangleisx.github.io/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_192x192_fill_lanczos_center_3.png"
+    }
+  },
+  "description": "\u003cp\u003e三小时女娲补天网安概论\u003c/p\u003e"
+}
+</script>
+
+  
+
+  
+
+
+
+
+  
+  
+  
+
+  
+  
+
+  
+
+
+  
+  <title>网络安全概论 | YangLeiSX</title>
+
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="page-wrapper   " data-wc-page-id="4ec932c7cfc24fe5faaf94e63189c7d6" >
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="/js/wowchemy-init.min.3a6bdbdff5d8a89d6e651adb3deec035.js"></script>
+
+  
+
+
+<aside class="search-modal" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#" aria-label="Close"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search" class="form-control"
+        aria-label="Search...">
+        
+      </div>
+
+      
+      
+
+      
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+
+  <div class="page-header header--fixed">
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+    <div class="container-xl">
+
+      
+      <div class="d-none d-lg-inline-flex">
+        <a class="navbar-brand" href="/">YangLeiSX</a>
+      </div>
+      
+
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse"
+              data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
+      <span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+      
+      <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+        <a class="navbar-brand" href="/">YangLeiSX</a>
+      </div>
+      
+
+      
+      
+      <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+        
+        <ul class="navbar-nav d-md-inline-flex">
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+              
+              
+              
+                
+              
+              
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/#about"><span>Home</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+              
+              
+              
+                
+              
+              
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/#citation"><span>Publications</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link  active" href="/post/"><span>Posts</span></a>
+          </li>
+
+          
+          
+
+        
+
+          
+        </ul>
+      </div>
+
+      <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+
+        
+        
+          
+        
+
+        
+        
+        
+        <li class="nav-item">
+          <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+        </li>
+        
+
+        
+        
+        
+        <li class="nav-item dropdown theme-dropdown">
+          <a href="#" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-label="Display preferences">
+            <i class="fas fa-moon" aria-hidden="true"></i>
+          </a>
+          <div class="dropdown-menu">
+            <a href="#" class="dropdown-item js-set-theme-light">
+              <span>Light</span>
+            </a>
+            <a href="#" class="dropdown-item js-set-theme-dark">
+              <span>Dark</span>
+            </a>
+            <a href="#" class="dropdown-item js-set-theme-auto">
+              <span>Automatic</span>
+            </a>
+          </div>
+        </li>
+        
+
+        
+        
+
+      </ul>
+
+    </div>
+  </nav>
+</header>
+
+
+  </div>
+
+  <div class="page-body">
+    
+    
+    
+
+    <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1>网络安全概论</h1>
+
+  
+
+  
+    
+
+
+<div class="article-metadata">
+
+  
+  
+  
+  
+  <div>
+    
+
+  <span class="author-highlighted">
+      Lei Yang</span>
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Jul 17, 2020
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    3 min read
+  </span>
+  
+
+  
+  
+  
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="/category/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">基础知识</a></span>
+  
+
+</div>
+
+    
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <p>三小时女娲补天网安概论</p>
+<h2 id="0x01网络信息安全发展历史">0x01网络信息安全发展历史</h2>
+<ol>
+<li>网络信息安全历史：
+<ol>
+<li>通信保密阶段：COMSEC，20世纪20-60年代，主要解决发方和收方的信息源编码（Source Coding）、信道编码和传输（Channel Coding）、通信协议和密码的问题。</li>
+<li>信息安全阶段：INFOSEC，20世纪80-90年代，主要目标为保密性Confidential、完整性Integrity、可用性Availability。包括TCSEC橙皮书和ITSEC白皮书。</li>
+<li>信息保障阶段：IA，20世纪90年代至今，主要为为从整体角度考虑其体系建设的信息保障(Information Assurance)阶段，代表是美国的IATF规范。</li>
+<li>网络空间安全：2010年后</li>
+</ol>
+</li>
+<li>信息安全的基本特征：
+<ol>
+<li>相对性</li>
+<li>时效性</li>
+<li>安全攻击源和防范对象的不确定性</li>
+<li>反传统的技术思维和复杂的人-机关系</li>
+<li>相关性</li>
+<li>信息结构的高度脆弱性和风险性</li>
+<li>动态性</li>
+</ol>
+</li>
+</ol>
+<h2 id="0x02计算机网络">0x02计算机网络</h2>
+<ol>
+<li>
+<p>OSI七层模型</p>
+<p>应用层Application Layer，表示层Presentation Layer，会话层Session Layer，传输层Transport Layer，网络层Network Layer，数据链路层DataLink Layer，物理层Physical Layer</p>
+</li>
+<li>
+<p>TCP/IP协议栈</p>
+<p>应用层，传输层，网络层，网络接口层</p>
+</li>
+<li>
+<p>五层参考模型</p>
+<p>应用层，传输层，网络层，数据链路层，物理层</p>
+</li>
+<li>
+<p>相关概念</p>
+<ol>
+<li>MAC地址</li>
+<li>IP地址、端口号、套接字Socket</li>
+<li>TCP vs. UDP</li>
+<li>域名解析</li>
+</ol>
+</li>
+<li>
+<p>网络工具</p>
+<ol>
+<li>ping使用ICMP检查目标IP是否可达</li>
+<li>ipconfig/ifconfig查看网络配置信息</li>
+<li>netstat查看网络连接状态</li>
+<li>arp查看ARP缓存信息</li>
+</ol>
+</li>
+</ol>
+<h2 id="0x03安全基础">0x03安全基础</h2>
+<ol>
+<li>信息安全的定义：信息安全是防止对知识、事实、数据或能力的非授权使用、误用、篡改或拒绝使用所采取的措施。</li>
+<li>完整的定义：指在既定的安全密级条件下，信 息系统通过预警、保护、检测、响应、恢复和反击机制，抵 御意外事件或恶意行为攻击，确保信息系统避免非授权的访 问、破坏或者服务中断，实现信息和资源的保密性、完整性、 可用性、非否认性和可控性的能力。</li>
+<li>三要素：
+<ol>
+<li>机密性Confidential：不被截获和未授权使用</li>
+<li>完整性Integrity：内容真实可信、不被冒充伪造和篡改</li>
+<li>可用性Availability：信息和信息服务被授权人正常使用</li>
+</ol>
+</li>
+<li>其他属性：
+<ol>
+<li>不可否认性No-Repudiation：行为的不可否认</li>
+<li>可控性Controllability：验证Authentication和审计Accountability</li>
+<li>可存活性Survivability：在攻击和错误情况下继续提供服务</li>
+</ol>
+</li>
+<li>安全攻击
+<ol>
+<li>中断Interruption：破坏了可用性</li>
+<li>修改Modification：破坏了完整性</li>
+<li>伪造Fabrication：破坏了真实性</li>
+<li>截取Interception：破坏机密性</li>
+</ol>
+</li>
+<li>安全服务
+<ol>
+<li>认证Authentication：提供实体的身份保证</li>
+<li>访问控制Access Control：授权资源访问</li>
+<li>机密性服务Confidential：信息不泄露和暴露</li>
+<li>完整性服务Integrity：数据的价值和存在性没有改变</li>
+<li>不可抵赖服务</li>
+</ol>
+</li>
+<li>安全机制：安全服务的实现
+<ol>
+<li>加密机制</li>
+<li>数字签名</li>
+<li>访问控制</li>
+<li>数据完整性</li>
+<li>通信业务流填充</li>
+<li>路由控制</li>
+<li>认证交换</li>
+<li>公证机制</li>
+</ol>
+</li>
+</ol>
+<h2 id="0x04威胁和攻击技术">0x04威胁和攻击技术</h2>
+<ol>
+<li>安全问题的根源：
+<ol>
+<li>物理安全因素：设备本身的问题、环境的安全</li>
+<li>方案设计因素：安全策略不合理、安全配置不当、设计需要牺牲安全机制</li>
+<li>系统安全因素：操作系统和网络软件等的漏洞和后门</li>
+<li>TCP/IP协议的安全因素：设计之初没有考虑安全问题</li>
+<li>人的因素：无意的失误和错误、恶意攻击</li>
+</ol>
+</li>
+<li>攻击技术：
+<ol>
+<li>被动攻击：窃听和监视数据传输，不对数据进行修改，难以检测，重在预防
+<ol>
+<li>嗅探sniff</li>
+<li>分析</li>
+</ol>
+</li>
+<li>主动攻击：数据流的篡改和错误数据的添加，能够检测，难以防止
+<ol>
+<li>假冒fabrication</li>
+<li>重放replay</li>
+<li>篡改modification</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>攻击过程
+<ol>
+<li>预攻击pre-attack：搜集信息，域名、IP、拓扑、OS、端口、服务</li>
+<li>攻击attack：远程权限、接入、本地权限、提权、攻击</li>
+<li>后攻击post-attack：植入木马、删除日志、进一步渗透</li>
+</ol>
+</li>
+<li>攻击手段：
+<ol>
+<li>网络监听sniff：监听网络状态和数据流</li>
+<li>密码破解crack：字典攻击、暴力破解</li>
+<li>会话劫持session hijack：”中间人攻击“</li>
+<li>缓冲区溢出buffer overflow：输入数据规模超过了给定缓冲区的大小</li>
+<li>拒绝服务攻击DoS：消耗目标资源使其无法为正常用户提供服务</li>
+<li>病毒和蠕虫worm：自我复制和传播，利用漏洞传播</li>
+<li>木马trojan：隐蔽运行，远程控制和信息窃取</li>
+<li>SQL注入SQL insert：访问数据库的动态网页</li>
+</ol>
+</li>
+<li>APT攻击：
+<ol>
+<li>高级可持续性攻击：Advanced Persistent Threat</li>
+<li>攻击路径：网络欺诈和0day攻击——找到漏洞——感染内部人员——获取数据</li>
+</ol>
+</li>
+</ol>
+<h2 id="0x05网络信息安全模型">0x05网络信息安全模型</h2>
+<ol>
+<li>网络通信模型：
+<ol>
+<li>包括：消息的安全转换、通信主体共享的秘密信息（密钥）、可信第三方trusted third party。</li>
+<li>消息经过安全转换后经由信道传输。其中的安全转换通过该秘密信息指导。</li>
+</ol>
+</li>
+<li>访问安全模型：
+<ol>
+<li>外部安全：阻止非授权用户</li>
+<li>内部安全：内部安全控制</li>
+</ol>
+</li>
+<li>P2DR模型：
+<ol>
+<li>安全策略Policy、防护Protection、检测Detection、响应Response</li>
+<li>基于时间的安全理论，通过每一个行为消耗的时间衡量安全能力</li>
+<li>暴露时间E = 检测时间 + 响应时间 - 攻击时间。攻击时间越短、响应时间越长，则暴露时间越长，系统越危险。当暴露时间小于0，可以认为系统是安全的。</li>
+<li>系统安全 = 风险分析 + 安全策略 + 系统防护 + 实时监测 + 实时响应 + 灾难恢复，其中外围五个因素都收到了系统安全策略的影响。</li>
+</ol>
+</li>
+<li>信息技术安全评估准则：
+<ol>
+<li>TCSEC桔皮书：A、B3、B2、B1、C2、C1、D</li>
+<li>INSEC桔皮书的进一步发展</li>
+</ol>
+</li>
+</ol>
+<h2 id="0x06密码学技术">0x06密码学技术</h2>
+<ol>
+<li>密码学发展：手工阶段、机器阶段、现代密码学</li>
+<li>基本概念：
+<ol>
+<li>Cryptology、Cryptography、Cryptanalysis</li>
+<li>加密Encryption、解密Decryption</li>
+<li>无条件安全Unconditionally Security、计算安全Computationally Security</li>
+</ol>
+</li>
+<li>编码原则：加密算法建立在算法的公开不影响铭文和密钥的安全</li>
+<li>古典密码：古典替换（substitution，替换明文）、古典置换（permutation/transportation，改变明文字符的位置）</li>
+<li>密码分析方式：
+<ol>
+<li>唯密文攻击：只有密文串和加密算法，利用统计方式分析</li>
+<li>已知明文攻击：具有明文密文和加密算法，推导密钥</li>
+<li>自适应选择明文攻击：攻击者选择明文并得到对应的密文</li>
+<li>选择密文攻击：攻击者选择密文兵构造对应的明文</li>
+<li>选择文本攻击</li>
+</ol>
+</li>
+<li>典型攻击方式：
+<ol>
+<li>暴力攻击Brute Force：穷举法、字典攻击</li>
+<li>数学方式：差分攻击（明文插值对密文插值的影响）、线性密码、插值攻击</li>
+<li>密钥相关攻击</li>
+</ol>
+</li>
+<li>对称密钥体系：
+<ol>
+<li>分组密码：明文和密文分组，相同密钥和明文能得到相同密文</li>
+<li>序列密码：流密码，按bit加密</li>
+</ol>
+</li>
+<li>分组密码原理：
+<ol>
+<li>明文消息编码得到的序列分组，在密钥控制下变换成等长的输出序列</li>
+<li>混乱原则：Confusion，即使用替换法Substitution，S-box。防止利用明文和密文的依赖关系破解。</li>
+<li>扩散原则：Diffusion，即使用置换法Permutation，P-box。密钥的每位数字影响密文的多个数字，明文的每位数字影像密文的多个数字。</li>
+<li>Feistel加密结构：多轮迭代、使用动态子密钥</li>
+</ol>
+</li>
+<li>数据加密标准DES：
+<ol>
+<li>56bit的密钥加密64bit的明文分组</li>
+<li>16轮迭代</li>
+<li>double-DES、triple-DES</li>
+</ol>
+</li>
+<li>高级加密标准AES：
+<ol>
+<li>明文分组为16字节128bit</li>
+<li>10轮迭代，但是不是Feistel结构</li>
+</ol>
+</li>
+<li>随机数：
+<ol>
+<li>特性：不可预料性、统计独立性</li>
+<li>生成方法：自然随机数源，随机数生成函数，通常只能生成伪随机数序列</li>
+</ol>
+</li>
+<li>流密码：
+<ol>
+<li>原理：一次一密的密码体制绝对安全。</li>
+<li>使用种子密钥生成密钥序列，利用密钥序列一次加密明文的一个或几个比特</li>
+<li>硬件实现简单</li>
+<li>公开算法包括RC4算法</li>
+</ol>
+</li>
+<li>分组密码模式：
+<ol>
+<li>ECB电子密码本：每一个分组使用相同的密钥</li>
+<li>CBC分组链接：当前明文段与上一密文段异或处理后进行加密</li>
+<li>CFB密码反馈：将分组密码转为流密码</li>
+<li>CTR计数器：计数器加密后与明文异或后进行加密</li>
+</ol>
+</li>
+</ol>
+<h2 id="0x07公钥密码技术">0x07公钥密码技术</h2>
+<ol>
+<li>消息认证：
+<ol>
+<li>验证发送者的身份（真实性），验证信息完整性</li>
+<li>常规方式：共享密钥、序列号、时间戳、错误检测码</li>
+<li>非加密方式：报文鉴别码、单向散列函数</li>
+</ol>
+</li>
+<li>消息认证码MAC：
+<ol>
+<li>使用密钥，从消息中生成数据，成为MAC或密码校验和（cryptographic checksum）</li>
+<li>通信双方使用相同的密钥计算MAC并验证，保证了完整性和真实性</li>
+</ol>
+</li>
+<li>信息摘要/哈希/散列函数：
+<ol>
+<li>变长输入压缩到定长的输出，输入改变后输出变化很大。</li>
+<li>MAC计算速度慢，需要密钥，但是计算信息摘要不需要密钥，只能验证完整性</li>
+<li>特点：单向性、抗碰撞性</li>
+<li>安全问题：密码分析法（分析算法缺陷）、穷举攻击</li>
+</ol>
+</li>
+<li>典型散列算法：
+<ol>
+<li>MD5：明文补全为512bit的组，生成128bit的摘要，已经被证明了不安全可以破解。</li>
+<li>SHA：明文补全为512bit的组，生成160bit的摘要，记录在5个32bit的数据中。</li>
+<li>HMAC：使用散列函数实现的MAC，使用密钥参与哈希过程</li>
+</ol>
+</li>
+<li>公钥密码思想：
+<ol>
+<li>公钥公开，私钥保密，私钥可导出公钥，公钥难以计算私钥。</li>
+<li>公私钥的生成利用了单向陷门函数，即容易计算但难以求逆，给定陷门后易于求逆。</li>
+<li>常用数学难题：大整数因子分解，有限域上乘法群的离散对数问题，椭圆曲线离散对数问题。</li>
+</ol>
+</li>
+<li>RSA机制：
+<ol>
+<li>利用大整数因子分解难题</li>
+<li>给定素数p、q，公开其乘积n，选择e与$\varphi(n)$互素，计算$d=e^{-1}mod\ \varphi(n)$。</li>
+<li>给定私钥p和q和d，计算公钥e和n比较简单，但是逆运算非常难。</li>
+</ol>
+</li>
+<li>Diffie-Hellman密钥交换：
+<ol>
+<li>用户事先共享a和p</li>
+<li>用户选择随机数$X_A$和$X_B$</li>
+<li>计算$Y_A = a^{X_A}mod\ p$和$Y_B = a^{X_B} mod\ p$并交换</li>
+<li>计算$K = Y_B^{X_A} mod\ p= Y_A^{X_A}mod\ p$。</li>
+<li>容易被中间人攻击</li>
+</ol>
+</li>
+<li>椭圆曲线机制ECC，相比RSA在较短的密钥提供了更高的安全性。</li>
+<li>对称和非对称加密
+<ol>
+<li>对称加密：速度快，密钥短但是管理困难</li>
+<li>非对称加密：密钥管理简单，可以数字签名，速度慢</li>
+</ol>
+</li>
+<li>数字签名技术：
+<ol>
+<li>同时保护信息完整性和信息发送者的身份确认</li>
+<li>原理：数字信息经过散列函数计算摘要，使用私钥加密信息摘要并作为信息的一部分。使用公钥解密得到摘要并检查信息的完整性。</li>
+</ol>
+</li>
+</ol>
+<h2 id="0x08密钥分发和用户认证">0x08密钥分发和用户认证</h2>
+<ol>
+<li>密码管理处理密码产生到销毁过程中的各个问题，包括初始化、产生、存储、分配、停用、更新、销毁。</li>
+<li>密钥生产形式：密钥管理中心集中生产（有边界生产），个人生成（无边界生产）</li>
+<li>密钥分配：自动分配机制减轻负担，同时尽量减小密钥量</li>
+<li>对称密码体制：
+<ol>
+<li>一方选择密钥，通过安全方式传递给另一方</li>
+<li>可信第三方选定，安全方式传递给双方</li>
+<li>使用旧密钥加密新密钥传输</li>
+<li>可信第三方的加密分发：设立KDC(Key Distribution Center)使用永久密钥加密传输会话密钥，会话密钥用于加密会话内容，一次一密。</li>
+</ol>
+</li>
+<li>分布式环境认证：
+<ol>
+<li>一组工作站和一组分布式服务器组成</li>
+<li>工作站可以保证用户认证，客户端向服务器验证，客户端和服务器的双向验证</li>
+<li>Kerberos：提供两个密钥TGT和ST，用户向DC验证身份得到TGT，访问服务时通过TGT得到ST，使用ST与服务器加密传输并验证身份。</li>
+<li>kerberos保存有用户的ID和密钥散列，同时与每一个应用服务器共享一个保密密钥。</li>
+<li>一个kerberos环境包括kerberos服务器、应用服务器和工作站。实际上存在跨环境的访问，此时需要不同环境的Kerberos服务器之间共享一个密钥实现相互注册。</li>
+</ol>
+</li>
+<li>公钥证书：
+<ol>
+<li>证书管理机构CA（Certificate Authority），证书Certificate</li>
+<li>证书包括用户的相关信息，用户的公钥，时间戳等</li>
+<li>CA使用公开公钥，使用自己的私钥为证书签名</li>
+</ol>
+</li>
+<li>对称+非对称的密钥分配：
+<ol>
+<li>使用对称密钥加密信息，使用非对称加密方式分发加密密钥</li>
+<li>分配步骤：使用对方公钥加密交互信息（验证对方身份）+使用自己私钥和对方公钥加密信息密钥+使用信息密钥加密传输</li>
+</ol>
+</li>
+<li>X.509标准：
+<ol>
+<li>CA为用户颁发证书，证书包括用户公钥，使用CA公钥签名</li>
+<li>CA保证了用户信息的正确性，证书内容无法伪造或篡改</li>
+<li>根CA向下级CA签名，构建树状结构、证书链</li>
+<li>根证书可以是自签名的</li>
+</ol>
+</li>
+<li>PKI公钥基础设施：
+<ol>
+<li>PKI是生成、管理、存储、分发和吊销基于公钥密码学的公钥证书所需要的硬件、软件、人员、策略和规程的总和</li>
+<li>包括证书库、CA、RA、证书注销列表、密钥备份恢复、应用接口</li>
+<li>用户的证书请求经由RA发送到CA</li>
+<li>不同的CA之间可以交叉认证，交换密钥信息，验证对方的可信任性</li>
+</ol>
+</li>
+<li>信息隐藏：利用载体中随机性的荣誉部分隐藏秘密信息。</li>
+<li>数字水印</li>
+</ol>
+<h2 id="0x09网络访问控制和云安全">0x09网络访问控制和云安全</h2>
+<ol>
+<li>访问控制：允许或限制访问能力和范围。包括阻止对资源的未授权访问和拒绝向非授权主体提供服务</li>
+<li>访问控制实体：
+<ol>
+<li>客体：被保护的资源对象</li>
+<li>主体：访问行为发起者</li>
+<li>授权：安全访问策略，规定主体对客体执行的动作</li>
+</ol>
+</li>
+<li>访问控制策略
+<ol>
+<li>最小特权策略，</li>
+<li>最小泄露策略</li>
+<li>多级安全策略</li>
+</ol>
+</li>
+<li>EAP协议（Extensible Authentication Protocol）：运行在链路层的安全认证协议</li>
+<li>IEEE 802.1X协议：基于端口的认证策略</li>
+<li>云计算：并行计算、分布式计算、网格计算的融合和发展
+<ol>
+<li>一种弹性计算资源，通过网络获取的共享资源</li>
+<li>网络获取、可伸缩性、资源共享</li>
+<li>服务模式：SaaS软件即服务、PaaS平台即服务、IaaS基础设施即服务</li>
+<li>部署模型：公有云、私有云、社区云、混合云</li>
+</ol>
+</li>
+<li>云计算安全风险：滥用和恶意使用、不安全的API、数据泄露、账户或服务劫持</li>
+</ol>
+<h2 id="0x0a-web安全和传输层安全">0x0A WEB安全和传输层安全</h2>
+<ol>
+<li>架构：Browser/Server结构，应用层使用HTTP协议</li>
+<li>Web内容
+<ol>
+<li>静态内容：固定网页的访问</li>
+<li>动态内容：利用数据库维护，动态生成网页内容</li>
+</ol>
+</li>
+<li>Web不安全的根源：
+<ol>
+<li>Internet的开放性，任何人都可以建立web站点</li>
+<li>DNS域名可以自由注册，按时间顺序</li>
+</ol>
+</li>
+<li>浏览器安全问题
+<ol>
+<li>辅助应用程序：web数据是浏览器无法解析的类型时，会自动调用辅助应用程序</li>
+<li>插件：浏览特定信息的软件模块，可以发送有害数据攻击</li>
+<li>Cookie：存储传递的状态信息，可能会泄露用户的信息</li>
+<li>脚本：运行在服务器/浏览器上的程序，可以嵌入恶意代码</li>
+</ol>
+</li>
+<li>服务器安全问题：
+<ol>
+<li>口令被破解</li>
+<li>文件被未授权访问</li>
+<li>DoS攻击</li>
+<li>命令注入攻击</li>
+</ol>
+</li>
+<li>web安全：
+<ol>
+<li>浏览器安全：限制权限、限制数据类型</li>
+<li>服务器安全：访问控制、认证、防火墙、日志、用户账户管理、服务端口管理</li>
+<li>流量安全</li>
+</ol>
+</li>
+<li>流量安全：IPsec、SSL/TLS、HTTPS等</li>
+<li>SSL/TLS：传输层安全协议
+<ol>
+<li>建立在TCP之上的安全套接层，包括握手协议、压缩、加解密、计算校验</li>
+<li>传输流程：分段，压缩，增加MAC，加密，增加SSL记录（头部），得到SSL报文</li>
+<li>握手流程：交换基本信息、传输证书并确认、密钥交换获得会话密钥</li>
+</ol>
+</li>
+<li>HTTPS：应用层安全协议，即HTTP+SSL/TLS</li>
+<li>SSH：安全的远程登录和交互式会话，可以替代telnet，也可以建立传输隧道。</li>
+</ol>
+<h2 id="0x0b-无线网络安全">0x0B 无线网络安全</h2>
+<ol>
+<li>无线网络组网：基站，Wi-Fi热点、无线AP</li>
+<li>无线网络特点：
+<ol>
+<li>开放性：容易接入，无硬件防护</li>
+<li>移动性：设备移动范围较大</li>
+<li>动态性：动态拓扑</li>
+<li>不稳定性：信道传输不稳定，易监听和干扰</li>
+</ol>
+</li>
+<li>无线网络安全威胁：
+<ol>
+<li>窃听、监听、截取：入侵者接入系统</li>
+<li>主动攻击：IP/MAC欺骗、DoS攻击、恶意代码、网络接管</li>
+<li>法律问题</li>
+</ol>
+</li>
+<li>移动设备安全问题：缺乏物理控制、不可信网络、未知来源程序等</li>
+<li>传输安全：数据加密、认证机制、防火墙、入侵检测等</li>
+<li>WLAN标准：802.11协议、Bluetooth协议等</li>
+<li>802.11协议框架
+<ol>
+<li>只涉及物理层和数据链路层的MAC子层，上层与其他保持一致。</li>
+<li>最小组成块BSS包括一个接入点AP和若干个移动站STA。</li>
+<li>通过固定设施将若干BSS组成一个整体ESS</li>
+</ol>
+</li>
+<li>WLAN安全：
+<ol>
+<li>考虑：组织未授权用户进入网络，防止数据窃听</li>
+<li>安全服务：AP的SSID匹配、有线等效保密WEP、物理地址MAC过滤</li>
+<li>WEP机制：提供身份验证、加密和密钥管理、完整性检查。认证太简单被破解、单向认证、重放攻击、密钥管理机制不完整</li>
+<li>WPA机制：WEP机制的进一步发展，每一个分组使用不同的分组密钥</li>
+</ol>
+</li>
+<li>安全无线网络802.11i标准
+<ol>
+<li>包括801.1x协议、EAP、RADIUS协议</li>
+<li>包括TKIP密钥协议和CCMP安全协议</li>
+</ol>
+</li>
+</ol>
+<h2 id="0x0c-电子邮件安全">0x0C 电子邮件安全</h2>
+<ol>
+<li>电子邮件发送流程：
+<ol>
+<li>用户与用户代理MUA交互，使用POP或者IMAP协议</li>
+<li>用户代理借助报文传输代理交互，使用SMTP协议</li>
+</ol>
+</li>
+<li>电子邮件安全问题：
+<ol>
+<li>协议安全问题，例如SMTP和MIME的安全问题</li>
+<li>内容安全：邮件窃听、邮件欺骗、利用邮件传播病毒</li>
+<li>垃圾邮件</li>
+</ol>
+</li>
+<li>电子邮件安全机制
+<ol>
+<li>端到端安全机制：PGP，S/MIME等</li>
+<li>传输层安全机制：SSL SMTP，SSL POP等</li>
+<li>应用层网关</li>
+</ol>
+</li>
+<li>PGP安全邮件标准
+<ol>
+<li>提供服务：认证（使用数字签名）、保密（使用对称加密）、压缩（zip压缩）、兼容性（base64编码）、分段重组</li>
+<li>密钥：会话密钥、公钥、私钥、口令</li>
+<li>定义了密钥ID，即公钥的低64位作为身份的标识符</li>
+<li>用户的私钥使用口令进行CAST-128/IDEA/3DES加密</li>
+<li>基于信任的关系模型，每个公钥被签名，用户对公钥的信任程度取决于对签名人的信任程度</li>
+</ol>
+</li>
+<li>SMTP：
+<ol>
+<li>只能传输ASCII字符</li>
+<li>邮件内容大小的限制</li>
+</ol>
+</li>
+<li>S/MIME：
+<ol>
+<li>MIME的安全性扩展</li>
+<li>结合PKI，使用X.509证书</li>
+<li>提供数据加密、数据签名、加密和签名的嵌套</li>
+</ol>
+</li>
+<li>DKIM电子邮件验证标准：
+<ol>
+<li>邮件的加密签名和域名/企业关联起来，防止电子邮件欺诈</li>
+<li>公钥位于DNS，私钥位于邮件服务器，在邮件中签名</li>
+</ol>
+</li>
+</ol>
+<h2 id="0x0d-ip安全">0x0D IP安全</h2>
+<ol>
+<li>当前的互联网使用TCP/IP协议栈，基本完全建立在IP之上，但是IP协议设计时并没有考虑很多安全问题，从本质上来说就是不安全的，修改IP报文非常简单。攻击包括：窃听、篡改、IP欺骗、重防攻击</li>
+<li>IPsec：
+<ol>
+<li>IP协议中集成的安全机制</li>
+<li>在IP层上创建安全的隧道层VPN</li>
+<li>包括三个协议：AH协议、ESP协议、IKE协议</li>
+<li>两种操作模式：传输模式和隧道模式</li>
+<li>两个数据库：安全策略数据库SPD，安全关联数据库SAD</li>
+</ol>
+</li>
+<li>IPsec的体系：DOI即解释域，使用IKE协商SA。</li>
+<li>工作模式：
+<ol>
+<li>传输模式：保护IP载荷，用于主机的端到端通信</li>
+<li>隧道模式：保护IP包，将旧包封装在新包中传输，用于网关模式</li>
+</ol>
+</li>
+<li>SA安全关联
+<ol>
+<li>IPsec的基础，两个实体协商建立的协定</li>
+<li>内容包括IPsec协议，工作模式、各种算法、密钥、窗口、计数器等信息</li>
+<li>单向的逻辑连接，因此常成对出现</li>
+<li>三个参数惟一标示：安全参数索引、目的IP地址、安全协议标识符</li>
+</ol>
+</li>
+<li>SAD：每个SA的参数值</li>
+<li>SPD：人机的安全接口</li>
+</ol>
+<p>【后面还有很多内容 暂时跳过】</p>
+<h2 id="0x0e-恶意软件">0x0E 恶意软件</h2>
+<ol>
+<li>恶意破坏作用的代码和程序，非授权性和破坏性</li>
+<li>恶意代码：
+<ol>
+<li>病毒：自我复制和破坏</li>
+<li>蠕虫：自我复制和传播，消耗系统资源</li>
+<li>木马：窃取信息，远程控制，隐藏</li>
+<li>僵尸：远程控制发动攻击</li>
+</ol>
+</li>
+<li>病毒特征：传染性、隐蔽性、潜伏性、破坏性、寄生性</li>
+<li>病毒生命周期：睡眠、传播、触发、执行</li>
+<li>宏病毒：将宏代码写入模版文件，再写入所有的文件中</li>
+<li>蠕虫：利用漏洞自主传播消耗资源</li>
+<li>木马：隐蔽窃取信息，自启动，信息传播</li>
+<li>僵尸网络：CC服务器控制大量僵尸主机</li>
+<li>钓鱼和鱼叉攻击：伪造信息获得信任</li>
+<li>病毒检测：
+<ol>
+<li>特征码检测</li>
+<li>文件比较</li>
+<li>启发式扫描、文件散列</li>
+<li>行为检测、沙箱</li>
+<li>系统边界、流量检测</li>
+</ol>
+</li>
+<li>DDoS：消耗目标服务器计算资源/缓冲区，利用协议设计的漏洞</li>
+</ol>
+<h2 id="0x0f-入侵检测">0x0F 入侵检测</h2>
+<ol>
+<li>三种手段：
+<ol>
+<li>统计分析：统计正常使用的属性</li>
+<li>模式匹配：匹配误用数据库</li>
+<li>完整性分析：检查文件和对象是否被更改</li>
+</ol>
+</li>
+<li>两种模型：
+<ol>
+<li>异常检测Anomaly Detection：基于用户行为，包括各类阈值</li>
+<li>误用检测Misuse Detection：基于规则和模式匹配，记录非正常操作的规则和特征</li>
+</ol>
+</li>
+<li>信息响应：
+<ol>
+<li>主动响应：根据检测到的入侵行为采取措施</li>
+<li>被动响应：记录和报告问题</li>
+</ol>
+</li>
+<li>主动响应：
+<ol>
+<li>搜集信息：使用蜜罐等技术</li>
+<li>入侵追踪：基于主机或者给予网络</li>
+<li>联动响应：通知防火墙和其他控制设备加以响应和处理</li>
+</ol>
+</li>
+<li>审计记录
+<ol>
+<li>对于用户的行为做记录</li>
+<li>包括：主体、客体、时间戳、异常条件、行为</li>
+</ol>
+</li>
+<li>IDS：
+<ol>
+<li>从系统关键点搜集信息，检测是否有攻击发生并发出警告</li>
+<li>基本不具有访问控制能力，只能用于侦察和预警</li>
+<li>是防火墙的补充</li>
+</ol>
+</li>
+<li>IDS分类
+<ol>
+<li>基于主机：从主机中获得数据</li>
+<li>基于网络：获得的信息为网络中的数据包</li>
+<li>混合型，完备的IDS是网络和主机混合的分布式系统</li>
+</ol>
+</li>
+<li>口令的脆弱性：字典攻击、穷举攻击、Hash表攻击等</li>
+<li>口令的防护：安全策略（时间、长度、复杂性）、限制尝试次数、加盐</li>
+</ol>
+<h2 id="0x10-防火墙">0x10 防火墙</h2>
+<ol>
+<li>防火墙：内外网边界的过滤机制，保护本地系统不受网络安全威胁</li>
+<li>划分：
+<ol>
+<li>内部网络：安全可信赖</li>
+<li>外部网络：不安全，不可信赖</li>
+<li>DMZ非军事区：内网对外提供服务的主机位于非军事区</li>
+</ol>
+</li>
+<li>防火墙提供了服务控制、方向控制、用户控制和行为控制</li>
+<li>分类
+<ol>
+<li>包过滤：在网络层，根据数据包的报头信息加以处理</li>
+<li>网关/代理服务器：在应用层，处理用户的应用层请求</li>
+<li>状态监测：在传输层和应用层，检测传输层连接的跟踪</li>
+</ol>
+</li>
+<li>SOCKS防火墙安全会话转移协议：
+<ol>
+<li>一种传输层的网络代理协议</li>
+<li>利用防火墙简单的转发传输数据包</li>
+</ol>
+</li>
+<li>防火墙部署：
+<ol>
+<li>双宿主机Dual-homed，位于不同网络上的多个网卡</li>
+<li>屏蔽主机：增加路由器，数据先经过包过滤路由器和堡垒主机</li>
+<li>屏蔽子网：两个路由器，形成DMZ隔离带</li>
+</ol>
+</li>
+</ol>
+    </div>
+
+    
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tag/hexo/">Hexo</a>
+  
+  <a class="badge badge-light" href="/tag/openssl/">OpenSSL</a>
+  
+  <a class="badge badge-light" href="/tag/https/">HTTPS</a>
+  
+  <a class="badge badge-light" href="/tag/ssh/">SSH</a>
+  
+  <a class="badge badge-light" href="/tag/socket/">Socket</a>
+  
+  <a class="badge badge-light" href="/tag/trojan/">Trojan</a>
+  
+</div>
+
+
+
+<div class="share-box">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fyangleisx.github.io%2Fpost%2Fintro-cyber-sec%2F&amp;text=%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E6%A6%82%E8%AE%BA" target="_blank" rel="noopener" class="share-btn-twitter" aria-label="twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fyangleisx.github.io%2Fpost%2Fintro-cyber-sec%2F&amp;t=%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E6%A6%82%E8%AE%BA" target="_blank" rel="noopener" class="share-btn-facebook" aria-label="facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+        
+      
+      <li>
+        <a href="mailto:?subject=%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E6%A6%82%E8%AE%BA&amp;body=https%3A%2F%2Fyangleisx.github.io%2Fpost%2Fintro-cyber-sec%2F" target="_blank" rel="noopener" class="share-btn-email" aria-label="envelope">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=https%3A%2F%2Fyangleisx.github.io%2Fpost%2Fintro-cyber-sec%2F&amp;title=%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E6%A6%82%E8%AE%BA" target="_blank" rel="noopener" class="share-btn-linkedin" aria-label="linkedin-in">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="whatsapp://send?text=%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E6%A6%82%E8%AE%BA%20https%3A%2F%2Fyangleisx.github.io%2Fpost%2Fintro-cyber-sec%2F" target="_blank" rel="noopener" class="share-btn-whatsapp" aria-label="whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=https%3A%2F%2Fyangleisx.github.io%2Fpost%2Fintro-cyber-sec%2F&amp;title=%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E6%A6%82%E8%AE%BA" target="_blank" rel="noopener" class="share-btn-weibo" aria-label="weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+
+
+
+  
+  
+  
+    
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+      
+      <a href="https://yangleisx.github.io/"><img class="avatar mr-3 avatar-circle" src="/authors/admin/avatar_hufa4b711d7d766ab1064b8274b75ac233_742651_270x270_fill_lanczos_center_1.gif" alt="Lei Yang"></a>
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="https://yangleisx.github.io/">Lei Yang</a></h5>
+      <h6 class="card-subtitle">PhD candidate</h6>
+      <p class="card-text">My research interests include visual speech recognition and semantics segmentation.</p>
+      <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="/#contact" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://scholar.google.com/citations?user=YsaBzN4AAAAJ" target="_blank" rel="noopener">
+        <i class="ai ai-google-scholar"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/yangleisx" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+</ul>
+
+    </div>
+  </div>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+</article>
+  </div>
+
+  <div class="page-footer">
+    
+    
+    <div class="container">
+      <footer class="site-footer">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+
+  
+  
+    
+  
+  
+    
+  
+
+  
+
+  
+  <p class="powered-by copyright-license-text">
+    © 2024 Me. This work is licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0" rel="noopener noreferrer" target="_blank">CC BY NC ND 4.0</a>
+  </p>
+  
+
+  <p class="powered-by footer-license-icons">
+    <a href="https://creativecommons.org/licenses/by-nc-nd/4.0" rel="noopener noreferrer" target="_blank" aria-label="Creative Commons">
+      <i class="fab fa-creative-commons fa-2x" aria-hidden="true"></i>
+      <i class="fab fa-creative-commons-by fa-2x" aria-hidden="true"></i>
+      
+        <i class="fab fa-creative-commons-nc fa-2x" aria-hidden="true"></i>
+      
+      
+        <i class="fab fa-creative-commons-nd fa-2x" aria-hidden="true"></i>
+      
+    </a>
+  </p>
+
+
+
+
+
+  <p class="powered-by">
+    
+    
+    
+      
+      
+      
+      
+      
+      
+      Published with <a href="https://hugoblox.com/?utm_campaign=poweredby" target="_blank" rel="noopener">Hugo Blox Builder</a> — the free, <a href="https://github.com/HugoBlox/hugo-blox-builder" target="_blank" rel="noopener">open source</a> website builder that empowers creators.
+    
+  </p>
+</footer>
+
+    </div>
+    
+  </div>
+
+  
+
+
+<script src="/js/vendor-bundle.min.938a3a7554cd9f6602290411f64d2617.js"></script>
+
+
+
+
+  
+
+  
+  
+
+  
+
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.min.js" integrity="" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+  
+  <script id="search-hit-fuse-template" type="text/x-template">
+    <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+    </div>
+  </script>
+  
+    <script src="https://cdn.jsdelivr.net/gh/krisk/Fuse@v3.2.1/dist/fuse.min.js" integrity="sha512-o38bmzBGX+hD3JHWUFCDA09btWaqrNmoJ3RXLlrysA7PP01Kgs4UlE4MhelE1v5dJR3+cxlR4qQlotsW7jKsnw==" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/gh/julmot/mark.js@8.11.1/dist/jquery.mark.min.js" integrity="sha512-mhbv5DqBMgrWL+32MmsDOt/OAvqr/cHimk6B8y/bx/xS88MVkYGPiVv2ixKVrkywF2qHplNRUvFsAHUdxZ3Krg==" crossorigin="anonymous"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script id="page-data" type="application/json">{"use_headroom":true}</script>
+
+
+  <script src="/js/wowchemy-headroom.db4755770454eb63685f8de785c0a172.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+<script src="/en/js/wowchemy.min.62586ca65ca61821fe707eb9fa6268b7.js"></script>
+
+
+
+  <script src="/js/wowchemy-map.a26e9d2f7238ba5b868384f1c5bc6477.js" type="module"></script>
+
+
+
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+        <pre><code></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <script src="/js/wowchemy-publication.9137013a66774049159934c29c3f0205.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

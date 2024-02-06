@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!-- This site was created with Hugo Blox. https://hugoblox.com -->
-<!-- Last Published: February 4, 2024 --><html lang="en-us" >
+<!-- Last Published: February 6, 2024 --><html lang="en-us" >
 
 
 <head>
@@ -287,9 +287,27 @@
 
 
 
+<script>
+  (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", 'kxg0jok544');
+</script>
 
 
 
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?472e2f00a3cd94ec373babc3fbe8654f";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
 
 
 
@@ -794,7 +812,7 @@
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    2 min read
+    1 min read
   </span>
   
 
@@ -831,9 +849,63 @@
 <h3 id="fcnunet">FCN/UNet</h3>
 <p>Chen Guan学长在ITFS2020年发的“Lip image segmentation based on a fuzzy convolutional neural network”。主要是还是在<strong>FCN的基础上</strong>，在特征融合的部分添加了一个<strong>Fuzzy Block</strong>进行特征的融合。</p>
 <p>Ruigang Niu在ITGRS上发的“Improving Semantic Segmentation in Aerial Imagery via Graph Reasoning and Disentangled Learning”在特征backbone的基础上，不同大小的特征图使用<strong>图推断+上采样</strong>，进行concate，用双流的结构分别进行<strong>前景先验估计和边缘对齐</strong>，然后合并进行分割预测。</p>
-<p>Xia Li在CVPR2020上发的“Spatial Pyramid Based Graph Reasoning for Semantic Segmentation”也是利用了U-Net和<strong>图卷积</strong>的方式
-{% asset_img pyramid-gr.png pyramid-gr.png %}</p>
-<p>{% asset_img pyramid-gr-module.png pyramid-gr-module.png %}</p>
+<p>Xia Li在CVPR2020上发的“Spatial Pyramid Based Graph Reasoning for Semantic Segmentation”也是利用了U-Net和<strong>图卷积</strong>的方式</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="pyramid-gr.png" srcset="
+               /post/survey-segment-2021/pyramid-gr_hu982ee371f03b4a25caaa3f73ef9d4677_680243_db8bc9e57b6505a52b451bb6aceaf56a.webp 400w,
+               /post/survey-segment-2021/pyramid-gr_hu982ee371f03b4a25caaa3f73ef9d4677_680243_209a6fb59231a6c002e5341e7137527a.webp 760w,
+               /post/survey-segment-2021/pyramid-gr_hu982ee371f03b4a25caaa3f73ef9d4677_680243_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/post/survey-segment-2021/pyramid-gr_hu982ee371f03b4a25caaa3f73ef9d4677_680243_db8bc9e57b6505a52b451bb6aceaf56a.webp"
+               width="760"
+               height="327"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="pyramid-gr-module.png " srcset="
+               /post/survey-segment-2021/pyramid-gr-module_hu1238d42526964fea1e9636e9ca1e81a1_49527_9cf1ec54a0f6f230764943dafc315287.webp 400w,
+               /post/survey-segment-2021/pyramid-gr-module_hu1238d42526964fea1e9636e9ca1e81a1_49527_4ee2c7c3de0562ceece74e02b3c76a91.webp 760w,
+               /post/survey-segment-2021/pyramid-gr-module_hu1238d42526964fea1e9636e9ca1e81a1_49527_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/post/survey-segment-2021/pyramid-gr-module_hu1238d42526964fea1e9636e9ca1e81a1_49527_9cf1ec54a0f6f230764943dafc315287.webp"
+               width="760"
+               height="462"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
 <p>Yunpeng Chen在CVPR2019上发的“Graph-Based Global Reasoning Networks”设计了一个图推断模块，将<strong>特征映射到图空间</strong>，使用GCN进行推断然后再映射回到原本的坐标空间中，可以插在FCN模型之后的位置，提升模型性能。</p>
 <p>Zilong Zhong在CVPR2020上发的“Squeeze-and-Attention Networks for Semantic Segmentation”对SE-Net中的SE模块进行改进，使得在分割任务中的效果更好。</p>
 <p>Yanwei Li在CVPR2020上发的“Learning Dynamic Routing for Semantic Segmentation”使用了动态路径选择的方法，</p>
@@ -850,12 +922,120 @@
 <h3 id="视频解析">视频解析</h3>
 <p>由于我们的目标是视频数据，传统的做法是使用降采样然后对每一帧进行单独的处理，但是直觉上来看，时序上下文信息应该对于分割有一定的帮助，例如相邻帧的变化比较小的时候，上一帧中嘴唇的位置，在下一帧也大概率是嘴唇。</p>
 <p>Ping Hu在CVPR2020发的“Temporally Distributed Networks for Fast Video Semantic Segmentation”提出了一种视频语义分割的快速网络，对每一帧使用轻量级网络提取特征然后在时序上聚合得到完整的特征进行语义分割。</p>
-<p>{% asset_img tdnet.png tdnet.png %}</p>
-<p>{% asset_img tdnet2.png tdnet2.png %}</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="tdnet.png" srcset="
+               /post/survey-segment-2021/tdnet_hu47967720da29500bb5afbf237d61eb8f_127560_546c4a304406c8f93bd8ce32b0e1c900.webp 400w,
+               /post/survey-segment-2021/tdnet_hu47967720da29500bb5afbf237d61eb8f_127560_a7bdaaaacd98538a382f2bceca00396c.webp 760w,
+               /post/survey-segment-2021/tdnet_hu47967720da29500bb5afbf237d61eb8f_127560_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/post/survey-segment-2021/tdnet_hu47967720da29500bb5afbf237d61eb8f_127560_546c4a304406c8f93bd8ce32b0e1c900.webp"
+               width="760"
+               height="557"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="tdnet2.png" srcset="
+               /post/survey-segment-2021/tdnet2_hub7ceb17d245a3adef9ea5f55610b29f1_291285_95e2503b8dc3bf48a3d67eb0fee4f135.webp 400w,
+               /post/survey-segment-2021/tdnet2_hub7ceb17d245a3adef9ea5f55610b29f1_291285_6b50d5047fb1919e72d6a5ed89a9a869.webp 760w,
+               /post/survey-segment-2021/tdnet2_hub7ceb17d245a3adef9ea5f55610b29f1_291285_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/post/survey-segment-2021/tdnet2_hub7ceb17d245a3adef9ea5f55610b29f1_291285_95e2503b8dc3bf48a3d67eb0fee4f135.webp"
+               width="760"
+               height="394"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
 <p>Si Liu在CVPR2017发的“Surveillance Video Parsing with Single Frame Supervision”也使用了多帧的光流等信息进行分割性能的增强。</p>
-<p>{% asset_img SVPNet SVPNet %}</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="SVPNet" srcset="
+               /post/survey-segment-2021/SVPNet_hu507550d7e5d00f93fc535f331f7fd970_451550_e936f8568b56f1c8c4894ff25234de42.webp 400w,
+               /post/survey-segment-2021/SVPNet_hu507550d7e5d00f93fc535f331f7fd970_451550_1afdc7c241139e318ad6fd3fab0f8272.webp 760w,
+               /post/survey-segment-2021/SVPNet_hu507550d7e5d00f93fc535f331f7fd970_451550_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/post/survey-segment-2021/SVPNet_hu507550d7e5d00f93fc535f331f7fd970_451550_e936f8568b56f1c8c4894ff25234de42.webp"
+               width="760"
+               height="384"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
 <p>Haochen Wang在CVPR2021发的“SwiftNet: Real-time Video Object Segmentation”使用多帧信息解决VOS（Video Object Segmentation）问题。但是实际上VOS问题的定义是，对于一个视频流，在最开始的一帧分割得到目标，然后自动在后面的t帧中将相同目标检测并分割出来。</p>
-<p>{% asset_img Swiftnet.png Swiftnet.png %}</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="Swiftnet.png" srcset="
+               /post/survey-segment-2021/Swiftnet_huc9a22c21fc92fe515089ffcc6339865d_411676_29884edd8cc1310f5cf94e13c61ee639.webp 400w,
+               /post/survey-segment-2021/Swiftnet_huc9a22c21fc92fe515089ffcc6339865d_411676_788a03e937ba52e215839699b47c1f51.webp 760w,
+               /post/survey-segment-2021/Swiftnet_huc9a22c21fc92fe515089ffcc6339865d_411676_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/post/survey-segment-2021/Swiftnet_huc9a22c21fc92fe515089ffcc6339865d_411676_29884edd8cc1310f5cf94e13c61ee639.webp"
+               width="760"
+               height="295"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
 <h2 id="针对训练方法">针对训练方法</h2>
 <h3 id="持续学习">持续学习</h3>
 <p>模型训练好之后，增加了新的分类类别，称为持续学习。分割领域中称为CSS（Continual Semantics Segmentation）。</p>

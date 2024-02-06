@@ -5,12 +5,198 @@
     <link>https://yangleisx.github.io/tag/semantics-segmentation/</link>
       <atom:link href="https://yangleisx.github.io/tag/semantics-segmentation/index.xml" rel="self" type="application/rss+xml" />
     <description>Semantics Segmentation</description>
-    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Wed, 06 Jul 2022 10:32:35 +0800</lastBuildDate>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Wed, 06 Jul 2022 10:40:13 +0800</lastBuildDate>
     <image>
       <url>https://yangleisx.github.io/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_512x512_fill_lanczos_center_3.png</url>
       <title>Semantics Segmentation</title>
       <link>https://yangleisx.github.io/tag/semantics-segmentation/</link>
     </image>
+    
+    <item>
+      <title>HRNet</title>
+      <link>https://yangleisx.github.io/post/paper-hrnet/</link>
+      <pubDate>Wed, 06 Jul 2022 10:40:13 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/paper-hrnet/</guid>
+      <description>&lt;p&gt;HRNet是CVPR2019提出的一种非常强的Backbone，论文参考&lt;a href=&#34;https://arxiv.org/pdf/1908.07919.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;arXiv&lt;/a&gt;，代码已经开源&lt;a href=&#34;https://github.com/HRNet&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;github&lt;/a&gt;（用于分割的代码还没有全部开源）。&lt;/p&gt;
+&lt;p&gt;在分割任务中通常需要得到与原始图像类似的高分辨率的图像输出。常用的办法包括U-Net U型网络和FCN 全卷积网络，FPN 特征金字塔网络等。这些模型中基本都涉及到分辨率由大变小再重建。如图所示。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;segmantation-backbone&#34; srcset=&#34;
+               /post/paper-hrnet/segmantation-backbone_hu3b677d7abc349a34f19bf4dc027f7c37_86763_1b0fc68a682c0388b4a3f4c76487b57e.webp 400w,
+               /post/paper-hrnet/segmantation-backbone_hu3b677d7abc349a34f19bf4dc027f7c37_86763_4229129f088342de8ae2ed7756f465bb.webp 760w,
+               /post/paper-hrnet/segmantation-backbone_hu3b677d7abc349a34f19bf4dc027f7c37_86763_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-hrnet/segmantation-backbone_hu3b677d7abc349a34f19bf4dc027f7c37_86763_1b0fc68a682c0388b4a3f4c76487b57e.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;439&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;HRNet中将不同分辨率的路径进行并联，在通道维度上保持了多种不同大小的分辨率。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;hrnet-arch.png&#34; srcset=&#34;
+               /post/paper-hrnet/hrnet-arch_huc256a64e0abc3af7f9cc462631665db0_113342_b59969ff6b708e2fb8f3345810ac43e1.webp 400w,
+               /post/paper-hrnet/hrnet-arch_huc256a64e0abc3af7f9cc462631665db0_113342_3b6143a8c1d60b856dbbe3ce152f753d.webp 760w,
+               /post/paper-hrnet/hrnet-arch_huc256a64e0abc3af7f9cc462631665db0_113342_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-hrnet/hrnet-arch_huc256a64e0abc3af7f9cc462631665db0_113342_b59969ff6b708e2fb8f3345810ac43e1.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;127&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;在不同分辨率的特征图之间添加了信息的交互，分别使用stride3x3的卷积、上采样+1x1卷积实现。最后将三个部分的特征加到一起。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;hrnet-fusion.png &#34; srcset=&#34;
+               /post/paper-hrnet/hrnet-fusion_hu45ed7d7aa643757cb57d614ea3c01576_45584_c1ad90adc054e47f6553879cad6a1984.webp 400w,
+               /post/paper-hrnet/hrnet-fusion_hu45ed7d7aa643757cb57d614ea3c01576_45584_aaead6a4bababe355cad22e7fc1fc582.webp 760w,
+               /post/paper-hrnet/hrnet-fusion_hu45ed7d7aa643757cb57d614ea3c01576_45584_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-hrnet/hrnet-fusion_hu45ed7d7aa643757cb57d614ea3c01576_45584_c1ad90adc054e47f6553879cad6a1984.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;258&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;当充分提取到模型的特征之后，将不同维度的特征融合起来用于最后的任务。
+其中V2版本将小的特征图上采样，适用于语义分割和面部关键点检测，V2p版本使用的特征金字塔适用于目标检测任务。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;hrnet-stream.png&#34; srcset=&#34;
+               /post/paper-hrnet/hrnet-stream_hu158c93219943872b9988640ebf291985_137386_ebd74f8c3847181e39958a0e9f9c54ca.webp 400w,
+               /post/paper-hrnet/hrnet-stream_hu158c93219943872b9988640ebf291985_137386_95cbbf6dd2707e494f90c454acb349bf.webp 760w,
+               /post/paper-hrnet/hrnet-stream_hu158c93219943872b9988640ebf291985_137386_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-hrnet/hrnet-stream_hu158c93219943872b9988640ebf291985_137386_ebd74f8c3847181e39958a0e9f9c54ca.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;225&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;特别地，使用分类任务预训练的时候，采用了如下的方式进行特征的融合。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;hrnet-classification.png &#34; srcset=&#34;
+               /post/paper-hrnet/hrnet-classification_hu2f278b6213ef23f50c70d28581384e4b_39542_ede03ce495845760794428c1276638b2.webp 400w,
+               /post/paper-hrnet/hrnet-classification_hu2f278b6213ef23f50c70d28581384e4b_39542_173f54585863eda35c0d5725b2b92f31.webp 760w,
+               /post/paper-hrnet/hrnet-classification_hu2f278b6213ef23f50c70d28581384e4b_39542_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-hrnet/hrnet-classification_hu2f278b6213ef23f50c70d28581384e4b_39542_ede03ce495845760794428c1276638b2.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;355&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;HRNet可以应用在人体语义解析、语义分割、Object Detection 目标检测、图像分类等多种任务中，是一种比较强的Backbone。&lt;/p&gt;
+&lt;p&gt;但是吧据说这东西训练速度和计算量都不小。&lt;/p&gt;
+&lt;h2 id=&#34;se-hrnet&#34;&gt;SE-HRNet&lt;/h2&gt;
+&lt;p&gt;后面&lt;a href=&#34;https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;amp;arnumber=9324633&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;有人&lt;/a&gt;在HRNet的基础上提出了SE-HRNet，实际上只是将每一阶段的卷积引入了SE-Net模块。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;sehrnet-arch&#34; srcset=&#34;
+               /post/paper-hrnet/sehrnet-arch_hu46958f5cc4d8389725f1a254c8028490_307808_1e50a0c2aa5d9e4f358ad5a3b8dc034e.webp 400w,
+               /post/paper-hrnet/sehrnet-arch_hu46958f5cc4d8389725f1a254c8028490_307808_d579328ac048dbb303e70242405367d2.webp 760w,
+               /post/paper-hrnet/sehrnet-arch_hu46958f5cc4d8389725f1a254c8028490_307808_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-hrnet/sehrnet-arch_hu46958f5cc4d8389725f1a254c8028490_307808_1e50a0c2aa5d9e4f358ad5a3b8dc034e.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;303&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>2021分割新进展</title>
@@ -26,9 +212,63 @@
 &lt;h3 id=&#34;fcnunet&#34;&gt;FCN/UNet&lt;/h3&gt;
 &lt;p&gt;Chen Guan学长在ITFS2020年发的“Lip image segmentation based on a fuzzy convolutional neural network”。主要是还是在&lt;strong&gt;FCN的基础上&lt;/strong&gt;，在特征融合的部分添加了一个&lt;strong&gt;Fuzzy Block&lt;/strong&gt;进行特征的融合。&lt;/p&gt;
 &lt;p&gt;Ruigang Niu在ITGRS上发的“Improving Semantic Segmentation in Aerial Imagery via Graph Reasoning and Disentangled Learning”在特征backbone的基础上，不同大小的特征图使用&lt;strong&gt;图推断+上采样&lt;/strong&gt;，进行concate，用双流的结构分别进行&lt;strong&gt;前景先验估计和边缘对齐&lt;/strong&gt;，然后合并进行分割预测。&lt;/p&gt;
-&lt;p&gt;Xia Li在CVPR2020上发的“Spatial Pyramid Based Graph Reasoning for Semantic Segmentation”也是利用了U-Net和&lt;strong&gt;图卷积&lt;/strong&gt;的方式
-{% asset_img pyramid-gr.png pyramid-gr.png %}&lt;/p&gt;
-&lt;p&gt;{% asset_img pyramid-gr-module.png pyramid-gr-module.png %}&lt;/p&gt;
+&lt;p&gt;Xia Li在CVPR2020上发的“Spatial Pyramid Based Graph Reasoning for Semantic Segmentation”也是利用了U-Net和&lt;strong&gt;图卷积&lt;/strong&gt;的方式&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;pyramid-gr.png&#34; srcset=&#34;
+               /post/survey-segment-2021/pyramid-gr_hu982ee371f03b4a25caaa3f73ef9d4677_680243_db8bc9e57b6505a52b451bb6aceaf56a.webp 400w,
+               /post/survey-segment-2021/pyramid-gr_hu982ee371f03b4a25caaa3f73ef9d4677_680243_209a6fb59231a6c002e5341e7137527a.webp 760w,
+               /post/survey-segment-2021/pyramid-gr_hu982ee371f03b4a25caaa3f73ef9d4677_680243_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/survey-segment-2021/pyramid-gr_hu982ee371f03b4a25caaa3f73ef9d4677_680243_db8bc9e57b6505a52b451bb6aceaf56a.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;327&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;pyramid-gr-module.png &#34; srcset=&#34;
+               /post/survey-segment-2021/pyramid-gr-module_hu1238d42526964fea1e9636e9ca1e81a1_49527_9cf1ec54a0f6f230764943dafc315287.webp 400w,
+               /post/survey-segment-2021/pyramid-gr-module_hu1238d42526964fea1e9636e9ca1e81a1_49527_4ee2c7c3de0562ceece74e02b3c76a91.webp 760w,
+               /post/survey-segment-2021/pyramid-gr-module_hu1238d42526964fea1e9636e9ca1e81a1_49527_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/survey-segment-2021/pyramid-gr-module_hu1238d42526964fea1e9636e9ca1e81a1_49527_9cf1ec54a0f6f230764943dafc315287.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;462&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
 &lt;p&gt;Yunpeng Chen在CVPR2019上发的“Graph-Based Global Reasoning Networks”设计了一个图推断模块，将&lt;strong&gt;特征映射到图空间&lt;/strong&gt;，使用GCN进行推断然后再映射回到原本的坐标空间中，可以插在FCN模型之后的位置，提升模型性能。&lt;/p&gt;
 &lt;p&gt;Zilong Zhong在CVPR2020上发的“Squeeze-and-Attention Networks for Semantic Segmentation”对SE-Net中的SE模块进行改进，使得在分割任务中的效果更好。&lt;/p&gt;
 &lt;p&gt;Yanwei Li在CVPR2020上发的“Learning Dynamic Routing for Semantic Segmentation”使用了动态路径选择的方法，&lt;/p&gt;
@@ -45,12 +285,120 @@
 &lt;h3 id=&#34;视频解析&#34;&gt;视频解析&lt;/h3&gt;
 &lt;p&gt;由于我们的目标是视频数据，传统的做法是使用降采样然后对每一帧进行单独的处理，但是直觉上来看，时序上下文信息应该对于分割有一定的帮助，例如相邻帧的变化比较小的时候，上一帧中嘴唇的位置，在下一帧也大概率是嘴唇。&lt;/p&gt;
 &lt;p&gt;Ping Hu在CVPR2020发的“Temporally Distributed Networks for Fast Video Semantic Segmentation”提出了一种视频语义分割的快速网络，对每一帧使用轻量级网络提取特征然后在时序上聚合得到完整的特征进行语义分割。&lt;/p&gt;
-&lt;p&gt;{% asset_img tdnet.png tdnet.png %}&lt;/p&gt;
-&lt;p&gt;{% asset_img tdnet2.png tdnet2.png %}&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;tdnet.png&#34; srcset=&#34;
+               /post/survey-segment-2021/tdnet_hu47967720da29500bb5afbf237d61eb8f_127560_546c4a304406c8f93bd8ce32b0e1c900.webp 400w,
+               /post/survey-segment-2021/tdnet_hu47967720da29500bb5afbf237d61eb8f_127560_a7bdaaaacd98538a382f2bceca00396c.webp 760w,
+               /post/survey-segment-2021/tdnet_hu47967720da29500bb5afbf237d61eb8f_127560_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/survey-segment-2021/tdnet_hu47967720da29500bb5afbf237d61eb8f_127560_546c4a304406c8f93bd8ce32b0e1c900.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;557&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;tdnet2.png&#34; srcset=&#34;
+               /post/survey-segment-2021/tdnet2_hub7ceb17d245a3adef9ea5f55610b29f1_291285_95e2503b8dc3bf48a3d67eb0fee4f135.webp 400w,
+               /post/survey-segment-2021/tdnet2_hub7ceb17d245a3adef9ea5f55610b29f1_291285_6b50d5047fb1919e72d6a5ed89a9a869.webp 760w,
+               /post/survey-segment-2021/tdnet2_hub7ceb17d245a3adef9ea5f55610b29f1_291285_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/survey-segment-2021/tdnet2_hub7ceb17d245a3adef9ea5f55610b29f1_291285_95e2503b8dc3bf48a3d67eb0fee4f135.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;394&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
 &lt;p&gt;Si Liu在CVPR2017发的“Surveillance Video Parsing with Single Frame Supervision”也使用了多帧的光流等信息进行分割性能的增强。&lt;/p&gt;
-&lt;p&gt;{% asset_img SVPNet SVPNet %}&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;SVPNet&#34; srcset=&#34;
+               /post/survey-segment-2021/SVPNet_hu507550d7e5d00f93fc535f331f7fd970_451550_e936f8568b56f1c8c4894ff25234de42.webp 400w,
+               /post/survey-segment-2021/SVPNet_hu507550d7e5d00f93fc535f331f7fd970_451550_1afdc7c241139e318ad6fd3fab0f8272.webp 760w,
+               /post/survey-segment-2021/SVPNet_hu507550d7e5d00f93fc535f331f7fd970_451550_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/survey-segment-2021/SVPNet_hu507550d7e5d00f93fc535f331f7fd970_451550_e936f8568b56f1c8c4894ff25234de42.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;384&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
 &lt;p&gt;Haochen Wang在CVPR2021发的“SwiftNet: Real-time Video Object Segmentation”使用多帧信息解决VOS（Video Object Segmentation）问题。但是实际上VOS问题的定义是，对于一个视频流，在最开始的一帧分割得到目标，然后自动在后面的t帧中将相同目标检测并分割出来。&lt;/p&gt;
-&lt;p&gt;{% asset_img Swiftnet.png Swiftnet.png %}&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;Swiftnet.png&#34; srcset=&#34;
+               /post/survey-segment-2021/Swiftnet_huc9a22c21fc92fe515089ffcc6339865d_411676_29884edd8cc1310f5cf94e13c61ee639.webp 400w,
+               /post/survey-segment-2021/Swiftnet_huc9a22c21fc92fe515089ffcc6339865d_411676_788a03e937ba52e215839699b47c1f51.webp 760w,
+               /post/survey-segment-2021/Swiftnet_huc9a22c21fc92fe515089ffcc6339865d_411676_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/survey-segment-2021/Swiftnet_huc9a22c21fc92fe515089ffcc6339865d_411676_29884edd8cc1310f5cf94e13c61ee639.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;295&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
 &lt;h2 id=&#34;针对训练方法&#34;&gt;针对训练方法&lt;/h2&gt;
 &lt;h3 id=&#34;持续学习&#34;&gt;持续学习&lt;/h3&gt;
 &lt;p&gt;模型训练好之后，增加了新的分类类别，称为持续学习。分割领域中称为CSS（Continual Semantics Segmentation）。&lt;/p&gt;

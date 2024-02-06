@@ -1,0 +1,1530 @@
+<!DOCTYPE html>
+<!-- This site was created with Hugo Blox. https://hugoblox.com -->
+<!-- Last Published: February 6, 2024 --><html lang="en-us" >
+
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  
+  
+    <meta name="generator" content="Hugo Blox Builder 5.9.6" />
+  
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+
+  
+  
+  
+    
+      
+      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&family=Roboto:wght@400;700&display=swap">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&family=Roboto:wght@400;700&display=swap" media="print" onload="this.media='all'">
+    
+  
+
+  
+  
+
+  
+  
+    
+    <script src="/js/mathjax-config.js"></script>
+  
+
+  
+
+  <link rel="stylesheet" href="/css/vendor-bundle.min.047268c6dd09ad74ba54a0ba71837064.css" media="print" onload="this.media='all'">
+
+  
+  
+  
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1.9.4/css/academicons.min.css" integrity="sha512-IW0nhlW5MgNydsXJO40En2EoCkTTjZhI3yuODrZIc8cQ4h1XcF53PsqDHa09NqnkXuIe0Oiyyj171BqZFwISBw==" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+
+    
+    
+    
+    
+      
+      
+    
+    
+    
+
+    
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.min.css" integrity="" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+
+    
+
+    
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+  
+
+  
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/wowchemy.32e2e32cf1a4c1ea152e519f8b1fda79.css" />
+
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+    
+    
+    <link rel="stylesheet" href="/css/libs/chroma/github-light.min.css" title="hl-light" media="print" onload="this.media='all'" >
+    <link rel="stylesheet" href="/css/libs/chroma/dracula.min.css" title="hl-dark" media="print" onload="this.media='all'" disabled>
+  
+
+  
+  
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-N3HXE9037R"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+      dataLayer.push(arguments);
+  }
+
+  function trackOutboundLink(url, target) {
+    gtag('event', 'click', {
+         'event_category': 'outbound',
+         'event_label': url,
+         'transport_type': 'beacon',
+         'event_callback': function () {
+           if (target !== '_blank') {
+             document.location = url;
+           }
+         }
+    });
+    console.debug("Outbound link clicked: " + url);
+  }
+
+  function onClickCallback(event) {
+    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
+      return;
+    }
+    trackOutboundLink(event.target, event.target.getAttribute('target'));  
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'G-N3HXE9037R', {});
+  gtag('set', {'cookie_flags': 'SameSite=None;Secure'});
+
+  
+  document.addEventListener('click', onClickCallback, false);
+</script>
+
+
+
+
+
+
+
+<script>
+  (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", 'kxg0jok544');
+</script>
+
+
+
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?472e2f00a3cd94ec373babc3fbe8654f";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+
+
+
+
+
+
+  <meta name="author" content="Lei Yang" />
+
+
+
+
+
+  
+
+<meta name="description" content="论文题目：Densely connected multidilated convolutional networks for dense prediction tasks
+作者：Naoya Takahashi, Yuki Mitsufuji
+会议/时间：CVPR2021
+链接: arXiv:2011.1184v1" />
+
+
+
+<link rel="alternate" hreflang="en-us" href="https://yangleisx.github.io/post/paper-d3net/" />
+<link rel="canonical" href="https://yangleisx.github.io/post/paper-d3net/" />
+
+
+
+  <link rel="manifest" href="/manifest.webmanifest" />
+
+
+
+<link rel="icon" type="image/png" href="/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_32x32_fill_lanczos_center_3.png" />
+<link rel="apple-touch-icon" type="image/png" href="/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_180x180_fill_lanczos_center_3.png" />
+
+<meta name="theme-color" content="#1565c0" />
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+<meta property="twitter:card" content="summary" />
+
+  <meta property="twitter:site" content="@GetResearchDev" />
+  <meta property="twitter:creator" content="@GetResearchDev" />
+<meta property="twitter:image" content="https://yangleisx.github.io/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_512x512_fill_lanczos_center_3.png" />
+
+
+
+  
+
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="YangLeiSX" />
+<meta property="og:url" content="https://yangleisx.github.io/post/paper-d3net/" />
+<meta property="og:title" content="【论文】Densely connected multidilated convolutional networks for dense prediction tasks | YangLeiSX" />
+<meta property="og:description" content="论文题目：Densely connected multidilated convolutional networks for dense prediction tasks
+作者：Naoya Takahashi, Yuki Mitsufuji
+会议/时间：CVPR2021
+链接: arXiv:2011.1184v1" /><meta property="og:image" content="https://yangleisx.github.io/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_512x512_fill_lanczos_center_3.png" /><meta property="og:locale" content="en-us" />
+
+  
+    <meta
+      property="article:published_time"
+      content="2021-04-17T17:28:42&#43;08:00"
+    />
+  
+  
+    <meta property="article:modified_time" content="2021-04-17T17:28:42&#43;08:00">
+  
+
+
+
+
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://yangleisx.github.io/post/paper-d3net/"
+  },
+  "headline": "【论文】Densely connected multidilated convolutional networks for dense prediction tasks",
+  
+  "datePublished": "2021-04-17T17:28:42+08:00",
+  "dateModified": "2021-04-17T17:28:42+08:00",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Lei Yang"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "YangLeiSX",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://yangleisx.github.io/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_192x192_fill_lanczos_center_3.png"
+    }
+  },
+  "description": "\u003cp\u003e论文题目：Densely connected multidilated convolutional networks for dense prediction tasks\u003c/p\u003e\n\u003cp\u003e作者：Naoya Takahashi, Yuki Mitsufuji\u003c/p\u003e\n\u003cp\u003e会议/时间：CVPR2021\u003c/p\u003e\n\u003cp\u003e链接: \u003ca href=\"https://arxiv.org/abs/2011.11844\" target=\"_blank\" rel=\"noopener\"\u003earXiv:2011.1184v1\u003c/a\u003e\u003c/p\u003e"
+}
+</script>
+
+  
+
+  
+
+
+
+
+  
+  
+  
+
+  
+  
+
+  
+
+
+  
+  <title>【论文】Densely connected multidilated convolutional networks for dense prediction tasks | YangLeiSX</title>
+
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="page-wrapper   " data-wc-page-id="41a4606f121e8249d04c04f8ec4efb23" >
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="/js/wowchemy-init.min.3a6bdbdff5d8a89d6e651adb3deec035.js"></script>
+
+  
+
+
+<aside class="search-modal" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#" aria-label="Close"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search" class="form-control"
+        aria-label="Search...">
+        
+      </div>
+
+      
+      
+
+      
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+
+  <div class="page-header header--fixed">
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+    <div class="container-xl">
+
+      
+      <div class="d-none d-lg-inline-flex">
+        <a class="navbar-brand" href="/">YangLeiSX</a>
+      </div>
+      
+
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse"
+              data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
+      <span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+      
+      <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+        <a class="navbar-brand" href="/">YangLeiSX</a>
+      </div>
+      
+
+      
+      
+      <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+        
+        <ul class="navbar-nav d-md-inline-flex">
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+              
+              
+              
+                
+              
+              
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/#about"><span>Home</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+              
+              
+              
+                
+              
+              
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/#citation"><span>Publications</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link  active" href="/post/"><span>Posts</span></a>
+          </li>
+
+          
+          
+
+        
+
+          
+        </ul>
+      </div>
+
+      <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+
+        
+        
+          
+        
+
+        
+        
+        
+        <li class="nav-item">
+          <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+        </li>
+        
+
+        
+        
+        
+        <li class="nav-item dropdown theme-dropdown">
+          <a href="#" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-label="Display preferences">
+            <i class="fas fa-moon" aria-hidden="true"></i>
+          </a>
+          <div class="dropdown-menu">
+            <a href="#" class="dropdown-item js-set-theme-light">
+              <span>Light</span>
+            </a>
+            <a href="#" class="dropdown-item js-set-theme-dark">
+              <span>Dark</span>
+            </a>
+            <a href="#" class="dropdown-item js-set-theme-auto">
+              <span>Automatic</span>
+            </a>
+          </div>
+        </li>
+        
+
+        
+        
+
+      </ul>
+
+    </div>
+  </nav>
+</header>
+
+
+  </div>
+
+  <div class="page-body">
+    
+    
+    
+
+    <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1>【论文】Densely connected multidilated convolutional networks for dense prediction tasks</h1>
+
+  
+
+  
+    
+
+
+<div class="article-metadata">
+
+  
+  
+  
+  
+  <div>
+    
+
+  <span class="author-highlighted">
+      Lei Yang</span>
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Apr 17, 2021
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    1 min read
+  </span>
+  
+
+  
+  
+  
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="/category/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a></span>
+  
+
+</div>
+
+    
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <p>论文题目：Densely connected multidilated convolutional networks for dense prediction tasks</p>
+<p>作者：Naoya Takahashi, Yuki Mitsufuji</p>
+<p>会议/时间：CVPR2021</p>
+<p>链接: <a href="https://arxiv.org/abs/2011.11844" target="_blank" rel="noopener">arXiv:2011.1184v1</a></p>
+<h2 id="论文目标">论文目标</h2>
+<p>在密集预测任务中，模型通常需要处理和学习非常大范围的上下文信息，为了满足这一需求，常用的方法包括增加模型的深度（例如Resnet和DenseNet）、增加模型的宽度（例如Inception）。一种效果比较好的方式是增加短路链接使得低层特征能够传递到比较高的卷积层中，因此在ResNet的基础上有了DenseNet。更深的网络具有的优点是高层的卷积模块具有更大的感受野，从而可以学习到更大范围的上下文信息。但是更深的网络通常比较难以训练。为了增大感受野而不增加深度，常用的方法包括空洞卷积，使用注意力机制，使用特征金字塔网络等。</p>
+<p>为了进一步提升在密集预测任务上的效果，作者将空洞卷积引入了DenseNet中，并且设计了D2-Block模块和D3Net网络，消除简单使用空洞卷积可能会引入的混淆问题，并在图像分割和语音讲话人分离两个任务上测试，取得了不错的效果。</p>
+<h2 id="相关工作">相关工作</h2>
+<p>在DenseNet中，使用了稠密的短路链接，每一层卷积层的输入都是之前的所有卷积层的输出，充分利用了不同尺度的特征图的信息，从而学习到输入数据在不同尺度上的信息。同时也增加了丰富的梯度流，使得模型能学到更丰富的信息。</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="densenet-block.png" srcset="
+               /post/paper-d3net/densenet-block_hu7dcd82c9194017b16ba2c3edbb5da1ac_310954_f6ff3f3b2f9c80fcc2b71e164d48697c.webp 400w,
+               /post/paper-d3net/densenet-block_hu7dcd82c9194017b16ba2c3edbb5da1ac_310954_07dae10bbcf78dd0a2b9920ac9a58f0e.webp 760w,
+               /post/paper-d3net/densenet-block_hu7dcd82c9194017b16ba2c3edbb5da1ac_310954_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/post/paper-d3net/densenet-block_hu7dcd82c9194017b16ba2c3edbb5da1ac_310954_f6ff3f3b2f9c80fcc2b71e164d48697c.webp"
+               width="760"
+               height="556"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>在空洞卷积或者说膨胀卷积中，在计算卷积操作的时候为卷积核之间填充了0，从而能显著的增加感受野。考虑到使用相同的膨胀因子导致的网格效应，可以采用HDC的思路，选择若干层为一组，组内使用逐渐增大的膨胀因子，使用多组连接得到完整的网络。</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="dilated-conv.png" srcset="
+               /post/paper-d3net/dilated-conv_hu0171633157af6b6146c68933c0aa844a_69059_743c6cffa52beb89b05da5f82069c4e0.webp 400w,
+               /post/paper-d3net/dilated-conv_hu0171633157af6b6146c68933c0aa844a_69059_e3205e362674dea843f6970aba94f543.webp 760w,
+               /post/paper-d3net/dilated-conv_hu0171633157af6b6146c68933c0aa844a_69059_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/post/paper-d3net/dilated-conv_hu0171633157af6b6146c68933c0aa844a_69059_743c6cffa52beb89b05da5f82069c4e0.webp"
+               width="760"
+               height="296"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<h2 id="本文方法">本文方法</h2>
+<p>设计了一个将空洞卷积引入稠密卷积模块的方法，从而设计了D2-Block和D3Net。</p>
+<p>在设计D2-Block的时候，直接将空洞卷积引入了DenseNet的Dense-Block中，此时由于增加了稠密连接，最后一层使用膨胀因子为4的空洞卷积时，其感受野之间出现了盲区，可能会丢失一些局部的信息。</p>
+<p>因此文章中提出了混合膨胀因子的空洞卷积，也就是较高层的卷积层在计算空洞卷积的时候，对于不同层输入的特征图使用不同的膨胀因子，从而避免了上述的盲区，捕捉到更多的信息。</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="d3net-block-viz.png" srcset="
+               /post/paper-d3net/d3net-block-viz_hue17dbdc1f4ce90adb05df81a2ca8fa3b_42452_d8cfc385957bc5a254755fb536f7e7a5.webp 400w,
+               /post/paper-d3net/d3net-block-viz_hue17dbdc1f4ce90adb05df81a2ca8fa3b_42452_f7ca699cee3e9e0361230d2018208eff.webp 760w,
+               /post/paper-d3net/d3net-block-viz_hue17dbdc1f4ce90adb05df81a2ca8fa3b_42452_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/post/paper-d3net/d3net-block-viz_hue17dbdc1f4ce90adb05df81a2ca8fa3b_42452_d8cfc385957bc5a254755fb536f7e7a5.webp"
+               width="722"
+               height="392"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>文章中将上述的D2-Block通过稠密连接相组合得到D3-Block。同时使用HDC的思路来设置参数，每一组内的膨胀系数都是互素而且逐渐增加的，同时多次重复来实现锯齿形的膨胀因子。</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="d3net-d3block.png" srcset="
+               /post/paper-d3net/d3net-d3block_hu009dbfbaa3a6392bc06a4615dd67e67d_51999_a8ec835bb31cd96d6d99d18fa1b5a5dd.webp 400w,
+               /post/paper-d3net/d3net-d3block_hu009dbfbaa3a6392bc06a4615dd67e67d_51999_c483673d3cdf8c688087b600119ee349.webp 760w,
+               /post/paper-d3net/d3net-d3block_hu009dbfbaa3a6392bc06a4615dd67e67d_51999_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/post/paper-d3net/d3net-d3block_hu009dbfbaa3a6392bc06a4615dd67e67d_51999_a8ec835bb31cd96d6d99d18fa1b5a5dd.webp"
+               width="754"
+               height="322"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>同时参考DenseNet的设计，在每一个D2-Block的前后都设计了Bottleneck和Compress模块，从而避免模型中的通道数量无限制的增加。</p>
+<h2 id="实验结果分析">实验结果分析</h2>
+<p>文章中进行了两组密集预测任务的实验，分别是语义分割和音频源分离。</p>
+<p>在第一个任务中使用CityScapes数据集。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="d3net-result.png" srcset="
+               /post/paper-d3net/d3net-result_hu90aed87a2dd68fca1652ba4d5042ebc0_111989_0987c37e661ef1616f7f2420e90de5cb.webp 400w,
+               /post/paper-d3net/d3net-result_hu90aed87a2dd68fca1652ba4d5042ebc0_111989_7417f53fc77082c05ed0d01547749344.webp 760w,
+               /post/paper-d3net/d3net-result_hu90aed87a2dd68fca1652ba4d5042ebc0_111989_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/post/paper-d3net/d3net-result_hu90aed87a2dd68fca1652ba4d5042ebc0_111989_0987c37e661ef1616f7f2420e90de5cb.webp"
+               width="704"
+               height="504"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>第二个任务使用MUSDB18数据集。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="d3net-result2.png " srcset="
+               /post/paper-d3net/d3net-result2_hu78f3dcbd15dad4502553212ef603d9d4_87018_ed439a4931b9150abf0140e6180689f4.webp 400w,
+               /post/paper-d3net/d3net-result2_hu78f3dcbd15dad4502553212ef603d9d4_87018_f0f8ef26c25c97a83252ebfb826afadd.webp 760w,
+               /post/paper-d3net/d3net-result2_hu78f3dcbd15dad4502553212ef603d9d4_87018_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/post/paper-d3net/d3net-result2_hu78f3dcbd15dad4502553212ef603d9d4_87018_ed439a4931b9150abf0140e6180689f4.webp"
+               width="726"
+               height="362"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<h2 id="总结">总结</h2>
+<p>将空洞卷积引入了DenseNet中。提出了混合膨胀因子的空洞卷积。</p>
+    </div>
+
+    
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tag/semantic-segmentation/">Semantic Segmentation</a>
+  
+  <a class="badge badge-light" href="/tag/audio-source-separation/">Audio Source Separation</a>
+  
+</div>
+
+
+
+<div class="share-box">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fyangleisx.github.io%2Fpost%2Fpaper-d3net%2F&amp;text=%E3%80%90%E8%AE%BA%E6%96%87%E3%80%91Densely&#43;connected&#43;multidilated&#43;convolutional&#43;networks&#43;for&#43;dense&#43;prediction&#43;tasks" target="_blank" rel="noopener" class="share-btn-twitter" aria-label="twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fyangleisx.github.io%2Fpost%2Fpaper-d3net%2F&amp;t=%E3%80%90%E8%AE%BA%E6%96%87%E3%80%91Densely&#43;connected&#43;multidilated&#43;convolutional&#43;networks&#43;for&#43;dense&#43;prediction&#43;tasks" target="_blank" rel="noopener" class="share-btn-facebook" aria-label="facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+        
+      
+      <li>
+        <a href="mailto:?subject=%E3%80%90%E8%AE%BA%E6%96%87%E3%80%91Densely%20connected%20multidilated%20convolutional%20networks%20for%20dense%20prediction%20tasks&amp;body=https%3A%2F%2Fyangleisx.github.io%2Fpost%2Fpaper-d3net%2F" target="_blank" rel="noopener" class="share-btn-email" aria-label="envelope">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=https%3A%2F%2Fyangleisx.github.io%2Fpost%2Fpaper-d3net%2F&amp;title=%E3%80%90%E8%AE%BA%E6%96%87%E3%80%91Densely&#43;connected&#43;multidilated&#43;convolutional&#43;networks&#43;for&#43;dense&#43;prediction&#43;tasks" target="_blank" rel="noopener" class="share-btn-linkedin" aria-label="linkedin-in">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="whatsapp://send?text=%E3%80%90%E8%AE%BA%E6%96%87%E3%80%91Densely&#43;connected&#43;multidilated&#43;convolutional&#43;networks&#43;for&#43;dense&#43;prediction&#43;tasks%20https%3A%2F%2Fyangleisx.github.io%2Fpost%2Fpaper-d3net%2F" target="_blank" rel="noopener" class="share-btn-whatsapp" aria-label="whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=https%3A%2F%2Fyangleisx.github.io%2Fpost%2Fpaper-d3net%2F&amp;title=%E3%80%90%E8%AE%BA%E6%96%87%E3%80%91Densely&#43;connected&#43;multidilated&#43;convolutional&#43;networks&#43;for&#43;dense&#43;prediction&#43;tasks" target="_blank" rel="noopener" class="share-btn-weibo" aria-label="weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+
+
+
+  
+  
+  
+    
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+      
+      <a href="https://yangleisx.github.io/"><img class="avatar mr-3 avatar-circle" src="/authors/admin/avatar_hufa4b711d7d766ab1064b8274b75ac233_742651_270x270_fill_lanczos_center_1.gif" alt="Lei Yang"></a>
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="https://yangleisx.github.io/">Lei Yang</a></h5>
+      <h6 class="card-subtitle">PhD candidate</h6>
+      <p class="card-text">My research interests include visual speech recognition and semantics segmentation.</p>
+      <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="/#contact" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://scholar.google.com/citations?user=YsaBzN4AAAAJ" target="_blank" rel="noopener">
+        <i class="ai ai-google-scholar"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/yangleisx" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+</ul>
+
+    </div>
+  </div>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+</article>
+  </div>
+
+  <div class="page-footer">
+    
+    
+    <div class="container">
+      <footer class="site-footer">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+
+  
+  
+    
+  
+  
+    
+  
+
+  
+
+  
+  <p class="powered-by copyright-license-text">
+    © 2024 Me. This work is licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0" rel="noopener noreferrer" target="_blank">CC BY NC ND 4.0</a>
+  </p>
+  
+
+  <p class="powered-by footer-license-icons">
+    <a href="https://creativecommons.org/licenses/by-nc-nd/4.0" rel="noopener noreferrer" target="_blank" aria-label="Creative Commons">
+      <i class="fab fa-creative-commons fa-2x" aria-hidden="true"></i>
+      <i class="fab fa-creative-commons-by fa-2x" aria-hidden="true"></i>
+      
+        <i class="fab fa-creative-commons-nc fa-2x" aria-hidden="true"></i>
+      
+      
+        <i class="fab fa-creative-commons-nd fa-2x" aria-hidden="true"></i>
+      
+    </a>
+  </p>
+
+
+
+
+
+  <p class="powered-by">
+    
+    
+    
+      
+      
+      
+      
+      
+      
+      Published with <a href="https://hugoblox.com/?utm_campaign=poweredby" target="_blank" rel="noopener">Hugo Blox Builder</a> — the free, <a href="https://github.com/HugoBlox/hugo-blox-builder" target="_blank" rel="noopener">open source</a> website builder that empowers creators.
+    
+  </p>
+</footer>
+
+    </div>
+    
+  </div>
+
+  
+
+
+<script src="/js/vendor-bundle.min.938a3a7554cd9f6602290411f64d2617.js"></script>
+
+
+
+
+  
+
+  
+  
+
+  
+
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.min.js" integrity="" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+  
+  <script id="search-hit-fuse-template" type="text/x-template">
+    <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+    </div>
+  </script>
+  
+    <script src="https://cdn.jsdelivr.net/gh/krisk/Fuse@v3.2.1/dist/fuse.min.js" integrity="sha512-o38bmzBGX+hD3JHWUFCDA09btWaqrNmoJ3RXLlrysA7PP01Kgs4UlE4MhelE1v5dJR3+cxlR4qQlotsW7jKsnw==" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/gh/julmot/mark.js@8.11.1/dist/jquery.mark.min.js" integrity="sha512-mhbv5DqBMgrWL+32MmsDOt/OAvqr/cHimk6B8y/bx/xS88MVkYGPiVv2ixKVrkywF2qHplNRUvFsAHUdxZ3Krg==" crossorigin="anonymous"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script id="page-data" type="application/json">{"use_headroom":true}</script>
+
+
+  <script src="/js/wowchemy-headroom.db4755770454eb63685f8de785c0a172.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+<script src="/en/js/wowchemy.min.62586ca65ca61821fe707eb9fa6268b7.js"></script>
+
+
+
+  <script src="/js/wowchemy-map.a26e9d2f7238ba5b868384f1c5bc6477.js" type="module"></script>
+
+
+
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+        <pre><code></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <script src="/js/wowchemy-publication.9137013a66774049159934c29c3f0205.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

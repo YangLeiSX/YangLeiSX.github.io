@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!-- This site was created with Hugo Blox. https://hugoblox.com -->
-<!-- Last Published: February 4, 2024 --><html lang="en-us" >
+<!-- Last Published: February 6, 2024 --><html lang="en-us" >
 
 
 <head>
@@ -287,9 +287,27 @@
 
 
 
+<script>
+  (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", 'kxg0jok544');
+</script>
 
 
 
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?472e2f00a3cd94ec373babc3fbe8654f";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
 
 
 
@@ -1547,14 +1565,15 @@
   <div class="media-body">
 
     <div class="section-subheading article-title mb-0 mt-0">
-      <a href="/post/makefile-plus/" >Make进阶使用</a>
+      <a href="/post/cpp-thread-sim/" >使用STL线程库模拟生产者消费者问题</a>
     </div>
 
     
-    <a href="/post/makefile-plus/"  class="summary-link">
+    <a href="/post/cpp-thread-sim/"  class="summary-link">
       <div class="article-style">
-        <p>由于课程需要，进一步学习了一下make的使用，在之前的基础上添加一些高级知识，
-同时提供一个makefile的模版共以后使用。</p>
+        <p>在C++11的STL线程库没有实现现成的信号量，可以使用互斥量和条件变量实现信号量机制。</p>
+<p>建议使用自己定义的namespace以防止与现成的函数/类产生冲突。</p>
+<p>由于使用了lambda函数和C++11的STL线程库，因此编译时需要指定 <strong>&ndash;std=c++11</strong>。</p>
       </div>
     </a>
     
@@ -1571,16 +1590,6 @@
 
   
   
-  
-  
-  <div>
-    
-
-  <span class="author-highlighted">
-      Lei Yang</span>
-  </div>
-  
-  
 
   
   <span class="article-date">
@@ -1588,7 +1597,7 @@
     
       
     
-    Apr 9, 2020
+    Apr 20, 2020
   </span>
   
 
@@ -1597,7 +1606,7 @@
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    1 min read
+    2 min read
   </span>
   
 
@@ -1610,7 +1619,7 @@
   
   <span class="middot-divider"></span>
   <span class="article-categories">
-    <i class="fas fa-folder mr-1"></i><a href="/category/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">基础知识</a></span>
+    <i class="fas fa-folder mr-1"></i><a href="/category/%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0/">代码学习</a></span>
   
 
 </div>
@@ -1649,18 +1658,15 @@
   <div class="media-body">
 
     <div class="section-subheading article-title mb-0 mt-0">
-      <a href="/post/cpp-stl/" >C&#43;&#43;中的STL数据结构</a>
+      <a href="/post/cpp-thread-base-01/" >C&#43;&#43;并发编程:线程创建和运行</a>
     </div>
 
     
-    <a href="/post/cpp-stl/"  class="summary-link">
+    <a href="/post/cpp-thread-base-01/"  class="summary-link">
       <div class="article-style">
-        <p>C++已经实现了常见的各种数据结构</p>
-<p>每种数据结构的实现被称为容器，定义迭代器作为容器中对象的指针</p>
-<p>迭代器被定义为公有内嵌类，类名为iterator或const_iterator</p>
-<p>借助容器储存数据的容器称为容器适配器(栈和队列)</p>
-<p>查找表容器通常称为关联容器</p>
-<p><em><strong>建议：直接查看头文件中的函数声明，使用关键字检索</strong></em></p>
+        <p>使用C++11实现的标准线程库进行并发编程</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;thread&gt;</span><span class="cp">
+</span></span></span></code></pre></div>
       </div>
     </a>
     
@@ -1677,6 +1683,16 @@
 
   
   
+  
+  
+  <div>
+    
+
+  <span class="author-highlighted">
+      Lei Yang</span>
+  </div>
+  
+  
 
   
   <span class="article-date">
@@ -1684,7 +1700,7 @@
     
       
     
-    Oct 4, 2019
+    Apr 16, 2020
   </span>
   
 
@@ -1693,7 +1709,7 @@
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    2 min read
+    1 min read
   </span>
   
 

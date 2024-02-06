@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Generative Adversarial Network | YangLeiSX</title>
+    <link>https://yangleisx.github.io/tag/generative-adversarial-network/</link>
+      <atom:link href="https://yangleisx.github.io/tag/generative-adversarial-network/index.xml" rel="self" type="application/rss+xml" />
+    <description>Generative Adversarial Network</description>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Sun, 22 Aug 2021 14:20:44 +0800</lastBuildDate>
+    <image>
+      <url>https://yangleisx.github.io/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_512x512_fill_lanczos_center_3.png</url>
+      <title>Generative Adversarial Network</title>
+      <link>https://yangleisx.github.io/tag/generative-adversarial-network/</link>
+    </image>
+    
+    <item>
+      <title>【论文】DE-GAN: A Conditional Generative Adversarial Network for Document Enhancement</title>
+      <link>https://yangleisx.github.io/post/paper-de-gan/</link>
+      <pubDate>Sun, 22 Aug 2021 14:20:44 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/paper-de-gan/</guid>
+      <description>&lt;p&gt;论文题目：DE-GAN： A Conditional Generative Adversarial Network for Document Enhancement&lt;/p&gt;
+&lt;p&gt;作者：Mohamed Ali Souibgui and Yousri Kessentini&lt;/p&gt;
+&lt;p&gt;会议/时间：arXiv&lt;/p&gt;
+&lt;p&gt;链接: &lt;a href=&#34;https://arxiv.org/abs/2010.08764v1&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;arXiv&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;论文目标&#34;&gt;论文目标&lt;/h2&gt;
+&lt;p&gt;文档图像中通常会拥有比较多的退化（Degradation），因此在使用OCR系统处理文档图像的时候效果比较差，论文通过生成对抗网络（GAN）实现了一个文本增强模型，在例如去除模糊、去除污渍、去除水印、二值化等多种文档增强人物上具有较好的效果。&lt;/p&gt;
+&lt;p&gt;在通常的文档去除污渍、去除水印等任务中，对于这些水印/退化条件缺少先验知识，特别是污渍将字符完全覆盖的情况。因此很难用传统的方法去除。近年来生成模型在应对缺失数据、多模态任务中取得非常好的结果。因此在论文中，首次在文档增强任务中使用了生成对抗网络来解决二值化和去除水印的任务。而且论文中还提出了密集水印/印章移除任务。&lt;/p&gt;
+&lt;h2 id=&#34;相关工作&#34;&gt;相关工作&lt;/h2&gt;
+&lt;p&gt;文档图像修复和二值化任务旨在将文本和背景/污渍相区分，传统方法中大多使用设置阈值的方式，包括全局阈值、局部阈值搜索等方式，但是传统方法对于文档状态非常敏感，不够通用。在使用深度神经网络的方法中，整体思路类似图像分割，输出像素级的预测结果，判断当前像素为文本前景还是污渍背景。在论文中所使用的文档增强任务将污渍背景预测为正确的颜色/灰度，而不是设置为0。&lt;/p&gt;
+&lt;p&gt;在水印移除任务中，目标是将水印前景与文本背景相分离，多出现在自然图像处理（Natural Image Processing）任务中，此前常见的做法首先使用通用的目标检测算法检测水印/印章的位置然后再移除。&lt;/p&gt;
+&lt;p&gt;目前生成对抗网络已经广泛应用于图像到图像的转换任务中，例如语义分割、图像超分辨率等。其中conditional GANs常被应用在一些与文档增强相似的任务中。例如CycleGAN、pix2pix-HD等模型。&lt;/p&gt;
+&lt;h2 id=&#34;本文方法&#34;&gt;本文方法&lt;/h2&gt;
+&lt;p&gt;首先将文档增强任务定义为图像到图像的转换任务。即给定原始图像生成对应的干净的图像。在最简单的GAN网络中，给定随机抽样$z$，生成图像$y$。在conditional GAN网络中，给定了一个另外的输入参数$x$，生成器依据输入$x$和随机向量$z$生成$y$，即 $G_{\varphi_G}:{x,z}\to y$，判别器依据输入$x$判别$y$的真伪，即 $D_{\varphi_D}: {x, y}\to P(real)$。&lt;/p&gt;
+&lt;p&gt;在最简单的conditional GAN网络中，给定输入为$I^W$，Ground Truth为 $I^{GT}$，模型的对抗损失如下。即最小化判别器分类的损失。
+
+
+
+$$\begin{aligned}
+L_{GAN}(\varphi_G, \varphi_D) &amp;= \mathbb{E}_{I^W, I^{GT}}\log[D_{\varphi_D}(I^W, I^{GT})] \\
+&amp;+ \mathbb{E}_{I_W} \log[1 - D_{\varphi_D}(I^W, G_{\varphi_G}(I^W))]
+\end{aligned}$$
+&lt;/p&gt;
+&lt;p&gt;在论文中，为了加速模型的训练，添加了额外的辅助损失指导模型的训练。公式如下。（添加了生成器输出结果和Ground Truth之间的交叉熵损失？）&lt;/p&gt;
+
+
+
+$$\begin{aligned}
+L_{log}(\varphi_G) &amp;= \mathbb{E}_{I^{GT}, I^W}[-(I^{GT}\log(G_{\varphi_G}(I^W)) \\
+&amp;+ ((1-I^{GT})\log(1-G_{\varphi_G}(I^W))))] \\
+L_{net}(\varphi_G, \varphi_D) &amp;= \min_{\varphi_G}\max_{\varphi_D}L_{GAN}(\varphi_G, \varphi_D) + \lambda L_{log}(\varphi_G)
+\end{aligned}$$
+
+&lt;p&gt;模型整体结构如下。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;degan-framework.png&#34; srcset=&#34;
+               /post/paper-de-gan/degan-framework_hu4285d5e44b7de519051d72788fb69a9c_33383_7bf16cb7f8da5cd349efe315b6fa95d2.webp 400w,
+               /post/paper-de-gan/degan-framework_hu4285d5e44b7de519051d72788fb69a9c_33383_f65069218b402cabdbde4510434d802f.webp 760w,
+               /post/paper-de-gan/degan-framework_hu4285d5e44b7de519051d72788fb69a9c_33383_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-de-gan/degan-framework_hu4285d5e44b7de519051d72788fb69a9c_33383_7bf16cb7f8da5cd349efe315b6fa95d2.webp&#34;
+               width=&#34;708&#34;
+               height=&#34;354&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;对于生成器，使用了基于U-Net的结构，添加旁路链接可以减少信息的丢失，也可以使模型学习更加高级的特征。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;degan-g.png&#34; srcset=&#34;
+               /post/paper-de-gan/degan-g_hue75605222a4990094c388307a3a660bb_98344_55317096c391148a0604af9501f36ec2.webp 400w,
+               /post/paper-de-gan/degan-g_hue75605222a4990094c388307a3a660bb_98344_689f545cf7b69f66aeed511863227af8.webp 760w,
+               /post/paper-de-gan/degan-g_hue75605222a4990094c388307a3a660bb_98344_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-de-gan/degan-g_hue75605222a4990094c388307a3a660bb_98344_55317096c391148a0604af9501f36ec2.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;314&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;对于判别器，使用简单的多层卷积的结构。在输入层将生成器输出的图像与Ground Truth通过Concatenate相连接。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;degan-d.png&#34; srcset=&#34;
+               /post/paper-de-gan/degan-d_hu5ea99f2437ccf78ca339eb691113dbfa_34118_76bfb52ab4cb6adbf17279799c514a84.webp 400w,
+               /post/paper-de-gan/degan-d_hu5ea99f2437ccf78ca339eb691113dbfa_34118_e959223c55dbf347ac9a74d81e1e1401.webp 760w,
+               /post/paper-de-gan/degan-d_hu5ea99f2437ccf78ca339eb691113dbfa_34118_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-de-gan/degan-d_hu5ea99f2437ccf78ca339eb691113dbfa_34118_76bfb52ab4cb6adbf17279799c514a84.webp&#34;
+               width=&#34;604&#34;
+               height=&#34;642&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;结果分析&#34;&gt;结果分析&lt;/h2&gt;
+&lt;p&gt;在文档清洁和二值化任务中，损失函数中的$\lambda$设置为100。与最简单的U-Net相比，模型性能有所提升。说明使用对抗训练可以增强模型的性能。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;degan-exp10.png&#34; srcset=&#34;
+               /post/paper-de-gan/degan-exp10_hu74ec59108980cdd3448894a323d146e9_19184_3e0cc3c0031f4926121b9d91fbd2a20d.webp 400w,
+               /post/paper-de-gan/degan-exp10_hu74ec59108980cdd3448894a323d146e9_19184_da96817c2db5c1cc5fac6fa41ec02cc6.webp 760w,
+               /post/paper-de-gan/degan-exp10_hu74ec59108980cdd3448894a323d146e9_19184_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-de-gan/degan-exp10_hu74ec59108980cdd3448894a323d146e9_19184_3e0cc3c0031f4926121b9d91fbd2a20d.webp&#34;
+               width=&#34;436&#34;
+               height=&#34;130&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;在DIBCO2013上与现有模型相比达到了SOTA的效果。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;degan-exp11.png&#34; srcset=&#34;
+               /post/paper-de-gan/degan-exp11_hub1fa137e22eed7acec6253b636f4e6e4_85070_dc68b2360788bab53597333ac5cf8f80.webp 400w,
+               /post/paper-de-gan/degan-exp11_hub1fa137e22eed7acec6253b636f4e6e4_85070_3a2def9166f6326d42384bc56ca97267.webp 760w,
+               /post/paper-de-gan/degan-exp11_hub1fa137e22eed7acec6253b636f4e6e4_85070_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-de-gan/degan-exp11_hub1fa137e22eed7acec6253b636f4e6e4_85070_dc68b2360788bab53597333ac5cf8f80.webp&#34;
+               width=&#34;692&#34;
+               height=&#34;392&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;在水印和印章移除任务中，损失函数中的$\lambda$设置为500。与现有模型相比达到了SOTA的效果。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;degan-exp20.png&#34; srcset=&#34;
+               /post/paper-de-gan/degan-exp20_hu71168d6e8ecfcb161672ce4d23aeaea5_29187_161015f113cc97c2eea4aad62a30273a.webp 400w,
+               /post/paper-de-gan/degan-exp20_hu71168d6e8ecfcb161672ce4d23aeaea5_29187_40bc5be3a895784023fe40741d3f9166.webp 760w,
+               /post/paper-de-gan/degan-exp20_hu71168d6e8ecfcb161672ce4d23aeaea5_29187_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-de-gan/degan-exp20_hu71168d6e8ecfcb161672ce4d23aeaea5_29187_161015f113cc97c2eea4aad62a30273a.webp&#34;
+               width=&#34;432&#34;
+               height=&#34;194&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;除此之外，还在文档去模糊等任务上和下游的OCR任务上做了测试，均取得了非常好的效果。&lt;/p&gt;
+&lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
+&lt;p&gt;论文中首次提出了使用GAN解决文本增强任务。文中提出的DE-GAN可以认为是pix2pix模型的升级版，通过修改生成器和辅助损失函数提升了模型性能，在很多文档增强任务中都取得了非常好的效果。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

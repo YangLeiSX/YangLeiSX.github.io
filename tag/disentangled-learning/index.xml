@@ -5,7 +5,7 @@
     <link>https://yangleisx.github.io/tag/disentangled-learning/</link>
       <atom:link href="https://yangleisx.github.io/tag/disentangled-learning/index.xml" rel="self" type="application/rss+xml" />
     <description>Disentangled Learning</description>
-    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Sun, 04 Feb 2024 15:47:49 +0800</lastBuildDate>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Wed, 06 Jul 2022 10:17:43 +0800</lastBuildDate>
     <image>
       <url>https://yangleisx.github.io/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_512x512_fill_lanczos_center_3.png</url>
       <title>Disentangled Learning</title>
@@ -15,7 +15,7 @@
     <item>
       <title>【论文】Improving Semantic Segmentation in Aerial Imagery via Graph Reasoning and Disentangled Learning</title>
       <link>https://yangleisx.github.io/post/paper-pgr/</link>
-      <pubDate>Sun, 04 Feb 2024 15:47:49 +0800</pubDate>
+      <pubDate>Wed, 06 Jul 2022 10:17:43 +0800</pubDate>
       <guid>https://yangleisx.github.io/post/paper-pgr/</guid>
       <description>&lt;p&gt;论文题目： Improving Semantic Segmentation in Aerial Imagery via Graph Reasoning and Disentangled Learning&lt;/p&gt;
 &lt;p&gt;作者：Ruigang Niu, Xian Sun, Yu Tian, Wenhui Diao, Yingchao Feng, Kun Fu&lt;/p&gt;
@@ -213,6 +213,40 @@ $$G_{proj}(F^2, \mathcal{U}(F^1), \mathcal{U}(F^3)) = \frac{1}{H_2W_2}\sum\limit
 &lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
 &lt;p&gt;使用了图推理的方式提取上下文信息。这一部分的论文还蛮多的，这里用了一种分组的方式来进行处理。比直接使用像素点的节约时间和空间，用通道注意力的方式进行反向映射的方式也成本比较低。&lt;/p&gt;
 &lt;p&gt;使用了多分支的模型，分别学习分割图和边缘检测。利用边缘检测增强分割效果的想法蛮常见的。例如【论文】Boundary-aware Graph Reasoning for Semantic Segmentation或者【论文】Real-time Scene Text Detection with Differentiable Binarization|。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【论文】Challenging Common Assumptions in the Unsupervised Learning of Disentangled Representations</title>
+      <link>https://yangleisx.github.io/post/paper-challenge-disentabgle/</link>
+      <pubDate>Tue, 20 Oct 2020 22:06:26 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/paper-challenge-disentabgle/</guid>
+      <description>&lt;p&gt;论文题目：Challenging Common Assumptions in the Unsupervised Learning of Disentangled Representations&lt;/p&gt;
+&lt;p&gt;作者：Francesco Locatello, Stefan Bauer, Mario Lucic, Gunnar Rätsch, Sylvain Gelly, Bernhard Schölkopf,  Olivier Bachem&lt;/p&gt;
+&lt;p&gt;会议/时间：ICML2019&lt;/p&gt;
+&lt;p&gt;链接：&lt;a href=&#34;https://arxiv.org/pdf/1811.12359.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://arxiv.org/pdf/1811.12359.pdf&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;论文目标&#34;&gt;论文目标&lt;/h2&gt;
+&lt;p&gt;近年来关于disentangled representation 的unsupervised learning相关的研究非常多，其核心观点为现实世界中的数据是通过一些单独的可解释的元素生成的，可以通过无监督学习的方式学习到数据的一种表示。本文通过理论分析，证明在模型和数据不添加归纳偏置的情况下这种无监督学习是不可能实现的，同时文中在多个数据集上训练了近年来的相关模型。最终提出了进一步研究的方向。&lt;/p&gt;
+&lt;h2 id=&#34;相关工作&#34;&gt;相关工作&lt;/h2&gt;
+&lt;p&gt;目前效果比较好的模型大多是基于变分自编码器（Variational Autoencoder，VAE），即认为现实世界中的数据来源于一个高维隐变量$z \sim P(z)$，实际观察到的数据为$x$，通过建立一个自编码器，包括编码器和解码器学习得到$P(x|z)$和$Q(z|x)$，其中使用$Q(z|x)$近似实际的$P(z|x)$，从而从数据$x$中学到一个表示$r(x)$去寻找隐变量$z$。&lt;/p&gt;
+&lt;p&gt;这一领域之前的研究包括独立成分分析（Independent Component Analysis，ICA）等。&lt;/p&gt;
+&lt;h2 id=&#34;本文思路解决方案&#34;&gt;本文思路/解决方案&lt;/h2&gt;
+&lt;p&gt;给定如下的理论&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;For $d &amp;gt; 1$ , let $z \sim P$ denote any distribution which admits a density $p(z) = \prod_{i=1}^{d}p(z_i)$. Then, there exists an infinite family of bijective functions f : supp(z) → supp(z) such that $\frac {\partial f_i(u)}{\partial u_j}$ almost everywhere for all $i$ and $j$ (i.e., $z$ and $f(z)$ are completely entangled) and $P(z \leq u) = P(f(z) \leq u)$ for all $u \in supp(z)$ (i.e., they have the same marginal distribution).&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;可以得到，对于给定的数据$x$，可以找到无限多的$p(z)$满足要求，且这些$p(z)$相互等价并满足disentangled的要求，一个无监督的模型难以区分这些$p(z)$。因此在实际的模型中，需要为模型结构和数据集引入合理的归纳偏置（inductive bias）。&lt;/p&gt;
+&lt;p&gt;在实验设计中，使用到的模型为添加了正则项的VAE，包括betaVAE、AnnealedVAE、FactorVAE、beta-TCVAE、DIP-VAE等。在模型的度量标准中，使用了包括BetaVAE Metric、FactorVAE Metric、MIG(Mutual Information Gap)、Modularity、SAP Score等方法。使用到的数据集包括四个3D空间变化的数据集和三个随机的噪声数据集。&lt;/p&gt;
+&lt;p&gt;在归纳偏置中，为了控制变量，对于所有的模型使用相同的卷积结构、优化算法、超参数，使用相同的Gaussian Encoder和Bernoulli Decoder，使用相同的隐变量维度（=10），构建模型进行测试。仅使用不同的正则项和不同的正则项权重。&lt;/p&gt;
+&lt;h2 id=&#34;结果&#34;&gt;结果&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;当正则化系数增大时，使用拟合高斯的采样得到的相关性减小，使用均值表示的相关性增大。可以证明上述模型可以得到不同维度相关性比较弱的聚合先验，但是并不能表示均值表示也是不相关的。&lt;/li&gt;
+&lt;li&gt;在不同的性能度量中，除了Modularity以外的几种都是相关的，只是在不同的数据集上的相关性有差异。&lt;/li&gt;
+&lt;li&gt;模型的性能受到随机初始化和超参数的影响比较大，目标函数在其中影响比较小。&lt;/li&gt;
+&lt;li&gt;如何选择无监督模型仍然等待得到解决。在不同数据集和度量指标之间的超参数迁移用处不大。&lt;/li&gt;
+&lt;li&gt;实验并不能证明这些disentangled表示对于下游的任务有所帮助。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
+&lt;p&gt;在将来的研究中可以将重点更多放在如下三个方面：1）归纳偏置和显/隐性监督，2）disentangled representation的实际效益，3）实验设置和数据集的多样性。&lt;/p&gt;</description>
     </item>
     
   </channel>

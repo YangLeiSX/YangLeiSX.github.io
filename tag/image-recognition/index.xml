@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Image Recognition | YangLeiSX</title>
+    <link>https://yangleisx.github.io/tag/image-recognition/</link>
+      <atom:link href="https://yangleisx.github.io/tag/image-recognition/index.xml" rel="self" type="application/rss+xml" />
+    <description>Image Recognition</description>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Tue, 20 Apr 2021 14:23:12 +0800</lastBuildDate>
+    <image>
+      <url>https://yangleisx.github.io/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_512x512_fill_lanczos_center_3.png</url>
+      <title>Image Recognition</title>
+      <link>https://yangleisx.github.io/tag/image-recognition/</link>
+    </image>
+    
+    <item>
+      <title>【论文】Densely Connected Convolutional Networks</title>
+      <link>https://yangleisx.github.io/post/paper-densenet/</link>
+      <pubDate>Tue, 20 Apr 2021 14:23:12 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/paper-densenet/</guid>
+      <description>&lt;p&gt;论文题目： Densely Connected Convolutional Networks&lt;/p&gt;
+&lt;p&gt;作者： Gao Huang, Zhuang Liu, Laurens van der Maaten, Kilian Q. Weinberger&lt;/p&gt;
+&lt;p&gt;会议/时间：CVPR2017&lt;/p&gt;
+&lt;p&gt;链接: &lt;a href=&#34;https://arxiv.org/pdf/1608.06993.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;arXiv&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;论文目标&#34;&gt;论文目标&lt;/h2&gt;
+&lt;p&gt;在CNN中，增加模型深度可以增加卷积层的感受野，从而提升CNN的性能，但是深度太大的CNN在训练的时候会出现梯度消失的问题。根据ResNet 残差网络的设计，通过添加短路链接可以使得比较深的网络更容易训练和收敛。&lt;/p&gt;
+&lt;p&gt;为了进一步融合不同尺度特征，本文提出的DenseNet模型通过添加稠密的短路链接可以使特征图得到充分的利用，增大梯度信息流，从而减少参数数量，提升模型的性能。通过稠密的短路连接，每一个卷积层都可以看作与输入的数据和最后的全连接层直接相连，从而得到充分的监督。&lt;/p&gt;
+&lt;h2 id=&#34;相关工作&#34;&gt;相关工作&lt;/h2&gt;
+&lt;p&gt;在Highway Network中，首次引入了短路连接的思想，从而使得训练上百层的神经网络成为可能。在ResNet 残差网络中，通过短路连接，将每一个Residual Block的输入通过恒等映射直接连接到输出，实现了突破性的提升。在Stochastic Depth网络中训练的时候随机跳过了模型中的某些层，实际上也能取得非常不错的效果，这就证明在非常深的模型中有一些卷积层的存在其实是冗余的。&lt;/p&gt;
+&lt;p&gt;与上述模型不同的是，在GoogLeNet和FractalNet中使用了Inception结构增加模型宽度的方式来提升模型的性能。&lt;/p&gt;
+&lt;p&gt;其他的提升性能的思路包括：NIN（在卷积层中添加多层感知机提取丰富特征），DSN（使用一些分类器监督卷积的中间结果），DFN（将不同网络的中间层融合在一起）等。&lt;/p&gt;
+&lt;h2 id=&#34;本文方法&#34;&gt;本文方法&lt;/h2&gt;
+&lt;p&gt;将多个卷积层组合得到Dense Block，其中每一个卷积层的输入都是之前所有层的输出按通道连接得到。即 $x_l = H_l([x_0, x_1, &amp;hellip;, x_{l-1}])$。同时需要注意，每一个卷积层都是由带有bottleneck的混合卷积操作组成的，其中的混合卷积操作指BatchNorm + ReLU + Conv3x3组成，通道数为 $k$，bottleneck是指BatchNorm + ReLU + Conv1x1组成，通道数为 $4k$。这里的 $k$称为Growth Rate，即每通过一个卷积层，通道数都会增加 $k$个。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;densenet-block.png&#34; srcset=&#34;
+               /post/paper-densenet/densenet-block_hu7dcd82c9194017b16ba2c3edbb5da1ac_310954_f6ff3f3b2f9c80fcc2b71e164d48697c.webp 400w,
+               /post/paper-densenet/densenet-block_hu7dcd82c9194017b16ba2c3edbb5da1ac_310954_07dae10bbcf78dd0a2b9920ac9a58f0e.webp 760w,
+               /post/paper-densenet/densenet-block_hu7dcd82c9194017b16ba2c3edbb5da1ac_310954_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-densenet/densenet-block_hu7dcd82c9194017b16ba2c3edbb5da1ac_310954_f6ff3f3b2f9c80fcc2b71e164d48697c.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;556&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;在每一个Dense Block之中的特征图大小是相同的，在相邻的DenseBlock之间引入Transition层，包括Conv1x1和Pooling2x2，其中的卷积操作用于压缩通道数量，防止通道数量无限制的增大，而池化操作用于压缩特征图数量。最终得到完整的DenseNet结构如下。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;densenet-model2.png&#34; srcset=&#34;
+               /post/paper-densenet/densenet-model2_hu8726d8431475ce320741688cef110cb4_97794_1374042b9d8668d59956d845ec1ec0c7.webp 400w,
+               /post/paper-densenet/densenet-model2_hu8726d8431475ce320741688cef110cb4_97794_4f7aa769d69df463278c2e420f2f8474.webp 760w,
+               /post/paper-densenet/densenet-model2_hu8726d8431475ce320741688cef110cb4_97794_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-densenet/densenet-model2_hu8726d8431475ce320741688cef110cb4_97794_1374042b9d8668d59956d845ec1ec0c7.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;126&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;在实验中提出的不同大小的模型结构如下：
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;densenet-structure.png&#34; srcset=&#34;
+               /post/paper-densenet/densenet-structure_hu7523153a526e2b2b74084e7721c3e0f3_156361_658617b12c29ebd8afe8cebfe6c96344.webp 400w,
+               /post/paper-densenet/densenet-structure_hu7523153a526e2b2b74084e7721c3e0f3_156361_43c78deb1b9236c7575373e26f749c3a.webp 760w,
+               /post/paper-densenet/densenet-structure_hu7523153a526e2b2b74084e7721c3e0f3_156361_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-densenet/densenet-structure_hu7523153a526e2b2b74084e7721c3e0f3_156361_658617b12c29ebd8afe8cebfe6c96344.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;392&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;结果分析&#34;&gt;结果分析&lt;/h2&gt;
+&lt;p&gt;模型在CIFAR、SVHN、ImageNet等任务上测试，结果与现有的SOTA模型相比，取得了比较大的提升。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;densenet-vs-sota.png&#34; srcset=&#34;
+               /post/paper-densenet/densenet-vs-sota_hu3b47d34787c751ac5dd679e2fc581d8f_371053_59f6dc542272968df87365df748f0526.webp 400w,
+               /post/paper-densenet/densenet-vs-sota_hu3b47d34787c751ac5dd679e2fc581d8f_371053_248310b7c83627fba61eafd2a158f8ae.webp 760w,
+               /post/paper-densenet/densenet-vs-sota_hu3b47d34787c751ac5dd679e2fc581d8f_371053_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-densenet/densenet-vs-sota_hu3b47d34787c751ac5dd679e2fc581d8f_371053_59f6dc542272968df87365df748f0526.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;457&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;重点比较了ResNet，证明了DenseNet使用更小的模型参数也能取得与ResNet相近甚至更好的效果，证明了之前提到了使用DenseNet可以减少模型参数的说法。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;densenet-vs-resnet.png&#34; srcset=&#34;
+               /post/paper-densenet/densenet-vs-resnet_hu78cb94f206f47ab713e6c70212245b31_200683_b84754fc828d146b12772ce9a2accb2b.webp 400w,
+               /post/paper-densenet/densenet-vs-resnet_hu78cb94f206f47ab713e6c70212245b31_200683_566a5f189088fd6eb55f2996592f8443.webp 760w,
+               /post/paper-densenet/densenet-vs-resnet_hu78cb94f206f47ab713e6c70212245b31_200683_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-densenet/densenet-vs-resnet_hu78cb94f206f47ab713e6c70212245b31_200683_b84754fc828d146b12772ce9a2accb2b.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;393&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;需要注意的是，尽管DenseNet模型参数数量很少，但是由于包含稠密连接，最直接的实现在训练和优化的时候中间变量需要占用大量的显存，空间效率很低。因此本文的作者在另一篇文章&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;中提出了DenseNet的优化实现。&lt;/p&gt;
+&lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
+&lt;p&gt;使用稠密的短路连接，使得模型学到丰富的不同尺度的信息，使梯度信息的传播最大化，从而在减少参数数量的基础上提升模型的性能。&lt;/p&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
+&lt;p&gt;G. Pleiss, D. Chen, G. Huang, T. Li, L. van der Maaten, and K. Q. Weinberger. Memory-efficient implementation of densenets. arXiv preprint arXiv:1707.06990, 2017. 5&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Face Recognition | YangLeiSX</title>
+    <link>https://yangleisx.github.io/tag/face-recognition/</link>
+      <atom:link href="https://yangleisx.github.io/tag/face-recognition/index.xml" rel="self" type="application/rss+xml" />
+    <description>Face Recognition</description>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Sat, 13 Jun 2020 16:41:50 +0800</lastBuildDate>
+    <image>
+      <url>https://yangleisx.github.io/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_512x512_fill_lanczos_center_3.png</url>
+      <title>Face Recognition</title>
+      <link>https://yangleisx.github.io/tag/face-recognition/</link>
+    </image>
+    
+    <item>
+      <title>【论文】A Discriminative Feature Learning Approach for Deep Face Recognition</title>
+      <link>https://yangleisx.github.io/post/paper-center-loss/</link>
+      <pubDate>Sat, 13 Jun 2020 16:41:50 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/paper-center-loss/</guid>
+      <description>&lt;p&gt;论文题目：A Discriminative Feature Learning Approach for Deep Face Recognition&lt;/p&gt;
+&lt;p&gt;作者：Yandong Wen, Kaipeng Zhang, Zhifeng Li, and Yu Qiao&lt;/p&gt;
+&lt;p&gt;会议/时间：ECCV2016&lt;/p&gt;
+&lt;p&gt;链接：&lt;a href=&#34;https://ydwen.github.io/papers/WenECCV16.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;原文链接&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;论文目标&#34;&gt;论文目标&lt;/h2&gt;
+&lt;p&gt;之前的工作中仅仅使用Softmax loss作为模型的监督信号，学到的模型具有一定判别能力(Separable)，本文通过介绍一种新的Centor Loss作为监督信号进行学习，使模型学到更具有判别能力(Discriminative)的特征。Centor Loss可以学习到一类特征的分类中心并减小类内距离，从而更具有更强的判别能力。&lt;/p&gt;
+&lt;h2 id=&#34;相关工作&#34;&gt;相关工作&lt;/h2&gt;
+&lt;p&gt;传统的度量学习(Metric Learning)中，由于识别样本在训练集中出现过，使用Softmax可以起到比较好的学习效果。但是在面识别任务中，很难预先搜集到所有可能的实体的数据用于学习，因此对于泛化能力的要求更高。这就要求学习到的特征具有更小的类内距离和更大的类间距离。&lt;/p&gt;
+&lt;p&gt;使用contrastive loss或者triplet loss对于pair/triplet的取样要求比较高，使用精心设计的取样方法可以在一定程度上避免，但是引入了更高的计算复杂度。&lt;/p&gt;
+&lt;h2 id=&#34;本文思路解决方案&#34;&gt;本文思路/解决方案&lt;/h2&gt;
+&lt;p&gt;首先定义了centor loss函数
+
+
+
+$$\mathcal{L}_c = \frac{1}{2}\sum\limits_{i=1}^{m}||\mathbb{x}_i-\mathbb{c}_{y_i}||^2_2$$
+
+其中 $\mathbb{c}$表示对应的类的中心。&lt;/p&gt;
+&lt;p&gt;直观的想法是在每一轮学习结束后将所有同类别数据的特征求均值，但是在大规模数据库中难以实现，因此采用每一批中同类别的数据的特征求均值用于类中心的更新。即令
+
+
+
+$$\Delta\mathbb{c}_j = \frac{\sum\limits_{i=1}^{m}\delta(y_i=j)(\mathbb{c}_j - \mathbb{x}_i)}{1+\sum\limits_{i=1}^{m}\delta(y_j = j)}$$
+&lt;/p&gt;
+&lt;p&gt;其中 $\delta(condition) = condition\ is\ true ? 1: 0$，同时引入一个超参数$\alpha$作为类的中心更新时的“学习率”。&lt;/p&gt;
+&lt;p&gt;完整的loss function为 $$\mathcal{L} = \mathcal{L}_s + \lambda\mathcal{L}_c$$，其中$\lambda$为权重系数。&lt;/p&gt;
+&lt;p&gt;网络结构如下：可以看到引入了跨层连接和Joint Supervision Signal。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;center_loss_structure.png&#34; srcset=&#34;
+               /post/paper-center-loss/center_loss_structure_hu032c9a6fd3e48b30db592e6b306c7bb2_87625_d07f4d4feb465adda6692fc9405f93c9.webp 400w,
+               /post/paper-center-loss/center_loss_structure_hu032c9a6fd3e48b30db592e6b306c7bb2_87625_8fba953b0e7836831ed62c465366230a.webp 760w,
+               /post/paper-center-loss/center_loss_structure_hu032c9a6fd3e48b30db592e6b306c7bb2_87625_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-center-loss/center_loss_structure_hu032c9a6fd3e48b30db592e6b306c7bb2_87625_d07f4d4feb465adda6692fc9405f93c9.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;344&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;训练结果如下：可以看到在引入了Center Loss之后，类间距离显著减小，判别能力增强。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;center_loss_1.png&#34; srcset=&#34;
+               /post/paper-center-loss/center_loss_1_hu7fef7fd8df29396650abe7a6457b7598_679185_b2c897f29eae92047c20a73faa0ae883.webp 400w,
+               /post/paper-center-loss/center_loss_1_hu7fef7fd8df29396650abe7a6457b7598_679185_2614cceb9bab87c696f2803179f23e2c.webp 760w,
+               /post/paper-center-loss/center_loss_1_hu7fef7fd8df29396650abe7a6457b7598_679185_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-center-loss/center_loss_1_hu7fef7fd8df29396650abe7a6457b7598_679185_b2c897f29eae92047c20a73faa0ae883.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;547&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;结果&#34;&gt;结果&lt;/h2&gt;
+&lt;p&gt;可以发现 $\lambda=0$时的学习效果较差，当 $\lambda$太大时学习效果也会下降，测试得到的参数为$\lambda=0.03$。&lt;/p&gt;
+&lt;p&gt;可以发现$\alpha$的取值对结果影响不大（不为零时），测试得到的参数为$\alpha=0.5$。&lt;/p&gt;
+&lt;p&gt;最终实现的模型在小数据库训练，LFW达到了99.28%泛化准确率，YTF达到了94.9%的泛化准确率。&lt;/p&gt;
+&lt;p&gt;在MegaFace数据库上测试的结果中，本文的模型均达到了更好的性能。&lt;/p&gt;
+&lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;提出了Center Loss，使用Center Loss结合Softmax Loss实现具有判别力的模型学习。&lt;/li&gt;
+&lt;li&gt;使用了跨层连接的模型结构。&lt;/li&gt;
+&lt;li&gt;使用Joint Supervision Signal，合理选择权重超参数。&lt;/li&gt;
+&lt;/ol&gt;</description>
+    </item>
+    
+    <item>
+      <title>【论文】Deep Learning Face Representation by Joint Identification-Verification</title>
+      <link>https://yangleisx.github.io/post/paper-deepid2/</link>
+      <pubDate>Sat, 06 Jun 2020 15:48:29 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/paper-deepid2/</guid>
+      <description>&lt;p&gt;论文题目：Deep Learning Face Representation by Joint Identification-Verification&lt;/p&gt;
+&lt;p&gt;作者：Yi Sun、 Xiaogang Wang、 Xiaoou Tang&lt;/p&gt;
+&lt;p&gt;时间：2014&lt;/p&gt;
+&lt;p&gt;链接：&lt;a href=&#34;https://arxiv.org/pdf/1406.4773.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;原文链接&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;论文目标&#34;&gt;论文目标&lt;/h2&gt;
+&lt;p&gt;在面部识别中，关键任务是提取面部特征，并增大类间距离、减小类内距离。&lt;/p&gt;
+&lt;h2 id=&#34;相关工作&#34;&gt;相关工作&lt;/h2&gt;
+&lt;p&gt;在之前的工作中，本文作者提出的DeepID使用softmax作为输出用于身份验证，达到了比较好的效果。其他诸如LDA、metric learning等方法使用线性模型或使用浅层网络，具有一定的局限性。&lt;/p&gt;
+&lt;h2 id=&#34;本文思路解决方案&#34;&gt;本文思路/解决方案&lt;/h2&gt;
+&lt;p&gt;同时使用两种supervisory signal来指导模型的学习，即同时使用identification（给定输入，判断属于哪一个类别，多分类）和verification（给定两个输入，判断是否属于同一类别，二分类），前者可以增大类间距离，后者减小类内距离。&lt;/p&gt;
+&lt;p&gt;深度神经网络的结构与本文作者&lt;a href=&#34;http://www.ee.cuhk.edu.hk/~xgwang/papers/sunWTcvpr14.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;之前的工作&lt;/a&gt;基本相同，即包括四层卷积和三层最大池化，经过跨层连接得到长度为160的特征向量。&lt;/p&gt;
+&lt;p&gt;使用特征网络的输出向量分别用于identification和verification，反向传播时使用超参数 $\lambda$对两个损失函数的梯度加权。在前者使用softmax得到输出并优化cross-entropy loss。在后者使用基于L1/L2正则和cosine相似的损失函数，并对比较其效果。&lt;/p&gt;
+&lt;p&gt;基于cosine相似:$$Verif(f_i,f_j, y_{ij}, \theta_{ve}) = \frac{1}{2}(y_{ij}-\sigma(wd+b))^2$$，其中$\sigma$为sigmoid函数，$$d = \frac{f_i · f_j}{||f_i||_2·||f_j||_2}$$。&lt;/p&gt;
+&lt;p&gt;基于L2的:
+
+
+
+$$Verif(f_i,f_j, y_{ij}, \theta_{ij}) = \begin{cases} \frac{1}{2}||f_i - f_j||^2 &amp;if\ y_{ij}=1\\ \frac{1}{2}\max(0, m-||f_i - f_j||^2)&amp;if\ y_{ij}=-1\end{cases}$$
+
+，其中 $y_{ij}$表示输入是否为同一类别，$m$为指定的边界，在训练过程中手动调整。&lt;/p&gt;
+&lt;p&gt;训练过程中，每一张图片选择了400个patch，包括不同位置、大小、通道（RGB or 灰度），训练得到200个网络。&lt;/p&gt;
+&lt;p&gt;测试Verification时，通过前后向贪婪算法选择其中效果最好的25个得到 $25*160=4000$维度的特征向量，并通过PCA压缩，便于识别和预测。在预测时分别使用L2 Norm模型和联合贝叶斯模型来得到结果。&lt;/p&gt;
+&lt;h2 id=&#34;结果&#34;&gt;结果&lt;/h2&gt;
+&lt;p&gt;对于超参数 $\lambda$的选择，通过测试可以发现在0.05处达到最高。当 $\lambda=0$或者 $\lambda=+\infty$时，据无法得到比较好的效果，说明identification和verification对于特征提取都具有重要作用。&lt;/p&gt;
+&lt;p&gt;与DeepID中的情况相同，训练时使用的类别越多，学习效果越好。&lt;/p&gt;
+&lt;p&gt;使用联合贝叶斯模型实现预测可以得到更高的准确率。同时在训练过程中，使用L2正则的损失函数效果更好。&lt;/p&gt;
+&lt;p&gt;多次选择效果比较好的patch组合，使用得到的结果结合SVM进行预测，整体系统的性能达到了99.15%的识别准确率。&lt;/p&gt;
+&lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;使用identification和verification结合的方式，合理选择权重超参数，使得学习效果进一步提升。&lt;/li&gt;
+&lt;li&gt;在verification中测试多种损失函数，最终选择了效果最好的基于L2的模型。&lt;/li&gt;
+&lt;/ol&gt;</description>
+    </item>
+    
+    <item>
+      <title>【论文】FaceNet: A Unified Embedding for Face Recognition and Clustering</title>
+      <link>https://yangleisx.github.io/post/paper-facenet/</link>
+      <pubDate>Sat, 06 Jun 2020 15:48:29 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/paper-facenet/</guid>
+      <description>&lt;p&gt;论文题目：FaceNet: A Unified Embedding for Face Recognition and Clustering&lt;/p&gt;
+&lt;p&gt;作者：Florian Schroff、Dmitry Kalenichenko、James Philbin&lt;/p&gt;
+&lt;p&gt;会议/时间：2015&lt;/p&gt;
+&lt;p&gt;链接：&lt;a href=&#34;https://arxiv.org/pdf/1503.03832.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;原文链接&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;论文目标&#34;&gt;论文目标&lt;/h2&gt;
+&lt;p&gt;学习一种直接的从面部图片到欧氏空间向量的映射，用于人脸识别、分类和聚类等工作。欧氏空间向量之间的距离表示图片内人脸的相似度。&lt;/p&gt;
+&lt;h2 id=&#34;相关工作&#34;&gt;相关工作&lt;/h2&gt;
+&lt;p&gt;过去的人脸识别网络中往往通过人脸识别/分类等任务训练，最终将其中的某一层提取出来用作特征向量的生成。缺点在于泛化能力可能不够强，而且往往生成的特征向量长度比较大，效率较低。多数研究中对于较长的特征向量使用PCA简化。&lt;/p&gt;
+&lt;h2 id=&#34;本文思路解决方案&#34;&gt;本文思路/解决方案&lt;/h2&gt;
+&lt;p&gt;通过引入triplet loss和online triplet mining method，直接学习得到特征向量，具体是对于深度神经网络的输出，经过L2Norm后得到向量，并使用Triplet loss优化。本文作者使用的两种深度网络分别来自Zeiler&amp;amp;Fergus Model和Szegedy&amp;rsquo;s Inception Model，将其视作黑箱并训练。&lt;/p&gt;
+&lt;p&gt;文中假设相同的人输入的数据分布在欧氏空间内的一个超平面，当给定一组triplet（包括锚anchor、正例positive、反例negative，其中anchor和positive是同一类）时，则有$$||f(x_i^a)-f(x_i^p)||^2_2+\alpha &amp;lt; ||f(x_i^a)-f(x_i^n)||^2_2$$，即正例的距离与反例距离的差值不小于给定的边界值$\alpha$。从而得到优化目标为$$triplet\ loss = \sum\limits_{i}^{N}\left[||f(x_i^a)-f(x_i^p)||^2_2+\alpha - ||f(x_i^a)-f(x_i^n)||^2_2 \right]_+$$。&lt;/p&gt;
+&lt;p&gt;在训练过程中，需要选择合适的数据计算损失函数，如果选择简单的triplet会导致收敛缓慢，训练效果较差。因此在训练过程中，对于每一个给定的数据$$ x_i^a $$，选择距离最大的正例($$ \arg\max_{x_i^p}||f(x_i^a)-f(x_i^p)||^2_2 $$)和距离最小的反例($$ \arg\min||f(x_i^a)-f(x_i^n)||^2 $$)，称为hard取样。&lt;/p&gt;
+&lt;p&gt;在实际的训练过程中，获得满足要求的triplet是不可能的，两种可行的方法包括：offline方式（每次训练N步后计算距离并选择triplet）、online方法（在每一个batch中选择满足要求的数据）。选择后者时需要注意保证每一个batch中都必须含有正例和反例。&lt;/p&gt;
+&lt;p&gt;当在训练开始时就选择hard采样时，会导致模型进入局部最优，因此提出了semi-hard取样，即选择那些满足$$||f(x_i^a)-f(x_i^p)||^2_2 &amp;lt; ||f(x_i^a)-f(x_i^n)||^2_2$$的反例数据组成triplet进行训练。&lt;/p&gt;
+&lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;提出了triplet loss，便于直接训练一个图像到向量的映射。&lt;/li&gt;
+&lt;li&gt;分析了选择triplet的方式，使用semi-hard策略解决hard策略的缺点。&lt;/li&gt;
+&lt;/ol&gt;</description>
+    </item>
+    
+    <item>
+      <title>【论文】Deep Learning Face Representation from Predicting 10000 Classes</title>
+      <link>https://yangleisx.github.io/post/paper-deepid/</link>
+      <pubDate>Sat, 06 Jun 2020 15:42:29 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/paper-deepid/</guid>
+      <description>&lt;p&gt;论文题目：Deep Learning Face Representation from Predicting 10,000 Classes&lt;/p&gt;
+&lt;p&gt;会议：CVPR2014&lt;/p&gt;
+&lt;p&gt;作者：Yi Sun、Xiaogang Wang、 Xiaoou Tang&lt;/p&gt;
+&lt;p&gt;链接：&lt;a href=&#34;http://www.ee.cuhk.edu.hk/~xgwang/papers/sunWTcvpr14.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;原文链接&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;论文目标&#34;&gt;论文目标&lt;/h2&gt;
+&lt;p&gt;通过深度神经网络学习高层次的图像特征并用于身份验证。&lt;/p&gt;
+&lt;h2 id=&#34;相关工作&#34;&gt;相关工作&lt;/h2&gt;
+&lt;p&gt;无限制条件下的面部识别和验证是近年来的研究热点，大多面部识别算法是通过浅层模型学习到的超完备的底层特征实现。&lt;/p&gt;
+&lt;h2 id=&#34;本文思路解决方案&#34;&gt;本文思路/解决方案&lt;/h2&gt;
+&lt;p&gt;通过深度卷积神经网络学习得到特征表示并用于面部识别。其中的特征表示通过深度神经网络的最后一层得到，称为DeepID（Deep Hidden Identity Features）。这一特征表示被用于最后的多分类识别任务，保证了卷积神经网络可以充分的学习到每个人的特征，具有更好的泛化能力。&lt;/p&gt;
+&lt;p&gt;网络结构如下
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;deepid1_model.png&#34; srcset=&#34;
+               /post/paper-deepid/deepid1_model_hu93d3bc334170f91615e77843006268af_294775_1df5b1798c6fb61f3ff2b6dcf14f584e.webp 400w,
+               /post/paper-deepid/deepid1_model_hu93d3bc334170f91615e77843006268af_294775_df4b39c712eeb486453e6b35e8bf41f3.webp 760w,
+               /post/paper-deepid/deepid1_model_hu93d3bc334170f91615e77843006268af_294775_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-deepid/deepid1_model_hu93d3bc334170f91615e77843006268af_294775_1df5b1798c6fb61f3ff2b6dcf14f584e.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;339&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;通过跨层连接，保证DeepID可以获取到更多的信息，学习到更高级的特征（Conv4之后的特征更加高级/抽象）。跨层连接使用公式$$y_i = \max(0, \sum\limits_{i}x_i^1\omega_{i,j}^1+\sum\limits_{i}x_i^2\omega_{i,j}^2+b_j)$$实现，其中的$\omega$为权重。最终使用softmax层作为预测输出。&lt;/p&gt;
+&lt;p&gt;特征提取部分的具体工作方式：每一张照片，划分为10个位置，每个位置选取三个不同的输入规模，每个照片得到RGB和灰度图，即每一条数据得到$10\times3\times2=60$条数据（patches）作为输入，训练60个网络。对于每一个卷积网络，给定数据，将其翻转后，得到两个向量作为输出，总的输出数据量为$160&lt;em&gt;2&lt;/em&gt;60$。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;deepid1_structure.png &#34; srcset=&#34;
+               /post/paper-deepid/deepid1_structure_huaaf5607d461ca699e4cb99dcca8c39c3_244382_78f740e5da82d4c2b2dc4434cf337f45.webp 400w,
+               /post/paper-deepid/deepid1_structure_huaaf5607d461ca699e4cb99dcca8c39c3_244382_1b9af34e1ec99211afc863790c46d6a3.webp 760w,
+               /post/paper-deepid/deepid1_structure_huaaf5607d461ca699e4cb99dcca8c39c3_244382_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-deepid/deepid1_structure_huaaf5607d461ca699e4cb99dcca8c39c3_244382_78f740e5da82d4c2b2dc4434cf337f45.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;485&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;在面部识别的预测中，使用联合贝叶斯方法。同时也测试了使用深度神经网络进行预测。&lt;/p&gt;
+&lt;h2 id=&#34;结果&#34;&gt;结果&lt;/h2&gt;
+&lt;p&gt;在CelebFaces上训练，在LFW上测试，达到了SOTA的效果。&lt;/p&gt;
+&lt;p&gt;测试中可以发现添加了跨层连接的模型具有更低的验证错误率和更高的预测正确率。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;deepid1_test.png&#34; srcset=&#34;
+               /post/paper-deepid/deepid1_test_hu864a7d803090d322729d88c64d3b9be9_132377_a793125c338309ec80c13aee20359348.webp 400w,
+               /post/paper-deepid/deepid1_test_hu864a7d803090d322729d88c64d3b9be9_132377_3652c929af912866c88c580a539749c8.webp 760w,
+               /post/paper-deepid/deepid1_test_hu864a7d803090d322729d88c64d3b9be9_132377_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-deepid/deepid1_test_hu864a7d803090d322729d88c64d3b9be9_132377_a793125c338309ec80c13aee20359348.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;387&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;使用更多的patch与仅使用一张图片作为输入相比也具有更高的识别准确率。&lt;/p&gt;
+&lt;p&gt;与现有的识别算法比较，具有更高的识别准确率（97.45%）。&lt;/p&gt;
+&lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;提出了跨层连接（multi-scale），可以显著提高识别准确率。&lt;/li&gt;
+&lt;li&gt;使用同一张照片的多个patch作为输入，包括不同的位置，不同的大小，不同的通道（RGB、灰度），并将60个网络的输出合并作为预测的依据，可以提高识别准确率。&lt;/li&gt;
+&lt;li&gt;通过增加识别的人数（多分类的输出）可以使得特征网络学习到关键的信息。&lt;/li&gt;
+&lt;/ol&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

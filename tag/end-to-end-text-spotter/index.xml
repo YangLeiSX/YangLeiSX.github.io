@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>End-to-End Text Spotter | YangLeiSX</title>
+    <link>https://yangleisx.github.io/tag/end-to-end-text-spotter/</link>
+      <atom:link href="https://yangleisx.github.io/tag/end-to-end-text-spotter/index.xml" rel="self" type="application/rss+xml" />
+    <description>End-to-End Text Spotter</description>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Thu, 19 Aug 2021 16:26:18 +0800</lastBuildDate>
+    <image>
+      <url>https://yangleisx.github.io/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_512x512_fill_lanczos_center_3.png</url>
+      <title>End-to-End Text Spotter</title>
+      <link>https://yangleisx.github.io/tag/end-to-end-text-spotter/</link>
+    </image>
+    
+    <item>
+      <title>【论文】ABCNet: Real-time Scene Text Spotting with Adaptive Bezier-Curve Network</title>
+      <link>https://yangleisx.github.io/post/paper-abcnet/</link>
+      <pubDate>Thu, 19 Aug 2021 16:26:18 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/paper-abcnet/</guid>
+      <description>&lt;p&gt;论文题目：【论文】ABCNet： Real-time Scene Text Spotting with Adaptive Bezier-Curve Network&lt;/p&gt;
+&lt;p&gt;作者：Yuliang Liu, Hao Chen, Chunhua Shen, Tong He, Lianwen Jin, Liangwei Wang&lt;/p&gt;
+&lt;p&gt;会议/时间：CVPR2020&lt;/p&gt;
+&lt;p&gt;链接: &lt;a href=&#34;https://arxiv.org/pdf/2002.10200v2.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;arXiv&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;论文目标&#34;&gt;论文目标&lt;/h2&gt;
+&lt;p&gt;目前的文本检测和识别任务，包括基于字符或者基于分割的方式，通常需要负责的后处理流程提取得到文本边界框或者是负责的模型结构和处理流程。文章通过提出自适应的贝塞尔曲线网络，实现了端到端的检测和识别任务，同时避免引入计算开支，在保证较高的准确率的时候具有较高的效率。使用贝塞尔曲线作为边界框也可以减少任意形状文本的表示成本。&lt;/p&gt;
+&lt;h2 id=&#34;相关工作&#34;&gt;相关工作&lt;/h2&gt;
+&lt;p&gt;端到端的文本识别任务通常包括文本检测和文本识别两个阶段。在通用的端到端文本识别任务中，可以使用RoI Pooling等方式将检测阶段提取到的特征应用在识别任务中。类似的思路还包括RoI Masking、RoI Transform、Text Align Sampling、RoI Slide等方式。在面向任意形状文本的端到端识别任务中，关键在于在检测阶段使用什么方式来表示任意形状的文本，例如使用多边形边框或者使用基于单字符的方式。&lt;/p&gt;
+&lt;h2 id=&#34;本文方法&#34;&gt;本文方法&lt;/h2&gt;
+&lt;p&gt;模型整体结构如下，主要包括贝塞尔曲线表示的文本检测，贝塞尔对齐和轻量级的文本识别网络。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;abc-framework.png&#34; srcset=&#34;
+               /post/paper-abcnet/abc-framework_hu13fcdaf3d6c375b986558f1742fdd23c_1135898_4dc9c4365cc5f761eed146ea8d235b55.webp 400w,
+               /post/paper-abcnet/abc-framework_hu13fcdaf3d6c375b986558f1742fdd23c_1135898_50c04ebc8384578ae851260e8a25d942.webp 760w,
+               /post/paper-abcnet/abc-framework_hu13fcdaf3d6c375b986558f1742fdd23c_1135898_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-abcnet/abc-framework_hu13fcdaf3d6c375b986558f1742fdd23c_1135898_4dc9c4365cc5f761eed146ea8d235b55.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;258&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;在模型中，将文本边框使用贝塞尔曲线表示。其中文本行的长边使用三阶贝塞尔曲线表示，短边则直接相连。因此每个文本行对象使用8个控制点表示。模型的预测输出阶段输出16个通道的数据，表示这8个控制点到外接正矩形左上角的偏移量（其实是计算 $\Delta x = b_{ix}-x_{min}, \Delta y = b_{iy}-y_{min}$）。这样可以将控制点位于图像边界之外的情况也考虑进来。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;abc-curve.png&#34; srcset=&#34;
+               /post/paper-abcnet/abc-curve_hu6de74e0599c6f15c9e37504ac664e03c_556476_f7b179bb25a0c57241f199ca6cfbafd4.webp 400w,
+               /post/paper-abcnet/abc-curve_hu6de74e0599c6f15c9e37504ac664e03c_556476_ab9fa1d54bbac73ae93a11804d8acfbc.webp 760w,
+               /post/paper-abcnet/abc-curve_hu6de74e0599c6f15c9e37504ac664e03c_556476_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-abcnet/abc-curve_hu6de74e0599c6f15c9e37504ac664e03c_556476_f7b179bb25a0c57241f199ca6cfbafd4.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;263&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;由于使用贝塞尔曲线表示任意形状的文本位置，在训练时需要将数据集中使用矩形/多边形的标注转换为贝塞尔曲线的形式。这里使用最小二乘的方式优化求解如下方程，可以得到多边形标注对应的贝塞尔曲线控制点坐标。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;abc-bezier.png&#34; srcset=&#34;
+               /post/paper-abcnet/abc-bezier_hu636676d3db2b19535a3d87cd9127eda8_54443_c9137640f0d05155e293f27df8e4a58e.webp 400w,
+               /post/paper-abcnet/abc-bezier_hu636676d3db2b19535a3d87cd9127eda8_54443_4f6d8677921c03dba0028e53be35d9fb.webp 760w,
+               /post/paper-abcnet/abc-bezier_hu636676d3db2b19535a3d87cd9127eda8_54443_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-abcnet/abc-bezier_hu636676d3db2b19535a3d87cd9127eda8_54443_c9137640f0d05155e293f27df8e4a58e.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;201&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;在提取特征用于识别模型时，文中提出了BezierAlign方式，取代RoI Pooling等其他的方式，可以提取到更加稳定的特征。具体的方式为在平行于贝塞尔曲线的位置进行等距离采样，采用双线性差值的方式得到输出的特征值。公式如下。其中，输出特征值为 $h_{out} \times w_{out}$。对于输出特征图上的点 $g_i$，坐标为 $(g_{iw}, g_{ih})$，根据 $t$计算上下贝塞尔曲线上的采样点 $tp$和 $bp$，从而得到在原图中的采样点 $op$，再使用双线性差值的方式提取特征。
+
+
+
+$$\begin{aligned}
+t &amp;= \frac{g_{iw}}{w_{out}} \\
+op &amp;= bp \cdot \frac{g_{ih}}{h_{out}} + tp\cdot (1 - \frac{g_{ih}}{h_{out}})
+\end{aligned}$$
+
+对齐结果如下。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;abc-align.png&#34; srcset=&#34;
+               /post/paper-abcnet/abc-align_hu51b62bfd7b53bfac21732b5f157f673d_947342_321953791497cfc7d8508ba6ecb4aaf9.webp 400w,
+               /post/paper-abcnet/abc-align_hu51b62bfd7b53bfac21732b5f157f673d_947342_ba899f44160fde32e1f73e84b13bfbf9.webp 760w,
+               /post/paper-abcnet/abc-align_hu51b62bfd7b53bfac21732b5f157f673d_947342_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-abcnet/abc-align_hu51b62bfd7b53bfac21732b5f157f673d_947342_321953791497cfc7d8508ba6ecb4aaf9.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;397&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;在训练的时候，使用Ground Truth中的边界框从检测阶段中提取特征用于识别模块的训练，避免检测阶段尚未收敛时产生的影响。&lt;/p&gt;
+&lt;h2 id=&#34;结果分析&#34;&gt;结果分析&lt;/h2&gt;
+&lt;p&gt;在Total-Text数据集上进行Ablation Study。可以证明文中提出的BezierAlign相比其他的特征提取和对齐方式能提高性能，同时BezierAlign受到采样数量的影响，考虑到性能和速度的折衷，经过实验之后选择了（7，32）。&lt;/p&gt;
+&lt;p&gt;在Total-Text和CTW1500上的测试表示模型性能达到了SOTA。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;abc-sota1.png&#34; srcset=&#34;
+               /post/paper-abcnet/abc-sota1_hu20818bef5b5e4fcc8784dc9f678bbd54_263383_943ee9c7a16930b417b4586bf8eca43d.webp 400w,
+               /post/paper-abcnet/abc-sota1_hu20818bef5b5e4fcc8784dc9f678bbd54_263383_c453214c3ed4ce214be34c44b847c1cb.webp 760w,
+               /post/paper-abcnet/abc-sota1_hu20818bef5b5e4fcc8784dc9f678bbd54_263383_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-abcnet/abc-sota1_hu20818bef5b5e4fcc8784dc9f678bbd54_263383_943ee9c7a16930b417b4586bf8eca43d.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;275&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;abc-sota2.png&#34; srcset=&#34;
+               /post/paper-abcnet/abc-sota2_hu028a8156b3c75188e982fc12b0fba2d6_100681_a86f0b36079159962b39c764c27ed9f7.webp 400w,
+               /post/paper-abcnet/abc-sota2_hu028a8156b3c75188e982fc12b0fba2d6_100681_3da6875338cfa0872395a6a6c1c02754.webp 760w,
+               /post/paper-abcnet/abc-sota2_hu028a8156b3c75188e982fc12b0fba2d6_100681_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-abcnet/abc-sota2_hu028a8156b3c75188e982fc12b0fba2d6_100681_a86f0b36079159962b39c764c27ed9f7.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;291&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
+&lt;p&gt;提出了使用Bezier表示任意形状文本边界的方式，结合BezierAlign可以实现性能的提升。同时不引入多余的计算量，具有较高的效率。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

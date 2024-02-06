@@ -5,12 +5,152 @@
     <link>https://yangleisx.github.io/tag/computer-vision/</link>
       <atom:link href="https://yangleisx.github.io/tag/computer-vision/index.xml" rel="self" type="application/rss+xml" />
     <description>Computer Vision</description>
-    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Thu, 19 Nov 2020 10:55:55 +0800</lastBuildDate>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Sun, 06 Dec 2020 11:01:22 +0800</lastBuildDate>
     <image>
       <url>https://yangleisx.github.io/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_512x512_fill_lanczos_center_3.png</url>
       <title>Computer Vision</title>
       <link>https://yangleisx.github.io/tag/computer-vision/</link>
     </image>
+    
+    <item>
+      <title>【论文】EAST: An Efficient and Accurate Scene Text Detector</title>
+      <link>https://yangleisx.github.io/post/paper-east/</link>
+      <pubDate>Sun, 06 Dec 2020 11:01:22 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/paper-east/</guid>
+      <description>&lt;p&gt;论文题目：EAST: An Efficient and Accurate Scene Text Detector&lt;/p&gt;
+&lt;p&gt;作者：Xinyu Zhou, Cong Yao, He Wen, Yuzhi Wang, Shuchang Zhou, Weiran He, and Jiajun Liang&lt;/p&gt;
+&lt;p&gt;会议/时间：CVPR2017&lt;/p&gt;
+&lt;p&gt;链接：&lt;a href=&#34;https://arxiv.org/abs/1704.03155v2&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://arxiv.org/abs/1704.03155v2&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;论文目标&#34;&gt;论文目标&lt;/h2&gt;
+&lt;p&gt;传统的文字检测模型尽管可以取得不错的效果，但是往往由多个阶段和结构组成，这样复杂的结构往往会影响到整体的性能，因此本文的作者设计了一种简单快速的pipeline，可以从给定图像中直接检测到文本的位置。通过使用一个简单的神经网络而不是多个模块组合的方式加快了处理的速度，简化了模型的复杂度。&lt;/p&gt;
+&lt;h2 id=&#34;相关工作&#34;&gt;相关工作&lt;/h2&gt;
+&lt;p&gt;常规的处理方法依赖于人工设计的特征，例如SWT和MSER等模型通过边缘检测等方式。但是这些依赖人工设计特征的算法在处理一些有挑战性的场景时效果比较差，例如低分辨率或者出现失真的情况下。&lt;/p&gt;
+&lt;p&gt;相比之下，基于深度神经网络的文本检测算法由于能取得更好的效果，逐渐成为主流，包括使用CNN对文本检测的结果进行筛选或者使用FCN生成热力图/分割图对原始图像处理得到检测结果。但是多数基于深度神经网络的模型由多个阶段组成，结构比较复杂性能也比较差。&lt;/p&gt;
+&lt;h2 id=&#34;本文思路解决方案&#34;&gt;本文思路/解决方案&lt;/h2&gt;
+&lt;p&gt;本文设计了一个基于FCN的神经网络，且完整的模型只有两个阶段，省去了冗余的中间处理阶段，即神经网络得到预测的文本框，再通过非极大值抑制得到最终的预测结果。&lt;/p&gt;
+&lt;p&gt;基于FCN的网络结构设计如下，通过神经网络直接得到了三类型的输出：Score Map、Rotated Box、Quadrangle。其中的score map为置信度，置信度超过给定阈值的预测框通过NMS得到最终的输出。通过使用U-Net可以融合不同尺度的特征，有助于检测不同大小的文本目标。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;model.png&#34; srcset=&#34;
+               /post/paper-east/model_hu7702e6f292f461fa99c7525a189fba9c_171712_4db68f420c1e788ffa18bcab762f9629.webp 400w,
+               /post/paper-east/model_hu7702e6f292f461fa99c7525a189fba9c_171712_b71d3e980e5eb1c817dd05e8f9b7a166.webp 760w,
+               /post/paper-east/model_hu7702e6f292f461fa99c7525a189fba9c_171712_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-east/model_hu7702e6f292f461fa99c7525a189fba9c_171712_4db68f420c1e788ffa18bcab762f9629.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;711&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;在生成GT时，将原本的四边形缩小到0.7倍并二值化可以得到Score Map，对于没有RBOX标注的数据，首先根据QUAD创建一个最小矩形，再计算每个点到四个边界的距离得到RBOX标注。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;gt.png&#34; srcset=&#34;
+               /post/paper-east/gt_hu1f193018c86b9eb08826848ab65faa45_342844_34e35a81e147deee62c57d84a63c1f07.webp 400w,
+               /post/paper-east/gt_hu1f193018c86b9eb08826848ab65faa45_342844_ee9fdb7b1e1f88f6543120f35e2e41d3.webp 760w,
+               /post/paper-east/gt_hu1f193018c86b9eb08826848ab65faa45_342844_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-east/gt_hu1f193018c86b9eb08826848ab65faa45_342844_34e35a81e147deee62c57d84a63c1f07.webp&#34;
+               width=&#34;663&#34;
+               height=&#34;760&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;对于损失函数的计算，采用了Score Map损失和Geometry损失的加权平均值。由于在自然场景下的图像中，检测目标与背景占据的面积不均衡，在计算Loss的时候会受到影响，为了不引入额外的处理流程，计算Score Map损失时使用了class-balanced cross-entropy，可以比较好的解决正反例不均衡的情况。&lt;/p&gt;
+
+
+
+$$\begin{aligned}
+L_s =&amp;\; \operatorname{balances-xent}(\mathbf{\hat{Y}}, \mathbf{Y^*}) \\
+=&amp; -\beta\mathbf{Y^*}\log\mathbf{\hat{Y}}-(1-\beta)(1-\mathbf{Y^*})\log(1-\mathbf{\hat{Y}}) \\
+\beta =&amp;\; 1 - \frac{\sum_{y^*\in\mathbf{Y^*}}y^*}{|\mathbf{Y^*}|}
+\end{aligned}$$
+
+&lt;p&gt;对于Geometry输出的损失函数，在RBOX的情形中，对于AABB部分使用IOU损失，对于倾斜角的部分使用余弦函数计算损失。
+
+
+
+$$\begin{aligned}
+L_{AABB} =&amp;\; -\log\operatorname{IoU}(\mathbf{\hat{R}},\mathbf{R^*}) \\
+=&amp;\;-\log\frac{|\mathbf{\hat{R}}\cap\mathbf{R^*}|}{|\mathbf{\hat{R}}\cup\mathbf{R^*}|} \\
+L_\theta(\hat{\theta},\theta^*) =&amp;\;1 - \operatorname{cos}(\hat{\theta} - \theta^*) \\
+L_g =&amp;\;L_{AABB} + \lambda_\theta L_\theta
+\end{aligned}$$
+
+在QUAD的情形中，使用增加了正则项的smoothed-L1损失计算。
+
+
+
+$$\begin{aligned}
+L_g =&amp;\; L_{QUAD}(\mathbf{\hat{Q}},\mathbf{Q^*}) \\
+=&amp;\;\min\limits_{\mathbf{\tilde{Q}} \in P_{\mathbf{Q^*}}}\sum\limits_{c_i \in C_{\mathbf{Q}} \\\tilde{c}_i\in C_{\mathbf{\tilde{Q}}}} \frac{\operatorname{smoothed_{L1}}(c_i - \tilde{c}_i)}{8 \times N_{\mathbf{Q^*}}} \\
+N_{\mathbf{Q^*}} =&amp;\;\min\limits_{i=1}^{4}D(p_i, p_{(i \operatorname{mod} 4)+1})
+\end{aligned}$$
+&lt;/p&gt;
+&lt;p&gt;对于模型输出的结果，使用阈值筛选之后，再使用作者设计的一种基于合并候选框的NMS算法处理得到结果。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;nmns.png&#34; srcset=&#34;
+               /post/paper-east/nmns_hu7a76d492d93e392f745dc73a46a3485f_127059_187dc3dc0db2c0ead92e487d7a46dbec.webp 400w,
+               /post/paper-east/nmns_hu7a76d492d93e392f745dc73a46a3485f_127059_c83a7786e4151ad26f5453903adc6441.webp 760w,
+               /post/paper-east/nmns_hu7a76d492d93e392f745dc73a46a3485f_127059_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-east/nmns_hu7a76d492d93e392f745dc73a46a3485f_127059_187dc3dc0db2c0ead92e487d7a46dbec.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;664&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;结果&#34;&gt;结果&lt;/h2&gt;
+&lt;p&gt;在ICDAR2015、COCO-Text和MSRA-TD500三个数据集上进行测试。同时对于模型的骨架也使用了PVANET、PVANET2x和VGG16三种不同的结构进行测试（网络框架都在InageNet上预训练）。经测试模型在上述数据集上能取得超过SOTA的F值。在处理速度上也能达到比较高的FPS。&lt;/p&gt;
+&lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
+&lt;p&gt;本文提出的EAST模型，通过减少冗余的处理阶段，得到了简单快速的处理效果，通过FCN网络直接生成预测的结果（geometry map），结合NMS处理多余的候选框，可以得到比较好的效果。&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>【论文】Shape Robust Text Detection with Progressive Scale Expansion Network</title>
@@ -181,6 +321,199 @@ $$&lt;/p&gt;
 &lt;p&gt;经过测试，添加了non-local block的模型具有更高的预测准确率，在non-local block中选择不同的函数计算数据之间的距离（即$f(x_i,x_j)$）对于最后的模型效果影响不大。而且在模型中添加了时空维度上的nonn-local block后效果相比单纯的时间或空间维度的效果更好。&lt;/p&gt;
 &lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
 &lt;p&gt;提出了一种non-local的结构学习数据中距离比较远的特征的影响。并且实现了一种non-local block可以插入到现有的网络结构中并提升其性能。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【论文】Feature Extraction for Visual Speaker Authentication against Computer-Generated Video Attacks</title>
+      <link>https://yangleisx.github.io/post/paper-deanet/</link>
+      <pubDate>Thu, 08 Oct 2020 16:18:37 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/paper-deanet/</guid>
+      <description>&lt;p&gt;论文题目：Feature Extraction for Visual Speaker Authentication against Computer-Generated Video Attacks&lt;/p&gt;
+&lt;p&gt;作者：Jun Ma, Shilin Wang, Senior Member, IEEE, Aixin Zhang and Alan Wee-Chung Liew&lt;/p&gt;
+&lt;p&gt;会议/时间：IEEE ICIP 2020&lt;/p&gt;
+&lt;h2 id=&#34;论文目标&#34;&gt;论文目标&lt;/h2&gt;
+&lt;p&gt;使用唇语特征进行身份认证具有一定的活体检测能力，但是容易受到使用DeepFake等技术构建的视频攻击，因此构建一个神经网络从视频中提取动态的说话习惯信息，同时尽量减少唇语特征身份认证对于唇部静态特征的依赖。&lt;/p&gt;
+&lt;h2 id=&#34;相关工作&#34;&gt;相关工作&lt;/h2&gt;
+&lt;p&gt;之前的工作中他人使用了唇部的图像和运动特征、纹理描述符等方式实现了比较不错的结果。作者所在 团队之前的工作中使用3D残差单元实现了唇部动态和静态特征的提取。&lt;/p&gt;
+&lt;p&gt;近来使用DeepFake换脸技术可以很容易伪造讲话视频，甚至可以在单照片的数据集上实现。使用唇部特征的认证系统由于过多依赖静态特征，受到一定的威胁。&lt;/p&gt;
+&lt;p&gt;本文提出的网络结构的基础包括frame difference、self-attention、non-local neural network&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;等。&lt;/p&gt;
+&lt;h2 id=&#34;本文思路解决方案&#34;&gt;本文思路/解决方案&lt;/h2&gt;
+&lt;p&gt;构建了一个深度神经网络结构提取用户唇部特征用于认证。包括两个模块：Difference block（Diff-block）和Dynamic Response block（DR-block）两者相互补用于提取用户动态讲话特征信息。&lt;/p&gt;
+&lt;h3 id=&#34;diff-block&#34;&gt;Diff-block&lt;/h3&gt;
+&lt;p&gt;给定长度为T帧的视频，通过计算每一帧图像与其他T-1帧图像的相关性来消除静态特征。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;diff-block.png&#34; srcset=&#34;
+               /post/paper-deanet/diff-block_hu291c489b96324781e1b21136a49b4d65_233820_3977e3fe2713197caeb74b468bb9303b.webp 400w,
+               /post/paper-deanet/diff-block_hu291c489b96324781e1b21136a49b4d65_233820_94b02e349033672c12bc9af8eb039084.webp 760w,
+               /post/paper-deanet/diff-block_hu291c489b96324781e1b21136a49b4d65_233820_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-deanet/diff-block_hu291c489b96324781e1b21136a49b4d65_233820_3977e3fe2713197caeb74b468bb9303b.webp&#34;
+               width=&#34;723&#34;
+               height=&#34;760&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;$$
+Y_t = \sum\limits_{t\neq j}f(x_t,x_j)\times(x_t-x_j)\
+f(x_t, x_j) = softmax(\theta(x_t)^T\varphi(x_j))
+$$
+其中$\theta(x_t)$和$\varphi(x_j)$为输入数据分别经由两组不同的Conv+Pool之后得到的，经过转置和相乘得到 $T*T$ 形状的张量，表示两帧数据之间的相关性。将原数据经过 &lt;strong&gt;D-value操作&lt;/strong&gt; 之后得到每一帧与其他帧的差值，并按照上述操作得到的相关性矩阵加权求和得到最终的输出。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;d-value.png&#34; srcset=&#34;
+               /post/paper-deanet/d-value_hua6f719dde7ea88865cf20c8321514208_162201_399516e5f3504ecd25cfe4fed8fdf108.webp 400w,
+               /post/paper-deanet/d-value_hua6f719dde7ea88865cf20c8321514208_162201_c1a3be6ff77511599a10554627cb520b.webp 760w,
+               /post/paper-deanet/d-value_hua6f719dde7ea88865cf20c8321514208_162201_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-deanet/d-value_hua6f719dde7ea88865cf20c8321514208_162201_399516e5f3504ecd25cfe4fed8fdf108.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;486&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h3 id=&#34;dr-block&#34;&gt;DR-block&lt;/h3&gt;
+&lt;p&gt;用于提取像素级的全局动态信息，通过计算同一空间位置上的像素在不同时间位置的差异实现。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;dr-block.png&#34; srcset=&#34;
+               /post/paper-deanet/dr-block_hu8a73e9c984a76df7ad2cc21c8523d37b_136337_d803eeea17a007dfbd835715b582c537.webp 400w,
+               /post/paper-deanet/dr-block_hu8a73e9c984a76df7ad2cc21c8523d37b_136337_4ce0b47c9cfc0281bf769c919916f579.webp 760w,
+               /post/paper-deanet/dr-block_hu8a73e9c984a76df7ad2cc21c8523d37b_136337_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-deanet/dr-block_hu8a73e9c984a76df7ad2cc21c8523d37b_136337_d803eeea17a007dfbd835715b582c537.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;441&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+
+
+
+$$\begin{aligned}
+&amp;Y_{(t,h,w,c)} = \sum\limits_{t\neq j}g(p(t,h,w,c),p(j,h,w,c))\times p(j,h,w,c)\\
+&amp;g(p(t,h,w,c),p(j,h,w,c)) = softmax(|p(t,h,w,c)-p(j,h,w,c)|)
+\end{aligned}$$
+
+&lt;p&gt;其中$g(p(t,h,w,c),p(j,h,w,c))$计算相同空间位置不同时间位置的像素差异。原数据首先经过 &lt;strong&gt;D_value操作&lt;/strong&gt; 和softmax后得到了像素值的差异。原数据经过 &lt;strong&gt;Select-T操作&lt;/strong&gt; 提取到特征，按照上述操作得到的差异矩阵加权求和得到了最终的输出。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;select-t.png&#34; srcset=&#34;
+               /post/paper-deanet/select-t_hu22e5152dcf2c768f10b7925a575fc72c_124354_de08dd12a53478a4be2fc019adc2cc11.webp 400w,
+               /post/paper-deanet/select-t_hu22e5152dcf2c768f10b7925a575fc72c_124354_5acd116136893aa1e3791315aa8c7b45.webp 760w,
+               /post/paper-deanet/select-t_hu22e5152dcf2c768f10b7925a575fc72c_124354_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-deanet/select-t_hu22e5152dcf2c768f10b7925a575fc72c_124354_de08dd12a53478a4be2fc019adc2cc11.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;284&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h3 id=&#34;dea_net&#34;&gt;DEA_Net&lt;/h3&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;dea-net.png&#34; srcset=&#34;
+               /post/paper-deanet/dea-net_hud4dd4a2ffc460d268e39d94c54e0a287_248058_359c7886ab6b2884bf1161519670f705.webp 400w,
+               /post/paper-deanet/dea-net_hud4dd4a2ffc460d268e39d94c54e0a287_248058_298f02a5862c65d643133437a03eeb41.webp 760w,
+               /post/paper-deanet/dea-net_hud4dd4a2ffc460d268e39d94c54e0a287_248058_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-deanet/dea-net_hud4dd4a2ffc460d268e39d94c54e0a287_248058_359c7886ab6b2884bf1161519670f705.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;232&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+
+在上述两个处理单元的基础上得到了Dynamic Enhances Authentication Network（DEA_Net）用于分类任务。&lt;/p&gt;
+&lt;h2 id=&#34;结果&#34;&gt;结果&lt;/h2&gt;
+&lt;p&gt;使用GRID数据集用于模型的评估和测试，使用Faceswap工具生成攻击视频。经过测试，本文提出的模型与SOTA模型相比拥有更低的FAR和HTER，取得了比较好的结果。可以证明Diff-block和DR-block结合能够有效的消除数据中的静态特征，更好的对抗换脸攻击。&lt;/p&gt;
+&lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;提出了两个网络单元用于消除数据中的静态特征，提取动态特征用于识别和认证。&lt;/li&gt;
+&lt;li&gt;使用了non-local neural network的结构，增大了感知域，使得浅层网络可以学习到更多的全局信息。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
+&lt;p&gt;X.L. Wang, R. Girshick, A. Gupta, and K.M. He, “Non-local neural networks,” Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition, pp. 7794-7803, 2018.&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</description>
     </item>
     
     <item>

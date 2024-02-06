@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Region Proposal Network | YangLeiSX</title>
+    <link>https://yangleisx.github.io/tag/region-proposal-network/</link>
+      <atom:link href="https://yangleisx.github.io/tag/region-proposal-network/index.xml" rel="self" type="application/rss+xml" />
+    <description>Region Proposal Network</description>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Sat, 08 May 2021 11:58:37 +0800</lastBuildDate>
+    <image>
+      <url>https://yangleisx.github.io/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_512x512_fill_lanczos_center_3.png</url>
+      <title>Region Proposal Network</title>
+      <link>https://yangleisx.github.io/tag/region-proposal-network/</link>
+    </image>
+    
+    <item>
+      <title>【论文】ContourNet: Taking a Further Step toward Accurate Arbitrary-shaped Scene Text Detection</title>
+      <link>https://yangleisx.github.io/post/paper-contournet/</link>
+      <pubDate>Sat, 08 May 2021 11:58:37 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/paper-contournet/</guid>
+      <description>&lt;p&gt;论文题目：ContourNet: Taking a Further Step toward Accurate Arbitrary-shaped Scene Text Detection&lt;/p&gt;
+&lt;p&gt;作者：Yuxin Wang, Hongtao Xie, Zhengjun Zha, Mengting Xing, Zilong Fu, Yongdong Zhang&lt;/p&gt;
+&lt;p&gt;会议/时间：CVPR2020&lt;/p&gt;
+&lt;p&gt;链接: &lt;a href=&#34;https://arxiv.org/pdf/2004.04940.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;arXiv&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;论文目标&#34;&gt;论文目标&lt;/h2&gt;
+&lt;p&gt;目前的图像文本检测算法常常会将一些纹理信息识别为文本，得到假正例，而且图像文本常常具有多种尺度大小和形状，难以识别。
+在论文中提出了一种模型，通过引入自适应区域建议网络和正交的纹理敏感模块来解决上述问题。前者是一种区域大小无关的RPN网络，使用IoU监督，后者可以从正交的两个方向上检测纹理信息，有效避免假正例。模型检测结果为目标的若干个轮廓点，可以通过进一步后处理得到多边形边界框。&lt;/p&gt;
+&lt;h2 id=&#34;相关工作&#34;&gt;相关工作&lt;/h2&gt;
+&lt;p&gt;近年来图像文本检测算法对于假正例的问题有多种解决思路：SPCNET中使用了语义特征来修正边界框，或者也可以使用置信度等修正边界框。&lt;/p&gt;
+&lt;p&gt;对于图像尺度多变的问题，MSR使用了多尺度网络结构、DSRN提出了双向多尺度关系网络等。&lt;/p&gt;
+&lt;p&gt;在传统文本检测中常用的算法包括连通域分析和滑窗处理。在深度模型中常用的思路包括基于边界框回归的思路和基于语义的思路。前者包括EAST、DDR、LOMO等首先需要使用Anchor-Based或者Anchor-Free的思路生成边界框。后者需要对分割图进行后处理。&lt;/p&gt;
+&lt;h2 id=&#34;本文方法&#34;&gt;本文方法&lt;/h2&gt;
+&lt;p&gt;模型包括两个部分，前半部分Adaptive-RPN生成文本所在区域，然后使用LOTM进行两个方向的处理得到文本轮廓点。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;contournet-model.png&#34; srcset=&#34;
+               /post/paper-contournet/contournet-model_huf34869e6413c14dae070f21368b19187_469432_568e3e41d62db16e7b86d7cc8ab2a9da.webp 400w,
+               /post/paper-contournet/contournet-model_huf34869e6413c14dae070f21368b19187_469432_ebb278e967f467850bc1c3e4d2419d76.webp 760w,
+               /post/paper-contournet/contournet-model_huf34869e6413c14dae070f21368b19187_469432_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-contournet/contournet-model_huf34869e6413c14dae070f21368b19187_469432_568e3e41d62db16e7b86d7cc8ab2a9da.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;365&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;在Adaptive-RPN中，传统方法是使用生成四个值 ${\Delta x, \Delta y, \Delta w, \Delta h}$去优化得到矩形区域，使用$l_1\ Loss$监督。但是这样的方式对于区域的大小比较敏感。&lt;/p&gt;
+&lt;p&gt;本文中一方面使用$N$个点来表示$RoI$，其中一个点表示区域中心，剩下$N-1$个点表示区域的边框，根据这$N$个点的最边界点得到$RoI$。另一方面使用$IoU\ Loss$来监督这个$N$个点的回归，对尺度不敏感。计算最边界点的方式如下：
+
+
+
+$$\begin{aligned}
+Proposal = &amp; \{x_{tl}, y_{tl}, x_{rb}, y_{rb}\} \\
+= &amp; \{\min\{x_r\}_{r=1}^n, \min\{y_r\}_{r=1}^n, \\
+\ &amp; \ \max\{x_r\}_{r=1}^n, \max\{y_r\}_{r=1}^n\}
+\end{aligned}$$
+&lt;/p&gt;
+&lt;p&gt;在获得文本边界点的时候，使用了相互正交的两个方向上的特征分别得到轮廓点热力图。文中假设对于一个文字在两个方向上都具有明显的特征，但是其他无意义的纹理通常只在一个方向上具有比较明显的特征，因此可以通过两个方向上的分别处理区分开。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;contournet-lotm.png&#34; srcset=&#34;
+               /post/paper-contournet/contournet-lotm_hu1f8367564ae0da1e7b76bd4a25fab0af_129610_982f4e4dc55b17a563257aedd4f8819a.webp 400w,
+               /post/paper-contournet/contournet-lotm_hu1f8367564ae0da1e7b76bd4a25fab0af_129610_b8828b1b111024586611394e644982c3.webp 760w,
+               /post/paper-contournet/contournet-lotm_hu1f8367564ae0da1e7b76bd4a25fab0af_129610_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-contournet/contournet-lotm_hu1f8367564ae0da1e7b76bd4a25fab0af_129610_982f4e4dc55b17a563257aedd4f8819a.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;411&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;接着在后处理算法中将两个轮廓点热力图合并起来得到文本轮廓点。其算法如下，首先分别进行NMS处理减少多余的点，然后将两个方向上都都具有较高置信度的点作为输出得到轮廓点。最终通过Alpha-Shape Algorithm得到多边形边界框。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;contournet-algo.png &#34; srcset=&#34;
+               /post/paper-contournet/contournet-algo_huc05daf44840c88ea26ce7c8b2f5bfe41_166220_937f68c3422437f851074aea82d983dc.webp 400w,
+               /post/paper-contournet/contournet-algo_huc05daf44840c88ea26ce7c8b2f5bfe41_166220_d55bb833e9e761d6594d0ba924502714.webp 760w,
+               /post/paper-contournet/contournet-algo_huc05daf44840c88ea26ce7c8b2f5bfe41_166220_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-contournet/contournet-algo_huc05daf44840c88ea26ce7c8b2f5bfe41_166220_937f68c3422437f851074aea82d983dc.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;590&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;需要注意在生成监督的时候，对于两个方向上的轮廓点都使用相同的监督，即通过原始多边形边界框生成的宽度不低于2个像素的边框（这里是我的理解，原文如下）。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;we use &lt;code&gt;distance_transform_edt&lt;/code&gt; in &lt;em&gt;Scipy&lt;/em&gt; to obtain the two-points wide edge.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;结果分析&#34;&gt;结果分析&lt;/h2&gt;
+&lt;p&gt;对于Adap-RPN中表示RoI的点的数量的实验。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;contournet-exp-rpn.png&#34; srcset=&#34;
+               /post/paper-contournet/contournet-exp-rpn_hu2f3d3389ed3fc8465a3eded79117fd1d_89131_c099c95da86b809c0346e962797fcd15.webp 400w,
+               /post/paper-contournet/contournet-exp-rpn_hu2f3d3389ed3fc8465a3eded79117fd1d_89131_175bd17a2a8146907992faebfc5b4d61.webp 760w,
+               /post/paper-contournet/contournet-exp-rpn_hu2f3d3389ed3fc8465a3eded79117fd1d_89131_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-contournet/contournet-exp-rpn_hu2f3d3389ed3fc8465a3eded79117fd1d_89131_c099c95da86b809c0346e962797fcd15.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;292&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;对于Adap_RPN的有效性的实验。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;contournet-exp-rpn2.png&#34; srcset=&#34;
+               /post/paper-contournet/contournet-exp-rpn2_hufe01bff1d556de78dca664fbcaa82af3_148154_5621283773d11c4a6f50740b04f3124c.webp 400w,
+               /post/paper-contournet/contournet-exp-rpn2_hufe01bff1d556de78dca664fbcaa82af3_148154_ee2a20c7d4dc59ca924e44b07627fdbf.webp 760w,
+               /post/paper-contournet/contournet-exp-rpn2_hufe01bff1d556de78dca664fbcaa82af3_148154_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-contournet/contournet-exp-rpn2_hufe01bff1d556de78dca664fbcaa82af3_148154_5621283773d11c4a6f50740b04f3124c.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;469&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;对于LOTM中$1*N$和$N*1$卷积长度的实验。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;contournet-exp-lotm.png&#34; srcset=&#34;
+               /post/paper-contournet/contournet-exp-lotm_hu5e80dd2567d46141f37f6e443e26b431_77680_e6f5656fbf21a123cff20e5755a7282e.webp 400w,
+               /post/paper-contournet/contournet-exp-lotm_hu5e80dd2567d46141f37f6e443e26b431_77680_2ab972dff72a756353c96350681c50f6.webp 760w,
+               /post/paper-contournet/contournet-exp-lotm_hu5e80dd2567d46141f37f6e443e26b431_77680_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-contournet/contournet-exp-lotm_hu5e80dd2567d46141f37f6e443e26b431_77680_e6f5656fbf21a123cff20e5755a7282e.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;276&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;对于LOTM的两方向特征融合效果的实验。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;contournet-exp-lotm2.png&#34; srcset=&#34;
+               /post/paper-contournet/contournet-exp-lotm2_hud85ddd2639cada510ac8118e7c39bd05_123574_ebca31ea7d0357a1136ebd0644e67599.webp 400w,
+               /post/paper-contournet/contournet-exp-lotm2_hud85ddd2639cada510ac8118e7c39bd05_123574_9079e76a397907498af58f5f45263508.webp 760w,
+               /post/paper-contournet/contournet-exp-lotm2_hud85ddd2639cada510ac8118e7c39bd05_123574_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-contournet/contournet-exp-lotm2_hud85ddd2639cada510ac8118e7c39bd05_123574_ebca31ea7d0357a1136ebd0644e67599.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;385&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
+&lt;p&gt;在三个任务上（弯曲文本：Total-Text，长弯曲文本：CTW1500，多方向文本：ICDAR2015）均相对SOTA有一定的提升。可以看到本文方法有效减少了假正例的出现。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

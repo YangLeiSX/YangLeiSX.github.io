@@ -1,0 +1,1475 @@
+<!DOCTYPE html>
+<!-- This site was created with Hugo Blox. https://hugoblox.com -->
+<!-- Last Published: February 6, 2024 --><html lang="en-us" >
+
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  
+  
+    <meta name="generator" content="Hugo Blox Builder 5.9.6" />
+  
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+
+  
+  
+  
+    
+      
+      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&family=Roboto:wght@400;700&display=swap">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&family=Roboto:wght@400;700&display=swap" media="print" onload="this.media='all'">
+    
+  
+
+  
+  
+
+  
+  
+    
+    <script src="/js/mathjax-config.js"></script>
+  
+
+  
+
+  <link rel="stylesheet" href="/css/vendor-bundle.min.047268c6dd09ad74ba54a0ba71837064.css" media="print" onload="this.media='all'">
+
+  
+  
+  
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1.9.4/css/academicons.min.css" integrity="sha512-IW0nhlW5MgNydsXJO40En2EoCkTTjZhI3yuODrZIc8cQ4h1XcF53PsqDHa09NqnkXuIe0Oiyyj171BqZFwISBw==" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+
+    
+    
+    
+    
+      
+      
+    
+    
+    
+
+    
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.min.css" integrity="" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+
+    
+
+    
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+  
+
+  
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/wowchemy.32e2e32cf1a4c1ea152e519f8b1fda79.css" />
+
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+    
+    
+    <link rel="stylesheet" href="/css/libs/chroma/github-light.min.css" title="hl-light" media="print" onload="this.media='all'" >
+    <link rel="stylesheet" href="/css/libs/chroma/dracula.min.css" title="hl-dark" media="print" onload="this.media='all'" disabled>
+  
+
+  
+  
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-N3HXE9037R"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+      dataLayer.push(arguments);
+  }
+
+  function trackOutboundLink(url, target) {
+    gtag('event', 'click', {
+         'event_category': 'outbound',
+         'event_label': url,
+         'transport_type': 'beacon',
+         'event_callback': function () {
+           if (target !== '_blank') {
+             document.location = url;
+           }
+         }
+    });
+    console.debug("Outbound link clicked: " + url);
+  }
+
+  function onClickCallback(event) {
+    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
+      return;
+    }
+    trackOutboundLink(event.target, event.target.getAttribute('target'));  
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'G-N3HXE9037R', {});
+  gtag('set', {'cookie_flags': 'SameSite=None;Secure'});
+
+  
+  document.addEventListener('click', onClickCallback, false);
+</script>
+
+
+
+
+
+
+
+<script>
+  (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", 'kxg0jok544');
+</script>
+
+
+
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?472e2f00a3cd94ec373babc3fbe8654f";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+
+
+
+
+
+
+  <meta name="author" content="Lei Yang" />
+
+
+
+
+
+  
+
+<meta name="description" content="论文题目：EAST: An Efficient and Accurate Scene Text Detector
+作者：Xinyu Zhou, Cong Yao, He Wen, Yuzhi Wang, Shuchang Zhou, Weiran He, and Jiajun Liang
+会议/时间：CVPR2017
+链接：https://arxiv.org/abs/1704.03155v2" />
+
+
+
+<link rel="alternate" hreflang="en-us" href="https://yangleisx.github.io/post/paper-east/" />
+<link rel="canonical" href="https://yangleisx.github.io/post/paper-east/" />
+
+
+
+  <link rel="manifest" href="/manifest.webmanifest" />
+
+
+
+<link rel="icon" type="image/png" href="/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_32x32_fill_lanczos_center_3.png" />
+<link rel="apple-touch-icon" type="image/png" href="/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_180x180_fill_lanczos_center_3.png" />
+
+<meta name="theme-color" content="#1565c0" />
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+<meta property="twitter:card" content="summary" />
+
+  <meta property="twitter:site" content="@GetResearchDev" />
+  <meta property="twitter:creator" content="@GetResearchDev" />
+<meta property="twitter:image" content="https://yangleisx.github.io/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_512x512_fill_lanczos_center_3.png" />
+
+
+
+  
+
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="YangLeiSX" />
+<meta property="og:url" content="https://yangleisx.github.io/post/paper-east/" />
+<meta property="og:title" content="【论文】EAST: An Efficient and Accurate Scene Text Detector | YangLeiSX" />
+<meta property="og:description" content="论文题目：EAST: An Efficient and Accurate Scene Text Detector
+作者：Xinyu Zhou, Cong Yao, He Wen, Yuzhi Wang, Shuchang Zhou, Weiran He, and Jiajun Liang
+会议/时间：CVPR2017
+链接：https://arxiv.org/abs/1704.03155v2" /><meta property="og:image" content="https://yangleisx.github.io/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_512x512_fill_lanczos_center_3.png" /><meta property="og:locale" content="en-us" />
+
+  
+    <meta
+      property="article:published_time"
+      content="2020-12-06T11:01:22&#43;08:00"
+    />
+  
+  
+    <meta property="article:modified_time" content="2020-12-06T11:01:22&#43;08:00">
+  
+
+
+
+
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://yangleisx.github.io/post/paper-east/"
+  },
+  "headline": "【论文】EAST: An Efficient and Accurate Scene Text Detector",
+  
+  "datePublished": "2020-12-06T11:01:22+08:00",
+  "dateModified": "2020-12-06T11:01:22+08:00",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Lei Yang"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "YangLeiSX",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://yangleisx.github.io/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_192x192_fill_lanczos_center_3.png"
+    }
+  },
+  "description": "\u003cp\u003e论文题目：EAST: An Efficient and Accurate Scene Text Detector\u003c/p\u003e\n\u003cp\u003e作者：Xinyu Zhou, Cong Yao, He Wen, Yuzhi Wang, Shuchang Zhou, Weiran He, and Jiajun Liang\u003c/p\u003e\n\u003cp\u003e会议/时间：CVPR2017\u003c/p\u003e\n\u003cp\u003e链接：\u003ca href=\"https://arxiv.org/abs/1704.03155v2\" target=\"_blank\" rel=\"noopener\"\u003ehttps://arxiv.org/abs/1704.03155v2\u003c/a\u003e\u003c/p\u003e"
+}
+</script>
+
+  
+
+  
+
+
+
+
+  
+  
+  
+
+  
+  
+
+  
+
+
+  
+  <title>【论文】EAST: An Efficient and Accurate Scene Text Detector | YangLeiSX</title>
+
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="page-wrapper   " data-wc-page-id="d49eff923261ea1879721e6614c6a752" >
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="/js/wowchemy-init.min.3a6bdbdff5d8a89d6e651adb3deec035.js"></script>
+
+  
+
+
+<aside class="search-modal" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#" aria-label="Close"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search" class="form-control"
+        aria-label="Search...">
+        
+      </div>
+
+      
+      
+
+      
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+
+  <div class="page-header header--fixed">
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+    <div class="container-xl">
+
+      
+      <div class="d-none d-lg-inline-flex">
+        <a class="navbar-brand" href="/">YangLeiSX</a>
+      </div>
+      
+
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse"
+              data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
+      <span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+      
+      <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+        <a class="navbar-brand" href="/">YangLeiSX</a>
+      </div>
+      
+
+      
+      
+      <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+        
+        <ul class="navbar-nav d-md-inline-flex">
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+              
+              
+              
+                
+              
+              
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/#about"><span>Home</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+              
+              
+              
+                
+              
+              
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/#citation"><span>Publications</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link  active" href="/post/"><span>Posts</span></a>
+          </li>
+
+          
+          
+
+        
+
+          
+        </ul>
+      </div>
+
+      <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+
+        
+        
+          
+        
+
+        
+        
+        
+        <li class="nav-item">
+          <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+        </li>
+        
+
+        
+        
+        
+        <li class="nav-item dropdown theme-dropdown">
+          <a href="#" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-label="Display preferences">
+            <i class="fas fa-moon" aria-hidden="true"></i>
+          </a>
+          <div class="dropdown-menu">
+            <a href="#" class="dropdown-item js-set-theme-light">
+              <span>Light</span>
+            </a>
+            <a href="#" class="dropdown-item js-set-theme-dark">
+              <span>Dark</span>
+            </a>
+            <a href="#" class="dropdown-item js-set-theme-auto">
+              <span>Automatic</span>
+            </a>
+          </div>
+        </li>
+        
+
+        
+        
+
+      </ul>
+
+    </div>
+  </nav>
+</header>
+
+
+  </div>
+
+  <div class="page-body">
+    
+    
+    
+
+    <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1>【论文】EAST: An Efficient and Accurate Scene Text Detector</h1>
+
+  
+
+  
+    
+
+
+<div class="article-metadata">
+
+  
+  
+  
+  
+  <div>
+    
+
+  <span class="author-highlighted">
+      Lei Yang</span>
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Dec 6, 2020
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    1 min read
+  </span>
+  
+
+  
+  
+  
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="/category/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a></span>
+  
+
+</div>
+
+    
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <p>论文题目：EAST: An Efficient and Accurate Scene Text Detector</p>
+<p>作者：Xinyu Zhou, Cong Yao, He Wen, Yuzhi Wang, Shuchang Zhou, Weiran He, and Jiajun Liang</p>
+<p>会议/时间：CVPR2017</p>
+<p>链接：<a href="https://arxiv.org/abs/1704.03155v2" target="_blank" rel="noopener">https://arxiv.org/abs/1704.03155v2</a></p>
+<h2 id="论文目标">论文目标</h2>
+<p>传统的文字检测模型尽管可以取得不错的效果，但是往往由多个阶段和结构组成，这样复杂的结构往往会影响到整体的性能，因此本文的作者设计了一种简单快速的pipeline，可以从给定图像中直接检测到文本的位置。通过使用一个简单的神经网络而不是多个模块组合的方式加快了处理的速度，简化了模型的复杂度。</p>
+<h2 id="相关工作">相关工作</h2>
+<p>常规的处理方法依赖于人工设计的特征，例如SWT和MSER等模型通过边缘检测等方式。但是这些依赖人工设计特征的算法在处理一些有挑战性的场景时效果比较差，例如低分辨率或者出现失真的情况下。</p>
+<p>相比之下，基于深度神经网络的文本检测算法由于能取得更好的效果，逐渐成为主流，包括使用CNN对文本检测的结果进行筛选或者使用FCN生成热力图/分割图对原始图像处理得到检测结果。但是多数基于深度神经网络的模型由多个阶段组成，结构比较复杂性能也比较差。</p>
+<h2 id="本文思路解决方案">本文思路/解决方案</h2>
+<p>本文设计了一个基于FCN的神经网络，且完整的模型只有两个阶段，省去了冗余的中间处理阶段，即神经网络得到预测的文本框，再通过非极大值抑制得到最终的预测结果。</p>
+<p>基于FCN的网络结构设计如下，通过神经网络直接得到了三类型的输出：Score Map、Rotated Box、Quadrangle。其中的score map为置信度，置信度超过给定阈值的预测框通过NMS得到最终的输出。通过使用U-Net可以融合不同尺度的特征，有助于检测不同大小的文本目标。</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="model.png" srcset="
+               /post/paper-east/model_hu7702e6f292f461fa99c7525a189fba9c_171712_4db68f420c1e788ffa18bcab762f9629.webp 400w,
+               /post/paper-east/model_hu7702e6f292f461fa99c7525a189fba9c_171712_b71d3e980e5eb1c817dd05e8f9b7a166.webp 760w,
+               /post/paper-east/model_hu7702e6f292f461fa99c7525a189fba9c_171712_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/post/paper-east/model_hu7702e6f292f461fa99c7525a189fba9c_171712_4db68f420c1e788ffa18bcab762f9629.webp"
+               width="760"
+               height="711"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>在生成GT时，将原本的四边形缩小到0.7倍并二值化可以得到Score Map，对于没有RBOX标注的数据，首先根据QUAD创建一个最小矩形，再计算每个点到四个边界的距离得到RBOX标注。</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="gt.png" srcset="
+               /post/paper-east/gt_hu1f193018c86b9eb08826848ab65faa45_342844_34e35a81e147deee62c57d84a63c1f07.webp 400w,
+               /post/paper-east/gt_hu1f193018c86b9eb08826848ab65faa45_342844_ee9fdb7b1e1f88f6543120f35e2e41d3.webp 760w,
+               /post/paper-east/gt_hu1f193018c86b9eb08826848ab65faa45_342844_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/post/paper-east/gt_hu1f193018c86b9eb08826848ab65faa45_342844_34e35a81e147deee62c57d84a63c1f07.webp"
+               width="663"
+               height="760"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>对于损失函数的计算，采用了Score Map损失和Geometry损失的加权平均值。由于在自然场景下的图像中，检测目标与背景占据的面积不均衡，在计算Loss的时候会受到影响，为了不引入额外的处理流程，计算Score Map损失时使用了class-balanced cross-entropy，可以比较好的解决正反例不均衡的情况。</p>
+
+
+
+$$\begin{aligned}
+L_s =&\; \operatorname{balances-xent}(\mathbf{\hat{Y}}, \mathbf{Y^*}) \\
+=& -\beta\mathbf{Y^*}\log\mathbf{\hat{Y}}-(1-\beta)(1-\mathbf{Y^*})\log(1-\mathbf{\hat{Y}}) \\
+\beta =&\; 1 - \frac{\sum_{y^*\in\mathbf{Y^*}}y^*}{|\mathbf{Y^*}|}
+\end{aligned}$$
+
+<p>对于Geometry输出的损失函数，在RBOX的情形中，对于AABB部分使用IOU损失，对于倾斜角的部分使用余弦函数计算损失。
+
+
+
+$$\begin{aligned}
+L_{AABB} =&\; -\log\operatorname{IoU}(\mathbf{\hat{R}},\mathbf{R^*}) \\
+=&\;-\log\frac{|\mathbf{\hat{R}}\cap\mathbf{R^*}|}{|\mathbf{\hat{R}}\cup\mathbf{R^*}|} \\
+L_\theta(\hat{\theta},\theta^*) =&\;1 - \operatorname{cos}(\hat{\theta} - \theta^*) \\
+L_g =&\;L_{AABB} + \lambda_\theta L_\theta
+\end{aligned}$$
+
+在QUAD的情形中，使用增加了正则项的smoothed-L1损失计算。
+
+
+
+$$\begin{aligned}
+L_g =&\; L_{QUAD}(\mathbf{\hat{Q}},\mathbf{Q^*}) \\
+=&\;\min\limits_{\mathbf{\tilde{Q}} \in P_{\mathbf{Q^*}}}\sum\limits_{c_i \in C_{\mathbf{Q}} \\\tilde{c}_i\in C_{\mathbf{\tilde{Q}}}} \frac{\operatorname{smoothed_{L1}}(c_i - \tilde{c}_i)}{8 \times N_{\mathbf{Q^*}}} \\
+N_{\mathbf{Q^*}} =&\;\min\limits_{i=1}^{4}D(p_i, p_{(i \operatorname{mod} 4)+1})
+\end{aligned}$$
+</p>
+<p>对于模型输出的结果，使用阈值筛选之后，再使用作者设计的一种基于合并候选框的NMS算法处理得到结果。</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="nmns.png" srcset="
+               /post/paper-east/nmns_hu7a76d492d93e392f745dc73a46a3485f_127059_187dc3dc0db2c0ead92e487d7a46dbec.webp 400w,
+               /post/paper-east/nmns_hu7a76d492d93e392f745dc73a46a3485f_127059_c83a7786e4151ad26f5453903adc6441.webp 760w,
+               /post/paper-east/nmns_hu7a76d492d93e392f745dc73a46a3485f_127059_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/post/paper-east/nmns_hu7a76d492d93e392f745dc73a46a3485f_127059_187dc3dc0db2c0ead92e487d7a46dbec.webp"
+               width="760"
+               height="664"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<h2 id="结果">结果</h2>
+<p>在ICDAR2015、COCO-Text和MSRA-TD500三个数据集上进行测试。同时对于模型的骨架也使用了PVANET、PVANET2x和VGG16三种不同的结构进行测试（网络框架都在InageNet上预训练）。经测试模型在上述数据集上能取得超过SOTA的F值。在处理速度上也能达到比较高的FPS。</p>
+<h2 id="总结">总结</h2>
+<p>本文提出的EAST模型，通过减少冗余的处理阶段，得到了简单快速的处理效果，通过FCN网络直接生成预测的结果（geometry map），结合NMS处理多余的候选框，可以得到比较好的效果。</p>
+    </div>
+
+    
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tag/text-detection/">Text Detection</a>
+  
+  <a class="badge badge-light" href="/tag/deep-learning/">Deep Learning</a>
+  
+  <a class="badge badge-light" href="/tag/computer-vision/">Computer Vision</a>
+  
+</div>
+
+
+
+<div class="share-box">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fyangleisx.github.io%2Fpost%2Fpaper-east%2F&amp;text=%E3%80%90%E8%AE%BA%E6%96%87%E3%80%91EAST%3A&#43;An&#43;Efficient&#43;and&#43;Accurate&#43;Scene&#43;Text&#43;Detector" target="_blank" rel="noopener" class="share-btn-twitter" aria-label="twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fyangleisx.github.io%2Fpost%2Fpaper-east%2F&amp;t=%E3%80%90%E8%AE%BA%E6%96%87%E3%80%91EAST%3A&#43;An&#43;Efficient&#43;and&#43;Accurate&#43;Scene&#43;Text&#43;Detector" target="_blank" rel="noopener" class="share-btn-facebook" aria-label="facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+        
+      
+      <li>
+        <a href="mailto:?subject=%E3%80%90%E8%AE%BA%E6%96%87%E3%80%91EAST%3A%20An%20Efficient%20and%20Accurate%20Scene%20Text%20Detector&amp;body=https%3A%2F%2Fyangleisx.github.io%2Fpost%2Fpaper-east%2F" target="_blank" rel="noopener" class="share-btn-email" aria-label="envelope">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=https%3A%2F%2Fyangleisx.github.io%2Fpost%2Fpaper-east%2F&amp;title=%E3%80%90%E8%AE%BA%E6%96%87%E3%80%91EAST%3A&#43;An&#43;Efficient&#43;and&#43;Accurate&#43;Scene&#43;Text&#43;Detector" target="_blank" rel="noopener" class="share-btn-linkedin" aria-label="linkedin-in">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="whatsapp://send?text=%E3%80%90%E8%AE%BA%E6%96%87%E3%80%91EAST%3A&#43;An&#43;Efficient&#43;and&#43;Accurate&#43;Scene&#43;Text&#43;Detector%20https%3A%2F%2Fyangleisx.github.io%2Fpost%2Fpaper-east%2F" target="_blank" rel="noopener" class="share-btn-whatsapp" aria-label="whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=https%3A%2F%2Fyangleisx.github.io%2Fpost%2Fpaper-east%2F&amp;title=%E3%80%90%E8%AE%BA%E6%96%87%E3%80%91EAST%3A&#43;An&#43;Efficient&#43;and&#43;Accurate&#43;Scene&#43;Text&#43;Detector" target="_blank" rel="noopener" class="share-btn-weibo" aria-label="weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+
+
+
+  
+  
+  
+    
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+      
+      <a href="https://yangleisx.github.io/"><img class="avatar mr-3 avatar-circle" src="/authors/admin/avatar_hufa4b711d7d766ab1064b8274b75ac233_742651_270x270_fill_lanczos_center_1.gif" alt="Lei Yang"></a>
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="https://yangleisx.github.io/">Lei Yang</a></h5>
+      <h6 class="card-subtitle">PhD candidate</h6>
+      <p class="card-text">My research interests include visual speech recognition and semantics segmentation.</p>
+      <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="/#contact" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://scholar.google.com/citations?user=YsaBzN4AAAAJ" target="_blank" rel="noopener">
+        <i class="ai ai-google-scholar"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/yangleisx" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+</ul>
+
+    </div>
+  </div>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+</article>
+  </div>
+
+  <div class="page-footer">
+    
+    
+    <div class="container">
+      <footer class="site-footer">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+
+  
+  
+    
+  
+  
+    
+  
+
+  
+
+  
+  <p class="powered-by copyright-license-text">
+    © 2024 Me. This work is licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0" rel="noopener noreferrer" target="_blank">CC BY NC ND 4.0</a>
+  </p>
+  
+
+  <p class="powered-by footer-license-icons">
+    <a href="https://creativecommons.org/licenses/by-nc-nd/4.0" rel="noopener noreferrer" target="_blank" aria-label="Creative Commons">
+      <i class="fab fa-creative-commons fa-2x" aria-hidden="true"></i>
+      <i class="fab fa-creative-commons-by fa-2x" aria-hidden="true"></i>
+      
+        <i class="fab fa-creative-commons-nc fa-2x" aria-hidden="true"></i>
+      
+      
+        <i class="fab fa-creative-commons-nd fa-2x" aria-hidden="true"></i>
+      
+    </a>
+  </p>
+
+
+
+
+
+  <p class="powered-by">
+    
+    
+    
+      
+      
+      
+      
+      
+      
+      Published with <a href="https://hugoblox.com/?utm_campaign=poweredby" target="_blank" rel="noopener">Hugo Blox Builder</a> — the free, <a href="https://github.com/HugoBlox/hugo-blox-builder" target="_blank" rel="noopener">open source</a> website builder that empowers creators.
+    
+  </p>
+</footer>
+
+    </div>
+    
+  </div>
+
+  
+
+
+<script src="/js/vendor-bundle.min.938a3a7554cd9f6602290411f64d2617.js"></script>
+
+
+
+
+  
+
+  
+  
+
+  
+
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.min.js" integrity="" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+  
+  <script id="search-hit-fuse-template" type="text/x-template">
+    <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+    </div>
+  </script>
+  
+    <script src="https://cdn.jsdelivr.net/gh/krisk/Fuse@v3.2.1/dist/fuse.min.js" integrity="sha512-o38bmzBGX+hD3JHWUFCDA09btWaqrNmoJ3RXLlrysA7PP01Kgs4UlE4MhelE1v5dJR3+cxlR4qQlotsW7jKsnw==" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/gh/julmot/mark.js@8.11.1/dist/jquery.mark.min.js" integrity="sha512-mhbv5DqBMgrWL+32MmsDOt/OAvqr/cHimk6B8y/bx/xS88MVkYGPiVv2ixKVrkywF2qHplNRUvFsAHUdxZ3Krg==" crossorigin="anonymous"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script id="page-data" type="application/json">{"use_headroom":true}</script>
+
+
+  <script src="/js/wowchemy-headroom.db4755770454eb63685f8de785c0a172.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+<script src="/en/js/wowchemy.min.62586ca65ca61821fe707eb9fa6268b7.js"></script>
+
+
+
+  <script src="/js/wowchemy-map.a26e9d2f7238ba5b868384f1c5bc6477.js" type="module"></script>
+
+
+
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+        <pre><code></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <script src="/js/wowchemy-publication.9137013a66774049159934c29c3f0205.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
