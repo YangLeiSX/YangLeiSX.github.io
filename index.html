@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!-- This site was created with Hugo Blox. https://hugoblox.com -->
-<!-- Last Published: February 6, 2024 --><html lang="en-us" >
+<!-- Last Published: February 25, 2024 --><html lang="en-us" >
 
 
 <head>
@@ -1285,7 +1285,7 @@
 
   <span class="author-highlighted">
       Lei Yang</span>, <span >
-      ShilinWang</span>, <span >
+      Shilin Wang</span>, <span >
       Alan Wee-Chung Liew</span>
   </span>
   (2023).
@@ -1603,6 +1603,109 @@
   <div class="media-body">
 
     <div class="section-subheading article-title mb-0 mt-0">
+      <a href="/post/ctc_prefix_score/" >CTC前缀分数计算</a>
+    </div>
+
+    
+    <a href="/post/ctc_prefix_score/"  class="summary-link">
+      <div class="article-style">
+        <p>CTC(连接主义的时序分类)是一种在长度不同的序列中计算损失的方式。
+对于不定长的模型输出和标签，在没有给定对齐的情况下计算概率和梯度，从而进行模型的训练。</p>
+<p>在基于Attention的模型中,使用hybrid ctc+attention的方式训练，在解码过程中，进一步利用训练时CTC头部的信息，可以计算CTC前缀得分，加入到Beam Search解码中。这里前缀得分的计算方式与CTC Loss的前向后向算法的前向部分比较类似。</p>
+      </div>
+    </a>
+    
+
+    <div class="stream-meta article-metadata">
+
+      
+
+      
+        
+
+
+<div class="article-metadata">
+
+  
+  
+  
+  
+  <div>
+    
+
+  <span class="author-highlighted">
+      Lei Yang</span>
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Feb 25, 2024
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    3 min read
+  </span>
+  
+
+  
+  
+  
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="/category/%E5%AE%9E%E7%94%A8%E5%B7%A5%E5%85%B7/">实用工具</a>, <a href="/category/%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0/">代码学习</a>, <a href="/category/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a></span>
+  
+
+</div>
+
+      
+    </div>
+
+    
+
+  </div>
+  <div class="ml-3">
+    
+    
+  </div>
+</div>
+
+  
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<div class="media stream-item view-compact">
+  <div class="media-body">
+
+    <div class="section-subheading article-title mb-0 mt-0">
       <a href="/post/no-weight-decay/" >PyTorch中No Weight Decay策略</a>
     </div>
 
@@ -1767,93 +1870,6 @@
   <span class="middot-divider"></span>
   <span class="article-categories">
     <i class="fas fa-folder mr-1"></i><a href="/category/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a></span>
-  
-
-</div>
-
-      
-    </div>
-
-    
-
-  </div>
-  <div class="ml-3">
-    
-    
-  </div>
-</div>
-
-  
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-<div class="media stream-item view-compact">
-  <div class="media-body">
-
-    <div class="section-subheading article-title mb-0 mt-0">
-      <a href="/post/paper-hrnet/" >HRNet</a>
-    </div>
-
-    
-    <a href="/post/paper-hrnet/"  class="summary-link">
-      <div class="article-style">
-        <p>HRNet是CVPR2019提出的一种非常强的Backbone，论文参考<a href="https://arxiv.org/pdf/1908.07919.pdf" target="_blank" rel="noopener">arXiv</a>，代码已经开源<a href="https://github.com/HRNet" target="_blank" rel="noopener">github</a>（用于分割的代码还没有全部开源）。</p>
-      </div>
-    </a>
-    
-
-    <div class="stream-meta article-metadata">
-
-      
-
-      
-        
-
-
-<div class="article-metadata">
-
-  
-  
-
-  
-  <span class="article-date">
-    
-    
-      
-    
-    Jul 6, 2022
-  </span>
-  
-
-  
-
-  
-  <span class="middot-divider"></span>
-  <span class="article-reading-time">
-    1 min read
-  </span>
-  
-
-  
-  
-  
-  
-
-  
   
 
 </div>
