@@ -19,7 +19,31 @@
     <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://yangleisx.github.io/categories/</loc>
-    <lastmod>2024-02-25T15:32:50+08:00</lastmod>
+    <lastmod>2024-03-05T15:37:18+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url><url>
+    <loc>https://yangleisx.github.io/tag/logistic-regression/</loc>
+    <lastmod>2024-03-05T15:37:18+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url><url>
+    <loc>https://yangleisx.github.io/post/</loc>
+    <lastmod>2024-03-05T15:37:18+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url><url>
+    <loc>https://yangleisx.github.io/tags/</loc>
+    <lastmod>2024-03-05T15:37:18+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url><url>
+    <loc>https://yangleisx.github.io/category/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</loc>
+    <lastmod>2024-03-05T15:37:18+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url><url>
+    <loc>https://yangleisx.github.io/tag/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/</loc>
+    <lastmod>2024-03-05T15:37:18+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url><url>
+    <loc>https://yangleisx.github.io/post/logistic_regression/</loc>
+    <lastmod>2024-03-05T15:37:18+08:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://yangleisx.github.io/post/ctc_prefix_score/</loc>
@@ -27,14 +51,6 @@
     <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://yangleisx.github.io/tag/lip-reading/</loc>
-    <lastmod>2024-02-25T15:32:50+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/post/</loc>
-    <lastmod>2024-02-25T15:32:50+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/tags/</loc>
     <lastmod>2024-02-25T15:32:50+08:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
@@ -339,10 +355,6 @@
     <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://yangleisx.github.io/post/toolchain/</loc>
-    <lastmod>2020-09-30T15:56:03+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/category/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</loc>
     <lastmod>2020-09-30T15:56:03+08:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>

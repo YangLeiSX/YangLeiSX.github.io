@@ -5,12 +5,72 @@
     <link>https://yangleisx.github.io/post/</link>
       <atom:link href="https://yangleisx.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     <description>Posts</description>
-    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Sun, 25 Feb 2024 15:32:50 +0800</lastBuildDate>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Tue, 05 Mar 2024 15:37:18 +0800</lastBuildDate>
     <image>
       <url>https://yangleisx.github.io/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_512x512_fill_lanczos_center_3.png</url>
       <title>Posts</title>
       <link>https://yangleisx.github.io/post/</link>
     </image>
+    
+    <item>
+      <title>逻辑回归原理补充</title>
+      <link>https://yangleisx.github.io/post/logistic_regression/</link>
+      <pubDate>Tue, 05 Mar 2024 15:37:18 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/logistic_regression/</guid>
+      <description>&lt;p&gt;在本科机器学习课程上讲了逻辑回归的相关内容.
+感觉有些部分课堂上讲的比较粗,回来补充一些公式的推导和清晰一点的定义.&lt;/p&gt;
+&lt;p&gt;符号定义：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;$x_i$表示输入数据的一个样本，${\hat x_i} = (x_i; 1)$。&lt;/li&gt;
+&lt;li&gt;$y_i$表示数据的真实类别（$y_i \in {0, 1}$）&lt;/li&gt;
+&lt;li&gt;$f_\beta(x_i)$表示模型在给定输入下的输出，其中$\beta=(w; b)$为模型参数。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;p&gt;logistic regression的公式定义为$$f_{\beta}(x) = \sigma(wx+b) =\frac{1}{1 + e^{-(wx+b)}}$$
+其中$\sigma(z) = \frac{1}{1+e^{-z}}$为logistic函数。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;将模型的输出$f_{\beta}(x)$看作是概率$p(y=1|x, \beta)$，即回归模型认为输入数据是正例的概率。有
+
+
+
+$$\begin{aligned}
+p(y=1 | x, \beta) &amp;= \frac{e^{(wx+b)}}{1 + e^{(wx+b)}} \quad(即 f_{\beta}(x))  \\
+p(y=0 | x, \beta) &amp;= \frac{1}{1 + e^{(wx+b)}}  \quad(即  1 - p(y=1 | x, \beta)=1-f_\beta(x))\\
+\end{aligned}$$
+&lt;/p&gt;
+&lt;p&gt;在模型优化过程中，我们希望所有的样本被正确分类。
+即正例样本被预测为正例的概率增大，反例样本被预测为反例的概率增大。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;使用极大似然原则进行优化时：
+对于所有正例样本，$p(y=1|x, \beta)$表示模型对该样本属于类别1的似然度估计，其对数似然如下
+$$\sum_{y=1} \log p(y=1| x, \beta) = \sum_{y=1} \log f_{\beta}(x)$$
+对于所有反例样本，$p(y=0|x, \beta)$表示模型对该样本属于类别0的似然度估计，其对数似然如下
+$$\sum_{y=0} \log p(y=0| x, \beta) = \sum_{y=0} \left[ 1- \log f_{\beta}(x)\right]$$&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;对于所有的样本进行极大化对数似然，其中对数似然与$y_i$和$(1- y_i)$的乘法用于筛选数据集中的正例和反例。
+
+
+
+$$\begin{aligned}
+\mathop{Maximum}\limits_{\beta}:&amp;\quad \sum_{y=1} \log p(y=1| x, \beta) + \sum_{y=0} \log p(y=0| x, \beta) \\
+ = &amp;\quad \sum_{i} {\Huge [} y_i \log p(y=1| x_i, \beta)+ (1-y_i) \log p(y=0| x_i, \beta) {\Huge ]} \\
+ = &amp;\quad \sum_{i} {\Huge [} y_i \log f_\beta(x_i)+ (1-y_i) \log (1 - f_\beta(x_i) ) {\Huge ]} \\
+\end{aligned}$$
+&lt;/p&gt;
+&lt;p&gt;将极大化对数似然转换为最小化对数似然损失的方式，并代入模型的输出，可以得到&lt;/p&gt;
+
+
+
+$$\begin{aligned}
+\mathop{Minimum}\limits_{\beta}: &amp;\quad - \sum_{i} {\Huge [} y_i \log f_\beta(x_i)+ (1-y_i) \log(1 - f_\beta(x_i) )  {\Huge ]}\\
+ = &amp;\quad -\sum_i  {\Huge [} y_i \log \frac{ f_\beta(x_i)}{1 - f_\beta(x_i)}+ \log(1 - f_\beta(x_i) ) {\Huge ]} \\
+ &amp;\mbox{(代入}f_{\beta}(x_i)\mbox{的定义，得到课件 Page15 中的结果)}\\
+ \mathscr{l}(\beta) = &amp;\quad \sum_i  {\Huge [} - y_i  (wx_i+b)+ \log(1 + e^{wx_i+b})  {\Huge ]}\\
+ = &amp; \quad \sum_{i}\left[ -y_i(\beta^T{\hat x_i}) + \log(1 + e^{(\beta^T{\hat x_i})}) \right] \\
+\end{aligned}$$
+
+&lt;p&gt;此时可以计算得到梯度$\frac{\partial {\mathscr l}(\beta)}{\partial \beta}$并优化求解。&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>CTC前缀分数计算</title>
