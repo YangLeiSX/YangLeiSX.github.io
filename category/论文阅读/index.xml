@@ -5,12 +5,199 @@
     <link>https://yangleisx.github.io/category/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/</link>
       <atom:link href="https://yangleisx.github.io/category/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/index.xml" rel="self" type="application/rss+xml" />
     <description>论文阅读</description>
-    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Sun, 25 Feb 2024 15:32:50 +0800</lastBuildDate>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Tue, 02 Apr 2024 11:49:05 +0800</lastBuildDate>
     <image>
       <url>https://yangleisx.github.io/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_512x512_fill_lanczos_center_3.png</url>
       <title>论文阅读</title>
       <link>https://yangleisx.github.io/category/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/</link>
     </image>
+    
+    <item>
+      <title>【论文】An Effective Mixture-Of-Experts Approach For Code-Switching Speech Recognition Leveraging Encoder Disentanglement</title>
+      <link>https://yangleisx.github.io/post/paper-moe-csasr/</link>
+      <pubDate>Tue, 02 Apr 2024 11:49:05 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/paper-moe-csasr/</guid>
+      <description>&lt;p&gt;论文题目：An Effective Mixture-Of-Experts Approach For Code-Switching Speech Recognition Leveraging Encoder Disentanglement&lt;/p&gt;
+&lt;p&gt;作者：Tzu-Ting Yang, Hsin-Wei Wang, Yi-Cheng Wang, Chi-Han Lin, and Berlin Chen
+单位：National Taiwan Normal University&lt;/p&gt;
+&lt;p&gt;会议/时间：ICASSP 2024&lt;/p&gt;
+&lt;p&gt;链接: &lt;a href=&#34;https://doi.org/10.1109/icassp48485.2024.10446652&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;doi&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;tl-dr&#34;&gt;TL; DR&lt;/h2&gt;
+&lt;p&gt;采用解耦结合MOE的方式来进行多语言的语音识别。&lt;/p&gt;
+&lt;h2 id=&#34;论文目标&#34;&gt;论文目标&lt;/h2&gt;
+&lt;p&gt;ASR模型在单语言上有很好的性能，但是在Code-Switch场景下性能不好。&lt;/p&gt;
+&lt;p&gt;难点有两部分，一个是高质量数据集缺乏。一个是不同语言之间的差异。
+不同的拼音语言之间差异较小，但是中文英文之间差异很大。造成模型会混淆。&lt;/p&gt;
+&lt;h2 id=&#34;相关工作&#34;&gt;相关工作&lt;/h2&gt;
+&lt;p&gt;一种做法是LID，即language identification，使用语言分类预测头，判别当前位置是什么语言。
+一种做法是双编码器，但是可能会损失不同语言上下文之间的关系。
+因此常见做法是LAE，就是language-aware encoder，单一的编码器但是具有语言感知能力。&lt;/p&gt;
+&lt;h2 id=&#34;本文方法&#34;&gt;本文方法&lt;/h2&gt;
+&lt;p&gt;结构比较简单。&lt;/p&gt;
+&lt;p&gt;包含共享的编码器，提取完整的特征。语言特定编码器，提取特定语言特征。
+语言特定编码器的监督是CTC损失，使用语言mask来指导。
+MoE混合的监督也是CTC损失，使用完整的序列来监督。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;moe-csasr-arch&#34; srcset=&#34;
+               /post/paper-moe-csasr/moe-csasr-arch_hu108bc1b05e011fcd5d97021c66ebb369_276762_36054b0052bfe5c138e2e115c41005bf.webp 400w,
+               /post/paper-moe-csasr/moe-csasr-arch_hu108bc1b05e011fcd5d97021c66ebb369_276762_d2a241bb655f6580ee27f7526c5d7120.webp 760w,
+               /post/paper-moe-csasr/moe-csasr-arch_hu108bc1b05e011fcd5d97021c66ebb369_276762_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-moe-csasr/moe-csasr-arch_hu108bc1b05e011fcd5d97021c66ebb369_276762_36054b0052bfe5c138e2e115c41005bf.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;403&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;完整的损失包含两部分，一部分是使用目标序列监督的CTC损失，还有一部分是解耦损失。
+其中的解耦损失就是对应位置上的特征的Cosine距离。
+即
+
+
+
+$$\begin{aligned}
+L_{lang} &amp;= \frac{1}{2}(L_{ZH} + L_{EN}) \\
+L &amp;= \frac{1}{2}(L_{Mix} + L_{Lang}) + \lambda L_{Disen} \\
+L_{Disen} &amp;= -\frac{1}{N}\sum_{i=1}^N \frac{1}{|s_i|}\sum_{j=1}^{|s_i|}CD(\mathbf h_{i, j}^{ZH}, \mathbf h_{i, j}^{EN})\\
+CD(\mathbf h_{i, j}^{ZH}, \mathbf h_{i, j}^{EN}) &amp;= 1 - \frac{\mathbf h_{i, j}^{ZH}\cdot \mathbf h_{i, j}^{EN}}{||\mathbf h_{i, j}^{ZH}||_2 ||\mathbf h_{i, j}^{EN}||_2}
+\end{aligned}$$
+&lt;/p&gt;
+&lt;h2 id=&#34;结果分析&#34;&gt;结果分析&lt;/h2&gt;
+&lt;p&gt;在[[SEAME]]数据集上完成实验。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;seame-dataset.png&#34; srcset=&#34;
+               /post/paper-moe-csasr/seame-dataset_hu7cf206845db5c2d763292047080ffa6c_126973_a7c7e6f4696b3c7bb7a1d31411a57fd0.webp 400w,
+               /post/paper-moe-csasr/seame-dataset_hu7cf206845db5c2d763292047080ffa6c_126973_bb97dd9baf5c34ccb5643890780673cc.webp 760w,
+               /post/paper-moe-csasr/seame-dataset_hu7cf206845db5c2d763292047080ffa6c_126973_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-moe-csasr/seame-dataset_hu7cf206845db5c2d763292047080ffa6c_126973_a7c7e6f4696b3c7bb7a1d31411a57fd0.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;283&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;语言的预处理部分，中文字典包含2624个字，英文字典包含3000个BPE。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;moe-csasr-expr.png&#34; srcset=&#34;
+               /post/paper-moe-csasr/moe-csasr-expr_hu753f2393aabfb7f6f74c16cd40b47b8a_257963_9d3d1a634baca586f561a5244ee850ff.webp 400w,
+               /post/paper-moe-csasr/moe-csasr-expr_hu753f2393aabfb7f6f74c16cd40b47b8a_257963_3bc4e8938a4db2a5bd13f3cd8565e54e.webp 760w,
+               /post/paper-moe-csasr/moe-csasr-expr_hu753f2393aabfb7f6f74c16cd40b47b8a_257963_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-moe-csasr/moe-csasr-expr_hu753f2393aabfb7f6f74c16cd40b47b8a_257963_9d3d1a634baca586f561a5244ee850ff.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;640&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;和简单Concatenate相比，使用MoE的方式在经过解耦之后有所提升。
+如果不解耦直接使用MoE，会导致门控网络出现混淆。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;moe-csasr-abblation.png&#34; srcset=&#34;
+               /post/paper-moe-csasr/moe-csasr-abblation_hu5a98067f24fd64e9f9f167e480262985_251697_ffb5876bf458d47b1f38a3203b3d0578.webp 400w,
+               /post/paper-moe-csasr/moe-csasr-abblation_hu5a98067f24fd64e9f9f167e480262985_251697_7c2883f4f73a76b10595d1d34d6973a0.webp 760w,
+               /post/paper-moe-csasr/moe-csasr-abblation_hu5a98067f24fd64e9f9f167e480262985_251697_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-moe-csasr/moe-csasr-abblation_hu5a98067f24fd64e9f9f167e480262985_251697_ffb5876bf458d47b1f38a3203b3d0578.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;191&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;进一步可视化了Gating Network的输出。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;moe-csasr-compare.png&#34; srcset=&#34;
+               /post/paper-moe-csasr/moe-csasr-compare_hueef8c0bd2d6497b5e8f4da3b407c2ff8_451695_619c63b61334acfac9721035a843be30.webp 400w,
+               /post/paper-moe-csasr/moe-csasr-compare_hueef8c0bd2d6497b5e8f4da3b407c2ff8_451695_4406e0b151fd818592a55446d6270251.webp 760w,
+               /post/paper-moe-csasr/moe-csasr-compare_hueef8c0bd2d6497b5e8f4da3b407c2ff8_451695_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-moe-csasr/moe-csasr-compare_hueef8c0bd2d6497b5e8f4da3b407c2ff8_451695_619c63b61334acfac9721035a843be30.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;502&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;</description>
+    </item>
     
     <item>
       <title>CTC前缀分数计算</title>

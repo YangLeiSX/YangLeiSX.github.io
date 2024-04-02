@@ -2,6 +2,38 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://yangleisx.github.io/post/paper-moe-csasr/</loc>
+    <lastmod>2024-04-02T11:49:05+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url><url>
+    <loc>https://yangleisx.github.io/categories/</loc>
+    <lastmod>2024-04-02T11:49:05+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url><url>
+    <loc>https://yangleisx.github.io/tag/code-switching-speech-recognition/</loc>
+    <lastmod>2024-04-02T11:49:05+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url><url>
+    <loc>https://yangleisx.github.io/tag/disentangled-learning/</loc>
+    <lastmod>2024-04-02T11:49:05+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url><url>
+    <loc>https://yangleisx.github.io/tag/mixture-of-experts/</loc>
+    <lastmod>2024-04-02T11:49:05+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url><url>
+    <loc>https://yangleisx.github.io/post/</loc>
+    <lastmod>2024-04-02T11:49:05+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url><url>
+    <loc>https://yangleisx.github.io/tags/</loc>
+    <lastmod>2024-04-02T11:49:05+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url><url>
+    <loc>https://yangleisx.github.io/category/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/</loc>
+    <lastmod>2024-04-02T11:49:05+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url><url>
     <loc>https://yangleisx.github.io/publication-type/paper-conference/</loc>
     <lastmod>2024-03-15T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -18,19 +50,7 @@
     <lastmod>2024-03-15T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
-    <loc>https://yangleisx.github.io/categories/</loc>
-    <lastmod>2024-03-05T15:37:18+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
     <loc>https://yangleisx.github.io/tag/logistic-regression/</loc>
-    <lastmod>2024-03-05T15:37:18+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/post/</loc>
-    <lastmod>2024-03-05T15:37:18+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/tags/</loc>
     <lastmod>2024-03-05T15:37:18+08:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
@@ -67,10 +87,6 @@
     <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://yangleisx.github.io/category/%E5%AE%9E%E7%94%A8%E5%B7%A5%E5%85%B7/</loc>
-    <lastmod>2024-02-25T15:32:50+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/category/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/</loc>
     <lastmod>2024-02-25T15:32:50+08:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
@@ -131,10 +147,6 @@
     <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://yangleisx.github.io/post/paper-pgr/</loc>
-    <lastmod>2022-07-06T10:17:43+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/tag/disentangled-learning/</loc>
     <lastmod>2022-07-06T10:17:43+08:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
