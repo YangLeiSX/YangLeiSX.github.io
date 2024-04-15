@@ -5,12 +5,82 @@
     <link>https://yangleisx.github.io/tag/lip-reading/</link>
       <atom:link href="https://yangleisx.github.io/tag/lip-reading/index.xml" rel="self" type="application/rss+xml" />
     <description>Lip Reading</description>
-    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Sun, 25 Feb 2024 15:32:50 +0800</lastBuildDate>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Mon, 15 Apr 2024 10:18:23 +0800</lastBuildDate>
     <image>
       <url>https://yangleisx.github.io/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_512x512_fill_lanczos_center_3.png</url>
       <title>Lip Reading</title>
       <link>https://yangleisx.github.io/tag/lip-reading/</link>
     </image>
+    
+    <item>
+      <title>【论文】Landmark-Guided Cross-Speaker Lip Reading with Mutual Information Regularization</title>
+      <link>https://yangleisx.github.io/post/paper-land-mir/</link>
+      <pubDate>Mon, 15 Apr 2024 10:18:23 +0800</pubDate>
+      <guid>https://yangleisx.github.io/post/paper-land-mir/</guid>
+      <description>&lt;p&gt;论文题目：Landmark-Guided Cross-Speaker Lip Reading with Mutual Information Regularization&lt;/p&gt;
+&lt;p&gt;作者：Linzhi Wu, Xingyu Zhang, Yakun Zhang, Changyan Zheng, Tiejun Liu, Liang Xie, Ye Yan, Erwei Yin
+单位：University of Electronic Science and Technology of China,&lt;/p&gt;
+&lt;p&gt;会议/时间：arxiv 2024, COLING 2024&lt;/p&gt;
+&lt;p&gt;链接: &lt;a href=&#34;https://arxiv.org/abs/2403.16071v1&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;arxiv&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;tl-dr&#34;&gt;TL; DR&lt;/h2&gt;
+&lt;p&gt;前端网络的修改主要两部分：
+一方面用landmark提取关键点周围的3D特征
+一方面用帧差的时序卷积提取动态特征。&lt;/p&gt;
+&lt;p&gt;后端网络添加了一个身份识别模块，做两阶段的对抗训练。
+使得前端提取的特征偏向内容而不是身份。&lt;/p&gt;
+&lt;h2 id=&#34;论文目标&#34;&gt;论文目标&lt;/h2&gt;
+&lt;h2 id=&#34;相关工作&#34;&gt;相关工作&lt;/h2&gt;
+&lt;h2 id=&#34;本文方法&#34;&gt;本文方法&lt;/h2&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;landmir-arch.png&#34; srcset=&#34;
+               /post/paper-land-mir/landmir-arch_hu945852ce26f901e565dfbda84d389238_389704_2d78ec38c169a16d8f24a2e7a8cf3484.webp 400w,
+               /post/paper-land-mir/landmir-arch_hu945852ce26f901e565dfbda84d389238_389704_90537b2e9e6bce3c1e7525457d8bf480.webp 760w,
+               /post/paper-land-mir/landmir-arch_hu945852ce26f901e565dfbda84d389238_389704_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://yangleisx.github.io/post/paper-land-mir/landmir-arch_hu945852ce26f901e565dfbda84d389238_389704_2d78ec38c169a16d8f24a2e7a8cf3484.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;332&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;对抗训练的部分使用互信息的最大最小原则来训练。
+最小化互信息的部分，使用CLUB作为互信息上界来最小化，&lt;/p&gt;
+
+
+
+$$\begin{aligned}
+\mathcal I_{vCLUB}(X,Y) &amp;:= \mathbb E_{p(X, Y)}\left[\log q_{\phi}(y|x)\right] - \mathbb E_{p(X)}\mathbb E_{p(Y)}\left[\log q_{\phi}(y|x)\right] \\
+\mathcal L_{\min MI} &amp;= \mathcal{I}_{vCLUB} (\mathbf h^{ID},\mathbf{H}^{L_b})
+\end{aligned}$$
+
+&lt;p&gt;最大化互信息的部分，使用JS距离作为互信息下界来最大化。
+
+
+
+$$\begin{aligned}
+\hat{\mathcal{I}}^{(JSD)}_\theta (X,Y) &amp;:= \mathbb{E}_{p(X,Y)}\left[−\log(1 + e^{-\mathcal F_\theta(x, y)})\right]− \mathbb{E}_{p(X)p(Y)}\left[\log(1 + e^{\mathcal F_\theta(x,y))}\right]\\
+\mathcal L_{\max MI} &amp;= -\hat{\mathcal{I}}^{(JSD)}_\theta (\mathbf H^{(0)},\mathbf{H}^{L_b})
+\end{aligned}$$
+&lt;/p&gt;
+&lt;h2 id=&#34;结果分析&#34;&gt;结果分析&lt;/h2&gt;
+&lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;</description>
+    </item>
     
     <item>
       <title>CTC前缀分数计算</title>
