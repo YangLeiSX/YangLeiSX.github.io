@@ -5,12 +5,40 @@
     <link>https://yangleisx.github.io/publication/</link>
       <atom:link href="https://yangleisx.github.io/publication/index.xml" rel="self" type="application/rss+xml" />
     <description>Publications</description>
-    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Fri, 15 Mar 2024 00:00:00 +0000</lastBuildDate>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Mon, 27 May 2024 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://yangleisx.github.io/media/icon_hu9d67daea6e408fd17d2331b8d809e90a_61652_512x512_fill_lanczos_center_3.png</url>
       <title>Publications</title>
       <link>https://yangleisx.github.io/publication/</link>
     </image>
+    
+    <item>
+      <title>Lip Feature Disentanglement for Visual Speaker Authentication in Natural Scenes</title>
+      <link>https://yangleisx.github.io/publication/tcsvt-vsa/</link>
+      <pubDate>Mon, 27 May 2024 00:00:00 +0000</pubDate>
+      <guid>https://yangleisx.github.io/publication/tcsvt-vsa/</guid>
+      <description>&lt;!-- 
+
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    Click the &lt;em&gt;Cite&lt;/em&gt; button above to demo the feature to enable visitors to import publication metadata into their reference management software.
+  &lt;/div&gt;
+&lt;/div&gt;
+
+
+
+
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    Create your slides in Markdown - click the &lt;em&gt;Slides&lt;/em&gt; button to check out the example.
+  &lt;/div&gt;
+&lt;/div&gt;
+
+
+Add the publication&#39;s **full text** or **supplementary notes** here. You can use rich formatting such as including [code, math, and images](https://docs.hugoblox.com/content/writing-markdown-latex/). --&gt;
+&lt;p&gt;In this paper, we proposed a visual speaker authentication system using the random prompt text scheme to meet the requirements of mobile applications. Lip features are disentangled into three parts, i.e. the static identity features, the dynamic identity features and the content features by the proposed TDVSA-Net. The experiment results show that the content features obtained the lowest WER in speaker- independent lip-reading compared with other lipreading models, and the identity features had comparable performance with the state-of-the-art methods on detecting human imposters and DeepFake imposters and exhibits more robustness when facing different image qualities. Therefore, our VSA system can be a feasible solution for today’s widely used mobile applications.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Speaker-Adaptive LipReading via Spatio-Temporal Information Learning</title>
@@ -41,34 +69,6 @@ For front-end network, conv-based LoRA modules are used to adapt to speaker’s 
 For back-end network, a plug-and-play TAWL module is designed to learn temporal characteristics.
 An Adapter module is finally employed to bridge the adaptation knowledge from front-end and back-end.
 The experiments show that the proposed method achieve the state-of-the-art performance on both word-level and sentence-level dataset with fewer training parameters.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Lip Feature Disentanglement for Visual Speaker Authentication in Natural Scenes</title>
-      <link>https://yangleisx.github.io/publication/tcsvt-vsa/</link>
-      <pubDate>Wed, 10 Jan 2024 00:00:00 +0000</pubDate>
-      <guid>https://yangleisx.github.io/publication/tcsvt-vsa/</guid>
-      <description>&lt;!-- 
-
-&lt;div class=&#34;alert alert-note&#34;&gt;
-  &lt;div&gt;
-    Click the &lt;em&gt;Cite&lt;/em&gt; button above to demo the feature to enable visitors to import publication metadata into their reference management software.
-  &lt;/div&gt;
-&lt;/div&gt;
-
-
-
-
-&lt;div class=&#34;alert alert-note&#34;&gt;
-  &lt;div&gt;
-    Create your slides in Markdown - click the &lt;em&gt;Slides&lt;/em&gt; button to check out the example.
-  &lt;/div&gt;
-&lt;/div&gt;
-
-
-Add the publication&#39;s **full text** or **supplementary notes** here. You can use rich formatting such as including [code, math, and images](https://docs.hugoblox.com/content/writing-markdown-latex/). --&gt;
-&lt;p&gt;In this paper, we proposed a visual speaker authentication system using the random prompt text scheme to meet the requirements of mobile applications. Lip features are disentangled into three parts, i.e. the static identity features, the dynamic identity features and the content features by the proposed TDVSA-Net. The experiment results show that the content features obtained the lowest WER in speaker- independent lip-reading compared with other lipreading models, and the identity features had comparable performance with the state-of-the-art methods on detecting human imposters and DeepFake imposters and exhibits more robustness when facing different image qualities. Therefore, our VSA system can be a feasible solution for today’s widely used mobile applications.&lt;/p&gt;
 </description>
     </item>
     

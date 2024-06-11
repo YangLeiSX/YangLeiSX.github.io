@@ -13,6 +13,34 @@
     </image>
     
     <item>
+      <title>Lip Feature Disentanglement for Visual Speaker Authentication in Natural Scenes</title>
+      <link>https://yangleisx.github.io/publication/tcsvt-vsa/</link>
+      <pubDate>Mon, 27 May 2024 00:00:00 +0000</pubDate>
+      <guid>https://yangleisx.github.io/publication/tcsvt-vsa/</guid>
+      <description>&lt;!-- 
+
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    Click the &lt;em&gt;Cite&lt;/em&gt; button above to demo the feature to enable visitors to import publication metadata into their reference management software.
+  &lt;/div&gt;
+&lt;/div&gt;
+
+
+
+
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    Create your slides in Markdown - click the &lt;em&gt;Slides&lt;/em&gt; button to check out the example.
+  &lt;/div&gt;
+&lt;/div&gt;
+
+
+Add the publication&#39;s **full text** or **supplementary notes** here. You can use rich formatting such as including [code, math, and images](https://docs.hugoblox.com/content/writing-markdown-latex/). --&gt;
+&lt;p&gt;In this paper, we proposed a visual speaker authentication system using the random prompt text scheme to meet the requirements of mobile applications. Lip features are disentangled into three parts, i.e. the static identity features, the dynamic identity features and the content features by the proposed TDVSA-Net. The experiment results show that the content features obtained the lowest WER in speaker- independent lip-reading compared with other lipreading models, and the identity features had comparable performance with the state-of-the-art methods on detecting human imposters and DeepFake imposters and exhibits more robustness when facing different image qualities. Therefore, our VSA system can be a feasible solution for today’s widely used mobile applications.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>【论文】Landmark-Guided Cross-Speaker Lip Reading with Mutual Information Regularization</title>
       <link>https://yangleisx.github.io/post/paper-land-mir/</link>
       <pubDate>Mon, 15 Apr 2024 10:18:23 +0800</pubDate>
@@ -608,34 +636,6 @@ $$\begin{aligned}
 &lt;li&gt;&lt;a href=&#34;https://github.com/LUMIA-Group/Leveraging-Self-Supervised-Learning-for-AVSR/blob/main/models/av_net.py&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;SSL AVSR&lt;/a&gt;。&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/espnet/espnet/blob/master/espnet/nets/ctc_prefix_score.py&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;ESPNet&lt;/a&gt;。&lt;/li&gt;
 &lt;/ol&gt;</description>
-    </item>
-    
-    <item>
-      <title>Lip Feature Disentanglement for Visual Speaker Authentication in Natural Scenes</title>
-      <link>https://yangleisx.github.io/publication/tcsvt-vsa/</link>
-      <pubDate>Wed, 10 Jan 2024 00:00:00 +0000</pubDate>
-      <guid>https://yangleisx.github.io/publication/tcsvt-vsa/</guid>
-      <description>&lt;!-- 
-
-&lt;div class=&#34;alert alert-note&#34;&gt;
-  &lt;div&gt;
-    Click the &lt;em&gt;Cite&lt;/em&gt; button above to demo the feature to enable visitors to import publication metadata into their reference management software.
-  &lt;/div&gt;
-&lt;/div&gt;
-
-
-
-
-&lt;div class=&#34;alert alert-note&#34;&gt;
-  &lt;div&gt;
-    Create your slides in Markdown - click the &lt;em&gt;Slides&lt;/em&gt; button to check out the example.
-  &lt;/div&gt;
-&lt;/div&gt;
-
-
-Add the publication&#39;s **full text** or **supplementary notes** here. You can use rich formatting such as including [code, math, and images](https://docs.hugoblox.com/content/writing-markdown-latex/). --&gt;
-&lt;p&gt;In this paper, we proposed a visual speaker authentication system using the random prompt text scheme to meet the requirements of mobile applications. Lip features are disentangled into three parts, i.e. the static identity features, the dynamic identity features and the content features by the proposed TDVSA-Net. The experiment results show that the content features obtained the lowest WER in speaker- independent lip-reading compared with other lipreading models, and the identity features had comparable performance with the state-of-the-art methods on detecting human imposters and DeepFake imposters and exhibits more robustness when facing different image qualities. Therefore, our VSA system can be a feasible solution for today’s widely used mobile applications.&lt;/p&gt;
-</description>
     </item>
     
     <item>
