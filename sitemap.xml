@@ -2,15 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://yangleisx.github.io/publication-type/article-journal/</loc>
-    <lastmod>2024-05-27T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
     <loc>https://yangleisx.github.io/publication/tcsvt-vsa/</loc>
-    <lastmod>2024-05-27T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/publication_types/</loc>
     <lastmod>2024-05-27T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
@@ -22,27 +14,7 @@
     <lastmod>2024-04-15T10:18:23+08:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
-    <loc>https://yangleisx.github.io/categories/</loc>
-    <lastmod>2024-04-15T10:18:23+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/tag/lip-reading/</loc>
-    <lastmod>2024-04-15T10:18:23+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/tag/mutual-information-regularization/</loc>
-    <lastmod>2024-04-15T10:18:23+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
     <loc>https://yangleisx.github.io/post/</loc>
-    <lastmod>2024-04-15T10:18:23+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/tags/</loc>
-    <lastmod>2024-04-15T10:18:23+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/category/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/</loc>
     <lastmod>2024-04-15T10:18:23+08:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
@@ -50,36 +22,8 @@
     <lastmod>2024-04-02T11:49:05+08:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
-    <loc>https://yangleisx.github.io/tag/code-switching-speech-recognition/</loc>
-    <lastmod>2024-04-02T11:49:05+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/tag/disentangled-learning/</loc>
-    <lastmod>2024-04-02T11:49:05+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/tag/mixture-of-experts/</loc>
-    <lastmod>2024-04-02T11:49:05+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/publication-type/paper-conference/</loc>
-    <lastmod>2024-03-15T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
     <loc>https://yangleisx.github.io/publication/icassp-udp/</loc>
     <lastmod>2024-03-15T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/tag/logistic-regression/</loc>
-    <lastmod>2024-03-05T15:37:18+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/category/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</loc>
-    <lastmod>2024-03-05T15:37:18+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/tag/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/</loc>
-    <lastmod>2024-03-05T15:37:18+08:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://yangleisx.github.io/post/logistic_regression/</loc>
@@ -87,22 +31,6 @@
     <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://yangleisx.github.io/post/ctc_prefix_score/</loc>
-    <lastmod>2024-02-25T15:32:50+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/tag/transformer/</loc>
-    <lastmod>2024-02-25T15:32:50+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/tag/visual-speech-recognition/</loc>
-    <lastmod>2024-02-25T15:32:50+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/category/%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0/</loc>
-    <lastmod>2024-02-25T15:32:50+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/category/%E5%AE%9E%E7%94%A8%E5%B7%A5%E5%85%B7/</loc>
     <lastmod>2024-02-25T15:32:50+08:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
@@ -122,23 +50,7 @@
     <lastmod>2022-07-06T10:45:27+08:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
-    <loc>https://yangleisx.github.io/tag/graph-convolutional-network/</loc>
-    <lastmod>2022-07-06T10:45:27+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/tag/graph-reasoning/</loc>
-    <lastmod>2022-07-06T10:45:27+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/tag/semantic-segmentation/</loc>
-    <lastmod>2022-07-06T10:45:27+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
     <loc>https://yangleisx.github.io/post/paper-hrnet/</loc>
-    <lastmod>2022-07-06T10:40:13+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/tag/semantics-segmentation/</loc>
     <lastmod>2022-07-06T10:40:13+08:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
@@ -178,10 +90,6 @@
     <lastmod>2022-07-06T09:50:55+08:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
-    <loc>https://yangleisx.github.io/tag/fuzzy-system/</loc>
-    <lastmod>2022-07-06T09:50:55+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
     <loc>https://yangleisx.github.io/publication/aaaiw-mtl-watermark/</loc>
     <lastmod>2022-02-28T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -190,23 +98,7 @@
     <lastmod>2021-12-05T15:26:53+08:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
-    <loc>https://yangleisx.github.io/tag/adversarial-training/</loc>
-    <lastmod>2021-12-05T15:26:53+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/tag/watermarking/</loc>
-    <lastmod>2021-12-05T15:26:53+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
     <loc>https://yangleisx.github.io/post/paper-seg-every/</loc>
-    <lastmod>2021-11-07T21:00:31+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/tag/instance-segmentation/</loc>
-    <lastmod>2021-11-07T21:00:31+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/tag/partially-supervised/</loc>
     <lastmod>2021-11-07T21:00:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
@@ -214,15 +106,7 @@
     <lastmod>2021-10-19T12:36:21+08:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
-    <loc>https://yangleisx.github.io/tag/watermarks/</loc>
-    <lastmod>2021-10-19T12:36:21+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
     <loc>https://yangleisx.github.io/post/paper-lomo/</loc>
-    <lastmod>2021-10-15T16:19:26+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/tag/text-detection/</loc>
     <lastmod>2021-10-15T16:19:26+08:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
@@ -230,23 +114,7 @@
     <lastmod>2021-08-22T14:20:44+08:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
-    <loc>https://yangleisx.github.io/tag/document-enhancement/</loc>
-    <lastmod>2021-08-22T14:20:44+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/tag/generative-adversarial-network/</loc>
-    <lastmod>2021-08-22T14:20:44+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
     <loc>https://yangleisx.github.io/post/paper-abcnet/</loc>
-    <lastmod>2021-08-19T16:26:18+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/tag/end-to-end-text-spotter/</loc>
-    <lastmod>2021-08-19T16:26:18+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/tag/text-recognition/</loc>
     <lastmod>2021-08-19T16:26:18+08:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
@@ -258,15 +126,7 @@
     <lastmod>2021-07-09T09:35:24+08:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
-    <loc>https://yangleisx.github.io/tag/text_detection/</loc>
-    <lastmod>2021-07-09T09:35:24+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
     <loc>https://yangleisx.github.io/post/paper-fpn/</loc>
-    <lastmod>2021-05-11T17:34:24+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/tag/object-detection/</loc>
     <lastmod>2021-05-11T17:34:24+08:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
@@ -274,19 +134,7 @@
     <lastmod>2021-05-08T11:58:37+08:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
-    <loc>https://yangleisx.github.io/tag/region-proposal-network/</loc>
-    <lastmod>2021-05-08T11:58:37+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
     <loc>https://yangleisx.github.io/post/paper-densenet/</loc>
-    <lastmod>2021-04-20T14:23:12+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/tag/backbone/</loc>
-    <lastmod>2021-04-20T14:23:12+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/tag/image-recognition/</loc>
     <lastmod>2021-04-20T14:23:12+08:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
@@ -294,15 +142,7 @@
     <lastmod>2021-04-17T17:28:42+08:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
-    <loc>https://yangleisx.github.io/tag/audio-source-separation/</loc>
-    <lastmod>2021-04-17T17:28:42+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
     <loc>https://yangleisx.github.io/post/paper-db-mod/</loc>
-    <lastmod>2021-03-05T14:39:17+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/tag/deep-learning/</loc>
     <lastmod>2021-03-05T14:39:17+08:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
@@ -310,28 +150,12 @@
     <lastmod>2021-01-07T19:20:58+08:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
-    <loc>https://yangleisx.github.io/category/%E6%9D%82%E8%B0%88/</loc>
-    <lastmod>2021-01-07T19:20:58+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
     <loc>https://yangleisx.github.io/post/paper-east/</loc>
-    <lastmod>2020-12-06T11:01:22+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/tag/computer-vision/</loc>
     <lastmod>2020-12-06T11:01:22+08:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://yangleisx.github.io/post/paper-psenet/</loc>
     <lastmod>2020-11-19T10:55:55+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/tag/linux/</loc>
-    <lastmod>2020-11-14T15:49:28+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/tag/sql/</loc>
-    <lastmod>2020-11-14T15:49:28+08:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://yangleisx.github.io/post/sqlite-c/</loc>
@@ -346,10 +170,6 @@
     <lastmod>2020-11-13T15:19:24+08:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
-    <loc>https://yangleisx.github.io/tag/socket/</loc>
-    <lastmod>2020-11-13T15:19:24+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
     <loc>https://yangleisx.github.io/post/unix-socket/</loc>
     <lastmod>2020-11-13T14:02:35+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -359,10 +179,6 @@
     <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://yangleisx.github.io/post/paper-challenge-disentabgle/</loc>
-    <lastmod>2020-10-20T22:06:26+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/tag/auto-encoder/</loc>
     <lastmod>2020-10-20T22:06:26+08:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
@@ -386,72 +202,24 @@
     <lastmod>2020-09-26T11:12:56+08:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
-    <loc>https://yangleisx.github.io/tag/macos/</loc>
-    <lastmod>2020-09-26T11:12:56+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
     <loc>https://yangleisx.github.io/post/windows-software-list/</loc>
-    <lastmod>2020-09-12T22:17:08+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/project/</loc>
-    <lastmod>2020-08-28T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/tag/visual-speaker-authentication/</loc>
-    <lastmod>2020-08-28T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/project/infosec-competition/</loc>
-    <lastmod>2020-08-28T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/tag/hexo/</loc>
-    <lastmod>2020-07-17T11:01:41+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/tag/https/</loc>
-    <lastmod>2020-07-17T11:01:41+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/tag/openssl/</loc>
-    <lastmod>2020-07-17T11:01:41+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/tag/ssh/</loc>
-    <lastmod>2020-07-17T11:01:41+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/tag/trojan/</loc>
-    <lastmod>2020-07-17T11:01:41+08:00</lastmod>
+    <lastmod>2020-09-12T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://yangleisx.github.io/post/intro-cyber-sec/</loc>
     <lastmod>2020-07-17T11:01:41+08:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
-    <loc>https://yangleisx.github.io/tag/windows/</loc>
-    <lastmod>2020-06-25T17:00:51+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
     <loc>https://yangleisx.github.io/post/win-sec-tool/</loc>
-    <lastmod>2020-06-25T17:00:51+08:00</lastmod>
+    <lastmod>2020-06-25T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://yangleisx.github.io/post/paper-center-loss/</loc>
     <lastmod>2020-06-13T16:41:50+08:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
-    <loc>https://yangleisx.github.io/tag/face-recognition/</loc>
-    <lastmod>2020-06-13T16:41:50+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/tag/winapi/</loc>
-    <lastmod>2020-06-11T11:47:34+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
     <loc>https://yangleisx.github.io/post/win-api-type/</loc>
-    <lastmod>2020-06-11T11:47:34+08:00</lastmod>
+    <lastmod>2020-06-11T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://yangleisx.github.io/post/paper-deepid2/</loc>
@@ -466,27 +234,15 @@
     <lastmod>2020-06-06T15:42:29+08:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
-    <loc>https://yangleisx.github.io/tag/winsock/</loc>
-    <lastmod>2020-05-13T11:56:32+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
     <loc>https://yangleisx.github.io/post/winsock/</loc>
-    <lastmod>2020-05-13T11:56:32+08:00</lastmod>
+    <lastmod>2020-05-13T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://yangleisx.github.io/post/ssh/</loc>
     <lastmod>2020-05-08T14:27:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
-    <loc>https://yangleisx.github.io/tag/qt/</loc>
-    <lastmod>2020-04-21T09:26:44+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
     <loc>https://yangleisx.github.io/post/log-qt-ssl/</loc>
-    <lastmod>2020-04-21T09:26:44+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/category/%E5%BC%80%E5%8F%91%E7%BB%8F%E5%8E%86/</loc>
     <lastmod>2020-04-21T09:26:44+08:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
@@ -510,19 +266,11 @@
     <lastmod>2020-04-14T16:29:18+08:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
-    <loc>https://yangleisx.github.io/tag/make/</loc>
-    <lastmod>2020-04-09T14:33:35+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
     <loc>https://yangleisx.github.io/post/makefile-plus/</loc>
     <lastmod>2020-04-09T14:33:35+08:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://yangleisx.github.io/post/stm32-esp8266-hal/</loc>
-    <lastmod>2020-04-08T11:08:52+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/tag/stm32/</loc>
     <lastmod>2020-04-08T11:08:52+08:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
@@ -546,20 +294,12 @@
     <lastmod>2020-03-30T21:34:37+08:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
-    <loc>https://yangleisx.github.io/tag/neural-network/</loc>
-    <lastmod>2020-03-30T21:34:37+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
     <loc>https://yangleisx.github.io/post/paper-cloudleak/</loc>
     <lastmod>2020-03-17T14:57:58+08:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://yangleisx.github.io/post/pyqt-env/</loc>
     <lastmod>2020-03-15T11:05:18+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/tag/python/</loc>
-    <lastmod>2024-02-04T15:44:18+08:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://yangleisx.github.io/post/python-dlib/</loc>
@@ -570,24 +310,12 @@
     <lastmod>2020-03-05T21:37:04+08:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
-    <loc>https://yangleisx.github.io/tag/homebrew/</loc>
-    <lastmod>2020-02-13T22:01:02+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
     <loc>https://yangleisx.github.io/post/macos-brew/</loc>
     <lastmod>2020-02-13T22:01:02+08:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
-    <loc>https://yangleisx.github.io/tag/pip/</loc>
-    <lastmod>2020-02-13T21:26:32+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
     <loc>https://yangleisx.github.io/post/python-pip/</loc>
     <lastmod>2020-02-13T21:26:32+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/tag/pytorch/</loc>
-    <lastmod>2020-02-12T18:05:37+08:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://yangleisx.github.io/post/pytorch/</loc>
@@ -598,16 +326,8 @@
     <lastmod>2020-02-04T16:40:41+08:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
-    <loc>https://yangleisx.github.io/tag/machine-translate/</loc>
-    <lastmod>2020-02-04T16:40:41+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
     <loc>https://yangleisx.github.io/post/paper-resnet/</loc>
     <lastmod>2020-02-03T17:46:14+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/tag/tmux/</loc>
-    <lastmod>2020-02-03T16:04:56+08:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://yangleisx.github.io/post/tmux/</loc>
@@ -618,44 +338,24 @@
     <lastmod>2020-02-02T22:29:36+08:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
-    <loc>https://yangleisx.github.io/tag/attention/</loc>
-    <lastmod>2020-02-02T22:29:36+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
     <loc>https://yangleisx.github.io/post/paper-seq2seq/</loc>
     <lastmod>2020-02-02T22:26:13+08:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
-    <loc>https://yangleisx.github.io/tag/graphviz/</loc>
-    <lastmod>2019-11-24T11:14:34+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/tag/verilog-hdl/</loc>
-    <lastmod>2019-11-24T11:14:34+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
     <loc>https://yangleisx.github.io/post/verilog-fsm/</loc>
-    <lastmod>2019-11-24T11:14:34+08:00</lastmod>
+    <lastmod>2019-11-24T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://yangleisx.github.io/post/verilog-design/</loc>
-    <lastmod>2019-11-16T22:11:39+08:00</lastmod>
+    <lastmod>2019-11-16T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://yangleisx.github.io/post/verilog-grammar/</loc>
-    <lastmod>2019-10-22T22:29:31+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/tag/iptables/</loc>
-    <lastmod>2019-10-20T14:24:52+08:00</lastmod>
+    <lastmod>2019-10-22T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://yangleisx.github.io/post/iptables-rules/</loc>
     <lastmod>2019-10-20T14:24:52+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/tag/orange-pi/</loc>
-    <lastmod>2019-10-15T18:46:56+08:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://yangleisx.github.io/post/orange-pi/</loc>
@@ -671,11 +371,7 @@
     <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://yangleisx.github.io/post/verilog-vpi/</loc>
-    <lastmod>2019-10-11T12:56:26+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/tag/latex/</loc>
-    <lastmod>2019-10-10T20:14:27+08:00</lastmod>
+    <lastmod>2019-10-11T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://yangleisx.github.io/post/latex-tfbc/</loc>
@@ -703,23 +399,11 @@
     <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://yangleisx.github.io/post/python-csv/</loc>
-    <lastmod>2024-02-04T15:44:18+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/tag/matplotlib/</loc>
-    <lastmod>2019-10-05T11:05:08+08:00</lastmod>
+    <lastmod>2019-10-05T14:59:41+08:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://yangleisx.github.io/post/python-matplotlib/</loc>
     <lastmod>2019-10-05T11:05:08+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/post/verilog-macos/</loc>
-    <lastmod>2019-10-04T14:58:18+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/tag/regular-expression/</loc>
-    <lastmod>2019-10-04T14:55:18+08:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://yangleisx.github.io/post/reg-exp/</loc>
@@ -730,18 +414,16 @@
     <lastmod>2019-10-04T14:52:25+08:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
+    <loc>https://yangleisx.github.io/post/verilog-macos/</loc>
+    <lastmod>2019-10-04T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url><url>
     <loc>https://yangleisx.github.io/post/makefile-base/</loc>
     <lastmod>2019-10-03T21:56:07+08:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://yangleisx.github.io/post/cpp-build/</loc>
     <lastmod>2019-09-30T18:51:09+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/tag/c/c-/</loc>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://yangleisx.github.io/event/</loc>
     <changefreq>weekly</changefreq>
   </url>
 </urlset>
